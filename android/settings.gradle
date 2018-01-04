@@ -1,0 +1,3 @@
+rootProject.name = 'HugeRecycle2_0'
+
+include ':app'
