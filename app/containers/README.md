@@ -1,7 +1,12 @@
 ###容器组件（智能组件）
 <p>负责连接数据，传递给 展示组件（木偶组件）</p>
 <ul>
-    <li>生成方式：使用高阶组件 生成，如：redux connect</li>
+    <li>生成方式：
+        <ul>
+            <li>使用ES6 class 生成；</li>
+            <li>使用高阶组件 生成，如：redux connect</li>
+        </ul>
+    </li>
     <li>使用 本地储存、ajax等数据请求、redux connect。</li>
 </ul>
 <p>目录结构：</p>
