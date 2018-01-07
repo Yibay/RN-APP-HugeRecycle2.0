@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { Router, Scene, Stack } from 'react-native-router-flux';
+import { StyleSheet } from 'react-native';
 
 
 // HOC 屏宽适配
@@ -18,7 +19,7 @@ const AppRouter = () => (
   <Router>
     <Stack key='root'>
       {/* 回收页 */}
-      <Scene key='home' component={Home} title='选择回收物' renderRightButton={<HomeRightButton />} />
+      <Scene key='home' component={Home} title='选择回收物' navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} renderRightButton={<HomeRightButton />} />
       {/* 定位地址页 */}
       <Scene key='locationPage' component={LocationPage} hideNavBar={true} />
       {/* 轮播简介页 */}
@@ -27,5 +28,20 @@ const AppRouter = () => (
   </Router>
 );
 
+const styles = StyleSheet.create({
+  navigationBarStyle: {
+    paddingTop: 20.5,
+    height: 108
+  },
+  titleStyle: {
+    fontSize: 34,
+    fontWeight: '600'
+  },
+  backButtonTextStyle: {
+    fontSize: 34
+  }
+});
+
 // 屏宽适配
 export default adaptLayoutWidth(AppRouter);
+// export default AppRouter;

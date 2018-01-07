@@ -17,12 +17,13 @@ const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: width * 0.05,
+    paddingHorizontal: 37.5,
     alignItems: 'center'
   },
   prompt: {
-    marginTop: 50,
-    lineHeight: 20
+    marginTop: 100,
+    lineHeight: 35,
+    fontSize: 26
   }
 });
 

@@ -13,20 +13,24 @@ class NavBarRightButton extends Component{
   render(){
     console.log(this.props);
     return(<TouchableOpacity style={styles.container} onPress={() => Actions.locationPage()}>
-      <Image style={styles.icon} source={require('./img/location.png')} />
-      <Text>{this.props.currentLocation}</Text>
+      <Image style={styles.icon} resizeMode='contain' source={require('./img/location.png')} />
+      <Text style={styles.text}>{this.props.currentLocation}</Text>
     </TouchableOpacity>);
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginRight: 10,
+    marginRight: 20,
     flexDirection: 'row',
     alignItems: 'center'
   },
   icon: {
-    marginRight: 5
+    width: 45,
+    height: 45
+  },
+  text: {
+    fontSize: 28
   }
 });
 
