@@ -8,6 +8,7 @@ import { Actions } from 'react-native-router-flux';
 import { setLocation } from '../../../redux/actions/Location';
 
 
+/* 回收页 nav 右侧按钮组件 */
 class NavBarRightButton extends Component{
   render(){
     console.log(this.props);

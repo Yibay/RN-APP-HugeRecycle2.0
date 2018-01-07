@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import { Router, Scene, Stack } from 'react-native-router-flux';
 
 
+// HOC 屏宽适配
+import { adaptLayoutWidth } from '../HOC/adaptLayout';
+
 // 页面路由
 import Intro from '../pages/Intro';
 import Home from '../pages/Home';
@@ -24,4 +27,5 @@ const AppRouter = () => (
   </Router>
 );
 
-export default AppRouter;
+// 屏宽适配
+export default adaptLayoutWidth(AppRouter);
