@@ -11,6 +11,7 @@ import { adaptLayoutWidth } from '../HOC/adaptLayout';
 import Intro from '../pages/Intro';
 import Home from '../pages/Home';
 import LocationPage from '../pages/Location';
+import Login from '../pages/Login';
 
 // 导航按钮
 import HomeRightButton from '../containers/Home/NavBarRightButton/NavBarRightButton';
@@ -24,6 +25,8 @@ const AppRouter = () => (
       <Scene key='locationPage' component={LocationPage} hideNavBar={true} />
       {/* 轮播简介页 */}
       <Scene key='intro' component={Intro} hideNavBar={true} />
+      {/* 登录页 */}
+      <Scene key='login' component={Login} hideNavBar={true} />
     </Stack>
   </Router>
 );
