@@ -2,7 +2,7 @@
 import { combineReducers } from 'redux';
 
 /* ------ type 类型 ------ */
-import { SET_LOCATION } from '../actions/Location';
+import { SET_LOCATION, SET_AutoLocationFlag } from '../actions/Location';
 
 
 /* ------ reducer 函数 ------ */
@@ -15,5 +15,19 @@ function currentLocation(state='选择小区', action){
       return state;
   }
 }
+// 自动定位flag
+function autoLocationFlag(state=true, action){
+  switch (action.type){
+    case SET_AutoLocationFlag:
+      return action.flag;
+    default:
+      return state;
+  }
+}
 
-export default currentLocation;
+const location = combineReducers({
+  currentLocation,
+  autoLocationFlag
+});
+
+export default location;

@@ -6,7 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import { wgs84togcj02, gcj02tobd09 } from 'coordtransform'; // 坐标转换
 
 
-import { setLocation } from '../../redux/actions/Location';
+import { setLocation, setAutoLocationFlag } from '../../redux/actions/Location';
 import BackgroundGeolocation from 'react-native-mauron85-background-geolocation';
 
 
@@ -109,6 +109,7 @@ class CommunitySelector extends Component{
 
       // 步骤6: 关闭 定位
       BackgroundGeolocation.stop();
+      this.props.setAutoLocationFlag(false);
     });
 
     BackgroundGeolocation.on('stop', () => {
@@ -150,6 +151,10 @@ class CommunitySelector extends Component{
 
   componentWillUnmount(){
     BackgroundGeolocation.events.forEach(event => BackgroundGeolocation.removeAllListeners(event));
+  }
+
+  componentDidUpdate(){
+    this.props.autoLocationFlag && BackgroundGeolocation.start();
   }
 
   selectCommunity(text){
@@ -240,11 +245,12 @@ const styles = StyleSheet.create({
 // 过滤出有用state映射给props
 function mapStateToProps(state){
   return {
-    communitySelected: state
+    communitySelected: state.location.currentLocation,
+    autoLocationFlag: state.location.autoLocationFlag
   }
 }
 
 // 打包 actions 成obj
-const actionCreator = { setLocation };
+const actionCreator = { setLocation, setAutoLocationFlag };
 
 export default connect(mapStateToProps, actionCreator)(CommunitySelector);
