@@ -9,11 +9,11 @@ import { adaptLayoutWidth } from '../HOC/adaptLayout';
 
 // 页面路由
 import Intro from '../pages/Intro';
-import Recycle from '../pages/Recycle';
-import Mine from '../pages/Mine';
+import Recycle from '../pages/Home/Recycle';
+import Mall from '../pages/Home/Mall';
+import Mine from '../pages/Home/Mine';
 import LocationPage from '../pages/Location';
 import Login from '../pages/Login';
-import Register from '../pages/Register';
 
 // 导航按钮
 import RecycleRightButton from '../containers/Recycle/NavBarRightButton/NavBarRightButton';
@@ -22,11 +22,11 @@ const AppRouter = () => (
   <Router>
     <Stack key='root'>
       {/* 主入口页 */}
-      <Scene key='home' tabs={true} >
+      <Scene key='home' tabs={true} tabBarPosition='bottom' labelStyle={tabsStyle.labelStyle} tabBarStyle={tabsStyle.tabBarStyle} >
         {/* 回收分页 */}
         <Scene key='recycle' title='选择回收物' tabBarLabel='我要回收' component={Recycle} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} renderRightButton={<RecycleRightButton />} />
         {/* 商场分页 */}
-        <Scene key='register' title='虎哥便利店' tabBarLabel='虎哥商场' component={Register} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} />
+        <Scene key='register' title='虎哥便利店' tabBarLabel='虎哥商场' component={Mall} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} />
         {/* 我的分页 */}
         <Scene key='mine' title='我的' component={Mine} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} />
       </Scene>
@@ -54,6 +54,17 @@ const styles = StyleSheet.create({
     fontSize: 34
   }
 });
+
+// tabs 修正样式
+const tabsStyle = {
+  labelStyle: {
+    fontSize: 30
+  },
+  tabBarStyle: {
+    paddingBottom: 30,
+    height: 100
+  }
+};
 
 // 屏宽适配
 export default adaptLayoutWidth(AppRouter);
