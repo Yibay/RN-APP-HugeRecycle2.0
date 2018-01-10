@@ -57,7 +57,10 @@ request.post = function(url, data, header){
     header ? { headers: header } : {}
   );
 
-  return fetch(url ,options).then(res => res.json())
+  return fetch(url ,options)
+    .catch(e => {console.log('fetch请求时报错'); console.log(e);})
+    .then(res => res.json())
+    .catch(e => {console.log('json解析时报错'); console.log(e);})
 };
 
 export default request;
