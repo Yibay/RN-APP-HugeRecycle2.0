@@ -11,17 +11,15 @@ class ElectricProducts extends Component{
 
   static propTypes = {
     show: PropTypes.bool.isRequired,
-    electricProducts: PropTypes.array.isRequired
+    electricProductsObj: PropTypes.object.isRequired
   };
 
   render(){
 
-    console.log(this.props.electricProducts);
-
     return (
       <ScrollView style={[styles.container, this.props.show ? styles.none : styles.hide]}>
         {
-          this.props.electricProducts.map(item => (<CategoryItem key={item.id} category={item} />))
+          Object.keys(this.props.electricProductsObj).map(key => (<CategoryItem key={key} category={this.props.electricProductsObj[key]} />))
         }
       </ScrollView>
     );

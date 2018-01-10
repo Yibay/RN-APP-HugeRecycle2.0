@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { connect } from 'react-redux';
+
 
 import request from '../../util/request/request';
 import config from '../../util/request/config';
+
+import { setAllProducts } from '../../redux/actions/Recycle';
 
 import ClassificationNavigation from '../../containers/Recycle/ClassificationNavigation';
 import GarbageProducts from '../../containers/Recycle/GarbageProducts';
@@ -23,9 +27,7 @@ class Recycle extends Component{
         {categoryNum:1, categoryText: '小件干垃圾'},
         {categoryNum:2, categoryText: '废旧家电'},
         {categoryNum:3, categoryText: '废旧家具'}
-      ],
-      electricProducts: [],
-      furnitureProducts: []
+      ]
     };
   }
 
@@ -34,8 +36,8 @@ class Recycle extends Component{
     return (<View style={styles.container}>
       <ClassificationNavigation category={this.state.category} selectedCategory={this.state.selectedCategory} switchCategory={this.switchCategory.bind(this)} />
         <GarbageProducts show={this.state.selectedCategory === 1} />
-        <ElectricProducts show={this.state.selectedCategory === 2} electricProducts={this.state.electricProducts} />
-        <FurnitureProducts show={this.state.selectedCategory === 3} furnitureProducts={this.state.furnitureProducts} />
+        <ElectricProducts show={this.state.selectedCategory === 2} electricProductsObj={this.props.electricProductsObj} />
+        <FurnitureProducts show={this.state.selectedCategory === 3} furnitureProductsObj={this.props.furnitureProductsObj} />
       <CallModule />
     </View>)
   }
@@ -45,7 +47,8 @@ class Recycle extends Component{
     request
       .get(config.api.base + config.api.getProducts)
       .then(res => {
-        this.setState({
+        // 更新全局数据
+        this.props.setAllProducts({
           electricProducts: res.data.electricProducts,
           furnitureProducts: res.data.furnitureProducts
         })
@@ -67,4 +70,13 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Recycle
+function mapStateToProps(state){
+  return {
+    electricProductsObj: state.recycle.recyclableGoods.electricProductsObj,
+    furnitureProductsObj: state.recycle.recyclableGoods.furnitureProductsObj
+  }
+}
+
+const actionsCreator = { setAllProducts };
+
+export default connect(mapStateToProps, actionsCreator)(Recycle);

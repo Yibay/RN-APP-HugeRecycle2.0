@@ -4,7 +4,6 @@ import { StyleSheet, View, Text } from 'react-native';
 
 class GarbageProducts extends Component{
   render(){
-    console.log('可回收物页 render');
     return (<View style={[styles.container, this.props.show ? styles.none : styles.hide]}>
       <Text>可回收物页</Text>
     </View>)

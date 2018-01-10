@@ -2,20 +2,30 @@
 import { combineReducers } from 'redux';
 
 /* ------ type 类型 ------ */
-import { SET_LOCATION, SET_AutoLocationFlag } from '../actions/Location';
+import { SET_Location, SET_AutoLocationFlag } from '../actions/Location';
 
 
 /* ------ reducer 函数 ------ */
-// 当前定位小区
+/**
+ * 当前定位小区
+ * @param state
+ * @param action
+ * @returns {string}
+ */
 function currentLocation(state='选择小区', action){
   switch (action.type){
-    case SET_LOCATION:
+    case SET_Location:
       return action.text;
     default:
       return state;
   }
 }
-// 自动定位flag
+/**
+ * 自动定位flag
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 function autoLocationFlag(state=true, action){
   switch (action.type){
     case SET_AutoLocationFlag:

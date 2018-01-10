@@ -1,10 +1,11 @@
 import { createStore, combineReducers } from 'redux';
 
 
-import location from './reducers/Location'
+import location from './reducers/Location';
+import recycle from './reducers/Recycle';
 
 
-const allReducers = combineReducers({ location });
+const allReducers = combineReducers({ location, recycle });
 // 通过 reducer生成store
 let store = createStore(allReducers);
 

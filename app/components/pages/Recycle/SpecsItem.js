@@ -1,37 +1,59 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, TouchableWithoutFeedback } from 'react-native';
 
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 
-import config from '../../../util/request/config'
+import config from '../../../util/request/config';
+import { addElectricProduct } from '../../../redux/actions/Recycle';
 
 
-const SpecsItem = props => (<View style={styles.container}>
-  <Image style={styles.specsImage} resizeMode='contain' source={{uri: (config.static.base + props.specs.image)}} />
-  <View style={styles.specsContent}>
-    <Text style={styles.specsName}>{props.specs.name}</Text>
-    <View style={styles.specsOtherMsg}>
-      <Text style={styles.otherGift}>{props.specs.otherGift}</Text>
-      <Text style={styles.price}>¥{props.specs.price}</Text>
-    </View>
-    <View style={styles.controller}>
-      <View style={styles.controllerBtn}><Text style={styles.controllerBtnText}>-</Text></View>
-      <View><Text style={styles.recycleNum}>0</Text></View>
-      <View style={styles.controllerBtn}><Text style={styles.controllerBtnText}>+</Text></View>
-    </View>
-  </View>
-</View>);
+class SpecsItem extends Component{
 
-SpecsItem.propTypes = {
-  specs: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    otherGift: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired
-  })
-};
+  static propTypes = {
+    categoryId: PropTypes.number.isRequired,
+    specs: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired,
+      otherGift: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired
+      // 可选属性 {number}[number]
+    })
+  };
+
+  render(){
+    if(this.props.specs.number){
+      console.log(this.props.specs.number);
+    }
+    return (<View style={styles.container}>
+      <Image style={styles.specsImage} resizeMode='contain' source={{uri: (config.static.base + this.props.specs.image)}} />
+      <View style={styles.specsContent}>
+        <Text style={styles.specsName}>{this.props.specs.name}</Text>
+        <View style={styles.specsOtherMsg}>
+          <Text style={styles.otherGift}>{this.props.specs.otherGift}</Text>
+          <Text style={styles.price}>¥{this.props.specs.price}</Text>
+        </View>
+        <View style={styles.controller}>
+          <TouchableWithoutFeedback onPress={() => this.addItem()}>
+            <View style={styles.controllerBtn}><Text style={styles.controllerBtnText}>-</Text></View>
+          </TouchableWithoutFeedback>
+          <View><Text style={styles.recycleNum}>{this.props.specs.number ? this.props.specs.number : 0}</Text></View>
+          <TouchableWithoutFeedback onPress={() => this.addItem()}>
+            <View style={styles.controllerBtn}><Text style={styles.controllerBtnText}>+</Text></View>
+          </TouchableWithoutFeedback>
+        </View>
+      </View>
+    </View>)
+  }
+
+  addItem(){
+    console.log(this.props.specs.number);
+    this.props.addElectricProduct(this.props.categoryId,this.props.specs.id);
+  }
+}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -89,5 +111,8 @@ const styles = StyleSheet.create({
   }
 });
 
+const actionsCreator = {
+  addElectricProduct
+};
 
-export default SpecsItem;
+export default connect(null, actionsCreator)(SpecsItem);

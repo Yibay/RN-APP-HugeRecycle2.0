@@ -9,22 +9,23 @@ import config from "../../../util/request/config";
 import SpecsItem from './SpecsItem';
 
 
-const CategoryItem = props => (<View>
+const CategoryItem = props => {
+  return (<View>
   <View style={styles.categoryHeader}>
     <Image resizeMode='contain' style={styles.categoryImage} source={{uri: (config.static.base + props.category.image)}} />
     <Text style={styles.categoryTitle}>{props.category.name}</Text>
   </View>
   {
-    props.category.specs.map(item => (<SpecsItem key={item.id} specs={item} />))
+    Object.keys(props.category.specsObj).map(key => (<SpecsItem key={key} specs={props.category.specsObj[key]} categoryId={props.category.id} />))
   }
-</View>);
+</View>)};
 
 CategoryItem.propTypes = {
   category: PropTypes.shape({
     id: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    specs: PropTypes.array.isRequired
+    specsObj: PropTypes.object.isRequired
   })
 };
 

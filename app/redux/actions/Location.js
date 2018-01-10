@@ -1,5 +1,5 @@
 // type 类型
-export const SET_LOCATION = 'SET_LOCATION';
+export const SET_Location = 'SET_Location';
 export const SET_AutoLocationFlag = 'SET_AutoLocationFlag';
 
 
@@ -7,11 +7,16 @@ export const SET_AutoLocationFlag = 'SET_AutoLocationFlag';
 // 设置 currentLocation
 export function setLocation(location){
   return {
-    type: SET_LOCATION,
+    type: SET_Location,
     text: location.text
   }
 }
-// 刷新自动定位 开关
+
+/**
+ * 刷新 自动定位 开关
+ * @param {boolean} flag
+ * @returns {{type: string, flag: *}}
+ */
 export function setAutoLocationFlag(flag){
   return {
     type: SET_AutoLocationFlag,
