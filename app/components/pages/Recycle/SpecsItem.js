@@ -25,9 +25,6 @@ class SpecsItem extends Component{
   };
 
   render(){
-    if(this.props.specs.number){
-      console.log(this.props.specs.number);
-    }
     return (<View style={styles.container}>
       <Image style={styles.specsImage} resizeMode='contain' source={{uri: (config.static.base + this.props.specs.image)}} />
       <View style={styles.specsContent}>
@@ -40,7 +37,7 @@ class SpecsItem extends Component{
           <TouchableWithoutFeedback onPress={() => this.addItem()}>
             <View style={styles.controllerBtn}><Text style={styles.controllerBtnText}>-</Text></View>
           </TouchableWithoutFeedback>
-          <View><Text style={styles.recycleNum}>{this.props.specs.number ? this.props.specs.number : 0}</Text></View>
+          <View><Text style={styles.recycleNum}>{this.props.specs.number || 0}</Text></View>
           <TouchableWithoutFeedback onPress={() => this.addItem()}>
             <View style={styles.controllerBtn}><Text style={styles.controllerBtnText}>+</Text></View>
           </TouchableWithoutFeedback>
@@ -50,8 +47,7 @@ class SpecsItem extends Component{
   }
 
   addItem(){
-    console.log(this.props);
-    this.props.addRecycledItem(this.props.categoryType,this.props.categoryId,this.props.specs.id);
+    this.props.addRecycledItem(this.props.categoryType,this.props.categoryId,this.props.specs.id,this.props.specs.number || 0);
   }
 }
 

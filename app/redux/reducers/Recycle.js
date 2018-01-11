@@ -7,11 +7,14 @@ import {
   // type 类型
   SET_AllProducts, ADD_RecycledItem,
   // 回收分类 常量
-  categoryElectricProduct
+  categoryElectricProduct, categoryFurnitureProduct
 } from '../actions/Recycle';
 
 
 /* ------ reducer 函数 ------ */
+
+/* --- 可回收物品 ---*/
+
 // 废旧家电
 function electricProducts(state=[], action){
   switch (action.type){
@@ -25,11 +28,11 @@ function electricProducts(state=[], action){
 // 废旧家电 (Object) 此数据结构 便于 存储选中物品数量
 function electricProductsObj(state={}, action){
 
-  let new_state = {};  // 设置废旧家电
+  let new_state = {};  // 新废旧家电 数据
 
   switch (action.type){
 
-    // 设置全部 回收分类 列表
+    // 初始化 全部 回收分类 列表
     case SET_AllProducts:
 
       if(!action.electricProducts) return state; // 无家电数据，则不修改
@@ -79,14 +82,16 @@ function furnitureProducts(state=[], action){
 
 // 废旧家具 (Object) 此数据结构 便于 存储选中物品数量
 function furnitureProductsObj(state={}, action){
+
+  let new_state = {}; // 新废旧家电 数据
+
   switch (action.type){
 
-    // 设置全部 回收分类 列表
+    // 初始化 全部 回收分类 列表
     case SET_AllProducts:
 
       if(!action.furnitureProducts) return state; // 无家具数据，则不修改
 
-      let new_state = {};
       for (let item of action.furnitureProducts){
         let key = 'id' + item.id;
         new_state[key] = item;   // 将1级分类数组 映射成 Object
@@ -98,6 +103,22 @@ function furnitureProductsObj(state={}, action){
         }
       }
       return new_state;
+
+    // 向 回收订单添加 物品
+    case ADD_RecycledItem:
+
+      // 无家具数据，则不修改
+      if(!action.category || !action.categoryId || !action.specsId || (action.category !== categoryFurnitureProduct)) return state;
+
+      new_state = _.merge(new_state, state);
+      if(new_state['id' + action.categoryId].specsObj['id' + action.specsId].number){
+        new_state['id' + action.categoryId].specsObj['id' + action.specsId].number ++;
+      }
+      else{
+        new_state['id' + action.categoryId].specsObj['id' + action.specsId].number = 1;
+      }
+      return new_state;
+
     default:
       return state;
   }
@@ -107,4 +128,47 @@ function furnitureProductsObj(state={}, action){
 const recyclableGoods = combineReducers({ electricProductsObj, furnitureProductsObj });
 
 
-export default combineReducers({ recyclableGoods });
+/* --- 待回收物品 ---*/
+
+function recycledItemsList (state={list:[],num:0}, action){
+
+  let new_state;
+  let flag;
+
+  switch(action.type){
+
+    // 向 回收订单添加 物品
+    case ADD_RecycledItem:
+
+      // 数据不完整，则不修改
+      if(!action.category || !action.categoryId || !action.specsId) return state;
+
+      new_state = state;
+      flag = true; // 是否需要 push进数组
+
+      // 若 已存在，则不重复添加
+      for(let item of new_state.list){
+        if(item.category === action.category && item.categoryId === action.categoryId && item.specsId === action.specsId){
+          // 已存在，修改数量
+          item.itemNum = action.itemNum + 1; // (+1, 因为 此时store也在 同步更新，此处传入数据 并不是 更新后的结果)
+          flag = false;
+          break;
+        }
+      }
+
+      if(flag){
+        new_state.list.push({category: action.category, categoryId: action.categoryId, specsId: action.specsId, itemNum: action.itemNum + 1}) // (+1, 因为 此时store也在 同步更新，此处传入数据 并不是 更新后的结果)
+      }
+
+      new_state.num ++;
+
+      return new_state;
+
+    default:
+      return state;
+  }
+
+}
+
+
+export default combineReducers({ recyclableGoods, recycledItemsList });

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import { categoryElectricProduct } from '../../redux/actions/Recycle';
 
-import CategoryItem from '../../components/pages/Recycle/CategoryItem'
+import CategoryItem from '../../components/pages/Recycle/CategoryItem';
 
 
 class ElectricProducts extends Component{

@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
+import { connect } from 'react-redux';
+
 
 class CallModule extends Component{
   render(){
     return (<View style={styles.container}>
       <View style={styles.callMsg}>
         <Text style={styles.callMsgText}>当前共有</Text>
-        <Text style={styles.recyclablesNum}>2</Text>
+        <Text style={styles.recyclablesNum}>{this.props.recycledItemsNumber}</Text>
         <Text style={styles.callMsgText}>项回收物</Text>
       </View>
       <TouchableOpacity>
@@ -51,4 +53,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CallModule;
+function mapStateToProps(state){
+  return {
+    recycledItemsNumber: state.recycle.recycledItemsList.num
+  }
+}
+
+export default connect(mapStateToProps)(CallModule);

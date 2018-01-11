@@ -41,11 +41,12 @@ export function setAllProducts(AllProducts){
  * @param {number} specsId
  * @returns {{type: string, category: string, categoryId: number, specsId: number}}
  */
-export function addRecycledItem (category, categoryId, specsId){
+export function addRecycledItem (category, categoryId, specsId, itemNum){
   return {
     type: ADD_RecycledItem,
     category,
     categoryId,
-    specsId
+    specsId,
+    itemNum
   }
 }
