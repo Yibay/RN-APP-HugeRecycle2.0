@@ -3,7 +3,12 @@ import { combineReducers } from 'redux';
 import _ from 'lodash';
 
 
-import { SET_AllProducts, SET_ElectricProducts, SET_FurnitureProducts, ADD_ElectricProduct } from '../actions/Recycle'
+import {
+  // type 类型
+  SET_AllProducts, ADD_RecycledItem,
+  // 回收分类 常量
+  categoryElectricProduct
+} from '../actions/Recycle';
 
 
 /* ------ reducer 函数 ------ */
@@ -11,9 +16,7 @@ import { SET_AllProducts, SET_ElectricProducts, SET_FurnitureProducts, ADD_Elect
 function electricProducts(state=[], action){
   switch (action.type){
     case SET_AllProducts:
-      if(!action.electricProducts) return state; // 无家具数据，则不修改
-      return action.electricProducts;
-    case SET_ElectricProducts:       // 设置废旧家电
+      if(!action.electricProducts) return state; // 无家电数据，则不修改
       return action.electricProducts;
     default:
       return state;
@@ -25,9 +28,11 @@ function electricProductsObj(state={}, action){
   let new_state = {};  // 设置废旧家电
 
   switch (action.type){
-    case SET_AllProducts: // 设置全部 回收分类 列表
 
-      if(!action.electricProducts) return state;
+    // 设置全部 回收分类 列表
+    case SET_AllProducts:
+
+      if(!action.electricProducts) return state; // 无家电数据，则不修改
 
       for (let item of action.electricProducts){
         let key = 'id' + item.id;
@@ -41,9 +46,11 @@ function electricProductsObj(state={}, action){
       }
       return new_state;
 
-    case ADD_ElectricProduct: // 向 回收订单添加 物品
+    // 向 回收订单添加 物品
+    case ADD_RecycledItem:
 
-      if(!action.categoryId || !action.specsId) return state;
+      // 无家电数据，则不修改
+      if(!action.category || !action.categoryId || !action.specsId || (action.category !== categoryElectricProduct)) return state;
 
       new_state = _.merge(new_state, state);
       if(new_state['id' + action.categoryId].specsObj['id' + action.specsId].number){
@@ -65,8 +72,6 @@ function furnitureProducts(state=[], action){
     case SET_AllProducts:
       if(!action.furnitureProducts) return state; // 无家具数据，则不修改
       return action.furnitureProducts;
-    case SET_FurnitureProducts:      // 设置废旧家具
-      return action.furnitureProducts;
     default:
       return state;
   }
@@ -75,7 +80,9 @@ function furnitureProducts(state=[], action){
 // 废旧家具 (Object) 此数据结构 便于 存储选中物品数量
 function furnitureProductsObj(state={}, action){
   switch (action.type){
-    case SET_AllProducts:      // 设置废旧家具
+
+    // 设置全部 回收分类 列表
+    case SET_AllProducts:
 
       if(!action.furnitureProducts) return state; // 无家具数据，则不修改
 

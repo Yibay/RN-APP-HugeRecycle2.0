@@ -4,6 +4,8 @@ import { StyleSheet, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 
 
+import { categoryElectricProduct } from '../../redux/actions/Recycle';
+
 import CategoryItem from '../../components/pages/Recycle/CategoryItem'
 
 
@@ -19,7 +21,7 @@ class ElectricProducts extends Component{
     return (
       <ScrollView style={[styles.container, this.props.show ? styles.none : styles.hide]}>
         {
-          Object.keys(this.props.electricProductsObj).map(key => (<CategoryItem key={key} category={this.props.electricProductsObj[key]} />))
+          Object.keys(this.props.electricProductsObj).map(key => (<CategoryItem key={key} category={this.props.electricProductsObj[key]} categoryType={categoryElectricProduct} />))
         }
       </ScrollView>
     );

@@ -16,11 +16,12 @@ const CategoryItem = props => {
     <Text style={styles.categoryTitle}>{props.category.name}</Text>
   </View>
   {
-    Object.keys(props.category.specsObj).map(key => (<SpecsItem key={key} specs={props.category.specsObj[key]} categoryId={props.category.id} />))
+    Object.keys(props.category.specsObj).map(key => (<SpecsItem key={key} specs={props.category.specsObj[key]} categoryId={props.category.id} categoryType={props.categoryType} />))
   }
 </View>)};
 
 CategoryItem.propTypes = {
+  categoryType: PropTypes.string.isRequired,
   category: PropTypes.shape({
     id: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,

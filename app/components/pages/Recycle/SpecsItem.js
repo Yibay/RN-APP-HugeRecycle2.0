@@ -6,12 +6,13 @@ import PropTypes from 'prop-types';
 
 
 import config from '../../../util/request/config';
-import { addElectricProduct } from '../../../redux/actions/Recycle';
+import { addRecycledItem } from '../../../redux/actions/Recycle';
 
 
 class SpecsItem extends Component{
 
   static propTypes = {
+    categoryType: PropTypes.string.isRequired,
     categoryId: PropTypes.number.isRequired,
     specs: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -49,8 +50,8 @@ class SpecsItem extends Component{
   }
 
   addItem(){
-    console.log(this.props.specs.number);
-    this.props.addElectricProduct(this.props.categoryId,this.props.specs.id);
+    console.log(this.props);
+    this.props.addRecycledItem(this.props.categoryType,this.props.categoryId,this.props.specs.id);
   }
 }
 
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
 });
 
 const actionsCreator = {
-  addElectricProduct
+  addRecycledItem
 };
 
 export default connect(null, actionsCreator)(SpecsItem);
