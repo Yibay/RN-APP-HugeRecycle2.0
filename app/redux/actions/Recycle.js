@@ -8,6 +8,7 @@ export const REDUCE_RecycledItem = 'REDUCE_RecycledItem'; // 从 待回收订单
 // 其他常量
 export const categoryElectricProduct = 'electricProduct';
 export const categoryFurnitureProduct = 'furnitureProduct';
+export const categoryGarbageProduct = 'garbageProduct';
 
 
 /* ------ Action 生成函数 ------ */
@@ -17,11 +18,13 @@ export const categoryFurnitureProduct = 'furnitureProduct';
  *
  * @param {
  *  {
+ *   [garbageProducts]: array,
  *   [electricProducts]: array,
  *   [furnitureProducts]: array }
  *  } AllProducts
  * @returns {{
  *  type: string,
+ *  garbageProducts: array,
  *  electricProducts: array,
  *  furnitureProducts: array }}
  */
@@ -37,7 +40,7 @@ export function setAllProducts(AllProducts){
 /**
  * 向待回收订单中，添加待回收物
  *
- * @param {string} category  oneOf(['electricProduct', furnitureProduct])
+ * @param {string} category  oneOf(['electricProduct', 'furnitureProduct', 'garbageProducts'])
  * @param {number} categoryId
  * @param {number} specsId
  * @param {number} itemNum

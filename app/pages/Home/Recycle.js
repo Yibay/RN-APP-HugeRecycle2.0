@@ -35,7 +35,7 @@ class Recycle extends Component{
 
     return (<View style={styles.container}>
       <ClassificationNavigation category={this.state.category} selectedCategory={this.state.selectedCategory} switchCategory={this.switchCategory.bind(this)} />
-        <GarbageProducts show={this.state.selectedCategory === 1} />
+        <GarbageProducts show={this.state.selectedCategory === 1} garbageProductsObj={this.props.garbageProductsObj} />
         <ElectricProducts show={this.state.selectedCategory === 2} electricProductsObj={this.props.electricProductsObj} />
         <FurnitureProducts show={this.state.selectedCategory === 3} furnitureProductsObj={this.props.furnitureProductsObj} />
       <CallModule />
@@ -49,6 +49,7 @@ class Recycle extends Component{
       .then(res => {
         // 更新全局数据
         this.props.setAllProducts({
+          garbageProducts: res.data.garbageProducts,
           electricProducts: res.data.electricProducts,
           furnitureProducts: res.data.furnitureProducts
         })
@@ -72,6 +73,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
+    garbageProductsObj: state.recycle.recyclableGoods.garbageProductsObj,
     electricProductsObj: state.recycle.recyclableGoods.electricProductsObj,
     furnitureProductsObj: state.recycle.recyclableGoods.furnitureProductsObj
   }

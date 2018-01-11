@@ -21,7 +21,12 @@ class SpecsItem extends Component{
       otherGift: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired
       // 可选属性 {number}[number]
-    })
+    }),
+    onlyOnePiece: PropTypes.bool.isRequired
+  };
+
+  static defaultProps = {
+    onlyOnePiece: false
   };
 
   render(){
@@ -33,7 +38,7 @@ class SpecsItem extends Component{
           <Text style={styles.otherGift}>{this.props.specs.otherGift}</Text>
           <Text style={styles.price}>¥{this.props.specs.price}</Text>
         </View>
-        <View style={styles.controller}>
+        <View style={this.props.onlyOnePiece ? styles.hide : styles.controller}>
           <TouchableWithoutFeedback onPress={() => this.reduceItem()}>
             <View style={styles.controllerBtn}><Text style={styles.controllerBtnText}>-</Text></View>
           </TouchableWithoutFeedback>
@@ -42,6 +47,11 @@ class SpecsItem extends Component{
             <View style={styles.controllerBtn}><Text style={styles.controllerBtnText}>+</Text></View>
           </TouchableWithoutFeedback>
         </View>
+        <TouchableWithoutFeedback onPress={() => this.toggleItem()}>
+          <View style={[this.props.onlyOnePiece ? styles.onlyOnePieceBtn : styles.hide, this.props.specs.number ? styles.onlyOnePieceBtnDisable : styles.none]}>
+            <Text style={styles.onlyOnePieceText}>{this.props.specs.number ? '已加入' : '加入回收'}</Text>
+          </View>
+        </TouchableWithoutFeedback>
       </View>
     </View>)
   }
@@ -52,6 +62,10 @@ class SpecsItem extends Component{
 
   reduceItem(){
     this.props.reduceRecycledItem(this.props.categoryType,this.props.categoryId,this.props.specs.id,this.props.specs.number || 0);
+  }
+
+  toggleItem(){
+    !this.props.specs.number ? this.addItem() : this.reduceItem();
   }
 }
 
@@ -71,7 +85,7 @@ const styles = StyleSheet.create({
   specsContent: {
     position: 'relative',
     flex: 1,
-    justifyContent: 'space-between'
+    justifyContent: 'space-around'
   },
   specsName: {
     fontSize: 36,
@@ -90,8 +104,8 @@ const styles = StyleSheet.create({
   },
   controller: {
     position: 'absolute',
-    right: 0,
-    top: 50,
+    right: 30,
+    top: 35,
     flexDirection: 'row',
     alignItems: 'center'
   },
@@ -109,6 +123,24 @@ const styles = StyleSheet.create({
   recycleNum: {
     paddingHorizontal: 10,
     fontSize: 30
+  },
+  onlyOnePieceBtn: {
+    position: 'absolute',
+    right: 30,
+    top: 15,
+    paddingVertical: 20,
+    width: 180,
+    alignItems: 'center',
+    backgroundColor: 'rgba(153, 204, 102, 1)'
+  },
+  onlyOnePieceBtnDisable: {
+    backgroundColor: 'rgba(204, 204, 204, 1)'
+  },
+  onlyOnePieceText: {
+    fontSize: 30
+  },
+  hide: {
+    display: 'none'
   }
 });
 
