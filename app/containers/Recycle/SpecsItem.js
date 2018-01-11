@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 
-import config from '../../../util/request/config';
-import { addRecycledItem } from '../../../redux/actions/Recycle';
+import config from '../../util/request/config';
+import { addRecycledItem, reduceRecycledItem } from '../../redux/actions/Recycle';
 
 
 class SpecsItem extends Component{
@@ -34,7 +34,7 @@ class SpecsItem extends Component{
           <Text style={styles.price}>¥{this.props.specs.price}</Text>
         </View>
         <View style={styles.controller}>
-          <TouchableWithoutFeedback onPress={() => this.addItem()}>
+          <TouchableWithoutFeedback onPress={() => this.reduceItem()}>
             <View style={styles.controllerBtn}><Text style={styles.controllerBtnText}>-</Text></View>
           </TouchableWithoutFeedback>
           <View><Text style={styles.recycleNum}>{this.props.specs.number || 0}</Text></View>
@@ -48,6 +48,10 @@ class SpecsItem extends Component{
 
   addItem(){
     this.props.addRecycledItem(this.props.categoryType,this.props.categoryId,this.props.specs.id,this.props.specs.number || 0);
+  }
+
+  reduceItem(){
+    this.props.reduceRecycledItem(this.props.categoryType,this.props.categoryId,this.props.specs.id,this.props.specs.number || 0);
   }
 }
 
@@ -109,7 +113,8 @@ const styles = StyleSheet.create({
 });
 
 const actionsCreator = {
-  addRecycledItem
+  addRecycledItem,
+  reduceRecycledItem
 };
 
 export default connect(null, actionsCreator)(SpecsItem);

@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import {
   // type 类型
-  SET_AllProducts, ADD_RecycledItem,
+  SET_AllProducts, ADD_RecycledItem, REDUCE_RecycledItem,
   // 回收分类 常量
   categoryElectricProduct, categoryFurnitureProduct
 } from '../actions/Recycle';
@@ -64,6 +64,22 @@ function electricProductsObj(state={}, action){
       }
       return new_state;
 
+    // 从 回收订单减少 物品
+    case REDUCE_RecycledItem:
+
+      // 无家电数据，则不修改
+      if(!action.category || !action.categoryId || !action.specsId || (action.category !== categoryElectricProduct)) return state;
+
+      new_state = _.merge(new_state, state);
+      if(new_state['id' + action.categoryId].specsObj['id' + action.specsId].number){
+        new_state['id' + action.categoryId].specsObj['id' + action.specsId].number --;
+      }
+      else{
+        new_state['id' + action.categoryId].specsObj['id' + action.specsId].number = 0;
+      }
+
+      return new_state;
+
     default:
       return state;
   }
@@ -119,6 +135,21 @@ function furnitureProductsObj(state={}, action){
       }
       return new_state;
 
+    // 从 回收订单减少 物品
+    case REDUCE_RecycledItem:
+
+      // 无家具数据，则不修改
+      if(!action.category || !action.categoryId || !action.specsId || (action.category !== categoryFurnitureProduct)) return state;
+
+      new_state = _.merge(new_state, state);
+      if(new_state['id' + action.categoryId].specsObj['id' + action.specsId].number){
+        new_state['id' + action.categoryId].specsObj['id' + action.specsId].number --;
+      }
+      else{
+        new_state['id' + action.categoryId].specsObj['id' + action.specsId].number = 0;
+      }
+      return new_state;
+
     default:
       return state;
   }
@@ -132,8 +163,7 @@ const recyclableGoods = combineReducers({ electricProductsObj, furnitureProducts
 
 function recycledItemsList (state={list:[],num:0}, action){
 
-  let new_state;
-  let flag;
+  let new_state,flag,new_itemNum;
 
   switch(action.type){
 
@@ -141,26 +171,60 @@ function recycledItemsList (state={list:[],num:0}, action){
     case ADD_RecycledItem:
 
       // 数据不完整，则不修改
-      if(!action.category || !action.categoryId || !action.specsId) return state;
+      if(!action.category || !action.categoryId || !action.specsId) return state; // action.itemNum 可能为0，所以此处不做验证
 
       new_state = state;
       flag = true; // 是否需要 push进数组
+      new_itemNum = action.itemNum + 1; // (+1, 因为 此时store也在 同步更新，此处传入数据 并不是 更新后的结果)
 
       // 若 已存在，则不重复添加
       for(let item of new_state.list){
         if(item.category === action.category && item.categoryId === action.categoryId && item.specsId === action.specsId){
           // 已存在，修改数量
-          item.itemNum = action.itemNum + 1; // (+1, 因为 此时store也在 同步更新，此处传入数据 并不是 更新后的结果)
+          item.itemNum = new_itemNum; // (+1, 因为 此时store也在 同步更新，此处传入数据 并不是 更新后的结果)
           flag = false;
           break;
         }
       }
 
+      // 若 不存在，则新增 入数组
       if(flag){
-        new_state.list.push({category: action.category, categoryId: action.categoryId, specsId: action.specsId, itemNum: action.itemNum + 1}) // (+1, 因为 此时store也在 同步更新，此处传入数据 并不是 更新后的结果)
+        new_state.list.push({category: action.category, categoryId: action.categoryId, specsId: action.specsId, itemNum: new_itemNum}) // (+1, 因为 此时store也在 同步更新，此处传入数据 并不是 更新后的结果)
       }
 
+      // 总数 + 1
       new_state.num ++;
+
+      return new_state;
+
+    // 从 回收订单中减少 物品
+    case REDUCE_RecycledItem:
+
+      // 数据不完整，则不修改
+      if(!action.category || !action.categoryId || !action.specsId || !action.itemNum) return state; // action.itemNum 为0 或 undefined时，不修改
+
+      new_state = state;
+      flag = false; // 是否需要 从数组中移除
+      new_itemNum = action.itemNum - 1; // (-1, 待回收物品 数量 -1)
+
+      // 若 已存在，则修改数量
+      for(let item of new_state.list){
+        if(item.category === action.category && item.categoryId === action.categoryId && item.specsId === action.specsId){
+          // 已存在，修改数量
+          item.itemNum = new_itemNum; // (+1, 因为 此时store也在 同步更新，此处传入数据 并不是 更新后的结果)
+          // 若数量 减至0，则 从待回收列表中，移除
+          item.itemNum || (flag = true);
+          break;
+        }
+      }
+
+      // 某物品 数量减至0，则 从待回收列表中，移除
+      if(flag){
+        new_state.list = new_state.list.filter(item => item.itemNum);
+      }
+
+      // 总数 - 1
+      new_state.num --;
 
       return new_state;
 

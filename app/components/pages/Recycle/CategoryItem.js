@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import config from "../../../util/request/config";
 
-import SpecsItem from './SpecsItem';
+import SpecsItem from '../../../containers/Recycle/SpecsItem';
 
 
 const CategoryItem = props => {
