@@ -13,6 +13,7 @@ import Recycle from '../pages/Home/Recycle';
 import Mall from '../pages/Home/Mall';
 import Mine from '../pages/Home/Mine';
 import LocationPage from '../pages/Location';
+import RecycleOrder from '../pages/RecycleOrder';
 import Login from '../pages/Login';
 
 // 导航按钮
@@ -32,6 +33,8 @@ const AppRouter = () => (
       </Scene>
       {/* 定位地址页 */}
       <Scene key='locationPage' component={LocationPage} hideNavBar={true} />
+      {/* 回收订单页 */}
+      <Scene key='recycleOrderPage' title='待回收订单' component={RecycleOrder} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} />
       {/* 轮播简介页 */}
       <Scene key='intro' component={Intro} hideNavBar={true} />
       {/* 登录页 */}

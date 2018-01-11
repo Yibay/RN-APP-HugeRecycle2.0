@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 
 
 class CallModule extends Component{
@@ -12,12 +13,16 @@ class CallModule extends Component{
         <Text style={styles.recyclablesNum}>{this.props.recycledItemsNumber}</Text>
         <Text style={styles.callMsgText}>项回收物</Text>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => this.goToRecycleOrder()}>
         <View style={styles.callBtn}>
           <Text style={styles.callBtnText}>一键呼叫</Text>
         </View>
       </TouchableOpacity>
     </View>)
+  }
+
+  goToRecycleOrder(){
+    Actions.recycleOrderPage();
   }
 }
 

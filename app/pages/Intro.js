@@ -27,6 +27,7 @@ class Intro extends Component{
 
 const styles = StyleSheet.create({
   wrapper: {
+
   },
   paginationStyle: {
     marginBottom: 50

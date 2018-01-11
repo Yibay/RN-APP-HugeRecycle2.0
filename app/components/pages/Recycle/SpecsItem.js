@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 
-import config from '../../util/request/config';
-import { addRecycledItem, reduceRecycledItem } from '../../redux/actions/Recycle';
+import config from '../../../util/request/config';
+import { addRecycledItem, reduceRecycledItem } from '../../../redux/actions/Recycle';
 
 
 class SpecsItem extends Component{

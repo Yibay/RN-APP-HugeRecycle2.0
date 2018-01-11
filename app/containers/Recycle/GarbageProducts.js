@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import { categoryGarbageProduct } from '../../redux/actions/Recycle';
 
-import SpecsItem from './SpecsItem';
+import SpecsItem from '../../components/pages/Recycle/SpecsItem';
 
 
 class GarbageProducts extends Component{
