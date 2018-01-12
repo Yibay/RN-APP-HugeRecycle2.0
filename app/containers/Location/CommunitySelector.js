@@ -3,11 +3,13 @@ import { StyleSheet, View, Text, ScrollView,TouchableWithoutFeedback, Alert } fr
 
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import BackgroundGeolocation from 'react-native-mauron85-background-geolocation'; // 定位
 import { wgs84togcj02, gcj02tobd09 } from 'coordtransform'; // 坐标转换
 
 
 import { setLocation, setAutoLocationFlag } from '../../redux/actions/Location';
-import BackgroundGeolocation from 'react-native-mauron85-background-geolocation';
+import request from '../../util/request/request';
+import config from '../../util/request/config';
 
 
 class CommunitySelector extends Component{
@@ -16,6 +18,7 @@ class CommunitySelector extends Component{
     super(props);
 
     this.state = {
+      LocateCommunities: [],
       communitySelected: this.props.communitySelected
     };
   }
@@ -31,11 +34,11 @@ class CommunitySelector extends Component{
       <Text style={styles.title}>检测到这些小区在您周围</Text>
       <ScrollView style={styles.communityList}>
         <View style={styles.communityLayout}>
-          {['秋荷坊','七贤郡','锦云坊', '竹径云山', '七贤山居', '等等', '秋荷坊2','七贤郡2','锦云坊2', '竹径云山2', '七贤山居2', '等等2'].map(
+          {this.state.LocateCommunities.map(
             (item, index) =>
               <TouchableWithoutFeedback key={index} onPress={() => this.selectCommunity(item)}>
-                <View style={[styles.community, this.state.communitySelected === item ? styles.communitySelected : styles.none]}>
-                  <Text style={styles.communityName}>{item}</Text>
+                <View style={[styles.community, this.state.communitySelected.communityName === item.communityName ? styles.communitySelected : styles.none]}>
+                  <Text style={styles.communityName}>{item.communityName}</Text>
                 </View>
               </TouchableWithoutFeedback>
           )}
@@ -107,6 +110,20 @@ class CommunitySelector extends Component{
       let bd09Location = gcj02tobd09.apply(this, gcj02Location);
       console.log('百度坐标：', bd09Location);
 
+      // 发送定位请求
+      request.get(config.api.getLocateCommunity,{
+        longitude: bd09Location[0],
+        // longitude: '120.173374306960',
+        latitude: bd09Location[1],
+        // latitude: '30.388771979180'
+      })
+        .then(res => {
+          console.log(res);
+          this.setState({
+            LocateCommunities: res.data
+          })
+        });
+
       // 步骤6: 关闭 定位
       BackgroundGeolocation.stop();
       this.props.setAutoLocationFlag(false);
@@ -117,21 +134,8 @@ class CommunitySelector extends Component{
       console.log('[INFO] BackgroundGeolocation service has been stopped');
     });
 
-    BackgroundGeolocation.on('stationary', (stationaryLocation)=>{
-      console.log('on-stationaryLocation');
-      console.log(stationaryLocation);
-    });
-
     BackgroundGeolocation.on('error', (error) => {
       console.log('[ERROR] BackgroundGeolocation error:', error);
-    });
-
-    BackgroundGeolocation.on('background', () => {
-      console.log('[INFO] App is in background');
-    });
-
-    BackgroundGeolocation.on('foreground', () => {
-      console.log('[INFO] App is in foreground');
     });
 
     // 步骤2: 检测 状态
@@ -157,17 +161,15 @@ class CommunitySelector extends Component{
     this.props.autoLocationFlag && BackgroundGeolocation.start();
   }
 
-  selectCommunity(text){
+  selectCommunity(communitySelected){
     // 更新选中小区
     this.setState({
-      communitySelected: text
+      communitySelected: communitySelected
     });
   }
   commitCommunity(){
     // 更新选中小区 到全局
-    this.props.setLocation({
-      text: this.state.communitySelected
-    });
+    this.props.setLocation(this.state.communitySelected);
     // 返回回收页
     Actions.pop();
   }
@@ -236,9 +238,6 @@ const styles = StyleSheet.create({
   },
   manualInputText: {
     fontSize: 25
-  },
-  none: {
-
   }
 });
 

@@ -1,15 +1,20 @@
+import _ from 'lodash';
+
 // type 类型
 export const SET_Location = 'SET_Location';
 export const SET_AutoLocationFlag = 'SET_AutoLocationFlag';
+
+// 其他常量
+export const defaultCurrentLocation = {communityName: '选择小区'};
 
 
 /* ------ Action 生成函数 ------ */
 // 设置 currentLocation
 export function setLocation(location){
-  return {
-    type: SET_Location,
-    text: location.text
-  }
+  return _.merge(
+    {type: SET_Location},
+    location
+  )
 }
 
 /**

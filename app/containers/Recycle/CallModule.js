@@ -5,15 +5,19 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
 
+import { defaultCurrentLocation, setAutoLocationFlag } from '../../redux/actions/Location';
+
+
 class CallModule extends Component{
   render(){
+    console.log(this.props);
     return (<View style={styles.container}>
       <View style={styles.callMsg}>
         <Text style={styles.callMsgText}>当前共有</Text>
         <Text style={styles.recyclablesNum}>{this.props.recycledItemsNumber}</Text>
         <Text style={styles.callMsgText}>项回收物</Text>
       </View>
-      <TouchableOpacity onPress={() => this.goToRecycleOrder()}>
+      <TouchableOpacity onPress={() => this.callOut()}>
         <View style={styles.callBtn}>
           <Text style={styles.callBtnText}>一键呼叫</Text>
         </View>
@@ -21,7 +25,19 @@ class CallModule extends Component{
     </View>)
   }
 
-  goToRecycleOrder(){
+  callOut(){
+    // 未选小区，去定位页选地址
+    if(this.props.currentLocation.communityName === defaultCurrentLocation.communityName){
+      Actions.locationPage();
+      this.props.setAutoLocationFlag(true);
+      return;
+    }
+    // 未选物品(弹窗)
+    if(!this.props.recycledItemsNumber){
+      return;
+    }
+    // 未登录（弹窗, 填地址）
+    // 已选小区、已选物品、已登录 去待回收订单页
     Actions.recycleOrderPage();
   }
 }
@@ -60,8 +76,13 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
-    recycledItemsNumber: state.recycle.recycledItemsList.num
+    recycledItemsNumber: state.recycle.recycledItemsList.num,
+    currentLocation: state.location.currentLocation
   }
 }
 
-export default connect(mapStateToProps)(CallModule);
+const actionsCreator = {
+  setAutoLocationFlag
+};
+
+export default connect(mapStateToProps, actionsCreator)(CallModule);

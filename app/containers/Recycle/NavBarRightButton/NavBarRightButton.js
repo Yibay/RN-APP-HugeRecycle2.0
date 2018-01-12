@@ -13,10 +13,11 @@ class NavBarRightButton extends Component{
   render(){
     return(<TouchableOpacity style={styles.container} onPress={() => this.chooseCommunity()}>
       <Image style={styles.icon} resizeMode='contain' source={require('./img/location.png')} />
-      <Text style={styles.text}>{this.props.currentLocation}</Text>
+      <Text style={styles.text}>{this.props.currentCommunityName}</Text>
     </TouchableOpacity>);
   }
 
+  // 选择小区
   chooseCommunity(){
     Actions.locationPage();
     this.props.setAutoLocationFlag(true);
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
 // 过滤出有用state映射给props
 function mapStateToProps(state){
   return {
-    currentLocation: state.location.currentLocation
+    currentCommunityName: state.location.currentLocation.communityName
   }
 }
 

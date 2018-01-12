@@ -13,6 +13,8 @@ export default {
     // base: 'http://test.hugehuge.cn/',
     base: 'http://www.hugehuge.cn/',
     getProducts: 'api/mobile/normal/getProducts',
+    // 获取
+    getLocateCommunity: 'http://192.168.11.122:8080/api/customer/app/deal/getLocateCommunity',
     // 获取 短信验证码
     getCode: 'mobile/auth/requestSmsCode',
     // 获取 身份验证的 accessToken

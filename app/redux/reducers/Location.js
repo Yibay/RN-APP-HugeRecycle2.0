@@ -1,21 +1,31 @@
 // 合并reducers函数
 import { combineReducers } from 'redux';
+import _ from 'lodash';
 
 /* ------ type 类型 ------ */
-import { SET_Location, SET_AutoLocationFlag } from '../actions/Location';
+import {
+  // type 类型
+  SET_Location, SET_AutoLocationFlag,
+  // 地址常量
+  defaultCurrentLocation
+} from '../actions/Location';
 
 
 /* ------ reducer 函数 ------ */
 /**
  * 当前定位小区
- * @param state
- * @param action
- * @returns {string}
+ * @param {{communityName: string}} state
+ * @param {{communityName: string}} action
+ * @returns {{communityName: string}}
  */
-function currentLocation(state='选择小区', action){
+function currentLocation(state= defaultCurrentLocation, action){
+
+  let new_state = {};
+
   switch (action.type){
     case SET_Location:
-      return action.text;
+      _.merge(new_state, _.omit(action, ['type'])); // 复制 除type之外 的所有属性
+      return new_state;
     default:
       return state;
   }
