@@ -2,6 +2,8 @@
  * 请求相关配置
  */
 
+const __dirname = __dirname || '/Users/zhouquan/workspace/nodeProgram/rn-hugeRecycle2.0/HugeRecycle2_0/app/util/request/';
+
 export default {
   // 封装 fetch请求头
   requestHeaders: {
@@ -13,8 +15,8 @@ export default {
     // base: 'http://test.hugehuge.cn/',
     base: 'http://www.hugehuge.cn/',
     getProducts: 'api/mobile/normal/getProducts',
-    // 获取
-    getLocateCommunity: 'http://192.168.11.122:8080/api/customer/app/deal/getLocateCommunity',
+    // 获取 定位小区
+    // getLocateCommunity: 'http://192.168.11.122:8080/api/customer/app/deal/getLocateCommunity',
     // 获取 短信验证码
     getCode: 'mobile/auth/requestSmsCode',
     // 获取 身份验证的 accessToken
@@ -48,7 +50,11 @@ export default {
     // WebView 进入商城主页
     shoppingMall: 'web/mobile/mall/index?code=',
     // 获取 发布信息列表
-    publish: 'mobile/artical/all'
+    publish: 'mobile/artical/all',
+
+    /* ------ Mock数据 ------*/
+    // 获取 定位小区
+    getLocateCommunity: 'file://' + __dirname + '../mock/getLocateCommunity.json',
   },
   // 静态资源base路径
   static: {

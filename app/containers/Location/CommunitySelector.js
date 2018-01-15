@@ -111,17 +111,18 @@ class CommunitySelector extends Component{
       console.log('百度坐标：', bd09Location);
 
       // 发送定位请求
-      request.get(config.api.getLocateCommunity,{
-        longitude: bd09Location[0],
-        // longitude: '120.173374306960',
-        latitude: bd09Location[1],
-        // latitude: '30.388771979180'
-      })
+      request
+        .get(config.api.getLocateCommunity,{
+          longitude: bd09Location[0],
+          latitude: bd09Location[1]
+        })
         .then(res => {
-          console.log(res);
-          this.setState({
-            LocateCommunities: res.data
-          })
+          // 验证请求结果 是否正常（status: 0 正常，1 异常）
+          if(res && !res.status){
+            this.setState({
+              LocateCommunities: res.data
+            })
+          }
         });
 
       // 步骤6: 关闭 定位

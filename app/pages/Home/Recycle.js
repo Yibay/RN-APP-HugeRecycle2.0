@@ -14,6 +14,7 @@ import GarbageProducts from '../../containers/Recycle/GarbageProducts';
 import ElectricProducts from '../../containers/Recycle/ElectricProducts';
 import FurnitureProducts from '../../containers/Recycle/FurnitureProducts';
 import CallModule from '../../containers/Recycle/CallModule';
+import CallModal from '../../containers/Recycle/CallModal';
 
 
 class Recycle extends Component{
@@ -27,18 +28,26 @@ class Recycle extends Component{
         {categoryNum:1, categoryText: '小件干垃圾'},
         {categoryNum:2, categoryText: '废旧家电'},
         {categoryNum:3, categoryText: '废旧家具'}
-      ]
+      ],
+      callModalVisible: true
     };
   }
 
   render(){
 
     return (<View style={styles.container}>
+      {/* 导航条 */}
       <ClassificationNavigation category={this.state.category} selectedCategory={this.state.selectedCategory} switchCategory={this.switchCategory.bind(this)} />
+        {/* 分页：可回收垃圾 */}
         <GarbageProducts show={this.state.selectedCategory === 1} garbageProductsObj={this.props.garbageProductsObj} />
+        {/* 分页：废旧家电 */}
         <ElectricProducts show={this.state.selectedCategory === 2} electricProductsObj={this.props.electricProductsObj} />
+        {/* 分页：废旧家具 */}
         <FurnitureProducts show={this.state.selectedCategory === 3} furnitureProductsObj={this.props.furnitureProductsObj} />
-      <CallModule />
+      {/* 底栏：一键呼叫按钮 */}
+      <CallModule showCallModal={() => this.showCallModal()} />
+      {/* 弹窗：一键呼叫 */}
+      <CallModal visible={this.state.callModalVisible} hideCallModal={() => this.hideCallModal()} />
     </View>)
   }
 
@@ -61,7 +70,20 @@ class Recycle extends Component{
   switchCategory(categoryNum){
     this.setState({
       selectedCategory: categoryNum
-    })
+    });
+  }
+
+  // 弹出 一键呼叫 弹窗
+  showCallModal(){
+    this.setState({
+      callModalVisible: true
+    });
+  }
+  // 隐藏 一键呼叫 弹窗
+  hideCallModal(){
+    this.setState({
+      callModalVisible: false
+    });
   }
 }
 

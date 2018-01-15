@@ -47,7 +47,7 @@ export const adaptLayoutWidth = (WrappedComponent) => {
     }
   });
 
-  return () => (<View style={styles.rootView}>
-    <WrappedComponent />
+  return (props) => (<View style={styles.rootView}>
+    <WrappedComponent {...props} />
   </View>)
 };

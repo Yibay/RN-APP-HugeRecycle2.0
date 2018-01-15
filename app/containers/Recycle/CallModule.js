@@ -10,7 +10,6 @@ import { defaultCurrentLocation, setAutoLocationFlag } from '../../redux/actions
 
 class CallModule extends Component{
   render(){
-    console.log(this.props);
     return (<View style={styles.container}>
       <View style={styles.callMsg}>
         <Text style={styles.callMsgText}>当前共有</Text>
@@ -34,6 +33,7 @@ class CallModule extends Component{
     }
     // 未选物品(弹窗)
     if(!this.props.recycledItemsNumber){
+      this.props.showCallModal();
       return;
     }
     // 未登录（弹窗, 填地址）

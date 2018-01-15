@@ -10,7 +10,6 @@ import RecycledItem from '../../components/pages/RecycleOrder/RecycledItem'
 class RecycledItemsList extends Component{
 
   render(){
-    console.log(this.props.recycledItemsList);
 
     let recycledItemsList = this.props.recycledItemsList.list.map(
       item => this.props.recyclableGoods[item.category + 'sObj']['id' + item.categoryId].specsObj['id' + item.specsId]
