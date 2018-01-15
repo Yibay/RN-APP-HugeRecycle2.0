@@ -29,7 +29,7 @@ class Recycle extends Component{
         {categoryNum:2, categoryText: '废旧家电'},
         {categoryNum:3, categoryText: '废旧家具'}
       ],
-      callModalVisible: true
+      callModalVisible: false
     };
   }
 

@@ -20,8 +20,8 @@ class CallModal extends Component{
     super(props);
 
     this.state = {
-      showCallModal: false,
-      haveHouseNumber: true
+      showHouseNumberPicker: false, // 是否显示 切换 有无户号的select
+      haveHouseNumber: true // 有无户号
     }
   }
 
@@ -41,7 +41,7 @@ class CallModal extends Component{
               <Text style={styles.msgText}>小区名称 {this.props.currentLocation.communityName}</Text>
             </View>
             <View style={styles.lineSection}>
-              <Text style={styles.msgText} onPress={() => this.setState({showCallModal: true})}>{this.state.haveHouseNumber ? '有户号' : '无户号'}</Text>
+              <Text style={styles.msgText} onPress={() => this.showHouseNumberPicker()}>{this.state.haveHouseNumber ? '有户号' : '无户号'}</Text>
               <View style={[this.state.haveHouseNumber ? styles.haveHouseNumberSection : styles.hide]}>
                 <TextInput style={[styles.msgText, styles.msgTextInput, styles.address]} />
                 <Text style={styles.msgText}>栋</Text>
@@ -61,7 +61,7 @@ class CallModal extends Component{
               </TouchableOpacity>
             </View>
           </View>
-          <HouseNumberPicker visible={this.state.showCallModal} hideCallModal={() => this.hideCallModal()} setHaveHouseNumber={haveHouseNumber => this.setHaveHouseNumber(haveHouseNumber)} haveHouseNumber={this.state.haveHouseNumber} />
+          <HouseNumberPicker visible={this.state.showHouseNumberPicker} hideHouseNumberPicker={() => this.hideHouseNumberPicker()} setHaveHouseNumber={haveHouseNumber => this.setHaveHouseNumber(haveHouseNumber)} haveHouseNumber={this.state.haveHouseNumber} />
         </View>
       </AdaptLayoutWidth>
     </Modal>);
@@ -72,25 +72,36 @@ class CallModal extends Component{
   }
 
   confirmCall(){
+    // 检验数据
+
+    // 发送请求
+    console.log({
+      communityId: this.props.currentLocation.communityId,
+      communityName: this.props.currentLocation.communityName,
+      haveHouseNumber: this.state.haveHouseNumber, // 有无户号
+      isAerialWork: false  // 是否需要拆卸空调
+    });
+
+    // 发送成功后，关闭弹窗
     this.props.hideCallModal();
   }
 
-  showCallModal(){
+  showHouseNumberPicker(){
     this.setState({
-      showCallModal: true
+      showHouseNumberPicker: true
     })
   }
 
-  hideCallModal(){
+  hideHouseNumberPicker(){
     this.setState({
-      showCallModal: false
+      showHouseNumberPicker: false
     })
   }
 
   setHaveHouseNumber(haveHouseNumber){
      this.setState({
        haveHouseNumber: haveHouseNumber,
-       showCallModal: false
+       showHouseNumberPicker: false
      })
   }
 }

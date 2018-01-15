@@ -8,7 +8,7 @@ class HouseNumberPicker extends Component {
 
   static propTypes = {
     visible: PropTypes.bool.isRequired,
-    hideCallModal: PropTypes.func.isRequired,
+    hideHouseNumberPicker: PropTypes.func.isRequired,
     setHaveHouseNumber: PropTypes.func.isRequired,
     haveHouseNumber: PropTypes.bool.isRequired
   };
@@ -43,11 +43,11 @@ class HouseNumberPicker extends Component {
   }
 
   cancelPickerVal(){
-    this.props.hideCallModal();
+    this.props.hideHouseNumberPicker();
   }
 
-  confirmPickerVal(haveHouseNumer){
-    this.props.setHaveHouseNumber(haveHouseNumer)
+  confirmPickerVal(haveHouseNumber){
+    this.props.setHaveHouseNumber(haveHouseNumber)
   }
 }
 
