@@ -28,7 +28,7 @@ class HouseNumberPicker extends Component {
   }
 
   render(){
-    return (<Modal transparent={true} visible={this.props.visible}>
+    return (<Modal transparent={true} visible={this.props.visible} onRequestClose={() => this.onRequestClose()}>
       <View style={styles.container}>
         <View style={styles.picker}>
           <Picker selectedValue={this.state.haveHouseNumber} onValueChange={val => this.setState({haveHouseNumber: val})}>
@@ -49,6 +49,9 @@ class HouseNumberPicker extends Component {
   confirmPickerVal(haveHouseNumber){
     this.props.setHaveHouseNumber(haveHouseNumber)
   }
+
+  // Android Modal 必须属性
+  onRequestClose(){}
 }
 
 const styles = StyleSheet.create({

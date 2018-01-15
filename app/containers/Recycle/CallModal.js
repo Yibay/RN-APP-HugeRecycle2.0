@@ -26,7 +26,7 @@ class CallModal extends Component{
   }
 
   render(){
-    return (<Modal transparent={true} visible={this.props.visible}>
+    return (<Modal transparent={true} visible={this.props.visible} onRequestClose={() => this.onRequestClose()}>
       <AdaptLayoutWidth>
         <View style={styles.container}>
           <View style={styles.msgBox}>
@@ -104,6 +104,9 @@ class CallModal extends Component{
        showHouseNumberPicker: false
      })
   }
+
+  // Android Modal 必须属性
+  onRequestClose(){}
 }
 
 const styles = StyleSheet.create({
