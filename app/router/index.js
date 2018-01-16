@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Router, Scene, Stack } from 'react-native-router-flux';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 
 // HOC 屏宽适配
@@ -64,8 +64,16 @@ const tabsStyle = {
     fontSize: 30
   },
   tabBarStyle: {
-    paddingBottom: 30,
-    height: 100
+    ...Platform.select({
+      ios: {
+        paddingBottom: 30,
+        height: 100
+      },
+      android: {
+        paddingBottom: 70,
+        height: 140
+      }
+    })
   }
 };
 
