@@ -1,4 +1,4 @@
-package com.hugerecycle2_0;
+package com.huge_recycle_android;
 
 import com.facebook.react.ReactActivity;
 
