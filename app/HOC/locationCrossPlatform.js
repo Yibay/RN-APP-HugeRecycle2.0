@@ -86,7 +86,7 @@ export const locationIOS = WrappedComponent => class extends Component{
 
       // 发送定位请求
       request
-        .get(config.api.getLocateCommunity,{
+        .get(config.api.base + config.api.getLocateCommunity,{
           longitude: bd09Location[0],
           latitude: bd09Location[1]
         })
@@ -188,7 +188,7 @@ export const locationAndroid = WrappedComponent => class extends Component{
 
     // 发送定位请求
     request
-      .get(config.api.getLocateCommunity,{
+      .get(config.api.base + config.api.getLocateCommunity,{
         longitude: bd09Location[0],
         latitude: bd09Location[1]
       })

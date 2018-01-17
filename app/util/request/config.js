@@ -12,14 +12,17 @@ export default {
   },
   // 请求 api接口
   api: {
-    // base: 'http://test.hugehuge.cn/',
-    base: 'http://www.hugehuge.cn/',
+    // baseOld: 'http://test.hugehuge.cn/',
+    baseOld: 'http://www.hugehuge.cn/',
+    base: 'http://192.168.11.122:8080/',
     getProducts: 'api/mobile/normal/getProducts',
     // 获取 定位小区
-    getLocateCommunity: 'http://192.168.11.122:8080/api/customer/app/deal/getLocateCommunity',
-    // 获取 短信验证码
+    getLocateCommunity: 'api/customer/app/deal/getLocateCommunity',
+    // 获取 短信验证码(POST)
+    // application/json params: phone -- 手机号码(必填)
     getCode: 'mobile/auth/requestSmsCode',
-    // 获取 身份验证的 accessToken
+    // 获取 身份验证的 accessToken（POST）
+    // application/json params: phone -- 手机号码(必填), code  -- 验证码or密码(必填)
     getToken: 'mobile/auth/login',
     // 获取 客户下单页面 初始化数据
     initRecycleCreate: 'api/mobile/deal/initRecycleCreate',

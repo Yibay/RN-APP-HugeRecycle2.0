@@ -27,7 +27,7 @@ const AppRouter = () => (
         {/* 回收分页 */}
         <Scene key='recycle' title='选择回收物' tabBarLabel='我要回收' component={Recycle} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} renderRightButton={<RecycleRightButton />} />
         {/* 商场分页 */}
-        <Scene key='register' title='虎哥便利店' tabBarLabel='虎哥商场' component={Mall} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} />
+        <Scene key='shoppingMall' title='虎哥便利店' tabBarLabel='虎哥商场' component={Mall} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} />
         {/* 我的分页 */}
         <Scene key='mine' title='我的' component={Mine} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} />
       </Scene>
