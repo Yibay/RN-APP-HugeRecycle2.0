@@ -1,3 +1,5 @@
+// 屏幕适配
+
 import React, { Component } from 'react';
 import { StyleSheet, View, Dimensions, PixelRatio } from 'react-native';
 

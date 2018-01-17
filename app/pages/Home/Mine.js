@@ -1,24 +1,40 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
-import { Actions } from 'react-native-router-flux';
+
+import { verifyLogin } from '../../HOC/verifyLogin';
 
 
 class Mine extends Component {
 
   render(){
     return (<View style={styles.container}>
-      <Text onPress={() => Actions.login()}>我的</Text>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>登录</Text>
+      </View>
+      <Text>我的</Text>
     </View>)
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    flex: 1
+  },
+  // 页头
+  header: {
+    paddingTop: 65,
+    height: 128,
+    borderBottomWidth: 1,
+    borderBottomColor: '#b5b5b5',
+    backgroundColor: '#f7f7f7'
+  },
+  headerText: {
+    textAlign: 'center',
+    fontSize: 34,
+    fontWeight: '700'
   }
 });
 
-export default Mine;
+// 此页面需验证身份
+export default verifyLogin(Mine);

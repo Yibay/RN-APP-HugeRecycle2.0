@@ -97,7 +97,7 @@ class Login extends Component{
       return;
     }
     request
-      .post(config.api.base + config.api.getCode, {phone: this.state.phone})
+      .post(config.api.getCode, {phone: this.state.phone})
       .then(res => {
         // 发送成功 status 为 0，弹出 返回的data信息
         res.status || Alert.alert(res.data);
@@ -116,7 +116,7 @@ class Login extends Component{
     }
     console.log(this.state.phone, this.state.code);
     request
-      .post(config.api.base + config.api.getToken, {phone: this.state.phone, code: this.state.code})
+      .post(config.api.getToken, {phone: this.state.phone, code: this.state.code})
       .then(res => {
         console.log(res);
         // 登录成功 status 为 0，失败为 1
@@ -133,6 +133,7 @@ class Login extends Component{
             user: res.data.user
           },
           // 未指定过期时间，会使用defaultExpires参数
+          // 指定 null，则永不过期
           expires: null
         });
         // 登录成功更新全局数据

@@ -54,8 +54,9 @@ class Recycle extends Component{
   componentDidMount(){
     // 请求 回收类别相应数据
     request
-      .get(config.api.baseOld + config.api.getProducts)
+      .get(config.api.getProducts)
       .then(res => {
+        console.log(res);
         // 更新全局数据
         this.props.setAllProducts({
           garbageProducts: res.data.garbageProducts,

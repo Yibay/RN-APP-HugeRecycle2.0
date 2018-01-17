@@ -6,6 +6,8 @@ import { StyleSheet, Platform } from 'react-native';
 
 // HOC 屏宽适配
 import { adaptLayoutWidth } from '../HOC/adaptLayout';
+// HOC 初始化 登录状态
+import initIdentityToken from '../HOC/initIdentityToken';
 
 // 页面路由
 import Intro from '../pages/Intro';
@@ -29,7 +31,7 @@ const AppRouter = () => (
         {/* 商场分页 */}
         <Scene key='shoppingMall' title='虎哥便利店' tabBarLabel='虎哥商场' component={Mall} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} />
         {/* 我的分页 */}
-        <Scene key='mine' title='我的' component={Mine} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} />
+        <Scene key='mine' title='我的' component={Mine} hideNavBar={true} />
       </Scene>
       {/* 定位地址页 */}
       <Scene key='locationPage' component={LocationPage} hideNavBar={true} />
@@ -78,5 +80,4 @@ const tabsStyle = {
 };
 
 // 屏宽适配
-export default adaptLayoutWidth(AppRouter);
-// export default AppRouter;
+export default initIdentityToken(adaptLayoutWidth(AppRouter));

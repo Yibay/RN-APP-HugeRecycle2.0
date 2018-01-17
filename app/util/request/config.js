@@ -4,6 +4,10 @@
 
 const __dirname = __dirname || '/Users/zhouquan/workspace/nodeProgram/rn-hugeRecycle2.0/HugeRecycle2_0/app/util/request/';
 
+const api_base_test = 'http://test.hugehuge.cn/';
+const api_base_old = 'http://www.hugehuge.cn/';
+const api_base = 'http://192.168.11.122:8080/';
+
 export default {
   // 封装 fetch请求头
   requestHeaders: {
@@ -12,18 +16,16 @@ export default {
   },
   // 请求 api接口
   api: {
-    // baseOld: 'http://test.hugehuge.cn/',
-    baseOld: 'http://www.hugehuge.cn/',
-    base: 'http://192.168.11.122:8080/',
-    getProducts: 'api/mobile/normal/getProducts',
+    // 获取回收物品 列表
+    getProducts: `${api_base_old}api/mobile/normal/getProducts`,
     // 获取 定位小区
-    getLocateCommunity: 'api/customer/app/deal/getLocateCommunity',
+    // getLocateCommunity: `${api_base}api/customer/app/deal/getLocateCommunity`,
     // 获取 短信验证码(POST)
     // application/json params: phone -- 手机号码(必填)
-    getCode: 'mobile/auth/requestSmsCode',
+    getCode: `${api_base}mobile/auth/requestSmsCode`,
     // 获取 身份验证的 accessToken（POST）
     // application/json params: phone -- 手机号码(必填), code  -- 验证码or密码(必填)
-    getToken: 'mobile/auth/login',
+    getToken: `${api_base}mobile/auth/login`,
     // 获取 客户下单页面 初始化数据
     initRecycleCreate: 'api/mobile/deal/initRecycleCreate',
     // 获取 客户地址列表
@@ -57,7 +59,7 @@ export default {
 
     /* ------ Mock数据 ------*/
     // 获取 定位小区
-    // getLocateCommunity: 'file://' + __dirname + '../mock/getLocateCommunity.json',
+    getLocateCommunity: `file://${__dirname}../mock/getLocateCommunity.json`,
   },
   // 静态资源base路径
   static: {
@@ -65,4 +67,4 @@ export default {
   },
   // 版本号
   version: 1.11
-}
+};
