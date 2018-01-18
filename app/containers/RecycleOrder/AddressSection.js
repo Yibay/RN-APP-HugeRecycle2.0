@@ -42,8 +42,8 @@ class AddressSection extends Component {
       return (
         <TouchableWithoutFeedback onPress={() => this.goToAddressAddPage()}>
           <View style={[styles.container, styles.addNewAddress]}>
-            <Text style={styles.text}>请添加回收地址</Text>
-            <Icon style={styles.icon2} name='md-add' size={50} color='#828282' />
+            <Text style={styles.newAddressTitle}>请添加回收地址</Text>
+            <Icon name='md-add' size={50} color='#828282' />
           </View>
         </TouchableWithoutFeedback>
       );
@@ -92,6 +92,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
+  },
+  newAddressTitle: {
+    fontSize: 28,
+    fontWeight: '400'
   }
 });
 

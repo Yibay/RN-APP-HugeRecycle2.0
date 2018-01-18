@@ -11,8 +11,8 @@ const RecycledItem = props => (<View style={styles.container}>
   <Image style={styles.specsImage} resizeMode='contain' source={{uri: config.static.base + props.specs.image}} />
   <View style={styles.specsContent}>
     <Text style={styles.specsName}>{props.specs.name}</Text>
-    <Text style={styles.specNum}>{'¥' + props.specs.price + '*' + props.specs.number}</Text>
-    <Text style={styles.specPrice}>{'¥' + props.specs.price * props.specs.number}</Text>
+    <Text style={styles.specNum}>{'¥' + props.specs.price + ' *' + props.specs.number}</Text>
+    <Text style={styles.specTotalPrice}>{'¥' + props.specs.price * props.specs.number}</Text>
   </View>
 </View>);
 
@@ -27,15 +27,16 @@ RecycledItem.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 10,
+    height: 140,
     paddingHorizontal: 40,
-    paddingVertical: 30,
+    borderBottomWidth: 2,
+    borderBottomColor: '#e4e5e7',
     flexDirection: 'row',
-    backgroundColor: '#f7f7f7'
+    alignItems: 'center'
   },
   specsImage: {
-    width: 100,
-    height: 100,
+    width: 110,
+    height: 110,
     marginRight: 30
   },
   specsContent: {
@@ -44,13 +45,15 @@ const styles = StyleSheet.create({
   },
   specsName: {
     paddingTop: 10,
-    fontSize: 30
+    fontSize: 27,
+    fontWeight: '500'
   },
   specNum: {
     paddingTop: 15,
-    fontSize: 30
+    fontSize: 27,
+    fontWeight: '500'
   },
-  specPrice: {
+  specTotalPrice: {
     position: 'absolute',
     top: 30,
     right: 20,

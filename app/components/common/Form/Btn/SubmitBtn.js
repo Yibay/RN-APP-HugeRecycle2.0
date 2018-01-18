@@ -4,7 +4,7 @@ import { StyleSheet, Text } from 'react-native';
 import PropTypes from 'prop-types';
 
 
-const SubmitBtn = props => (<Text style={styles.container} onPress={props.submit}>{props.text}</Text>);
+const SubmitBtn = props => (<Text style={[styles.container].concat(props.style)} onPress={props.submit}>{props.text}</Text>);
 
 SubmitBtn.propTypes = {
   text: PropTypes.string.isRequired,
