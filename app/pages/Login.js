@@ -9,6 +9,7 @@ import request from '../util/request/request';
 import config from '../util/request/config';
 import { setIdentityToken } from '../redux/actions/IdentityToken';
 
+import Header from '../components/common/Header/Header';
 import SubmitBtn from '../components/common/Form/Btn/SubmitBtn';
 
 
@@ -26,9 +27,7 @@ class Login extends Component{
 
   render(){
     return (<View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>登录</Text>
-      </View>
+      <Header title='登录'/>
       <View style={styles.content}>
         {/* 导航条 */}
         <View style={styles.navigation}>
@@ -50,12 +49,12 @@ class Login extends Component{
         <View style={this.state.useCodeLogin ? styles.form : styles.hide}>
           <View style={styles.formSection}>
             <Text style={styles.formLabel}>手机号码</Text>
-            <TextInput style={styles.formInput} value={this.state.phone} onChangeText={text => this.changePhone(text)} />
+            <TextInput style={styles.formInput} value={this.state.phone} onChangeText={text => this.changePhone(text)} underlineColorAndroid="transparent" />
             <Text style={styles.getCode} onPress={() => this.getCode()}>发送验证码</Text>
           </View>
           <View style={styles.formSection}>
             <Text style={styles.formLabel}>短信验证码</Text>
-            <TextInput style={styles.formInput} value={this.state.code} onChangeText={text => this.changeCode(text)} />
+            <TextInput style={styles.formInput} value={this.state.code} onChangeText={text => this.changeCode(text)} underlineColorAndroid="transparent" />
           </View>
         </View>
         {/* 登录按钮 */}
@@ -146,20 +145,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  // 页头
-  header: {
-    paddingTop: 65,
-    height: 125,
-    backgroundColor: '#f7f7f7'
-  },
-  headerText: {
-    textAlign: 'center',
-    fontSize: 34,
-    fontWeight: '700'
-  },
   // 内容区
   content: {
-    marginTop: 12,
     flex:1,
     backgroundColor: '#f7f7f7'
   },
@@ -218,6 +205,7 @@ const styles = StyleSheet.create({
   },
   formInput: {
     flex: 1,
+    padding: 0,
     height: 60,
     fontSize: 24,
     fontWeight: '700'

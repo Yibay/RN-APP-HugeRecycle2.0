@@ -4,9 +4,10 @@
 
 const __dirname = __dirname || '/Users/zhouquan/workspace/nodeProgram/rn-hugeRecycle2.0/HugeRecycle2_0/app/util/request/';
 
-const api_base_test = 'http://test.hugehuge.cn/';
+
 const api_base_old = 'http://www.hugehuge.cn/';
-const api_base = 'http://192.168.11.122:8080/';
+// const api_base = 'http://192.168.11.122:8080/';
+const api_base = 'http://test.hugehuge.cn/';
 
 export default {
   // 封装 fetch请求头
@@ -19,7 +20,7 @@ export default {
     // 获取回收物品 列表
     getProducts: `${api_base_old}api/mobile/normal/getProducts`,
     // 获取 定位小区
-    // getLocateCommunity: `${api_base}api/customer/app/deal/getLocateCommunity`,
+    getLocateCommunity: `${api_base}api/customer/app/deal/getLocateCommunity`,
     // 获取 短信验证码(POST)
     // application/json params: phone -- 手机号码(必填)
     getCode: `${api_base}mobile/auth/requestSmsCode`,
@@ -28,8 +29,10 @@ export default {
     getToken: `${api_base}mobile/auth/login`,
     // 获取 客户下单页面 初始化数据
     initRecycleCreate: 'api/mobile/deal/initRecycleCreate',
+    // 获取默认地址
+    getDefaultAddress: `${api_base}api/customer/app/auth/deal/getDefaultAddress`,
     // 获取 客户地址列表
-    getAddressList: 'api/mobile/deal/addresses',
+    getAddressList: `${api_base}api/mobile/deal/addresses`,
     // 获取 地区信息
     getAddressInfo: 'api/mobile/normal/addressinfo',
     // 新增 客户地址
@@ -59,7 +62,7 @@ export default {
 
     /* ------ Mock数据 ------*/
     // 获取 定位小区
-    getLocateCommunity: `file://${__dirname}../mock/getLocateCommunity.json`,
+    // getLocateCommunity: `file://${__dirname}../mock/getLocateCommunity.json`,
   },
   // 静态资源base路径
   static: {

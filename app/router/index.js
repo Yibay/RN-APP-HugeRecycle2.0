@@ -17,6 +17,8 @@ import Mine from '../pages/Home/Mine';
 import LocationPage from '../pages/Location';
 import RecycleOrder from '../pages/RecycleOrder';
 import Login from '../pages/Login';
+import AddressSelection from '../pages/AddressSelection';
+import AddressAdd from '../pages/AddressAdd';
 
 // 导航按钮
 import RecycleRightButton from '../containers/Recycle/NavBarRightButton/NavBarRightButton';
@@ -31,12 +33,16 @@ const AppRouter = () => (
         {/* 商场分页 */}
         <Scene key='shoppingMall' title='虎哥便利店' tabBarLabel='虎哥商场' component={Mall} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} />
         {/* 我的分页 */}
-        <Scene key='mine' title='我的' component={Mine} hideNavBar={true} />
+        <Scene key='mine' tabBarLabel='我的' component={Mine} hideNavBar={true} />
       </Scene>
       {/* 定位地址页 */}
       <Scene key='locationPage' component={LocationPage} hideNavBar={true} />
       {/* 回收订单页 */}
-      <Scene key='recycleOrderPage' title='待回收订单' component={RecycleOrder} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} />
+      <Scene key='recycleOrderPage' title='待回收物品' component={RecycleOrder} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} hideNavBar={true} />
+      {/* 选择地址页 */}
+      <Scene key='addressSelectionPage' component={AddressSelection} hideNavBar={true} />
+      {/* 新增地址页 */}
+      <Scene key='addressAddPage' component={AddressAdd} hideNavBar={true} />
       {/* 轮播简介页 */}
       <Scene key='intro' component={Intro} hideNavBar={true} />
       {/* 登录页 */}
@@ -79,5 +85,6 @@ const tabsStyle = {
   }
 };
 
-// 屏宽适配
+// 初始化登录状态, 屏宽适配
 export default initIdentityToken(adaptLayoutWidth(AppRouter));
+// export default adaptLayoutWidth(AppRouter);

@@ -11,8 +11,8 @@ const RecycledItem = props => (<View style={styles.container}>
   <Image style={styles.specsImage} resizeMode='contain' source={{uri: config.static.base + props.specs.image}} />
   <View style={styles.specsContent}>
     <Text style={styles.specsName}>{props.specs.name}</Text>
-    <Text style={styles.specNum}>{'*' + props.specs.number}</Text>
-    <Text style={styles.specPrice}>{'¥' + props.specs.price}</Text>
+    <Text style={styles.specNum}>{'¥' + props.specs.price + '*' + props.specs.number}</Text>
+    <Text style={styles.specPrice}>{'¥' + props.specs.price * props.specs.number}</Text>
   </View>
 </View>);
 
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     paddingVertical: 30,
     flexDirection: 'row',
-    backgroundColor: '#fff'
+    backgroundColor: '#f7f7f7'
   },
   specsImage: {
     width: 100,

@@ -33,9 +33,9 @@ class CallModal extends Component{
             <Text style={styles.title}>您未选择可回收物，直接呼叫虎哥</Text>
             <View style={styles.lineSection}>
               <Text style={styles.msgText}>联系人</Text>
-              <TextInput style={[styles.msgText, styles.msgTextInput, styles.linkman]}/>
+              <TextInput style={[styles.msgText, styles.msgTextInput, styles.linkman]} underlineColorAndroid="transparent" />
               <Text style={styles.msgText}>电话</Text>
-              <TextInput style={[styles.msgText, styles.msgTextInput, styles.tel]}/>
+              <TextInput style={[styles.msgText, styles.msgTextInput, styles.tel]} underlineColorAndroid="transparent" />
             </View>
             <View style={styles.lineSection}>
               <Text style={styles.msgText}>小区名称 {this.props.currentLocation.communityName}</Text>
@@ -43,14 +43,14 @@ class CallModal extends Component{
             <View style={styles.lineSection}>
               <Text style={styles.msgText} onPress={() => this.showHouseNumberPicker()}>{this.state.haveHouseNumber ? '有户号' : '无户号'}</Text>
               <View style={[this.state.haveHouseNumber ? styles.haveHouseNumberSection : styles.hide]}>
-                <TextInput style={[styles.msgText, styles.msgTextInput, styles.address]} />
+                <TextInput style={[styles.msgText, styles.msgTextInput, styles.address]} underlineColorAndroid="transparent" />
                 <Text style={styles.msgText}>栋</Text>
-                <TextInput style={[styles.msgText, styles.msgTextInput, styles.address]} />
+                <TextInput style={[styles.msgText, styles.msgTextInput, styles.address]} underlineColorAndroid="transparent" />
                 <Text style={styles.msgText}>单元</Text>
-                <TextInput style={[styles.msgText, styles.msgTextInput, styles.address]} />
+                <TextInput style={[styles.msgText, styles.msgTextInput, styles.address]} underlineColorAndroid="transparent" />
                 <Text style={styles.msgText}>室</Text>
               </View>
-              <TextInput style={[this.state.haveHouseNumber ? styles.hide : styles.msgText, styles.msgTextInput, styles.address]} />
+              <TextInput style={[this.state.haveHouseNumber ? styles.hide : styles.msgText, styles.msgTextInput, styles.address]} underlineColorAndroid="transparent" />
             </View>
             <View style={styles.btnSection}>
               <TouchableOpacity style={[styles.btn, styles.btnConfirm]} onPress={() => this.confirmCall()}>
@@ -164,6 +164,7 @@ const styles = StyleSheet.create({
   },
   msgTextInput: {
     height: 50,
+    padding: 0,
     borderWidth: 1
   },
   linkman: {

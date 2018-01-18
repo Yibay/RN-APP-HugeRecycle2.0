@@ -31,12 +31,11 @@ class CallModule extends Component{
       this.props.setAutoLocationFlag(true);
       return;
     }
-    // 未选物品(弹窗)
-    if(!this.props.recycledItemsNumber){
+    // 未选物品(弹窗) || 未登录（弹窗, 填地址）
+    if(!this.props.recycledItemsNumber || !this.props.authToken){
       this.props.showCallModal();
       return;
     }
-    // 未登录（弹窗, 填地址）
 
     // 已选小区、已选物品、已登录 去待回收订单页
     Actions.recycleOrderPage();
@@ -78,7 +77,8 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
   return {
     recycledItemsNumber: state.recycle.recycledItemsList.num,
-    currentLocation: state.location.currentLocation
+    currentLocation: state.location.currentLocation,
+    authToken: state.identityToken.authToken
   }
 }
 

@@ -10,7 +10,7 @@ class Mine extends Component {
   render(){
     return (<View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>登录</Text>
+        <Text style={styles.headerText}>我的</Text>
       </View>
       <Text>我的</Text>
     </View>)

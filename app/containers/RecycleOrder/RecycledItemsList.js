@@ -16,11 +16,9 @@ class RecycledItemsList extends Component{
     );
 
     return (<View>
-      <Text style={styles.title}>待回收物</Text>
       {
         recycledItemsList.map(item => <RecycledItem key={item.id} specs={item} />)
       }
-      <Text style={styles.total}>{`共 ${this.props.recycledItemsList.num} 件物品`}</Text>
     </View>);
   }
 }
