@@ -7,7 +7,12 @@ import PropTypes from 'prop-types';
 class ClassificationNavigation extends Component{
 
   static propTypes = {
-    category: PropTypes.array.isRequired,
+    category: PropTypes.arrayOf(
+      PropTypes.shape({
+        categoryName: PropTypes.string.isRequired,
+        categoryNum: PropTypes.number.isRequired
+      })
+    ),
     selectedCategory: PropTypes.number.isRequired,
     switchCategory: PropTypes.func.isRequired
   };
@@ -18,7 +23,7 @@ class ClassificationNavigation extends Component{
         this.props.category.map(item =>
           (<TouchableWithoutFeedback key={item.categoryNum} onPress={() => this.props.switchCategory(item.categoryNum)}>
             <View style={[styles.item, this.props.selectedCategory === item.categoryNum ? styles.activeItem : styles.none]}>
-              <Text style={[styles.itemText, this.props.selectedCategory === item.categoryNum ? styles.activeItemText : styles.none]}>{item.categoryText}</Text>
+              <Text style={[styles.itemText, this.props.selectedCategory === item.categoryNum ? styles.activeItemText : styles.none]}>{item.categoryName}</Text>
             </View>
           </TouchableWithoutFeedback>))
       }

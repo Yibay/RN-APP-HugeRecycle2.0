@@ -16,23 +16,16 @@ export const categoryGarbageProduct = 'garbageProduct';
 /**
  * 设置 全部回收物（含 废旧家电、废旧家具）
  *
- * @param {
- *  {
- *   [garbageProducts]: array,
- *   [electricProducts]: array,
- *   [furnitureProducts]: array }
- *  } AllProducts
+ * @param { array } AllProductsArray
  * @returns {{
  *  type: string,
- *  garbageProducts: array,
- *  electricProducts: array,
- *  furnitureProducts: array }}
+ *  AllProductsArray: array }}
  */
-export function setAllProducts(AllProducts){
-  return _.assign(
-    { type: SET_AllProducts },
-    AllProducts
-  );
+export function setAllProducts(AllProductsArray){
+  return {
+    type: SET_AllProducts,
+    AllProductsArray
+  };
 }
 
 
@@ -40,16 +33,16 @@ export function setAllProducts(AllProducts){
 /**
  * 向待回收订单中，添加待回收物
  *
- * @param {string} category  oneOf(['electricProduct', 'furnitureProduct', 'garbageProducts'])
+ * @param {number} sort
  * @param {number} categoryId
  * @param {number} specsId
  * @param {number} itemNum
  * @returns {{type: string, category: string, categoryId: number, specsId: number, itemNum: number}}
  */
-export function addRecycledItem (category, categoryId, specsId, itemNum){
+export function addRecycledItem (sort, categoryId, specsId, itemNum){
   return {
     type: ADD_RecycledItem,
-    category,
+    sort,
     categoryId,
     specsId,
     itemNum
@@ -58,16 +51,16 @@ export function addRecycledItem (category, categoryId, specsId, itemNum){
 
 /**
  * 从待回收订单中，减少待回收物
- * @param {string} category  oneOf(['electricProduct', furnitureProduct])
+ * @param {number} sort
  * @param {number} categoryId
  * @param {number} specsId
  * @param {number} itemNum
  * @returns {{type: string, category: string, categoryId: number, specsId: number, itemNum: number}}
  */
-export function reduceRecycledItem (category, categoryId, specsId, itemNum){
+export function reduceRecycledItem (sort, categoryId, specsId, itemNum){
   return {
     type: REDUCE_RecycledItem,
-    category,
+    sort,
     categoryId,
     specsId,
     itemNum

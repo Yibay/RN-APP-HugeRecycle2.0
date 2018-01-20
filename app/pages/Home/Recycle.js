@@ -10,9 +10,7 @@ import config from '../../util/request/config';
 import { setAllProducts } from '../../redux/actions/Recycle';
 
 import ClassificationNavigation from '../../containers/Recycle/ClassificationNavigation';
-import GarbageProducts from '../../containers/Recycle/GarbageProducts';
-import ElectricProducts from '../../containers/Recycle/ElectricProducts';
-import FurnitureProducts from '../../containers/Recycle/FurnitureProducts';
+import SubCategory from '../../containers/Recycle/SubCategory';
 import CallModule from '../../containers/Recycle/CallModule';
 import CallModal from '../../containers/Recycle/CallModal';
 
@@ -23,27 +21,30 @@ class Recycle extends Component{
     super(props);
 
     this.state = {
-      selectedCategory: 1, // 回收类别选中项（默认 选中第一项）
-      category: [
-        {categoryNum:1, categoryText: '小件干垃圾'},
-        {categoryNum:2, categoryText: '废旧家电'},
-        {categoryNum:3, categoryText: '废旧家具'}
-      ],
+      selectedCategory: 0, // 初始值 0 ，会被 componentWillReceiveProps 中覆写，被覆写后 值不为0，则 不再被覆写
       callModalVisible: false
     };
   }
 
+  componentWillReceiveProps(nextProps){
+    if(nextProps.category instanceof Array && nextProps.category.length && !this.state.selectedCategory){
+      this.setState({
+        selectedCategory: nextProps.category[0].categoryNum // 回收类别选中项（默认 选中第一项）
+      });
+    }
+  }
+
   render(){
+    let AllProductsObj = this.props.recyclableGoods.AllProductsObj;
 
     return (<View style={styles.container}>
       {/* 导航条 */}
-      <ClassificationNavigation category={this.state.category} selectedCategory={this.state.selectedCategory} switchCategory={this.switchCategory.bind(this)} />
-        {/* 分页：可回收垃圾 */}
-        <GarbageProducts show={this.state.selectedCategory === 1} garbageProductsObj={this.props.garbageProductsObj} />
-        {/* 分页：废旧家电 */}
-        <ElectricProducts show={this.state.selectedCategory === 2} electricProductsObj={this.props.electricProductsObj} />
-        {/* 分页：废旧家具 */}
-        <FurnitureProducts show={this.state.selectedCategory === 3} furnitureProductsObj={this.props.furnitureProductsObj} />
+      <ClassificationNavigation category={this.props.category} selectedCategory={this.state.selectedCategory} switchCategory={this.switchCategory.bind(this)} />
+        {
+          /* 分页: 1阶回收大分类 */
+          Reflect.ownKeys(AllProductsObj)
+            .map(key => (<SubCategory key={key} show={this.state.selectedCategory === AllProductsObj[key].sort} subCategoryObj={AllProductsObj[key].subCategoryObj} sort={AllProductsObj[key].sort} />))
+        }
       {/* 底栏：一键呼叫按钮 */}
       <CallModule showCallModal={() => this.showCallModal()} />
       {/* 弹窗：一键呼叫 */}
@@ -56,13 +57,11 @@ class Recycle extends Component{
     request
       .get(config.api.getProducts)
       .then(res => {
-        console.log(res);
-        // 更新全局数据
-        this.props.setAllProducts({
-          garbageProducts: res.data.garbageProducts,
-          electricProducts: res.data.electricProducts,
-          furnitureProducts: res.data.furnitureProducts
-        })
+        // 若请求成功，数据正常
+        if(!res.status){
+          // 更新全局数据
+          this.props.setAllProducts(res.data);
+        }
       })
       .catch(e => console.log(e));
   }
@@ -96,9 +95,10 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
-    garbageProductsObj: state.recycle.recyclableGoods.garbageProductsObj,
-    electricProductsObj: state.recycle.recyclableGoods.electricProductsObj,
-    furnitureProductsObj: state.recycle.recyclableGoods.furnitureProductsObj
+    category: state.recycle.recyclableGoods.AllProductsArray
+      .sort((val1, val2) => val1.sort - val2.sort)
+      .map(item => ({categoryName: item.categoryName, categoryNum: item.sort})),
+    recyclableGoods: state.recycle.recyclableGoods
   }
 }
 

@@ -17,6 +17,7 @@ import SubmitBtn from '../components/common/Form/Btn/SubmitBtn';
 class RecycleOrder extends Component{
 
   static propTypes = {
+    recyclableGoods: PropTypes.object.isRequired,
     currentLocation: PropTypes.object.isRequired,
     recycledItemsList: PropTypes.object.isRequired
   };
@@ -73,7 +74,8 @@ class RecycleOrder extends Component{
     orderParams.orderSource = Platform.select({ios: 5, android: 4});
     orderParams.items = this.props.recycledItemsList.list.map(item => ({
       id: item.specsId,
-      name: this.props.recyclableGoods[`${item.category}sObj`][`id${item.categoryId}`].name + ' ' + this.props.recyclableGoods[`${item.category}sObj`][`id${item.categoryId}`].specsObj[`id${item.specsId}`].name,
+      name: this.props.recyclableGoods.AllProductsObj[`sort${item.sort}`].subCategoryObj[`id${item.categoryId}`].name
+        + ' ' + this.props.recyclableGoods.AllProductsObj[`sort${item.sort}`].subCategoryObj[`id${item.categoryId}`].specsObj[`id${item.specsId}`].name,
       num: item.itemNum
     }));
     console.log(orderParams);

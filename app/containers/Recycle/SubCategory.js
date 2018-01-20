@@ -4,16 +4,15 @@ import { StyleSheet, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 
 
-import { categoryElectricProduct } from '../../redux/actions/Recycle';
-
 import CategoryItem from '../../components/pages/Recycle/CategoryItem';
 
 
-class ElectricProducts extends Component{
+class SubCategory extends Component{
 
   static propTypes = {
     show: PropTypes.bool.isRequired,
-    electricProductsObj: PropTypes.object.isRequired
+    subCategoryObj: PropTypes.object.isRequired,
+    sort: PropTypes.number.isRequired
   };
 
   render(){
@@ -21,7 +20,8 @@ class ElectricProducts extends Component{
     return (
       <ScrollView style={[styles.container, this.props.show ? styles.none : styles.hide]}>
         {
-          Object.keys(this.props.electricProductsObj).map(key => (<CategoryItem key={key} category={this.props.electricProductsObj[key]} categoryType={categoryElectricProduct} />))
+          Reflect.ownKeys(this.props.subCategoryObj)
+            .map(key => (<CategoryItem key={key} category={this.props.subCategoryObj[key]} sort={this.props.sort} />))
         }
       </ScrollView>
     );
@@ -39,10 +39,7 @@ const styles = StyleSheet.create({
   },
   hide: {
     display: 'none'
-  },
-  none: {
-
   }
 });
 
-export default ElectricProducts;
+export default SubCategory;

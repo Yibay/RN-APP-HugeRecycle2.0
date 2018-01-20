@@ -10,7 +10,7 @@ import config from '../../../util/request/config';
 const RecycledItem = props => (<View style={styles.container}>
   <Image style={styles.specsImage} resizeMode='contain' source={{uri: config.static.base + props.specs.image}} />
   <View style={styles.specsContent}>
-    <Text style={styles.specsName}>{props.specs.name}</Text>
+    <Text style={styles.specsName}>{`${props.subCategoryName} ${props.specs.name}`}</Text>
     <Text style={styles.specNum}>{'¥' + props.specs.price + ' *' + props.specs.number}</Text>
     <Text style={styles.specTotalPrice}>{'¥' + props.specs.price * props.specs.number}</Text>
   </View>
@@ -22,7 +22,8 @@ RecycledItem.propTypes = {
     image: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     number: PropTypes.number.isRequired
-  })
+  }),
+  subCategoryName: PropTypes.string.isRequired
 };
 
 const styles = StyleSheet.create({

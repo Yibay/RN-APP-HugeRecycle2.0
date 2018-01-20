@@ -18,7 +18,7 @@ export default {
   // 请求 api接口
   api: {
     // 获取回收物品 列表
-    getProducts: `${api_base_old}api/mobile/normal/getProducts`,
+    getProducts: `${api_base}api/customer/app/deal/getProducts`,
     // 获取 定位小区
     getLocateCommunity: `${api_base}api/customer/app/deal/getLocateCommunity`,
     // 获取 短信验证码(POST)

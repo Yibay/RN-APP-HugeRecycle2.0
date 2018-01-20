@@ -12,7 +12,7 @@ import { addRecycledItem, reduceRecycledItem } from '../../../redux/actions/Recy
 class SpecsItem extends Component{
 
   static propTypes = {
-    categoryType: PropTypes.string.isRequired,
+    sort: PropTypes.number.isRequired,
     categoryId: PropTypes.number.isRequired,
     specs: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -30,6 +30,7 @@ class SpecsItem extends Component{
   };
 
   render(){
+
     return (<View style={styles.container}>
       <Image style={styles.specsImage} resizeMode='contain' source={{uri: (config.static.base + this.props.specs.image)}} />
       <View style={styles.specsContent}>
@@ -57,11 +58,11 @@ class SpecsItem extends Component{
   }
 
   addItem(){
-    this.props.addRecycledItem(this.props.categoryType,this.props.categoryId,this.props.specs.id,this.props.specs.number || 0);
+    this.props.addRecycledItem(this.props.sort,this.props.categoryId,this.props.specs.id,this.props.specs.number);
   }
 
   reduceItem(){
-    this.props.reduceRecycledItem(this.props.categoryType,this.props.categoryId,this.props.specs.id,this.props.specs.number || 0);
+    this.props.reduceRecycledItem(this.props.sort,this.props.categoryId,this.props.specs.id,this.props.specs.number);
   }
 
   toggleItem(){

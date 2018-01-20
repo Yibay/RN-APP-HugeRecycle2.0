@@ -11,32 +11,22 @@ class RecycledItemsList extends Component{
 
   render(){
 
+    let allProductsObj = this.props.recyclableGoods.AllProductsObj;
+
     let recycledItemsList = this.props.recycledItemsList.list.map(
-      item => this.props.recyclableGoods[item.category + 'sObj']['id' + item.categoryId].specsObj['id' + item.specsId]
+      item => ({
+        specs: allProductsObj[`sort${item.sort}`].subCategoryObj['id' + item.categoryId].specsObj['id' + item.specsId],
+        subCategoryName: allProductsObj[`sort${item.sort}`].subCategoryObj['id' + item.categoryId].name
+      })
     );
 
     return (<View>
       {
-        recycledItemsList.map(item => <RecycledItem key={item.id} specs={item} />)
+        recycledItemsList.map(item => <RecycledItem key={item.specs.id} specs={item.specs} subCategoryName={item.subCategoryName} />)
       }
     </View>);
   }
 }
-
-const styles = StyleSheet.create({
-  title: {
-    paddingVertical: 20,
-    paddingLeft: 40,
-    fontSize: 36,
-    fontWeight: '700'
-  },
-  total: {
-    paddingVertical: 15,
-    paddingRight: 20,
-    fontSize: 25,
-    textAlign: 'right'
-  }
-});
 
 function mapStateToProps(state){
   return {
