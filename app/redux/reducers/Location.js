@@ -5,7 +5,7 @@ import _ from 'lodash';
 /* ------ type 类型 ------ */
 import {
   // type 类型
-  SET_Location, SET_AutoLocationFlag,
+  SET_Location, SET_AutoLocationFlag, SET_UserAddressList,
   // 地址常量
   defaultCurrentLocation
 } from '../actions/Location';
@@ -45,9 +45,25 @@ function autoLocationFlag(state=true, action){
   }
 }
 
+/**
+ * 用户地址列表
+ * @param state
+ * @param action
+ * @returns {Array}
+ */
+function userAddressList(state=[], action){
+  switch (action.type){
+    case SET_UserAddressList:
+      return action.addressList;
+    default:
+      return state;
+  }
+}
+
 const location = combineReducers({
   currentLocation,
-  autoLocationFlag
+  autoLocationFlag,
+  userAddressList
 });
 
 export default location;

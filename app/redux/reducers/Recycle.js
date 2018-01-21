@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-
 import _ from 'lodash';
+
 
 // type 类型
 import { SET_AllProducts, ADD_RecycledItem, REDUCE_RecycledItem } from '../actions/Recycle';
@@ -9,7 +9,12 @@ import { SET_AllProducts, ADD_RecycledItem, REDUCE_RecycledItem } from '../actio
 /* ------ reducer 函数 ------ */
 
 /* --- 可回收物品 ---*/
-
+/**
+ * 可回收物品列表
+ * @param state
+ * @param action
+ * @returns {{AllProductsObj: object, AllProductsArray: array, AllProductsNum: number}}
+ */
 function recyclableGoods(state = { AllProductsObj:{}, AllProductsArray:[], AllProductsNum:0 }, action){
 
   let new_state = {};
@@ -84,7 +89,12 @@ function recyclableGoods(state = { AllProductsObj:{}, AllProductsArray:[], AllPr
 
 
 /* --- 待回收物品 ---*/
-
+/**
+ * 待回收物品列表
+ * @param state
+ * @param action
+ * @returns {{list: array, num: number}}
+ */
 function recycledItemsList (state={list:[],num:0}, action){
 
   let new_state,flag,new_itemNum;

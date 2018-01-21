@@ -70,7 +70,17 @@ class CommunitySelector extends Component{
   }
   commitCommunity(){
     // 更新选中小区 到全局
-    this.props.setLocation(this.state.communitySelected);
+
+    // 查看 用户地址列表中，是否有相同小区
+    let matchingAddress = this.props.userAddressList.filter(item => item.communityId === this.state.communitySelected.communityId);
+    // 有,则取那个地址
+    if(matchingAddress.length){
+      this.props.setLocation(matchingAddress[0]);
+    }
+    // 没有,则仅取定位小区
+    else{
+      this.props.setLocation(this.state.communitySelected);
+    }
     // 返回回收页
     Actions.pop();
   }
@@ -146,7 +156,8 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
   return {
     communitySelected: state.location.currentLocation,
-    autoLocationFlag: state.location.autoLocationFlag
+    autoLocationFlag: state.location.autoLocationFlag,
+    userAddressList: state.location.userAddressList
   }
 }
 

@@ -5,11 +5,6 @@ export const SET_AllProducts = 'SET_AllProducts'; // 初始化 电器列表、�
 export const ADD_RecycledItem = 'ADD_RecycledItem'; // 向 待回收订单中，添加 回收物
 export const REDUCE_RecycledItem = 'REDUCE_RecycledItem'; // 从 待回收订单中，减少 回收物
 
-// 其他常量
-export const categoryElectricProduct = 'electricProduct';
-export const categoryFurnitureProduct = 'furnitureProduct';
-export const categoryGarbageProduct = 'garbageProduct';
-
 
 /* ------ Action 生成函数 ------ */
 

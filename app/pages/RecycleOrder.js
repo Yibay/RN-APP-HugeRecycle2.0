@@ -9,7 +9,7 @@ import _ from 'lodash';
 
 import { verifyLogin } from '../HOC/verifyLogin';
 import Header from '../components/common/Header/Header';
-import AddressSection from '../containers/RecycleOrder/AddressSection';
+import AddressSection from '../containers/RecycleOrder/AddressSection/AddressSection';
 import RecycledItemsList from '../containers/RecycleOrder/RecycledItemsList';
 import SubmitBtn from '../components/common/Form/Btn/SubmitBtn';
 
