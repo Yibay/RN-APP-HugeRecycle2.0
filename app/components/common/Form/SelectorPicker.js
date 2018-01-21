@@ -1,3 +1,8 @@
+/**
+ *  选择器组件
+ *  兼容 iOS, android
+ *  调用 iOS, android 各自平台的原生 选择器
+ */
 import React, { Component } from 'react';
 import { StyleSheet, Platform, View, Text, Picker, Modal, TouchableWithoutFeedback } from 'react-native';
 
