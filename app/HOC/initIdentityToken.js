@@ -50,7 +50,7 @@ const initIdentityToken = (WrappedComponent) => connect(null, actionsCreator)(cl
 
   render(){
 
-    return (<WrappedComponent {..._.omit(this.props, ['setIdentityToken'])} />);
+    return (<WrappedComponent {..._.omit(this.props, ['setIdentityToken', 'setLocation', 'setUserAddressList'])} />);
   }
 });
 

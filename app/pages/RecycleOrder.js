@@ -78,6 +78,7 @@ class RecycleOrder extends Component{
         + ' ' + this.props.recyclableGoods.AllProductsObj[`sort${item.sort}`].subCategoryObj[`id${item.categoryId}`].specsObj[`id${item.specsId}`].name,
       num: item.itemNum
     }));
+    console.log(this.props.currentLocation); // 其id 不存在，认为 地址填写不完整
     console.log(orderParams);
   }
 }

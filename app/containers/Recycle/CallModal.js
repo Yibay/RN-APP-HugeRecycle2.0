@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 
 import AdaptLayoutWidth from '../../components/common/AdaptLayoutWidth';
-import HouseNumberPicker from  '../../containers/Recycle/HouseNumberPicker';
+import SelectorPicker from '../../components/common/Form/SelectorPicker';
 
 
 class CallModal extends Component{
@@ -20,8 +20,11 @@ class CallModal extends Component{
     super(props);
 
     this.state = {
-      showHouseNumberPicker: false, // 是否显示 切换 有无户号的select
-      haveHouseNumber: true // 有无户号
+      haveHouseNumber: true, // 有无户号
+      houseNumberPickerOptions: [
+        { label: '有户号', value: true },
+        { label: '无户号', value: false }
+      ]
     }
   }
 
@@ -41,7 +44,8 @@ class CallModal extends Component{
               <Text style={styles.msgText}>小区名称 {this.props.currentLocation.communityName}</Text>
             </View>
             <View style={styles.lineSection}>
-              <Text style={styles.msgText} onPress={() => this.showHouseNumberPicker()}>{this.state.haveHouseNumber ? '有户号' : '无户号'}</Text>
+              {/* 有无户号 选择器 */}
+              <SelectorPicker options={this.state.houseNumberPickerOptions} selectedValue={this.state.haveHouseNumber} confirmPickerVal={(val) => this.setHaveHouseNumber(val)} />
               <View style={[this.state.haveHouseNumber ? styles.haveHouseNumberSection : styles.hide]}>
                 <TextInput style={[styles.msgText, styles.msgTextInput, styles.address]} underlineColorAndroid="transparent" />
                 <Text style={styles.msgText}>栋</Text>
@@ -61,7 +65,6 @@ class CallModal extends Component{
               </TouchableOpacity>
             </View>
           </View>
-          <HouseNumberPicker visible={this.state.showHouseNumberPicker} hideHouseNumberPicker={() => this.hideHouseNumberPicker()} setHaveHouseNumber={haveHouseNumber => this.setHaveHouseNumber(haveHouseNumber)} haveHouseNumber={this.state.haveHouseNumber} />
         </View>
       </AdaptLayoutWidth>
     </Modal>);
@@ -86,22 +89,10 @@ class CallModal extends Component{
     this.props.hideCallModal();
   }
 
-  showHouseNumberPicker(){
-    this.setState({
-      showHouseNumberPicker: true
-    })
-  }
-
-  hideHouseNumberPicker(){
-    this.setState({
-      showHouseNumberPicker: false
-    })
-  }
-
   setHaveHouseNumber(haveHouseNumber){
      this.setState({
        haveHouseNumber: haveHouseNumber,
-       showHouseNumberPicker: false
+       // showHouseNumberPicker: false
      })
   }
 
@@ -183,7 +174,7 @@ const styles = StyleSheet.create({
   },
   address: {
     flex: 1,
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     textAlign: 'center'
   },
   hide: {
