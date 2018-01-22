@@ -9,8 +9,8 @@ import config from '../../util/request/config';
 
 import { setAllProducts } from '../../redux/actions/Recycle';
 
-import ClassificationNavigation from '../../containers/Recycle/ClassificationNavigation';
-import SubCategory from '../../containers/Recycle/SubCategory';
+import ClassificationNavigation from '../../components/pages/Recycle/ClassificationNavigation';
+import SubCategory from '../../components/pages/Recycle/SubCategory';
 import CallModule from '../../containers/Recycle/CallModule';
 import CallModal from '../../containers/Recycle/CallModal';
 

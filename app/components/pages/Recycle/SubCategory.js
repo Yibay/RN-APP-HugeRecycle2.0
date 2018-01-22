@@ -4,7 +4,7 @@ import { StyleSheet, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 
 
-import CategoryItem from '../../components/pages/Recycle/CategoryItem';
+import CategoryItem from './CategoryItem';
 
 
 class SubCategory extends Component{

@@ -18,12 +18,13 @@ SubmitBtn.defaultProps = {
 
 const styles = StyleSheet.create({
   container: {
-    width: 524,
-    paddingVertical: 33,
+    width: 523,
+    height: 98,
     borderRadius: 48,
-    alignSelf: 'center',
-    backgroundColor: '#fed309',
     overflow: 'hidden',
+    backgroundColor: '#fed309',
+    alignSelf: 'center',
+    lineHeight: 96,
     textAlign: 'center',
     fontSize: 30,
     fontWeight: '700',

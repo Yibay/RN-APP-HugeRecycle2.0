@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 
 import AdaptLayoutWidth from '../../components/common/AdaptLayoutWidth';
-import SelectorPicker from '../../components/common/Form/SelectorPicker';
+import SelectorPicker from '../../components/common/Form/Selector/SelectorPicker';
 
 
 class CallModal extends Component{

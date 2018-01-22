@@ -45,7 +45,7 @@ class SelectorPicker extends Component {
       ios: (<View>
         {/* 选择器 按钮 */}
         <TouchableWithoutFeedback onPress={() => this.showPickerIOS()}>
-          <View style={styles.selectorIOS}>
+          <View style={[styles.selectorIOS].concat(this.props.style)}>
             <Text style={styles.pickerTextIOS}>{this.props.options.filter(item => item.value === this.props.selectedValue)[0].label}</Text>
             <Icon style={styles.arrowIcon} name='md-arrow-dropdown' size={50} />
           </View>
@@ -67,7 +67,7 @@ class SelectorPicker extends Component {
           </View>
         </Modal>
       </View>),
-      android: (<View style={styles.containerAndroid}>
+      android: (<View style={[styles.containerAndroid].concat(this.props.style)}>
         {/* 伪装的选择器 按钮 */}
         <Text style={styles.pickerTextAndroid}>{this.props.options.filter(item => item.value === this.props.selectedValue)[0].label}</Text>
         <Icon style={styles.arrowIcon} name='md-arrow-dropdown' size={50} />
@@ -111,15 +111,16 @@ const styles = StyleSheet.create({
   selectorIOS: {
     flexDirection: 'row',
     alignSelf: 'stretch',
-    paddingHorizontal: 20,
+    width: 150,
     borderWidth: 1,
-    borderColor: '#c9c9c9',
+    borderColor: '#888',
     borderRadius: 10,
+    justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden'
   },
   pickerTextIOS: {
-    fontSize: 30
+    fontSize: 26
   },
   containerIOS: {
     position: 'relative',
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     width: 150,
     borderWidth: 1,
-    borderColor: '#c9c9c9',
+    borderColor: '#888',
     borderRadius: 10,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -165,7 +166,7 @@ const styles = StyleSheet.create({
     color: 'transparent' // 隐藏 Android下 Picker 自带 selector
   },
   pickerTextAndroid: {
-    fontSize: 30,
+    fontSize: 26,
     color: '#000'
   },
   arrowIcon: {
