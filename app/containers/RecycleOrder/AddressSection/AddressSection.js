@@ -16,7 +16,7 @@ class AddressSection extends Component {
   render(){
 
     // 一键回收地址
-    if(this.props.currentLocation.id){
+    if(this.props.currentLocation.id || this.props.currentLocation.address){
       return (
         <TouchableWithoutFeedback onPress={() => this.goToAddressSelectionPage()}>
           <View>

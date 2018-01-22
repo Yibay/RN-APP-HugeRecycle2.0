@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, TouchableWithoutFeedback, TextInput, Alert } fr
 import { connect } from 'react-redux';
 
 
-import { validator } from '../util/form/validator';
+import validator from '../util/form/validator';
 import request from '../util/request/request';
 import config from '../util/request/config';
 import { setIdentityToken } from '../redux/actions/IdentityToken';

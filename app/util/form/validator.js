@@ -1,5 +1,5 @@
 // form 表单 数据格式 验证器
-export const validator = {
+const validator = {
 
   // 验证是否为空
   isEmpty(value){
@@ -11,3 +11,5 @@ export const validator = {
     return /^1[34578]\d{9}$/.test(value);
   }
 };
+
+export default validator
