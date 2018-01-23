@@ -1,3 +1,8 @@
+/**
+ * 地址模块
+ * 显示 用户名、电话、市、区、街道、小区
+ * 根据有无户号，分别显示 幢、单元、室 或 详细地址
+ */
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 

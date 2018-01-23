@@ -7,6 +7,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
 
 
+import AddressSection from '../../../components/common/Address/AddressSection';
+
+
 class OrderAddressSection extends Component {
 
   static propTypes = {
@@ -20,21 +23,8 @@ class OrderAddressSection extends Component {
       return (
         <TouchableWithoutFeedback onPress={() => this.goToAddressSelectionPage()}>
           <View>
-            <View style={styles.container}>
-              <View style={styles.nameSection}>
-                <Text style={[styles.text ,styles.name]}>{this.props.currentLocation.customerName}</Text>
-                <Text style={styles.text}>{this.props.currentLocation.telNo}</Text>
-              </View>
-              <Text style={styles.text}>
-                {
-                  `${this.props.currentLocation.city}${this.props.currentLocation.region}${this.props.currentLocation.street}${this.props.currentLocation.communityName}`
-                  + (this.props.currentLocation.haveHouseNumber ?
-                    `${this.props.currentLocation.building}幢${this.props.currentLocation.unit}单元${this.props.currentLocation.room}室` :
-                    `${this.props.currentLocation.address}`)
-                }
-              </Text>
-              <Icon style={styles.icon} name='ios-arrow-forward' size={50} color='#828282' />
-            </View>
+            {/* 显示地址模块 */}
+            <AddressSection currentLocation={this.props.currentLocation} rightButton={<Icon style={styles.icon} name='ios-arrow-forward' size={50} color='#828282' />}/>
             <Image source={require('./img/address.png')} resizeMode='contain'/>
           </View>
         </TouchableWithoutFeedback>
@@ -45,6 +35,7 @@ class OrderAddressSection extends Component {
       return (
         <TouchableWithoutFeedback onPress={() => this.goToAddressAddPage()}>
           <View>
+            {/* 新增地址模块 */}
             <View style={[styles.container, styles.addNewAddress]}>
               <Text style={styles.newAddressTitle}>请添加回收地址</Text>
               <Icon name='md-add' size={50} color='#828282' />
