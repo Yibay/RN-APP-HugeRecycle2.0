@@ -6,7 +6,14 @@ export const SET_AutoLocationFlag = 'SET_AutoLocationFlag';
 export const SET_UserAddressList = 'SET_UserAddressList';
 
 // 其他常量
-export const defaultCurrentLocation = {communityName: '选择小区'};
+export const defaultCurrentLocation = {
+  communityName: '选择小区',
+  haveHouseNumber: true,
+  address: '',
+  building: '',
+  unit: '',
+  room: ''
+};
 
 
 /* ------ Action 生成函数 ------ */

@@ -15,7 +15,12 @@ import SelectorPicker from '../Selector/SelectorPicker';
 class HouseNumberAddressSection extends Component {
 
   static propTypes = {
-    onChangeText: PropTypes.func.isRequired // 更新数据，把数据同步到外面
+    onChangeText: PropTypes.func.isRequired, // 更新数据，把数据同步到外面
+    currentLocation: PropTypes.object.isRequired // 里面的参数 在新定位小区时，可能都为空，所以不设shape
+  };
+
+  static defaultProps = {
+    currentLocation: {}
   };
 
   constructor(props){
@@ -27,16 +32,16 @@ class HouseNumberAddressSection extends Component {
         { label: '无户号', value: false }
       ],
       stateUpdateFlag: false,
-      haveHouseNumber: true,
-      address: '',
-      building: '',
-      unit: '',
-      room: ''
+      haveHouseNumber: typeof this.props.currentLocation.haveHouseNumber !== 'undefined' ? this.props.currentLocation.haveHouseNumber : true,
+      address: this.props.currentLocation.address ? this.props.currentLocation.address : '',
+      building: this.props.currentLocation.building ? this.props.currentLocation.building : '',
+      unit: this.props.currentLocation.unit ? this.props.currentLocation.unit : '',
+      room: this.props.currentLocation.room ? this.props.currentLocation.room : ''
     }
   }
 
   render(){
-    return (<View style={styles.container}>
+    return (<View style={[styles.container].concat(this.props.style)}>
       {/* 切换 有无户号的 选择器 */}
       <SelectorPicker style={styles.SelectorPicker} selectedValue={this.state.haveHouseNumber} options={this.state.options} confirmPickerVal={val => this.selectHouseNumberType(val)} />
       {/* 有户号 地址模块 */}
@@ -65,7 +70,7 @@ class HouseNumberAddressSection extends Component {
   selectHouseNumberType(val){
     this.setState({
       haveHouseNumber: val,
-      stateUpdateFlag: true // flag标记 内部state更新了
+      stateUpdateFlag: true // flag标记 内部手动更新 state了
     });
   }
 
@@ -74,7 +79,7 @@ class HouseNumberAddressSection extends Component {
     // 过滤出，val为字母和数字的key值
     let validKeys = Reflect.ownKeys(valObj).filter(key => /^[0-9a-zA-Z]*$/.test(valObj[key]));
     // 仅保留val为字母和数字的key
-    this.setState(_.merge(_.pick(valObj, validKeys), { stateUpdateFlag: true })); // flag标记 内部state更新了
+    this.setState(_.merge(_.pick(valObj, validKeys), { stateUpdateFlag: true })); // flag标记 内部手动更新 state了
   }
 
   // 只能输入数字
@@ -82,18 +87,13 @@ class HouseNumberAddressSection extends Component {
     // 过滤出，val为数字的key值
     let validKeys = Reflect.ownKeys(valObj).filter(key => Number(valObj[key]) == valObj[key]);
     // 仅保留 val为数字的key
-    this.setState(_.merge(_.pick(valObj, validKeys), { stateUpdateFlag: true })); // flag标记 内部state更新了
+    this.setState(_.merge(_.pick(valObj, validKeys), { stateUpdateFlag: true })); // flag标记 内部手动更新 state了
   }
 
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: 106,
-    paddingHorizontal: 34,
-    paddingVertical: 24,
-    borderColor: '#e1e5e8',
-    borderBottomWidth: 2,
     flexDirection: 'row'
   },
   // 有无户号 选择器

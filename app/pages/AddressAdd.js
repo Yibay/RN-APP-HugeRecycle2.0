@@ -47,7 +47,7 @@ class AddressAdd extends Component {
       <InputSection label='联系人' value={this.state.customerName} onChangeText={val => this.setState({customerName: val})} />
       <InputSection label='手机号码' value={this.state.telNo} onChangeText={val => this.setState({telNo: val})} />
       <InputSection label='小区名称' value={this.state.communityName} editable={false} rightButton={<LocationBtn/>} />
-      <HouseNumberAddressSection onChangeText={val => this.updateAddress(val)} />
+      <HouseNumberAddressSection onChangeText={val => this.updateAddress(val)} style={styles.HouseNumberAddressSection} />
       <SubmitBtn style={styles.submitBtn} submit={() => this.addAddress()} />
     </View>);
   }
@@ -134,6 +134,13 @@ const styles = StyleSheet.create({
   },
   submitBtn: {
     marginTop: 78
+  },
+  HouseNumberAddressSection: {
+    height: 106,
+    paddingHorizontal: 34,
+    paddingVertical: 24,
+    borderColor: '#e1e5e8',
+    borderBottomWidth: 2,
   }
 });
 

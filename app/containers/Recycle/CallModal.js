@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Modal, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Modal, TextInput, TouchableOpacity, Platform } from 'react-native';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
+
+import request from '../../util/request/request';
+import config from '../../util/request/config';
 
 import AdaptLayoutWidth from '../../components/common/AdaptLayoutWidth';
-import SelectorPicker from '../../components/common/Form/Selector/SelectorPicker';
+import HouseNumberAddressSection from '../../components/common/Form/Module/HouseNumberAddressSection';
 
 
 class CallModal extends Component{
@@ -20,12 +24,29 @@ class CallModal extends Component{
     super(props);
 
     this.state = {
-      haveHouseNumber: true, // 有无户号
-      houseNumberPickerOptions: [
-        { label: '有户号', value: true },
-        { label: '无户号', value: false }
-      ]
+      accountName: props.currentLocation.customerName ? props.currentLocation.customerName : '',
+      phone: props.currentLocation.telNo ? props.currentLocation.telNo : '',
+      haveHouseNumber: typeof props.currentLocation.haveHouseNumber !== 'undefined' ? props.currentLocation.haveHouseNumber : true, // 有无户号
+      address: props.currentLocation.address ? props.currentLocation.address : '',
+      building: props.currentLocation.building ? props.currentLocation.building : '',
+      unit: props.currentLocation.unit ? props.currentLocation.unit : '',
+      room: props.currentLocation.room ? props.currentLocation.room : ''
     }
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState(
+      _.assign(
+        {},
+        nextProps.currentLocation.customerName ? { accountName: nextProps.currentLocation.customerName } : {},
+        nextProps.currentLocation.telNo ? { phone: nextProps.currentLocation.telNo } : {},
+        typeof nextProps.currentLocation.haveHouseNumber !== 'undefined' ? { haveHouseNumber: nextProps.currentLocation.haveHouseNumber } : {},
+        nextProps.currentLocation.address ? { address: nextProps.currentLocation.address } : {},
+        nextProps.currentLocation.building ? { building: nextProps.currentLocation.building } : {},
+        nextProps.currentLocation.unit ? { unit: nextProps.currentLocation.unit } : {},
+        nextProps.currentLocation.room ? { room: nextProps.currentLocation.room } : {},
+      )
+    );
   }
 
   render(){
@@ -36,25 +57,16 @@ class CallModal extends Component{
             <Text style={styles.title}>您未选择可回收物，直接呼叫虎哥</Text>
             <View style={styles.lineSection}>
               <Text style={styles.msgText}>联系人</Text>
-              <TextInput style={[styles.msgText, styles.msgTextInput, styles.linkman]} underlineColorAndroid="transparent" />
+              <TextInput style={[styles.msgText, styles.msgTextInput, styles.linkman]} underlineColorAndroid="transparent" onChangeText={val => this.setState({accountName: val.trim()})} value={this.state.accountName} />
               <Text style={styles.msgText}>电话</Text>
-              <TextInput style={[styles.msgText, styles.msgTextInput, styles.tel]} underlineColorAndroid="transparent" />
+              <TextInput style={[styles.msgText, styles.msgTextInput, styles.tel]} underlineColorAndroid="transparent" onChangeText={val => this.setState({phone: val.trim()})} value={this.state.phone} />
             </View>
             <View style={styles.lineSection}>
               <Text style={styles.msgText}>小区名称 {this.props.currentLocation.communityName}</Text>
             </View>
             <View style={styles.lineSection}>
               {/* 有无户号 选择器 */}
-              <SelectorPicker options={this.state.houseNumberPickerOptions} selectedValue={this.state.haveHouseNumber} confirmPickerVal={(val) => this.setHaveHouseNumber(val)} />
-              <View style={[this.state.haveHouseNumber ? styles.haveHouseNumberSection : styles.hide]}>
-                <TextInput style={[styles.msgText, styles.msgTextInput, styles.address]} underlineColorAndroid="transparent" />
-                <Text style={styles.msgText}>栋</Text>
-                <TextInput style={[styles.msgText, styles.msgTextInput, styles.address]} underlineColorAndroid="transparent" />
-                <Text style={styles.msgText}>单元</Text>
-                <TextInput style={[styles.msgText, styles.msgTextInput, styles.address]} underlineColorAndroid="transparent" />
-                <Text style={styles.msgText}>室</Text>
-              </View>
-              <TextInput style={[this.state.haveHouseNumber ? styles.hide : styles.msgText, styles.msgTextInput, styles.address]} underlineColorAndroid="transparent" />
+              <HouseNumberAddressSection onChangeText={valObj => this.setState(valObj)} currentLocation={this.props.currentLocation} />
             </View>
             <View style={styles.btnSection}>
               <TouchableOpacity style={[styles.btn, styles.btnConfirm]} onPress={() => this.confirmCall()}>
@@ -75,25 +87,31 @@ class CallModal extends Component{
   }
 
   confirmCall(){
+
+    // 请求数据
+    let params = _.assign(
+      {},
+      _.pick(this.props.currentLocation, ['communityId', 'communityName']), // 小区信息
+      this.state // 联系人、电话、有无户号等信息
+    );
+    params.isAerialWork = false; // 是否需要拆卸空调
+    params.orderSource = Platform.select({ android: 4, ios: 5 });
+
     // 检验数据
+    console.log(params);
 
     // 发送请求
-    console.log({
-      communityId: this.props.currentLocation.communityId,
-      communityName: this.props.currentLocation.communityName,
-      haveHouseNumber: this.state.haveHouseNumber, // 有无户号
-      isAerialWork: false  // 是否需要拆卸空调
-    });
+    // 若已登录
+    if(this.props.authToken){
+      // 带 X-AUTH-TOKEN 发送请求
+    }
+    // 若未登录
+    else {
+      // 带验证码 发送请求
+    }
 
     // 发送成功后，关闭弹窗
     this.props.hideCallModal();
-  }
-
-  setHaveHouseNumber(haveHouseNumber){
-     this.setState({
-       haveHouseNumber: haveHouseNumber,
-       // showHouseNumberPicker: false
-     })
   }
 
   // Android Modal 必须属性
@@ -184,7 +202,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
-    currentLocation: state.location.currentLocation
+    currentLocation: state.location.currentLocation,
+    authToken: state.identityToken.authToken
   }
 }
 
