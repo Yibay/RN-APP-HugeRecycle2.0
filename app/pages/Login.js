@@ -12,6 +12,7 @@ import { setLocation, setUserAddressList } from '../redux/actions/Location';
 
 import Header from '../components/common/Header/Header';
 import SubmitBtn from '../components/common/Form/Btn/SubmitBtn';
+import InputSection from '../components/common/Form/Input/InputSection';
 
 
 class Login extends Component{
@@ -46,22 +47,13 @@ class Login extends Component{
             </View>
           </TouchableWithoutFeedback>
         </View>
-        {/* 输入框 */}
+        {/* 输入框: 手机验证码登录 */}
         <View style={this.state.useCodeLogin ? styles.form : styles.hide}>
-          <View style={styles.formSection}>
-            <Text style={styles.formLabel}>手机号码</Text>
-            <TextInput style={styles.formInput} value={this.state.phone} onChangeText={text => this.changePhone(text)} underlineColorAndroid="transparent" />
-            <Text style={styles.getCode} onPress={() => this.getCode()}>发送验证码</Text>
-          </View>
-          <View style={styles.formSection}>
-            <Text style={styles.formLabel}>短信验证码</Text>
-            <TextInput style={styles.formInput} value={this.state.code} onChangeText={text => this.changeCode(text)} underlineColorAndroid="transparent" />
-          </View>
+          <InputSection label='手机号码' value={this.state.phone} onChangeText={text => this.changePhone(text)} rightButton={<Text style={styles.getCode} onPress={() => this.getCode()}>发送验证码</Text>}/>
+          <InputSection label='短信验证码' value={this.state.code} onChangeText={text => this.changeCode(text)}/>
         </View>
         {/* 登录按钮 */}
-        <View style={styles.btnSection}>
-          <SubmitBtn text='登录' submit={() => this.login()} />
-        </View>
+        <SubmitBtn text='登录' submit={() => this.login()} style={styles.btnSection} />
       </View>
     </View>)
   }
@@ -239,7 +231,6 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
   getCode: {
-    marginRight: 30,
     paddingHorizontal: 16,
     paddingVertical: 22,
     borderRadius: 10,
