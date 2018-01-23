@@ -19,6 +19,7 @@ import RecycleOrder from '../pages/RecycleOrder';
 import Login from '../pages/Login';
 import AddressSelection from '../pages/AddressSelection';
 import AddressAdd from '../pages/AddressAdd';
+import AddressEdit from '../pages/AddressEdit';
 
 // 导航按钮
 import RecycleRightButton from '../containers/Recycle/NavBarRightButton/NavBarRightButton';
@@ -39,10 +40,12 @@ const AppRouter = () => (
       <Scene key='locationPage' component={LocationPage} hideNavBar={true} />
       {/* 回收订单页 */}
       <Scene key='recycleOrderPage' title='待回收物品' component={RecycleOrder} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} hideNavBar={true} />
-      {/* 选择地址页 */}
-      <Scene key='addressSelectionPage' component={AddressSelection} hideNavBar={true} />
       {/* 新增地址页 */}
       <Scene key='addressAddPage' component={AddressAdd} hideNavBar={true} />
+      {/* 选择地址页 */}
+      <Scene key='addressSelectionPage' component={AddressSelection} hideNavBar={true} />
+      {/* 编辑地址 */}
+      <Scene key='addressEditPage' component={AddressEdit} hideNavBar={true} />
       {/* 轮播简介页 */}
       <Scene key='intro' component={Intro} hideNavBar={true} />
       {/* 登录页 */}

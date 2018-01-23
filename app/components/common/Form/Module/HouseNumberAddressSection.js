@@ -1,5 +1,5 @@
 /**
- * 地址表单组件
+ * 门牌号地址 表单组件
  * 切换有无户号 地址表单
  */
 import React, { Component } from 'react';
@@ -12,7 +12,7 @@ import _ from 'lodash';
 import SelectorPicker from '../Selector/SelectorPicker';
 
 
-class AddressSection extends Component {
+class HouseNumberAddressSection extends Component {
 
   static propTypes = {
     onChangeText: PropTypes.func.isRequired // 更新数据，把数据同步到外面
@@ -129,4 +129,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default AddressSection;
+export default HouseNumberAddressSection;

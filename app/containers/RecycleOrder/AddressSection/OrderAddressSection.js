@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
 
 
-class AddressSection extends Component {
+class OrderAddressSection extends Component {
 
   static propTypes = {
     currentLocation: PropTypes.object.isRequired
@@ -20,7 +20,7 @@ class AddressSection extends Component {
       return (
         <TouchableWithoutFeedback onPress={() => this.goToAddressSelectionPage()}>
           <View>
-              <View style={styles.container}>
+            <View style={styles.container}>
               <View style={styles.nameSection}>
                 <Text style={[styles.text ,styles.name]}>{this.props.currentLocation.customerName}</Text>
                 <Text style={styles.text}>{this.props.currentLocation.telNo}</Text>
@@ -110,4 +110,4 @@ function mapStateToProps(state){
 }
 
 
-export default connect(mapStateToProps)(AddressSection);
+export default connect(mapStateToProps)(OrderAddressSection);

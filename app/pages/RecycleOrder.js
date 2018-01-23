@@ -9,7 +9,7 @@ import _ from 'lodash';
 
 import { verifyLogin } from '../HOC/verifyLogin';
 import Header from '../components/common/Header/Header';
-import AddressSection from '../containers/RecycleOrder/AddressSection/AddressSection';
+import OrderAddressSection from '../containers/RecycleOrder/AddressSection/OrderAddressSection';
 import RecycledItemsList from '../containers/RecycleOrder/RecycledItemsList';
 import SubmitBtn from '../components/common/Form/Btn/SubmitBtn';
 
@@ -36,7 +36,7 @@ class RecycleOrder extends Component{
       {/* 页头 */}
       <Header title='待回收物品'/>
       {/* 地址模块 */}
-      <AddressSection />
+      <OrderAddressSection />
       <ScrollView style={styles.content}>
         {/* 回收物模块 */}
         <RecycledItemsList />
