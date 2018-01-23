@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 
 import PropTypes from 'prop-types';
 
 
-const SubmitBtn = props => (<Text style={[styles.container].concat(props.style)} onPress={props.submit}>{props.text}</Text>);
+const SubmitBtn = props => (<TouchableWithoutFeedback onPress={props.submit}>
+  <View style={[styles.container].concat(props.style)}>
+    <Text style={styles.text}>{props.text}</Text>
+  </View>
+</TouchableWithoutFeedback>);
 
 SubmitBtn.propTypes = {
   text: PropTypes.string.isRequired,
@@ -20,11 +24,15 @@ const styles = StyleSheet.create({
   container: {
     width: 523,
     height: 98,
+    padding: 0,
     borderRadius: 48,
     overflow: 'hidden',
     backgroundColor: '#fed309',
     alignSelf: 'center',
-    lineHeight: 96,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  text: {
     textAlign: 'center',
     fontSize: 30,
     fontWeight: '700',

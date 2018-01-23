@@ -22,25 +22,28 @@ const initIdentityToken = (WrappedComponent) => connect(null, actionsCreator)(cl
       .load({ key: 'identityToken' })
       .catch(err => {console.warn(err); return null}); // 若未找到，则log对应信息
 
-    // 若找到 则更新到数据流中
+    // 1. 若找到 则更新到数据流中
     if(ret){
       this.props.setIdentityToken(ret);
 
-      // 2. 获取 一键呼叫 默认地址 (defaultAddress)
-      let defaultAddress = await request
-        .get(config.api.getDefaultAddress, null, {'X-AUTH-TOKEN': ret['X-AUTH-TOKEN']})
-        .catch(err => {console.log(err); return null;}); // 若请求报错，则log对应信息
+      // 更新app需要的用户信息
+      let [defaultAddress, addressList] = await Promise.all([ // 并发
+        // 2. 获取 一键呼叫 默认地址 (defaultAddress)
+        request
+          .get(config.api.getDefaultAddress, null, {'X-AUTH-TOKEN': ret['X-AUTH-TOKEN']})
+          .catch(err => {console.log(err); return null;}), // 若请求报错，则log对应信息
+        // 3. 获取 用户地址列表
+        request
+          .get(config.api.getAddressList, null, {'X-AUTH-TOKEN': ret['X-AUTH-TOKEN']})
+          .catch(err => {console.log(err); return null;})
+      ]);
 
-      // 一键呼叫 默认地址 数据正确
-      if(defaultAddress && !defaultAddress.status){
+      // 2. 一键呼叫 默认地址 数据正确
+      if(defaultAddress && !defaultAddress.status) {
         this.props.setLocation(defaultAddress.data);
       }
 
-      // 3. 获取 用户地址列表
-      let addressList = await request
-        .get(config.api.getAddressList, null, {'X-AUTH-TOKEN': ret['X-AUTH-TOKEN']})
-        .catch(err => {console.log(err); return null;});
-      // 用户地址列表 数据正确
+      // 3. 用户地址列表 数据正确
       if(addressList && !addressList.status){
         this.props.setUserAddressList(addressList.data.addresses);
       }

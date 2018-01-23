@@ -8,6 +8,7 @@ import validator from '../util/form/validator';
 import request from '../util/request/request';
 import config from '../util/request/config';
 import { setIdentityToken } from '../redux/actions/IdentityToken';
+import { setLocation, setUserAddressList } from '../redux/actions/Location';
 
 import Header from '../components/common/Header/Header';
 import SubmitBtn from '../components/common/Form/Btn/SubmitBtn';
@@ -104,7 +105,8 @@ class Login extends Component{
   }
 
   // 登录
-  login(){
+  async login(){
+    // 检验数据
     if(!validator.isPhone(this.state.phone)){
       Alert.alert('手机号码错误');
       return;
@@ -113,31 +115,57 @@ class Login extends Component{
       Alert.alert('请填写短信验证码');
       return;
     }
-    console.log(this.state.phone, this.state.code);
-    request
+
+    // 发送登录请求
+    const res = await request
       .post(config.api.getToken, {phone: this.state.phone, code: this.state.code})
-      .then(res => {
-        console.log(res);
-        // 登录成功 status 为 0，失败为 1
-        if(res.status){
-          Alert.alert(res.message); // 展示 提示信息
-          return;
-        }
-        // 登录成功，本地储存
-        storage.save({
-          key: 'identityToken',
-          data: {
-            'X-AUTH-TOKEN': res.data['X-AUTH-TOKEN'],
-            h5Code: res.data.h5Code,
-            user: res.data.user
-          },
-          // 未指定过期时间，会使用defaultExpires参数
-          // 指定 null，则永不过期
-          expires: null
-        });
-        // 登录成功更新全局数据
-        this.props.setIdentityToken(res.data);
+      .catch(err => {console.log(err); return null;})
+
+    if(res){
+      // 登录成功 status 为 0，失败为 1
+      // 若登录失败
+      if(res.status){
+        Alert.alert(res.message); // 展示 提示信息
+        return;
+      }
+
+      // 登录成功，本地储存
+      storage.save({
+        key: 'identityToken',
+        data: {
+          'X-AUTH-TOKEN': res.data['X-AUTH-TOKEN'],
+          h5Code: res.data.h5Code,
+          user: res.data.user
+        },
+        // 未指定过期时间，会使用defaultExpires参数
+        // 指定 null，则永不过期
+        expires: null
       });
+      // 登录成功更新全局数据
+      this.props.setIdentityToken(res.data);
+
+      // 更新app需要的用户信息
+      let [defaultAddress, addressList] = await Promise.all([
+        // 1. 获取 一键呼叫 默认地址 (defaultAddress)
+        request
+          .get(config.api.getDefaultAddress, null, {'X-AUTH-TOKEN': res.data['X-AUTH-TOKEN']})
+          .catch(err => {console.log(err); return null;}),
+        // 2. 获取 用户地址列表
+        request
+          .get(config.api.getAddressList, null, {'X-AUTH-TOKEN': res.data['X-AUTH-TOKEN']})
+          .catch(err => {console.log(err); return null;})
+      ]);
+
+      // 一键呼叫 默认地址 数据正确
+      if(defaultAddress && !defaultAddress.status) {
+        this.props.setLocation(defaultAddress.data);
+      }
+
+      // 用户地址列表 数据正确
+      if(addressList && !addressList.status){
+        this.props.setUserAddressList(addressList.data.addresses);
+      }
+    }
   }
 }
 
@@ -229,8 +257,6 @@ const styles = StyleSheet.create({
   }
 });
 
-const actionsCreator = {
-  setIdentityToken
-};
+const actionsCreator = { setIdentityToken, setLocation, setUserAddressList };
 
 export default connect(null, actionsCreator)(Login)
