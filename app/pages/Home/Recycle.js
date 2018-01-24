@@ -30,12 +30,14 @@ class Recycle extends Component{
     let AllProductsObj = this.props.recyclableGoods.AllProductsObj;
 
     return (<View style={styles.container}>
+      {/* 页头 */}
       <Header title='我要回收' hideBack={true} leftButton={<RecycleRightButton/>} rightButton={<Text>登录</Text>}/>
       {/* 导航条 */}
-      <Navigator category={this.props.category}>
+      <Navigator navigationItems={this.props.category}>
         {
           /* 分页: 1阶回收大分类 */
           Reflect.ownKeys(AllProductsObj)
+            .sort((key1, key2) => AllProductsObj[key1].sort - AllProductsObj[key2].sort) // 按 sort 序号排序
             .map(key => (<SubCategory key={key} subCategoryObj={AllProductsObj[key].subCategoryObj} sort={AllProductsObj[key].sort} />))
         }
       </Navigator>
@@ -84,8 +86,8 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
   return {
     category: state.recycle.recyclableGoods.AllProductsArray
-      .sort((val1, val2) => val1.sort - val2.sort)
-      .map(item => ({categoryName: item.categoryName, categoryNum: item.sort})),
+      .sort((val1, val2) => val1.sort - val2.sort) // 按 sort 序号排序
+      .map(item => ({itemName: item.categoryName})),
     recyclableGoods: state.recycle.recyclableGoods
   }
 }

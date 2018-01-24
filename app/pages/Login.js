@@ -11,6 +11,7 @@ import { setIdentityToken } from '../redux/actions/IdentityToken';
 import { setLocation, setUserAddressList } from '../redux/actions/Location';
 
 import Header from '../components/common/Header/Header';
+import Navigator from '../components/common/Navigator/Navigator';
 import SubmitBtn from '../components/common/Form/Btn/SubmitBtn';
 import InputSection from '../components/common/Form/Input/InputSection';
 
@@ -21,7 +22,11 @@ class Login extends Component{
     super(props);
 
     this.state = {
-      useCodeLogin: true, // 是否使用验证码 登录
+      navigationItems: [
+        {itemName: '手机验证码登录'},
+        {itemName: '密码登录'}
+      ],
+      navigationItemsIndex: 0,
       phone: '',
       code: ''
     };
@@ -32,51 +37,26 @@ class Login extends Component{
       <Header title='登录'/>
       <View style={styles.content}>
         {/* 导航条 */}
-        <View style={styles.navigation}>
-          <TouchableWithoutFeedback onPress={() => this.chooseCodeLogin()}>
-            <View style={styles.navigationItem}>
-              <Text style={this.state.useCodeLogin ? styles.navigationItemTextActive : styles.navigationItemText}>手机验证码登录</Text>
-              <View style={this.state.useCodeLogin ? styles.activeLine : styles.unActiveLine} />
-            </View>
-          </TouchableWithoutFeedback>
-          <View style={styles.splitLine} />
-          <TouchableWithoutFeedback onPress={() => this.choosePasswordLogin()}>
-            <View style={styles.navigationItem}>
-              <Text style={!this.state.useCodeLogin ? styles.navigationItemTextActive : styles.navigationItemText}>密码登录</Text>
-              <View style={!this.state.useCodeLogin ? styles.activeLine : styles.unActiveLine} />
-            </View>
-          </TouchableWithoutFeedback>
-        </View>
-        {/* 输入框: 手机验证码登录 */}
-        <View style={this.state.useCodeLogin ? styles.form : styles.hide}>
-          <InputSection label='手机号码' value={this.state.phone} onChangeText={text => this.changePhone(text)} rightButton={<Text style={styles.getCode} onPress={() => this.getCode()}>发送验证码</Text>}/>
-          <InputSection label='短信验证码' value={this.state.code} onChangeText={text => this.changeCode(text)}/>
-        </View>
-        {/* 输入框: 手机密码登录 */}
-        <View style={!this.state.useCodeLogin ? styles.form : styles.hide}>
-          <InputSection label='手机号码' value={this.state.phone} onChangeText={text => this.changePhone(text)}/>
-          <InputSection label='密码' value={this.state.code} onChangeText={text => this.changeCode(text)}/>
-        </View>
+        <Navigator navigationItems={this.state.navigationItems} pageFlex={false} getItemIndex={index => {this.setState({navigationItemsIndex: index})}} selectPageIndex={this.state.navigationItemsIndex}>
+          {
+            [
+              /* 输入框: 手机验证码登录 */
+              <View key={0} style={ styles.form }>
+                <InputSection label='手机号码' value={this.state.phone} onChangeText={text => this.changePhone(text)} rightButton={<Text style={styles.getCode} onPress={() => this.getCode()}>发送验证码</Text>}/>
+                <InputSection label='短信验证码' value={this.state.code} onChangeText={text => this.changeCode(text)}/>
+              </View>,
+              /* 输入框: 手机密码登录 */
+              <View key={1} style={ styles.form }>
+                <InputSection label='手机号码' value={this.state.phone} onChangeText={text => this.changePhone(text)}/>
+                <InputSection label='密码' value={this.state.code} onChangeText={text => this.changeCode(text)}/>
+              </View>
+            ]
+          }
+        </Navigator>
         {/* 登录按钮 */}
         <SubmitBtn text='登录' submit={() => this.login()} style={styles.btnSection} />
       </View>
     </View>)
-  }
-
-  // 使用验证码 登录
-  chooseCodeLogin(){
-    this.setState({
-      useCodeLogin: true,
-      code: '' // 清空
-    })
-  }
-
-  // 使用密码 登录
-  choosePasswordLogin(){
-    this.setState({
-      useCodeLogin: false,
-      code: '' // 清空
-    })
   }
 
   // 修改手机号
@@ -111,7 +91,7 @@ class Login extends Component{
       return;
     }
     if(validator.isEmpty(this.state.code)){
-      Alert.alert('请填写短信验证码');
+      this.state.navigationItemsIndex ? Alert.alert('请填写密码') : Alert.alert('请填写短信验证码');
       return;
     }
 
