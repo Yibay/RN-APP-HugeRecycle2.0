@@ -20,6 +20,7 @@ import Login from '../pages/Login';
 import AddressSelection from '../pages/AddressSelection';
 import AddressAdd from '../pages/AddressAdd';
 import AddressEdit from '../pages/AddressEdit';
+import EnvironmentalRecord from '../pages/EnvironmentalRecord';
 
 // 导航按钮
 import RecycleRightButton from '../containers/Recycle/NavBarRightButton/NavBarRightButton';
@@ -46,6 +47,8 @@ const AppRouter = () => (
       <Scene key='addressSelectionPage' component={AddressSelection} hideNavBar={true} />
       {/* 编辑地址 */}
       <Scene key='addressEditPage' component={AddressEdit} hideNavBar={true} />
+      {/* 环保记录 */}
+      <Scene key='environmentalRecordPage' component={EnvironmentalRecord} hideNavBar={true} />
       {/* 轮播简介页 */}
       <Scene key='intro' component={Intro} hideNavBar={true} />
       {/* 登录页 */}

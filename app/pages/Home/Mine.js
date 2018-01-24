@@ -1,18 +1,41 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, ScrollView } from 'react-native';
+
+import { Actions } from 'react-native-router-flux';
 
 
 import { verifyLogin } from '../../HOC/verifyLogin';
+
+import Header from '../../components/common/Header/Header';
 
 
 class Mine extends Component {
 
   render(){
+    console.log(this.props);
     return (<View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>我的</Text>
-      </View>
-      <Text>我的</Text>
+      <Header title='我的' hideBack={true} rightButton={<Text style={styles.rightButton}>消息</Text>} />
+      <ScrollView>
+        {/* 基本信息 */}
+        <View style={styles.basicFacts}>
+          <View style={styles.message}>
+            <Text style={styles.text}>{this.props.identityToken.user.name}</Text>
+            <Text style={styles.text}>{this.props.identityToken.user.phone}</Text>
+            <View style={styles.securityCenter}>
+              <Text style={styles.text}>安全中心</Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.lineSection}>
+          <Text style={styles.text}>环保金</Text>
+        </View>
+        <View style={styles.lineSection}>
+          <Text style={styles.text}>地址管理</Text>
+        </View>
+        <View style={styles.lineSection}>
+          <Text style={styles.text} onPress={() => Actions.environmentalRecordPage()}>环保记录</Text>
+        </View>
+      </ScrollView>
     </View>)
   }
 }
@@ -22,17 +45,36 @@ const styles = StyleSheet.create({
     flex: 1
   },
   // 页头
-  header: {
-    paddingTop: 65,
-    height: 128,
-    borderBottomWidth: 1,
-    borderBottomColor: '#b5b5b5',
-    backgroundColor: '#f7f7f7'
+  rightButton: {
+    fontSize: 24
   },
-  headerText: {
-    textAlign: 'center',
-    fontSize: 34,
-    fontWeight: '700'
+  // 内容区
+  basicFacts: {
+    flexDirection: 'row'
+  },
+  message: {
+    position: 'relative',
+    flex: 1,
+    height: 150,
+    padding: 40,
+    justifyContent: 'space-between',
+    backgroundColor: '#fff'
+  },
+  text: {
+    fontSize: 26
+  },
+  securityCenter: {
+    position: 'absolute',
+    right: 20,
+    top: 0,
+    bottom: 0,
+    justifyContent: 'center'
+  },
+  lineSection: {
+    marginTop: 10,
+    padding: 40,
+    justifyContent: 'center',
+    backgroundColor: '#fff'
   }
 });
 

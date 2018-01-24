@@ -52,6 +52,11 @@ class Login extends Component{
           <InputSection label='手机号码' value={this.state.phone} onChangeText={text => this.changePhone(text)} rightButton={<Text style={styles.getCode} onPress={() => this.getCode()}>发送验证码</Text>}/>
           <InputSection label='短信验证码' value={this.state.code} onChangeText={text => this.changeCode(text)}/>
         </View>
+        {/* 输入框: 手机密码登录 */}
+        <View style={!this.state.useCodeLogin ? styles.form : styles.hide}>
+          <InputSection label='手机号码' value={this.state.phone} onChangeText={text => this.changePhone(text)}/>
+          <InputSection label='密码' value={this.state.code} onChangeText={text => this.changeCode(text)}/>
+        </View>
         {/* 登录按钮 */}
         <SubmitBtn text='登录' submit={() => this.login()} style={styles.btnSection} />
       </View>
@@ -61,14 +66,16 @@ class Login extends Component{
   // 使用验证码 登录
   chooseCodeLogin(){
     this.setState({
-      useCodeLogin: true
+      useCodeLogin: true,
+      code: '' // 清空
     })
   }
 
   // 使用密码 登录
   choosePasswordLogin(){
     this.setState({
-      useCodeLogin: false
+      useCodeLogin: false,
+      code: '' // 清空
     })
   }
 
@@ -188,28 +195,27 @@ const styles = StyleSheet.create({
   },
   navigationItemText: {
     height: 65,
-    fontSize: 24,
+    fontSize: 26,
     lineHeight: 45,
-    color: '#898989'
+    color: '#888'
   },
   navigationItemTextActive: {
     height: 65,
-    fontSize: 27,
+    fontSize: 30,
     lineHeight: 45,
     fontWeight: '700'
   },
   activeLine: {
-    width: 260,
-    borderWidth: 3,
-    borderColor: '#fed309'
+    width: 261,
+    borderBottomWidth: 7,
+    borderColor: '#ffd100'
   },
   unActiveLine: {
-    width: 260,
-    borderWidth: 3,
+    width: 261,
+    borderBottomWidth: 7,
     borderColor: '#f7f7f7'
   },
   // 输入框区
-  form: {},
   formSection: {
     height: 100,
     borderBottomWidth: 2,

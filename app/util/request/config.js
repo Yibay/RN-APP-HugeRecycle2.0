@@ -44,9 +44,9 @@ export default {
     // 设置 默认地址
     setDefaultLocation: 'api/mobile/deal/setDefaultLocation/',
     // 移动端 下单
-    createOrder: 'api/mobile/deal/createOrder',
+    createOrder: `api/mobile/deal/createOrder`,
     // 查看 我的订单
-    myOrders: 'api/mobile/deal/myOrders',
+    myOrders: `${api_base}api/mobile/deal/myOrders`,
     // 查看 订单详情(根据path {id} 查询)
     order: 'api/mobile/deal/order/',
     // 发送 客户反馈

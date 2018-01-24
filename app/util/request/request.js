@@ -37,7 +37,7 @@ request.get = function(url, data, header){
   return fetch(url, options)
     .catch(e => {console.log('fetch请求时报错'); console.log(e);})
     .then(res => res.json())
-    .catch(e => {console.log('json解析时报错'); console.log(e);})
+    .catch(e => {console.log('json解析时报错'); console.log(e); return null;})
 };
 
 /**
@@ -60,7 +60,7 @@ request.post = function(url, data, header){
   return fetch(url ,options)
     .catch(e => {console.log('fetch请求时报错'); console.log(e);})
     .then(res => res.json())
-    .catch(e => {console.log('json解析时报错'); console.log(e);})
+    .catch(e => {console.log('json解析时报错'); console.log(e); return null;})
 };
 
 export default request;

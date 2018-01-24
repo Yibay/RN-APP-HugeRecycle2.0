@@ -11,21 +11,40 @@ class Header extends Component{
   static propTypes = {
     title: PropTypes.string.isRequired, // 标题
     back: PropTypes.func.isRequired, // 返回 函数
-    rightButton: PropTypes.element.isRequired // 右侧按钮
+    rightButton: PropTypes.element.isRequired, // 右侧按钮
+    // leftButton: PropTypes.element.isRequired  // 左侧按钮
+    hideBack: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
     title: '',
     back: () => Actions.pop(),
-    rightButton: (<View />)
+    rightButton: (<View />),
+    hideBack: false
   };
 
   render(){
-    return (
-      <View style={styles.header}>
+
+    let leftButton;
+
+    // 是否隐藏 返回按钮
+    if(!this.props.hideBack){
+      leftButton = (
         <TouchableWithoutFeedback onPress={() => this.props.back()}>
           <Icon style={styles.back} name="ios-arrow-back" size={50} color="#000" />
         </TouchableWithoutFeedback>
+      );
+    }
+    // 是否有 leftButton 属性
+    if(this.props.leftButton){
+      leftButton = this.props.leftButton;
+    }
+
+    return (
+      <View style={styles.header}>
+        {
+          leftButton
+        }
         <Text style={styles.headerText}>{this.props.title}</Text>
         <View style={styles.rightButton}>
           {
