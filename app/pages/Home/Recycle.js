@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 import { connect } from 'react-redux';
 
 
 import request from '../../util/request/request';
 import config from '../../util/request/config';
-
 import { setAllProducts } from '../../redux/actions/Recycle';
 
-import ClassificationNavigation from '../../components/pages/Recycle/ClassificationNavigation';
+import Header from '../../components/common/Header/Header';
+import RecycleRightButton from '../../containers/Recycle/NavBarRightButton/NavBarRightButton';
+import Navigator from '../../components/common/Navigator/Navigator';
 import SubCategory from '../../components/pages/Recycle/SubCategory';
 import CallModule from '../../containers/Recycle/CallModule';
 import CallModal from '../../containers/Recycle/CallModal';
@@ -21,30 +22,23 @@ class Recycle extends Component{
     super(props);
 
     this.state = {
-      selectedCategory: 0, // 初始值 0 ，会被 componentWillReceiveProps 中覆写，被覆写后 值不为0，则 不再被覆写
       callModalVisible: false
     };
-  }
-
-  componentWillReceiveProps(nextProps){
-    if(nextProps.category instanceof Array && nextProps.category.length && !this.state.selectedCategory){
-      this.setState({
-        selectedCategory: nextProps.category[0].categoryNum // 回收类别选中项（默认 选中第一项）
-      });
-    }
   }
 
   render(){
     let AllProductsObj = this.props.recyclableGoods.AllProductsObj;
 
     return (<View style={styles.container}>
+      <Header title='我要回收' hideBack={true} leftButton={<RecycleRightButton/>} rightButton={<Text>登录</Text>}/>
       {/* 导航条 */}
-      <ClassificationNavigation category={this.props.category} selectedCategory={this.state.selectedCategory} switchCategory={this.switchCategory.bind(this)} />
+      <Navigator category={this.props.category}>
         {
           /* 分页: 1阶回收大分类 */
           Reflect.ownKeys(AllProductsObj)
-            .map(key => (<SubCategory key={key} show={this.state.selectedCategory === AllProductsObj[key].sort} subCategoryObj={AllProductsObj[key].subCategoryObj} sort={AllProductsObj[key].sort} />))
+            .map(key => (<SubCategory key={key} subCategoryObj={AllProductsObj[key].subCategoryObj} sort={AllProductsObj[key].sort} />))
         }
+      </Navigator>
       {/* 底栏：一键呼叫按钮 */}
       <CallModule showCallModal={() => this.showCallModal()} />
       {/* 弹窗：一键呼叫 */}
@@ -59,18 +53,12 @@ class Recycle extends Component{
       .then(res => {
         // 若请求成功，数据正常
         if(!res.status){
+          console.log(res.data);
           // 更新全局数据
           this.props.setAllProducts(res.data);
         }
       })
       .catch(e => console.log(e));
-  }
-
-  // 切换类别
-  switchCategory(categoryNum){
-    this.setState({
-      selectedCategory: categoryNum
-    });
   }
 
   // 弹出 一键呼叫 弹窗

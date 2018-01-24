@@ -22,8 +22,6 @@ import AddressAdd from '../pages/AddressAdd';
 import AddressEdit from '../pages/AddressEdit';
 import EnvironmentalRecord from '../pages/EnvironmentalRecord';
 
-// 导航按钮
-import RecycleRightButton from '../containers/Recycle/NavBarRightButton/NavBarRightButton';
 
 const AppRouter = () => (
   <Router>
@@ -31,7 +29,7 @@ const AppRouter = () => (
       {/* 主入口页 */}
       <Scene key='home' tabs={true} tabBarPosition='bottom' labelStyle={tabsStyle.labelStyle} tabBarStyle={tabsStyle.tabBarStyle} >
         {/* 回收分页 */}
-        <Scene key='recycle' title='选择回收物' tabBarLabel='我要回收' component={Recycle} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} renderRightButton={<RecycleRightButton />} />
+        <Scene key='recycle' tabBarLabel='我要回收' component={Recycle} hideNavBar={true} />
         {/* 商场分页 */}
         <Scene key='shoppingMall' title='虎哥便利店' tabBarLabel='虎哥商场' component={Mall} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} />
         {/* 我的分页 */}

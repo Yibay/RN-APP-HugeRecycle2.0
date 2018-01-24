@@ -15,10 +15,14 @@ class SubCategory extends Component{
     sort: PropTypes.number.isRequired
   };
 
+  static defaultProps = {
+    show: true
+  };
+
   render(){
 
     return (
-      <ScrollView style={[styles.container, this.props.show ? styles.none : styles.hide]}>
+      <ScrollView style={this.props.show ? styles.container : styles.hide}>
         {
           Reflect.ownKeys(this.props.subCategoryObj)
             .map(key => (<CategoryItem key={key} category={this.props.subCategoryObj[key]} sort={this.props.sort} />))

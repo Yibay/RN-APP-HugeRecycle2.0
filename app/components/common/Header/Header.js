@@ -37,7 +37,11 @@ class Header extends Component{
     }
     // 是否有 leftButton 属性
     if(this.props.leftButton){
-      leftButton = this.props.leftButton;
+      leftButton = (<View style={styles.back}>
+        {
+          this.props.leftButton
+        }
+      </View>);
     }
 
     return (
