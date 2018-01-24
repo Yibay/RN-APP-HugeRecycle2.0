@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#fff'
   },
   callMsg: {
     height: 40,
@@ -55,7 +56,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   callMsgText: {
-    fontSize: 25
+    fontSize: 24,
+    color: '#828282'
   },
   recyclablesNum: {
     paddingHorizontal: 15,
@@ -63,13 +65,15 @@ const styles = StyleSheet.create({
     color: 'red'
   },
   callBtn: {
-    paddingVertical: 26,
-    paddingHorizontal: 80,
-    borderRadius: 40,
-    backgroundColor: 'rgba(0, 102, 255, 1)'
+    width: 243,
+    height: 88,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ffd101'
   },
   callBtnText: {
-    fontSize: 25,
+    fontSize: 30,
+    fontWeight: '700',
     color: '#fff'
   }
 });

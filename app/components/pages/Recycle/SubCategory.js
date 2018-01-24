@@ -32,14 +32,15 @@ class SubCategory extends Component{
   }
 
   componentWillUnmount(){
-    console.log('废旧家电 componentWillUnmount')
+    console.log('回收物品 1级分类 componentWillUnmount')
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 20
+    paddingHorizontal: 34,
+    backgroundColor: '#f7f7f7'
   },
   hide: {
     display: 'none'

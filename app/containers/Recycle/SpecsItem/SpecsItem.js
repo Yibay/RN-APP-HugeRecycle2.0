@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 
-import config from '../../util/request/config';
-import { addRecycledItem, reduceRecycledItem } from '../../redux/actions/Recycle';
+import config from '../../../util/request/config';
+import { addRecycledItem, reduceRecycledItem } from '../../../redux/actions/Recycle';
 
 
 class SpecsItem extends Component{
@@ -39,15 +39,17 @@ class SpecsItem extends Component{
           <Text style={styles.otherGift}>{this.props.specs.otherGift}</Text>
           <Text style={styles.price}>¥{this.props.specs.price}</Text>
         </View>
+        {/* 多件 ＋ － 控制器 */}
         <View style={this.props.onlyOnePiece ? styles.hide : styles.controller}>
           <TouchableWithoutFeedback onPress={() => this.reduceItem()}>
-            <View style={styles.controllerBtn}><Text style={styles.controllerBtnText}>-</Text></View>
+            <Image style={styles.controllerBtn} resizeMode='contain' source={require('./img/reduce2x.png')} />
           </TouchableWithoutFeedback>
           <View><Text style={styles.recycleNum}>{this.props.specs.number || 0}</Text></View>
           <TouchableWithoutFeedback onPress={() => this.addItem()}>
-            <View style={styles.controllerBtn}><Text style={styles.controllerBtnText}>+</Text></View>
+            <Image style={styles.controllerBtn} resizeMode='contain' source={require('./img/plus2x.png')} />
           </TouchableWithoutFeedback>
         </View>
+        {/* 单件toggle控制器 */}
         <TouchableWithoutFeedback onPress={() => this.toggleItem()}>
           <View style={[this.props.onlyOnePiece ? styles.onlyOnePieceBtn : styles.hide, this.props.specs.number ? styles.onlyOnePieceBtnDisable : styles.none]}>
             <Text style={styles.onlyOnePieceText}>{this.props.specs.number ? '已加入' : '加入回收'}</Text>
@@ -73,56 +75,53 @@ class SpecsItem extends Component{
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 10,
-    padding: 15,
+    height: 174,
+    borderBottomWidth: 2,
+    borderBottomColor: '#e2e6e7',
     flexDirection: 'row',
-    backgroundColor: '#fff'
+    alignItems: 'center'
   },
   specsImage: {
-    width: 100,
-    height: 100,
-    marginRight: 20
+    width: 132,
+    height: 132,
+    marginRight: 24
   },
   specsContent: {
     position: 'relative',
     flex: 1,
-    justifyContent: 'space-around'
+    justifyContent: 'center'
   },
   specsName: {
-    fontSize: 36,
-    fontWeight: '700'
+    marginBottom: 20,
+    fontSize: 32,
+    fontWeight: '700',
+    color: '#2f2e34'
   },
   specsOtherMsg: {
     flexDirection: 'row'
   },
   otherGift: {
-    fontSize: 26,
-    color: 'red'
+    fontSize: 24,
+    color: '#828282'
   },
   price: {
-    fontSize: 26,
-    color: 'red'
+    fontSize: 24,
+    color: '#828282'
   },
   controller: {
     position: 'absolute',
     right: 30,
-    top: 35,
+    top: 0,
+    bottom: 0,
     flexDirection: 'row',
     alignItems: 'center'
   },
   controllerBtn: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 20,
-    backgroundColor: 'rgba(245, 245, 245, 1)'
-  },
-  controllerBtnText: {
-    fontSize: 34
+    width: 42,
+    height: 42,
   },
   recycleNum: {
-    paddingHorizontal: 10,
+    marginHorizontal: 10,
     fontSize: 30
   },
   onlyOnePieceBtn: {

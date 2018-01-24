@@ -54,6 +54,7 @@ class Navigator extends Component {
 
   render(){
     return(<View style={this.props.pageFlex ? styles.container : undefined}>
+      {/* 导航头 */}
       <View style={styles.navigator}>
         {
           this.props.navigationItems.map((item, index) =>
@@ -68,6 +69,7 @@ class Navigator extends Component {
         }
       </View>
       {
+        /* 分页内容 */
         // 若为 铺满剩余空间 滚动
         this.props.pageFlex ?
           <ScrollView style={styles.page}>

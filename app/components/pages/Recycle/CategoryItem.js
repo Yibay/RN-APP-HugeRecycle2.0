@@ -6,13 +6,13 @@ import PropTypes from 'prop-types';
 
 import config from "../../../util/request/config";
 
-import SpecsItem from '../../../containers/Recycle/SpecsItem';
+import SpecsItem from '../../../containers/Recycle/SpecsItem/SpecsItem';
 
 
 const CategoryItem = props => {
   return (<View>
   <View style={props.category.show ? styles.categoryHeader : styles.hide}>
-    <Image resizeMode='contain' style={styles.categoryImage} source={{uri: (config.static.base + props.category.image)}} />
+    {/*<Image resizeMode='contain' style={styles.categoryImage} source={{uri: (config.static.base + props.category.image)}} />*/}
     <Text style={styles.categoryTitle}>{props.category.name}</Text>
   </View>
   {
@@ -43,6 +43,8 @@ const styles = StyleSheet.create({
     height: 80
   },
   categoryTitle: {
+    paddingTop: 36,
+    paddingBottom: 14,
     fontSize: 32,
     fontWeight: '700'
   },
