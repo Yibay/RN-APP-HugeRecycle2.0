@@ -62,8 +62,10 @@ export default {
 
     /* ------ Mock数据 ------*/
     // 获取回收物品 列表
-    // getProducts: `file://${__dirname}../mock/getProducts.json`,
-    getProducts: 'http://127.0.0.1:8080/Restaurant_Old/getProducts.json', // 本地服务器 mock, android不支持file://
+    // getProducts: `file://${__dirname}../mock/getProducts4Items.json`,
+    // getProducts: 'http://192.168.11.124:3000/api/customer/app/deal/getProducts4Items', // 局域网访问 本地服务器 mock, android不支持file:// 请求，也访问不到127.0.0.1
+    getProducts: 'http://192.168.11.124:3000/api/customer/app/deal/getProducts3Items', // 局域网访问 本地服务器 mock, android不支持file:// 请求，也访问不到127.0.0.1
+    // getProducts: 'http://192.168.11.124:3000/api/customer/app/deal/getProducts2Items', // 局域网访问 本地服务器 mock, android不支持file:// 请求，也访问不到127.0.0.1
     // 获取 定位小区
     // getLocateCommunity: `file://${__dirname}../mock/getLocateCommunity.json`,
   },
