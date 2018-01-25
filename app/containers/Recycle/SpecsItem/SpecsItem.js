@@ -37,7 +37,7 @@ class SpecsItem extends Component{
         <Text style={styles.specsName}>{this.props.specs.name}</Text>
         <View style={styles.specsOtherMsg}>
           <Text style={styles.otherGift}>{this.props.specs.otherGift}</Text>
-          <Text style={styles.price}>¥{this.props.specs.price}</Text>
+          <Text style={styles.price}>¥{this.props.specs.price}{this.props.specs.unit ? `/${this.props.specs.unit}` : ''}</Text>
         </View>
         {/* 多件 ＋ － 控制器 */}
         <View style={this.props.onlyOnePiece ? styles.hide : styles.controller}>

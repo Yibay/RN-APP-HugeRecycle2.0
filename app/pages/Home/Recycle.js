@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -17,6 +17,9 @@ import CallModule from '../../containers/Recycle/CallModule';
 import CallModal from '../../containers/Recycle/CallModal';
 
 
+// 展示图片 固定宽度
+let imageWidth = 682;
+
 class Recycle extends Component{
 
   constructor(props){
@@ -29,6 +32,7 @@ class Recycle extends Component{
 
   render(){
     let AllProductsObj = this.props.recyclableGoods.AllProductsObj;
+    console.log(AllProductsObj);
 
     return (<View style={styles.container}>
       {/* 页头 */}
@@ -39,7 +43,48 @@ class Recycle extends Component{
           /* 分页: 1阶回收大分类 */
           Reflect.ownKeys(AllProductsObj)
             .sort((key1, key2) => AllProductsObj[key1].sort - AllProductsObj[key2].sort) // 按 sort 序号排序
-            .map(key => (<SubCategory key={key} subCategoryObj={AllProductsObj[key].subCategoryObj} sort={AllProductsObj[key].sort} />))
+            .map(key => {
+
+              let topImage = null, bottomImage = null;
+
+              // 若1级分类，有上方图片
+              if(AllProductsObj[key].topImageUrl){
+                let image = JSON.parse(AllProductsObj[key].topImageUrl);
+                let imageStyles = StyleSheet.create({
+                  imageStyles: {
+                    width: imageWidth,
+                    height: image.height / image.width * imageWidth,
+                    marginHorizontal: 34,
+                    marginTop: 28
+                  }
+                });
+                topImage = <Image source={{uri: config.static.base + image.url}} resizeMode='contain' style={imageStyles.imageStyles} />;
+              }
+              // 若1级分类，有下方图片
+              if(AllProductsObj[key].bottomImageUrl){
+                let image = JSON.parse(AllProductsObj[key].bottomImageUrl);
+                let imageStyles = StyleSheet.create({
+                  imageStyles: {
+                    width: imageWidth,
+                    height: image.height / image.width * imageWidth,
+                    marginHorizontal: 34
+                  }
+                });
+                bottomImage = <Image source={{uri: config.static.base + image.url}} resizeMode='contain' style={imageStyles.imageStyles} />;
+              }
+
+              return (
+                <View key={key} style={styles.contentPage}>
+                  {
+                    topImage
+                  }
+                  <SubCategory subCategoryObj={AllProductsObj[key].subCategoryObj} sort={AllProductsObj[key].sort} />
+                  {
+                    bottomImage
+                  }
+                </View>
+              )
+            })
         }
       </Navigator>
       {/* 底栏：一键呼叫按钮 */}
@@ -84,6 +129,9 @@ const styles = StyleSheet.create({
   },
   loginBtn: {
     fontSize: 28
+  },
+  contentPage: {
+    backgroundColor: '#f7f7f7'
   }
 });
 
