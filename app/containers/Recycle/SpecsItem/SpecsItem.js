@@ -51,8 +51,13 @@ class SpecsItem extends Component{
         </View>
         {/* 单件toggle控制器 */}
         <TouchableWithoutFeedback onPress={() => this.toggleItem()}>
-          <View style={[this.props.onlyOnePiece ? styles.onlyOnePieceBtn : styles.hide, this.props.specs.number ? styles.onlyOnePieceBtnDisable : styles.none]}>
-            <Text style={styles.onlyOnePieceText}>{this.props.specs.number ? '已加入' : '加入回收'}</Text>
+          <View style={[this.props.onlyOnePiece ? styles.controller : styles.hide]}>
+            {
+              this.props.specs.number ?
+                <Image style={styles.controllerBtn} resizeMode='contain' source={require('./img/reduce2x.png')} />
+                :
+                <Image style={styles.controllerBtn} resizeMode='contain' source={require('./img/plus2x.png')} />
+            }
           </View>
         </TouchableWithoutFeedback>
       </View>
@@ -108,6 +113,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#828282'
   },
+  // 控制器 按钮（添加物品，删除物品）
   controller: {
     position: 'absolute',
     right: 30,
@@ -122,21 +128,6 @@ const styles = StyleSheet.create({
   },
   recycleNum: {
     marginHorizontal: 10,
-    fontSize: 30
-  },
-  onlyOnePieceBtn: {
-    position: 'absolute',
-    right: 30,
-    top: 15,
-    paddingVertical: 20,
-    width: 180,
-    alignItems: 'center',
-    backgroundColor: 'rgba(153, 204, 102, 1)'
-  },
-  onlyOnePieceBtnDisable: {
-    backgroundColor: 'rgba(204, 204, 204, 1)'
-  },
-  onlyOnePieceText: {
     fontSize: 30
   },
   hide: {

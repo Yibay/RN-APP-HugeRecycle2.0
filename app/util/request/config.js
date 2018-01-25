@@ -18,7 +18,7 @@ export default {
   // 请求 api接口
   api: {
     // 获取回收物品 列表
-    getProducts: `${api_base}api/customer/app/deal/getProducts`,
+    // getProducts: `${api_base}api/customer/app/deal/getProducts`,
     // 获取 定位小区
     getLocateCommunity: `${api_base}api/customer/app/deal/getLocateCommunity`,
     // 获取 短信验证码(POST)
@@ -61,6 +61,9 @@ export default {
     publish: 'mobile/artical/all',
 
     /* ------ Mock数据 ------*/
+    // 获取回收物品 列表
+    // getProducts: `file://${__dirname}../mock/getProducts.json`,
+    getProducts: 'http://127.0.0.1:8080/Restaurant_Old/getProducts.json', // 本地服务器 mock, android不支持file://
     // 获取 定位小区
     // getLocateCommunity: `file://${__dirname}../mock/getLocateCommunity.json`,
   },

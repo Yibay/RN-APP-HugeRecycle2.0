@@ -37,7 +37,7 @@ class Login extends Component{
       <Header title='登录'/>
       <View style={styles.content}>
         {/* 导航条 */}
-        <Navigator navigationItems={this.state.navigationItems} pageFlex={false} getItemIndex={index => {this.setState({navigationItemsIndex: index})}} selectPageIndex={this.state.navigationItemsIndex}>
+        <Navigator style={styles.navigator} navigationItems={this.state.navigationItems} pageFlex={false} getItemIndex={index => {this.setState({navigationItemsIndex: index})}} selectPageIndex={this.state.navigationItemsIndex}>
           {
             [
               /* 输入框: 手机验证码登录 */
@@ -151,6 +151,9 @@ class Login extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  navigator: {
+    height: 86
   },
   // 内容区
   content: {

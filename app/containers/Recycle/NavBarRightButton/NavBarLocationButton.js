@@ -9,10 +9,10 @@ import { setAutoLocationFlag } from '../../../redux/actions/Location';
 
 
 /* 回收页 nav 右侧按钮组件 */
-class NavBarRightButton extends Component{
+class NavBarLocationButton extends Component{
   render(){
     return(<TouchableOpacity style={styles.container} onPress={() => this.chooseCommunity()}>
-      <Image style={styles.icon} resizeMode='contain' source={require('./img/location.png')} />
+      <Image style={styles.icon} resizeMode='contain' source={require('./img/location-black2x.png')} />
       <Text style={styles.text}>{this.props.currentCommunityName}</Text>
     </TouchableOpacity>);
   }
@@ -31,8 +31,9 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   icon: {
-    width: 45,
-    height: 45
+    width: 36,
+    height: 36,
+    marginRight: 10
   },
   text: {
     fontSize: 28
@@ -51,4 +52,4 @@ const actionsCreator = {
   setAutoLocationFlag
 };
 
-export default connect(mapStateToProps, actionsCreator)(NavBarRightButton);
+export default connect(mapStateToProps, actionsCreator)(NavBarLocationButton);

@@ -55,17 +55,34 @@ class Navigator extends Component {
   render(){
     return(<View style={this.props.pageFlex ? styles.container : undefined}>
       {/* 导航头 */}
-      <View style={styles.navigator}>
+      <View style={[styles.navigator].concat(this.props.style)}>
         {
-          this.props.navigationItems.map((item, index) =>
-            (<TouchableWithoutFeedback key={index} onPress={() => this.switchItemIndex(index)}>
-              <View style={styles.item}>
-                <View style={index === 0 ? styles.itemTextSection : [styles.itemTextSection, styles.splitLine]}>
-                  <Text style={this.state.selectPageIndex === index ? [styles.activeItemText].concat(this.props.activeItemTextStyle) : [styles.itemText].concat(this.props.itemTextStyle)}>{item.itemName}</Text>
+          /* 3列以内，等分布局 */
+          this.props.navigationItems.length <= 3 ?
+            this.props.navigationItems.map((item, index) =>
+              (<TouchableWithoutFeedback key={index} onPress={() => this.switchItemIndex(index)}>
+                <View style={styles.item}>
+                  <View style={index === 0 ? styles.itemTextSection : [styles.itemTextSection, styles.splitLine]}>
+                    <Text style={this.state.selectPageIndex === index ? [styles.activeItemText].concat(this.props.activeItemTextStyle) : [styles.itemText].concat(this.props.itemTextStyle)}>{item.itemName}</Text>
+                  </View>
+                  <View style={this.state.selectPageIndex === index ? styles.activeLine : styles.unActiveLine} />
                 </View>
-                <View style={this.state.selectPageIndex === index ? styles.activeLine : styles.unActiveLine} />
-              </View>
-            </TouchableWithoutFeedback>))
+              </TouchableWithoutFeedback>))
+            :
+            /* 大于 3列，横向滚动 */
+            <ScrollView horizontal={true}>
+              {
+                this.props.navigationItems.map((item, index) =>
+                  (<TouchableWithoutFeedback key={index} onPress={() => this.switchItemIndex(index)}>
+                    <View style={styles.itemFixed}>
+                      <View style={index === 0 ? styles.itemTextSection : [styles.itemTextSection, styles.splitLine]}>
+                        <Text style={this.state.selectPageIndex === index ? [styles.activeItemText].concat(this.props.activeItemTextStyle) : [styles.itemText].concat(this.props.itemTextStyle)}>{item.itemName}</Text>
+                      </View>
+                      <View style={this.state.selectPageIndex === index ? styles.activeLine : styles.unActiveLine} />
+                    </View>
+                  </TouchableWithoutFeedback>))
+              }
+            </ScrollView>
         }
       </View>
       {
@@ -113,6 +130,10 @@ const styles = StyleSheet.create({
   // 选项
   item: {
     flex: 1,
+    alignItems: 'center'
+  },
+  itemFixed: {
+    width: 220,
     alignItems: 'center'
   },
   itemTextSection: {

@@ -37,7 +37,7 @@ class Header extends Component{
     }
     // 是否有 leftButton 属性
     if(this.props.leftButton){
-      leftButton = (<View style={styles.back}>
+      leftButton = (<View style={styles.leftButton}>
         {
           this.props.leftButton
         }
@@ -80,6 +80,12 @@ const styles = StyleSheet.create({
     zIndex: 10,
     left: 30,
     bottom: 5
+  },
+  leftButton: {
+    position: 'absolute',
+    zIndex: 10,
+    left: 30,
+    bottom: 20
   },
   rightButton: {
     position: 'absolute',

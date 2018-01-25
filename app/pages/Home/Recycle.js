@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 
 
 import request from '../../util/request/request';
@@ -9,7 +10,7 @@ import config from '../../util/request/config';
 import { setAllProducts } from '../../redux/actions/Recycle';
 
 import Header from '../../components/common/Header/Header';
-import RecycleRightButton from '../../containers/Recycle/NavBarRightButton/NavBarRightButton';
+import NavBarLocationButton from '../../containers/Recycle/NavBarRightButton/NavBarLocationButton';
 import Navigator from '../../components/common/Navigator/Navigator';
 import SubCategory from '../../components/pages/Recycle/SubCategory';
 import CallModule from '../../containers/Recycle/CallModule';
@@ -31,7 +32,7 @@ class Recycle extends Component{
 
     return (<View style={styles.container}>
       {/* 页头 */}
-      <Header title='我要回收' hideBack={true} leftButton={<RecycleRightButton/>} rightButton={<Text>登录</Text>}/>
+      <Header title='我要回收' hideBack={true} leftButton={<NavBarLocationButton/>} rightButton={<Text style={styles.loginBtn} onPress={() => Actions.login()}>登录</Text>}/>
       {/* 导航条 */}
       <Navigator navigationItems={this.props.category}>
         {
@@ -80,6 +81,9 @@ class Recycle extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  loginBtn: {
+    fontSize: 28
   }
 });
 
