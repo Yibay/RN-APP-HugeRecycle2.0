@@ -18,7 +18,7 @@ export default {
   // 请求 api接口
   api: {
     // 获取回收物品 列表
-    // getProducts: `${api_base}api/customer/app/deal/getProducts`,
+    getProducts: `${api_base}api/customer/app/deal/getProducts`,
     // 获取 定位小区
     getLocateCommunity: `${api_base}api/customer/app/deal/getLocateCommunity`,
     // 获取 短信验证码(POST)
@@ -45,7 +45,7 @@ export default {
     setDefaultLocation: 'api/mobile/deal/setDefaultLocation/',
     // 移动端 下单
     createOrder: `api/mobile/deal/createOrder`,
-    // 查看 我的订单
+    // 查看 我的订单(我的环保记录)
     myOrders: `${api_base}api/mobile/deal/myOrders`,
     // 查看 订单详情(根据path {id} 查询)
     order: 'api/mobile/deal/order/',
@@ -64,7 +64,7 @@ export default {
     // 获取回收物品 列表
     // getProducts: `file://${__dirname}../mock/getProducts4Items.json`,
     // getProducts: 'http://192.168.11.124:3000/api/customer/app/deal/getProducts4Items', // 局域网访问 本地服务器 mock, android不支持file:// 请求，也访问不到127.0.0.1
-    getProducts: 'http://192.168.11.124:3000/api/customer/app/deal/getProducts3Items', // 局域网访问 本地服务器 mock, android不支持file:// 请求，也访问不到127.0.0.1
+    // getProducts: 'http://192.168.11.124:3000/api/customer/app/deal/getProducts3Items', // 局域网访问 本地服务器 mock, android不支持file:// 请求，也访问不到127.0.0.1
     // getProducts: 'http://192.168.11.124:3000/api/customer/app/deal/getProducts2Items', // 局域网访问 本地服务器 mock, android不支持file:// 请求，也访问不到127.0.0.1
     // 获取 定位小区
     // getLocateCommunity: `file://${__dirname}../mock/getLocateCommunity.json`,

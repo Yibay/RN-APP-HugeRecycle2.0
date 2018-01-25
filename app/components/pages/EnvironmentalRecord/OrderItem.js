@@ -7,10 +7,10 @@ import PropTypes from 'prop-types';
 class OrderItem extends Component {
 
   static propTypes = {
-    createdTs: PropTypes.string.isRequired,
+    createdTs: PropTypes.number.isRequired,
     createOrderTime: PropTypes.string.isRequired,
     recycledItems: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
+    statusDesc: PropTypes.element.isRequired,
     rightButton: PropTypes.element.isRequired
   };
 
@@ -24,7 +24,7 @@ class OrderItem extends Component {
         <Text style={styles.recycledItems}>{this.props.recycledItems}</Text>
       </View>
       <View style={styles.secondSection}>
-        <Text style={styles.status}>{this.props.status}</Text>
+        { this.props.statusDesc }
         <View style={styles.rightButton}>{this.props.rightButton}</View>
       </View>
     </View>)
@@ -68,10 +68,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
-  },
-  status: {
-    fontSize: 28,
-    color: '#ef3300'
   }
 });
 
