@@ -20,7 +20,7 @@ export default {
     // 获取回收物品 列表
     getProducts: `${api_base}api/customer/app/deal/getProducts`,
     // 获取 定位小区
-    getLocateCommunity: `${api_base}api/customer/app/deal/getLocateCommunity`,
+    // getLocateCommunity: `${api_base}api/customer/app/deal/getLocateCommunity`,
     // 获取 短信验证码(POST)
     // application/json params: phone -- 手机号码(必填)
     getCode: `${api_base}mobile/auth/requestSmsCode`,
@@ -67,7 +67,7 @@ export default {
     // getProducts: 'http://192.168.11.124:3000/api/customer/app/deal/getProducts3Items', // 局域网访问 本地服务器 mock, android不支持file:// 请求，也访问不到127.0.0.1
     // getProducts: 'http://192.168.11.124:3000/api/customer/app/deal/getProducts2Items', // 局域网访问 本地服务器 mock, android不支持file:// 请求，也访问不到127.0.0.1
     // 获取 定位小区
-    // getLocateCommunity: `file://${__dirname}../mock/getLocateCommunity.json`,
+    getLocateCommunity: `file://${__dirname}../mock/getLocateCommunity.json`,
   },
   // 静态资源base路径
   static: {

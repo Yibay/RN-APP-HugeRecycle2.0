@@ -35,7 +35,7 @@ class CommunitySelector extends Component{
   }
 
   render(){
-    return (<View style={styles.container}>
+    return (<View style={[styles.container].concat(this.props.style)}>
       <Text style={styles.title}>检测到这些小区在您周围</Text>
       <ScrollView style={styles.communityList}>
         <View style={styles.communityLayout}>
@@ -89,8 +89,10 @@ class CommunitySelector extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 80,
-    alignSelf: 'stretch'
+    width: 705,
+    paddingTop: 66,
+    paddingBottom: 60,
+    alignSelf: 'center'
   },
   title: {
     alignSelf: 'center',
@@ -98,57 +100,57 @@ const styles = StyleSheet.create({
     fontWeight: '700'
   },
   communityList: {
-    marginTop: 90,
+    marginTop: 60,
     marginBottom: 50,
     flex: 1,
     paddingHorizontal: 40
   },
   communityLayout: {
-    marginLeft: -20,
+    marginLeft: -26,
     flexDirection: 'row',
     flexWrap: 'wrap'
   },
   community: {
-    width: 286,
-    marginLeft: 20,
-    marginBottom: 20,
-    paddingVertical: 20,
+    width: 299.5,
+    height: 70,
+    marginLeft: 26,
+    marginBottom: 26,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(245, 245, 245, 1)'
+    borderRadius: 5,
+    backgroundColor: '#ffdc41'
   },
   communitySelected: {
     backgroundColor: 'rgba(153, 204, 51, 1)'
   },
   communityName: {
-    fontSize: 25
-  },
-  commitLayout: {
-    marginBottom: 100,
-    flexDirection: 'row'
-  },
-  commitBtn: {
-    width: 286,
-    marginLeft: 40,
-    paddingVertical: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#169bd5'
-  },
-  manualInputBtn: {
-    width: 286,
-    marginLeft: 20,
-    paddingVertical: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(245, 245, 245, 1)'
-  },
-  commitText: {
-    fontSize: 25,
+    fontSize: 22,
+    fontWeight: '900',
     color: '#fff'
   },
+  commitLayout: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  commitBtn: {
+    flex: 1,
+    paddingHorizontal: 52
+  },
+  manualInputBtn: {
+    flex: 1,
+    paddingHorizontal: 52,
+    borderLeftWidth: 2,
+    borderLeftColor: '#707070'
+  },
+  commitText: {
+    textAlign: 'right',
+    fontSize: 26,
+    color: '#000'
+  },
   manualInputText: {
-    fontSize: 25
+    textAlign: 'left',
+    fontSize: 26,
+    color: '#525252'
   }
 });
 
