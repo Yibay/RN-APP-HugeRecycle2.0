@@ -49,8 +49,8 @@ class CommunitySelector extends Component{
                 {this.props.LocateCommunities.map(
                   (item, index) =>
                     <TouchableWithoutFeedback key={index} onPress={() => this.selectCommunity(item)}>
-                      <View style={[styles.community, this.state.communitySelected.communityName === item.communityName ? styles.communitySelected : styles.none]}>
-                        <Text style={styles.communityName}>{item.communityName}</Text>
+                      <View style={[styles.community, this.state.communitySelected.communityName === item.communityName ? styles.communitySelected : undefined]}>
+                        <Text style={this.state.communitySelected.communityName === item.communityName ? styles.communitySelectedName : styles.communityName }>{item.communityName}</Text>
                       </View>
                     </TouchableWithoutFeedback>
                 )}
@@ -126,10 +126,11 @@ const styles = StyleSheet.create({
   },
   // 小区列表
   communityList: {
+    width: 414,
     marginTop: 60,
     marginBottom: 50,
     flex: 1,
-    paddingHorizontal: 40
+    alignSelf: 'center'
   },
   communityLayout: {
     marginLeft: -26,
@@ -137,19 +138,26 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap'
   },
   community: {
-    width: 299.5,
-    height: 70,
+    width: 194,
+    height: 68,
     marginLeft: 26,
     marginBottom: 26,
+    borderColor: '#b1b1b1',
+    borderWidth: 2,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
-    backgroundColor: '#ffdc41'
+    borderRadius: 5
   },
   communitySelected: {
-    backgroundColor: 'rgba(153, 204, 51, 1)'
+    borderWidth: 0,
+    backgroundColor: '#ffd101'
   },
   communityName: {
+    fontSize: 22,
+    fontWeight: '900',
+    color: '#888'
+  },
+  communitySelectedName: {
     fontSize: 22,
     fontWeight: '900',
     color: '#fff'
@@ -172,6 +180,7 @@ const styles = StyleSheet.create({
   commitText: {
     textAlign: 'right',
     fontSize: 26,
+    fontWeight: '700',
     color: '#000'
   },
   manualInputText: {
