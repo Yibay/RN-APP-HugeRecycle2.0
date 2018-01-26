@@ -20,7 +20,7 @@ export const verifyLogin = WrappedComponent => connect(mapStateToProps)(
 
     static propTypes = {
       identityToken: PropTypes.shape({
-        authToken: PropTypes.string.isRequired
+        authToken: PropTypes.string.isRequired // 设置 请求头 'X-AUTH-TOKEN'时用
       })
     };
 

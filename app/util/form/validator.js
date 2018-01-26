@@ -9,6 +9,16 @@ const validator = {
   // 验证手机号码
   isPhone(value){
     return /^1[34578]\d{9}$/.test(value);
+  },
+
+  // 验证是否为数字
+  isNumber(value){
+    return typeof value === 'number' && value === value; // typeof NaN === 'number
+  },
+
+  // 验证是否为boolean
+  isBoolean(value){
+    return typeof value === 'boolean';
   }
 };
 

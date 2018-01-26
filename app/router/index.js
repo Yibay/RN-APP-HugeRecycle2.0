@@ -22,6 +22,7 @@ import AddressSelection from '../pages/AddressSelection';
 import AddressAdd from '../pages/AddressAdd';
 import AddressEdit from '../pages/AddressEdit';
 import EnvironmentalRecord from '../pages/EnvironmentalRecord';
+import CallSuccess from '../pages/CallSuccess';
 
 
 const AppRouter = () => (
@@ -48,6 +49,8 @@ const AppRouter = () => (
       <Scene key='addressSelectionPage' component={AddressSelection} hideNavBar={true} />
       {/* 编辑地址 */}
       <Scene key='addressEditPage' component={AddressEdit} hideNavBar={true} />
+      {/* 呼叫成功 */}
+      <Scene key='callSuccessPage' component={CallSuccess} hideNavBar={true} />
       {/* 环保记录 */}
       <Scene key='environmentalRecordPage' component={EnvironmentalRecord} hideNavBar={true} />
       {/* 轮播简介页 */}

@@ -5,7 +5,12 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { Actions } from 'react-native-router-flux';
 
+
+import { createOrderValidator } from '../util/form/recycleOrderValidator';
+import request from '../util/request/request';
+import config from '../util/request/config';
 
 import { verifyLogin } from '../HOC/verifyLogin';
 import Header from '../components/common/Header/Header';
@@ -65,8 +70,9 @@ class RecycleOrder extends Component{
     </View>);
   }
 
-  createOrder(){
-    let orderParams = _.pick(this.props.currentLocation,['communityId','communityName','haveHouseNumber','building','unit','room','address']);
+  async createOrder(){
+    // 检验 地址一系列属性时，通过id，一步检验
+    let orderParams = _.pick(this.props.currentLocation,['id','communityId','communityName','haveHouseNumber','building','unit','room','address']);
     orderParams.accountName = this.props.currentLocation.customerName;
     orderParams.phone = this.props.currentLocation.telNo;
     orderParams.isAerialWork = this.state.isAerialWork;
@@ -78,8 +84,21 @@ class RecycleOrder extends Component{
         + ' ' + this.props.recyclableGoods.AllProductsObj[`sort${item.sort}`].subCategoryObj[`id${item.categoryId}`].specsObj[`id${item.specsId}`].name,
       num: item.itemNum
     }));
-    console.log(this.props.currentLocation); // 其id 不存在，认为 地址填写不完整
+    // 检验 回收订单数据
+    if(!createOrderValidator(orderParams)){
+      // 未通过检验，则不执行下面 上传数据
+      return;
+    }
+
+    // 最终上传参数，不需要传 id
     console.log(orderParams);
+
+    const res = await request.post(config.api.createOrder, orderParams, {'X-AUTH-TOKEN': this.props.identityToken.authToken})
+
+    console.log(res);
+    if(res && !res.status){
+      Actions.callSuccessPage({alreadyLogged: true}); // 通知 呼叫成功页 已登录
+    }
   }
 }
 
