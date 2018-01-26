@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView,TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Text, ScrollView,TouchableWithoutFeedback, Image } from 'react-native';
 
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 
 
-import { setLocation, setAutoLocationFlag } from '../../redux/actions/Location';
-import { locationCrossPlatform } from '../../HOC/locationCrossPlatform';
+import { setLocation, setAutoLocationFlag } from '../../../redux/actions/Location';
+import { locationCrossPlatform } from '../../../HOC/locationCrossPlatform';
 
 
 class CommunitySelector extends Component{
@@ -36,29 +36,40 @@ class CommunitySelector extends Component{
 
   render(){
     return (<View style={[styles.container].concat(this.props.style)}>
-      <Text style={styles.title}>检测到这些小区在您周围</Text>
-      <ScrollView style={styles.communityList}>
-        <View style={styles.communityLayout}>
-          {this.props.LocateCommunities.map(
-            (item, index) =>
-              <TouchableWithoutFeedback key={index} onPress={() => this.selectCommunity(item)}>
-                <View style={[styles.community, this.state.communitySelected.communityName === item.communityName ? styles.communitySelected : styles.none]}>
-                  <Text style={styles.communityName}>{item.communityName}</Text>
+      <Text style={styles.title}>{this.props.LocateCommunities.length === 0 ? '定位中' : '检测到这些小区在您周围'}</Text>
+      {
+        this.props.LocateCommunities.length === 0 ?
+          <View style={styles.Positioning}>
+            <Image style={styles.positionImg} resizeMode='contain' source={require('./img/Location2x.png')} />
+          </View>
+          :
+          <View style={styles.communitySection}>
+            <ScrollView style={styles.communityList}>
+              <View style={styles.communityLayout}>
+                {this.props.LocateCommunities.map(
+                  (item, index) =>
+                    <TouchableWithoutFeedback key={index} onPress={() => this.selectCommunity(item)}>
+                      <View style={[styles.community, this.state.communitySelected.communityName === item.communityName ? styles.communitySelected : styles.none]}>
+                        <Text style={styles.communityName}>{item.communityName}</Text>
+                      </View>
+                    </TouchableWithoutFeedback>
+                )}
+              </View>
+            </ScrollView>
+            <View style={styles.commitLayout}>
+              <TouchableWithoutFeedback onPress={() => this.commitCommunity()}>
+                <View style={styles.commitBtn}>
+                  <Text style={styles.commitText}>确认选择</Text>
                 </View>
               </TouchableWithoutFeedback>
-          )}
-        </View>
-      </ScrollView>
-      <View style={styles.commitLayout}>
-        <TouchableWithoutFeedback onPress={() => this.commitCommunity()}>
-          <View style={styles.commitBtn}>
-            <Text style={styles.commitText}>确认选择</Text>
+              <TouchableWithoutFeedback onPress={() => Actions.locationManuallyPage()}>
+                <View style={styles.manualInputBtn}>
+                  <Text style={styles.manualInputText}>手动输入小区</Text>
+                </View>
+              </TouchableWithoutFeedback>
+            </View>
           </View>
-        </TouchableWithoutFeedback>
-        <View style={styles.manualInputBtn}>
-          <Text style={styles.manualInputText}>手动输入小区</Text>
-        </View>
-      </View>
+      }
     </View>);
   }
 
@@ -99,6 +110,21 @@ const styles = StyleSheet.create({
     fontSize: 34,
     fontWeight: '700'
   },
+  // 定位中
+  Positioning: {
+    flex: 1,
+    paddingTop: 146,
+    alignItems: 'center'
+  },
+  positionImg: {
+    width: 381,
+    height: 315
+  },
+  // 小区模块
+  communitySection: {
+    flex: 1
+  },
+  // 小区列表
   communityList: {
     marginTop: 60,
     marginBottom: 50,
@@ -128,6 +154,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     color: '#fff'
   },
+  // 控制按钮
   commitLayout: {
     flexDirection: 'row',
     justifyContent: 'center'

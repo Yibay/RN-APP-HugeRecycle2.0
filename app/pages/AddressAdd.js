@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Alert } from 'react-native';
+import { StyleSheet, View, Alert, TouchableWithoutFeedback } from 'react-native';
 
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -46,7 +46,12 @@ class AddressAdd extends Component {
       <Header title='新增地址' />
       <InputSection label='联系人' value={this.state.customerName} onChangeText={val => this.setState({customerName: val})} />
       <InputSection label='手机号码' value={this.state.telNo} onChangeText={val => this.setState({telNo: val})} />
-      <InputSection label='小区名称' value={this.state.communityName} editable={false} rightButton={<LocationBtn/>} />
+      <View style={styles.communitySection}>
+        <InputSection label='小区名称' value={this.state.communityName} editable={false} rightButton={<LocationBtn/>} />
+        <TouchableWithoutFeedback onPress={() => {Actions.locationPage()}}>
+          <View style={styles.mask} />
+        </TouchableWithoutFeedback>
+      </View>
       <HouseNumberAddressSection onChangeText={val => this.updateAddress(val)} style={styles.HouseNumberAddressSection} />
       <SubmitBtn style={styles.submitBtn} submit={() => this.addAddress()} />
     </View>);
@@ -141,6 +146,16 @@ const styles = StyleSheet.create({
     paddingVertical: 24,
     borderColor: '#e1e5e8',
     borderBottomWidth: 2,
+  },
+  communitySection: {
+    position: 'relative'
+  },
+  mask: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
   }
 });
 

@@ -4,7 +4,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 
-import CommunitySelector from '../containers/Location/CommunitySelector';
+import CommunitySelector from '../containers/Location/CommunitySelector/CommunitySelector';
 import SubmitBtn from '../components/common/Form/Btn/SubmitBtn';
 
 

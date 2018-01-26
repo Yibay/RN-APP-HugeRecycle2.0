@@ -15,6 +15,7 @@ import Recycle from '../pages/Home/Recycle';
 import Mall from '../pages/Home/Mall';
 import Mine from '../pages/Home/Mine';
 import LocationPage from '../pages/Location';
+import LocationManuallyPage from '../pages/LocationManually';
 import RecycleOrder from '../pages/RecycleOrder';
 import Login from '../pages/Login';
 import AddressSelection from '../pages/AddressSelection';
@@ -37,6 +38,8 @@ const AppRouter = () => (
       </Scene>
       {/* 定位地址页 */}
       <Scene key='locationPage' component={LocationPage} hideNavBar={true} />
+      {/* 手动输入小区 */}
+      <Scene key='locationManuallyPage' component={LocationManuallyPage} hideNavBar={true} />
       {/* 回收订单页 */}
       <Scene key='recycleOrderPage' title='待回收物品' component={RecycleOrder} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} hideNavBar={true} />
       {/* 新增地址页 */}

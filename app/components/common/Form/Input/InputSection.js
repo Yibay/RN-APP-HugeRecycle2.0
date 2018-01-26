@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableWithoutFeedback } from 'react-native';
 
 import PropTypes from 'prop-types';
 
@@ -7,23 +7,36 @@ import PropTypes from 'prop-types';
 class InputSection extends Component {
 
   static propTypes = {
-    label: PropTypes.string.isRequired, // label 文案 （必选）
     value: PropTypes.string.isRequired, // input value （必选）
     onChangeText: PropTypes.func.isRequired, // value 改变时，更新外部数据的func
+    label: PropTypes.string.isRequired, // label 文案
+    placeholder: PropTypes.string.isRequired, // placeholder 文案
     editable: PropTypes.bool.isRequired, // input 是否可手动编辑
+    // leftButton: PropTypes.element.isRequired, // 左侧按钮
     rightButton: PropTypes.element.isRequired // 右侧按钮
   };
 
   static defaultProps = {
     onChangeText: () => {console.log('do nothing.')},
+    label: '',
+    placeholder: '',
     editable: true,
     rightButton: (<View />)
   };
 
   render(){
-    return (<View style={styles.container}>
-      <Text style={styles.label} onPress={() => this.focusInput()}>{this.props.label}</Text>
-      <TextInput style={styles.textInput} underlineColorAndroid="transparent" ref="input" value={this.props.value} onChangeText={val => this.props.onChangeText(val)} editable={this.props.editable} />
+    return (<View {...this.props} style={styles.container}>
+      {
+        this.props.leftButton ?
+          <TouchableWithoutFeedback onPress={() => this.focusInput()}>
+            {
+              this.props.leftButton // 有定义左侧按钮，显示自定义左侧按钮
+            }
+          </TouchableWithoutFeedback>
+          :
+          <Text style={styles.label} onPress={() => this.focusInput()}>{this.props.label}</Text> // 没有自定义左侧按钮显示，label
+      }
+      <TextInput style={styles.textInput} underlineColorAndroid="transparent" ref="input" value={this.props.value} onChangeText={val => this.props.onChangeText(val)} editable={this.props.editable} placeholder={this.props.placeholder} />
       {
         this.props.rightButton // 若有右侧按钮，则添加
       }
