@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Modal, TextInput, TouchableOpacity, Platform } from 'react-native';
+import { StyleSheet, View, Text, Modal, TouchableOpacity, Platform, Alert } from 'react-native';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { Actions } from "react-native-router-flux";
 
 
+import { createOrderValidator } from '../../util/form/recycleOrderValidator';
 import request from '../../util/request/request';
 import config from '../../util/request/config';
 
 import AdaptLayoutWidth from '../../components/common/AdaptLayoutWidth';
 import HouseNumberAddressSection from '../../components/common/Form/Module/HouseNumberAddressSection';
+import InputSection from '../../components/common/Form/Input/InputSection';
+import RecordBtn from '../../components/common/Form/Btn/RecordBtn';
+import validator from "../../util/form/validator";
 
 
 class CallModal extends Component{
@@ -30,7 +35,8 @@ class CallModal extends Component{
       address: props.currentLocation.address ? props.currentLocation.address : '',
       building: props.currentLocation.building ? props.currentLocation.building : '',
       unit: props.currentLocation.unit ? props.currentLocation.unit : '',
-      room: props.currentLocation.room ? props.currentLocation.room : ''
+      room: props.currentLocation.room ? props.currentLocation.room : '',
+      code: ''
     }
   }
 
@@ -55,15 +61,15 @@ class CallModal extends Component{
         <View style={styles.container}>
           <View style={styles.msgBox}>
             <Text style={styles.title}>您未选择可回收物，直接呼叫虎哥</Text>
-            <View style={styles.lineSection}>
-              <Text style={styles.msgText}>联系人</Text>
-              <TextInput style={[styles.msgText, styles.msgTextInput, styles.linkman]} underlineColorAndroid="transparent" onChangeText={val => this.setState({accountName: val.trim()})} value={this.state.accountName} />
-              <Text style={styles.msgText}>电话</Text>
-              <TextInput style={[styles.msgText, styles.msgTextInput, styles.tel]} underlineColorAndroid="transparent" onChangeText={val => this.setState({phone: val.trim()})} value={this.state.phone} />
-            </View>
-            <View style={styles.lineSection}>
-              <Text style={styles.msgText}>小区名称 {this.props.currentLocation.communityName}</Text>
-            </View>
+            <InputSection style={styles.lineSection} value={this.state.accountName} onChangeText={val => this.setState({accountName: val.trim()})} label='联系人' placeholder='请输入联系人姓名'/>
+            <InputSection style={styles.lineSection} value={this.state.phone} onChangeText={val => this.setState({phone: val.trim()})} label='电话' placeholder='请输入联系人电话'/>
+            {
+              !this.props.authToken ?
+                <InputSection style={styles.lineSection} value={this.state.code} onChangeText={val => this.setState({code: val.trim()})} label='短信验证码' placeholder='请输入验证码' rightButton={<RecordBtn text='获取验证码' submit={() => {this.getCode()}}/>}/>
+                :
+                null
+            }
+            <InputSection style={styles.lineSection} value={this.props.currentLocation.communityName} label='小区名称' editable={false}/>
             <View style={styles.lineSection}>
               {/* 有无户号 选择器 */}
               <HouseNumberAddressSection onChangeText={valObj => this.setState(valObj)} currentLocation={this.props.currentLocation} />
@@ -82,11 +88,13 @@ class CallModal extends Component{
     </Modal>);
   }
 
+  // 取消呼叫
   cancelCall(){
     this.props.hideCallModal();
   }
 
-  confirmCall(){
+  // 确认呼叫
+  async confirmCall(){
 
     // 请求数据
     let params = _.assign(
@@ -96,22 +104,54 @@ class CallModal extends Component{
     );
     params.isAerialWork = false; // 是否需要拆卸空调
     params.orderSource = Platform.select({ android: 4, ios: 5 });
+    if(params.haveHouseNumber){
+      params.address = `${params.building}-${params.unit}-${params.room}`;
+    }
 
     // 检验数据
-    console.log(params);
+    if(!createOrderValidator(params)){
+      return;
+    }
 
     // 发送请求
     // 若已登录
     if(this.props.authToken){
       // 带 X-AUTH-TOKEN 发送请求
+      let res = await request.post(config.api.createOrder, params, {'X-AUTH-TOKEN': this.props.authToken});
+      if(res && !res.status){
+        Actions.callSuccessPage({alreadyLogged: true}); // 通知 呼叫成功页 已登录
+      }
     }
     // 若未登录
     else {
       // 带验证码 发送请求
+      if(validator.isEmpty(this.state.code)){
+        Alert.alert('请输入验证码');
+        return;
+      }
+      // 带 code 短信验证码 发送请求
+      params.code = this.state.code;
+      let res = await request.post(config.api.createOrder, params);
+      if(res && !res.status){
+        Actions.callSuccessPage({alreadyLogged: false}); // 通知 呼叫成功页 已登录
+      }
     }
 
     // 发送成功后，关闭弹窗
     this.props.hideCallModal();
+  }
+
+  // 获取验证码
+  async getCode(){
+    if(!validator.isPhone(this.state.phone)){
+      Alert.alert('请填写正确的手机号码');
+      return;
+    }
+    const res = await request.post(config.api.getCode, {phone:this.state.phone});
+    // 发送成功 status 为 0，弹出 返回的data信息
+    if(res && !res.status){
+      Alert.alert(res.data);
+    }
   }
 
   // Android Modal 必须属性
@@ -163,9 +203,10 @@ const styles = StyleSheet.create({
   },
   btnConfirm: {
     marginRight: 30,
-    backgroundColor: '#169bd5'
+    backgroundColor: '#ffd101'
   },
   btnConfirmText: {
+    fontWeight: '700',
     color: '#fff'
   },
   btnCancel: {

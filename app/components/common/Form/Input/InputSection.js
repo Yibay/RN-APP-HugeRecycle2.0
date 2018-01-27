@@ -25,7 +25,7 @@ class InputSection extends Component {
   };
 
   render(){
-    return (<View {...this.props} style={styles.container}>
+    return (<View {...this.props} style={[styles.container].concat(this.props.style)}>
       {
         this.props.leftButton ?
           <TouchableWithoutFeedback onPress={() => this.focusInput()}>

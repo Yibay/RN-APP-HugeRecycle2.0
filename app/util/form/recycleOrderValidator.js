@@ -6,10 +6,10 @@ import validator from './validator';
 export const createOrderValidator = recycleOrder => {
 
   // currentLocation 的 id 不存在，认为 地址填写不完整
-  if(!recycleOrder.id){
-    Alert.alert('请填写完整联系人信息');
-    return false;
-  }
+  // if(!recycleOrder.id){
+  //   Alert.alert('请填写完整联系人信息');
+  //   return false;
+  // }
   if(!validator.isNumber(recycleOrder.communityId) || validator.isEmpty(recycleOrder.communityName)){
     Alert.alert('请选择小区');
     return false;

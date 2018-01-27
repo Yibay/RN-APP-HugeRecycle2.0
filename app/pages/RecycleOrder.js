@@ -84,6 +84,7 @@ class RecycleOrder extends Component{
         + ' ' + this.props.recyclableGoods.AllProductsObj[`sort${item.sort}`].subCategoryObj[`id${item.categoryId}`].specsObj[`id${item.specsId}`].name,
       num: item.itemNum
     }));
+
     // 检验 回收订单数据
     if(!createOrderValidator(orderParams)){
       // 未通过检验，则不执行下面 上传数据
@@ -91,11 +92,7 @@ class RecycleOrder extends Component{
     }
 
     // 最终上传参数，不需要传 id
-    console.log(orderParams);
-
-    const res = await request.post(config.api.createOrder, orderParams, {'X-AUTH-TOKEN': this.props.identityToken.authToken})
-
-    console.log(res);
+    const res = await request.post(config.api.createOrder, _.omit(orderParams, ['id']), {'X-AUTH-TOKEN': this.props.identityToken.authToken})
     if(res && !res.status){
       Actions.callSuccessPage({alreadyLogged: true}); // 通知 呼叫成功页 已登录
     }

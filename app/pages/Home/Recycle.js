@@ -32,11 +32,10 @@ class Recycle extends Component{
 
   render(){
     let AllProductsObj = this.props.recyclableGoods.AllProductsObj;
-    console.log(AllProductsObj);
 
     return (<View style={styles.container}>
       {/* 页头 */}
-      <Header title='我要回收' hideBack={true} leftButton={<NavBarLocationButton/>} rightButton={<Text style={styles.loginBtn} onPress={() => Actions.login()}>登录</Text>}/>
+      <Header title='我要回收' hideBack={true} leftButton={<NavBarLocationButton/>} rightButton={!this.props.authToken ? <Text style={styles.loginBtn} onPress={() => Actions.login()}>登录</Text> : <View/>}/>
       {/* 导航条 */}
       <Navigator navigationItems={this.props.category}>
         {
@@ -140,7 +139,8 @@ function mapStateToProps(state){
     category: state.recycle.recyclableGoods.AllProductsArray
       .sort((val1, val2) => val1.sort - val2.sort) // 按 sort 序号排序
       .map(item => ({itemName: item.categoryName})),
-    recyclableGoods: state.recycle.recyclableGoods
+    recyclableGoods: state.recycle.recyclableGoods,
+    authToken: state.identityToken.authToken
   }
 }
 
