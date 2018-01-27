@@ -21,8 +21,9 @@ import Login from '../pages/Login';
 import AddressSelection from '../pages/AddressSelection';
 import AddressAdd from '../pages/AddressAdd';
 import AddressEdit from '../pages/AddressEdit';
-import EnvironmentalRecord from '../pages/EnvironmentalRecord';
+import RecycleRecord from '../pages/RecycleRecord';
 import CallSuccess from '../pages/CallSuccess';
+import RecycleEvaluation from '../pages/RecycleEvaluation';
 
 
 const AppRouter = () => (
@@ -52,7 +53,9 @@ const AppRouter = () => (
       {/* 呼叫成功 */}
       <Scene key='callSuccessPage' component={CallSuccess} hideNavBar={true} />
       {/* 环保记录 */}
-      <Scene key='environmentalRecordPage' component={EnvironmentalRecord} hideNavBar={true} />
+      <Scene key='environmentalRecordPage' component={RecycleRecord} hideNavBar={true} />
+      {/* 评价虎哥 */}
+      <Scene key='recycleEvaluationPage' component={RecycleEvaluation} hideNavBar={true} />
       {/* 轮播简介页 */}
       <Scene key='intro' component={Intro} hideNavBar={true} />
       {/* 登录页 */}

@@ -52,6 +52,7 @@ class Mine extends Component {
           this.props.setIdentityToken(emptyIdentityToken);
           // 删除本地身份令牌
           // storage.remove('identityToken');
+          Actions.jump('recycle');
         }
       }
     ]);

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView ,View, Text } from 'react-native';
+import { StyleSheet, ScrollView ,View, Text, Alert } from 'react-native';
+
+import { Actions } from 'react-native-router-flux';
 
 
 import { verifyLogin } from '../HOC/verifyLogin';
@@ -37,18 +39,18 @@ class EnvironmentalRecord extends Component {
               case 1: // 待确认
               case 2: // 已审／未派
               case 4: // 已派／未接
-                recordBtn = <View style={styles.flexRow}><RecordBtn text='催单' /><RecordBtn style={styles.btnMargin} text='撤单' /></View>;
+                recordBtn = <View style={styles.flexRow}><RecordBtn text='催单' submit={() => this.urgeOrder(item.id)} /><RecordBtn style={styles.btnMargin} text='撤单' submit={() => this.cancelOrder(item.id)} /></View>;
                 statusDesc = <Text style={styles.status}>等待虎哥接单</Text>;
                 break;
               case 5: // 已接
-                recordBtn = <RecordBtn text='联系取件员' />;
+                recordBtn = <RecordBtn text='联系取件员' submit={() => this.contactHuge(item.id)} />;
                 statusDesc = <Text style={styles.status}>等待虎哥上门回收</Text>;
                 break;
               // case 6: // 到达
               case 7: // 完成
                 // gradeStatus 5 未回访
                 item.gradeStatus === 5 ?
-                  (recordBtn = <RecordBtn text='评价' />)
+                  (recordBtn = <RecordBtn text='评价' submit={() => this.goToRecycleEvaluationPage(item.id)} />)
                   // gradeStatus 其他状态，已回访
                   :
                   (recordBtn = <DisableBtn text='已评价' />);
@@ -65,7 +67,7 @@ class EnvironmentalRecord extends Component {
                 statusDesc = <Text/>
             }
 
-            return <OrderItem key={index} style={styles.OrderItem} createdTs={item.createdTs} createOrderTime={item.createOrderTime} recycledItems={item.recycleCategoryDesc} statusDesc={statusDesc} rightButton={recordBtn}/>
+            return <OrderItem key={index} style={styles.OrderItem} createdTs={item.id} createOrderTime={item.createOrderTime} recycledItems={item.recycleCategoryDesc} statusDesc={statusDesc} rightButton={recordBtn}/>
           })
         }
 
@@ -75,7 +77,6 @@ class EnvironmentalRecord extends Component {
 
   // 单一入口页，数据采用本层管理
   async componentDidMount(){
-    console.log('EnvironmentalRecord--------componentDidMount');
     const res = await request
       .get(config.api.myOrders, null, {'X-AUTH-TOKEN': this.props.identityToken.authToken})
 
@@ -85,6 +86,66 @@ class EnvironmentalRecord extends Component {
       console.log(res);
       this.setState({recordItems: res.data});
     }
+  }
+
+  // 撤单
+  cancelOrder(orderId){
+    Alert.alert('撤销回收单','撤单后虎哥将不再上门收件',[
+      {
+        text: '撤销',
+        onPress: async () => {
+          console.log(orderId);
+          const res = await request
+            .post(config.api.cancelOrder,{orderId},{'X-AUTH-TOKEN': this.props.identityToken.authToken})
+          // 若请求正常、且数据正常
+          if(res && !res.status){
+            // 刷新数据
+            this.componentDidMount();
+          }
+          else if(res && res.message){
+            Alert.alert(res.message);
+          }
+        }
+      },
+      {
+        text: '不了'
+      }
+    ]);
+
+  }
+
+  // 催单
+  async urgeOrder(orderId){
+    const res = await request.post(config.api.urgeOrder,{orderId},{'X-AUTH-TOKEN': this.props.identityToken.authToken})
+    if(res){
+      // 若请求正常、且数据正常
+      if(!res.status){
+        Alert.alert(res.data);
+      }
+      else{
+        console.log(res.message);
+      }
+    }
+  }
+
+  // 联系虎哥上门收件
+  async contactHuge(orderId){
+    const res = await request.get(`${config.api.contactHuge}${orderId}`,null,{'X-AUTH-TOKEN': this.props.identityToken.authToken})
+    if(res){
+      console.log(res);
+      // 若请求正常、且数据正常
+      if(!res.status){
+        console.log(res.data);
+      }
+      else{
+        Alert.alert(res.message);
+      }
+    }
+  }
+
+  // 客户评价
+  goToRecycleEvaluationPage(orderId){
+    Actions.recycleEvaluationPage({orderId})
   }
 }
 

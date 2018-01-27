@@ -22,7 +22,7 @@ let request = {};
  * @param {Object} [header]
  * @returns {Promise<any>}
  */
-request.get = function(url, data, header){
+request.get = function(url, data, headers){
 
   // fetch url
   data && (url += '?' + queryString.stringify(data) );
@@ -31,7 +31,7 @@ request.get = function(url, data, header){
   let options = _.merge(
     { method: 'GET' },
     { headers: config.requestHeaders },
-    header ? { headers: header } : {}
+    headers ? { headers } : {}
   );
 
   return fetch(url, options)
@@ -47,14 +47,14 @@ request.get = function(url, data, header){
  * @param {Object} [header]
  * @returns {Promise<any>}
  */
-request.post = function(url, data, header){
+request.post = function(url, data, headers){
 
   // fetch options
   let options = _.merge(
     { method: 'POST' },
     { headers: config.requestHeaders },
     data ? { body: JSON.stringify(data) } : {},
-    header ? { headers: header } : {}
+    headers ? { headers } : {}
   );
 
   return fetch(url ,options)

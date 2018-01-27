@@ -49,8 +49,16 @@ export default {
     createOrder: `${api_base}api/customer/app/auth/deal/createOrder`,
     // 查看 我的订单(我的环保记录)
     myOrders: `${api_base}api/mobile/deal/myOrders`,
+    // 撤单 (POST)  需要登录 header X-AUTH-TOKEN, params orderId (必填)
+    cancelOrder: `${api_base}/api/mobile/deal/cancelOrder`,
+    // 催单（POST） 需要登录 header X-AUTH-TOKEN, params orderId (必填)
+    urgeOrder: `${api_base}/api/mobile/deal/urgeOrder`,
+    // 联系虎哥上门收件（GET） 需要登录 header X-AUTH-TOKEN /api/mobile/deal/contactHuge/{orderId}
+    contactHuge: `${api_base}/api/mobile/deal/contactHuge/`,
+    // 客户评价（POST） 需要登录 header X-AUTH-TOKEN /api/mobile/deal/rateOrder/{orderId}
+    rateOrder: `${api_base}/api/mobile/deal/rateOrder/`,
     // 查看 订单详情(根据path {id} 查询)
-    order: 'api/mobile/deal/order/',
+    order: `${api_base}api/mobile/deal/order/`,
     // 发送 客户反馈
     createFeedback: 'api/mobile/deal/createFeedback',
     // 获取 最新版本号
