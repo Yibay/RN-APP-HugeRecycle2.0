@@ -107,6 +107,12 @@ class CallModal extends Component{
     if(params.haveHouseNumber){
       params.address = `${params.building}-${params.unit}-${params.room}`;
     }
+    params.items = this.props.recycledItemsList.list.map(item => ({
+      id: item.specsId,
+      name: this.props.recyclableGoods.AllProductsObj[`sort${item.sort}`].subCategoryObj[`id${item.categoryId}`].name
+      + ' ' + this.props.recyclableGoods.AllProductsObj[`sort${item.sort}`].subCategoryObj[`id${item.categoryId}`].specsObj[`id${item.specsId}`].name,
+      num: item.itemNum
+    }));
 
     // 检验数据
     if(!createOrderValidator(params)){
@@ -244,7 +250,9 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
   return {
     currentLocation: state.location.currentLocation,
-    authToken: state.identityToken.authToken
+    authToken: state.identityToken.authToken,
+    recycledItemsList: state.recycle.recycledItemsList,
+    recyclableGoods: state.recycle.recyclableGoods
   }
 }
 

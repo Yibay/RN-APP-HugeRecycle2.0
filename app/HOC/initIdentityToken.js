@@ -12,13 +12,23 @@ import _ from 'lodash';
 // Action
 import { setIdentityToken } from '../redux/actions/IdentityToken';
 import { setLocation, setUserAddressList, defaultCurrentLocation } from '../redux/actions/Location';
+import { setAllProducts } from '../redux/actions/Recycle';
 import request from "../util/request/request";
 import config from "../util/request/config";
 
 
 const initIdentityToken = (WrappedComponent) => connect(mapStateToProps, actionsCreator)(class extends Component {
 
-  async componentWillMount(){
+  componentWillMount(){
+
+    this.setIdentityToken();
+
+    this.getProducts();
+
+  }
+
+  // 设置身份信息
+  async setIdentityToken(){
 
     // 1. 获取本地储存 身份信息（token）
     let ret = await storage
@@ -29,7 +39,22 @@ const initIdentityToken = (WrappedComponent) => connect(mapStateToProps, actions
     if(ret){
       this.props.setIdentityToken(ret);
     }
+  }
 
+  // 获取回收品列表（无需登录）
+  async getProducts(){
+    // 请求 回收类别相应数据
+    request
+      .get(config.api.getProducts)
+      .then(res => {
+        // 若请求成功，数据正常
+        if(!res.status){
+          console.log(res.data);
+          // 更新全局数据
+          this.props.setAllProducts(res.data);
+        }
+      })
+      .catch(e => console.log(e));
   }
 
   render(){
@@ -42,13 +67,6 @@ const initIdentityToken = (WrappedComponent) => connect(mapStateToProps, actions
     // 若状态，切换为登录
     if(this.props.authToken){
       console.log('---登录---');
-
-      // 清空 身份令牌信息
-      // this.props.setLocation({
-      //   'X-AUTH-TOKEN': '',
-      //   h5Code: '',
-      //   user: {}
-      // })
 
       // 更新app需要的用户信息
       let [defaultAddress, addressList] = await Promise.all([ // 并发
@@ -75,7 +93,7 @@ const initIdentityToken = (WrappedComponent) => connect(mapStateToProps, actions
     }
     // 若退出登录
     else {
-      console.log('---退出登录---');
+      console.log('---登出---');
       // 2. 清空 一键呼叫 回收地址信息
       this.props.setLocation(defaultCurrentLocation);
       // 3. 清空 用户回收地址列表
@@ -90,6 +108,6 @@ function mapStateToProps(state){
   }
 }
 
-const actionsCreator = { setIdentityToken, setLocation, setUserAddressList };
+const actionsCreator = { setIdentityToken, setLocation, setUserAddressList, setAllProducts };
 
 export default initIdentityToken;

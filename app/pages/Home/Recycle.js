@@ -93,21 +93,6 @@ class Recycle extends Component{
     </View>)
   }
 
-  componentDidMount(){
-    // 请求 回收类别相应数据
-    request
-      .get(config.api.getProducts)
-      .then(res => {
-        // 若请求成功，数据正常
-        if(!res.status){
-          console.log(res.data);
-          // 更新全局数据
-          this.props.setAllProducts(res.data);
-        }
-      })
-      .catch(e => console.log(e));
-  }
-
   // 弹出 一键呼叫 弹窗
   showCallModal(){
     this.setState({
