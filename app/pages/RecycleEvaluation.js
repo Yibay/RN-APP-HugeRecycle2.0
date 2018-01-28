@@ -89,8 +89,8 @@ class RecycleEvaluation extends Component {
     return (<View style={styles.container}>
       <Header title='评价虎哥'/>
       <View style={styles.content}>
-        <Image style={styles.hugePhoto} source={{uri: 'https://avatars3.githubusercontent.com/u/18311200?s=460&v=4'}} resizeMode='contain'/>
-        <Text style={styles.hugeName}>虎哥：张三三</Text>
+        <Image style={styles.hugePhoto} source={{uri: this.props.recordItem.tServiceOrder.recyclerHeadPic}} resizeMode='contain'/>
+        <Text style={styles.hugeName}>{`虎哥：${this.props.recordItem.tServiceOrder.recyclerName}`}</Text>
         {/* 评价 */}
         <GradeEvaluation style={styles.rateSpeed} label='上门时间' onChangeScore={score => this.setState({rateSpeed: score})}/>
         <GradeEvaluation label='服务态度' onChangeScore={score => this.setState({rateService: score})}/>
@@ -102,22 +102,16 @@ class RecycleEvaluation extends Component {
     </View>)
   }
 
-  async componentDidMount(){
-    // 获取订单信息
-    const res = await request.get(`${config.api.order}${this.props.recordItem.id}`,null,{'X-AUTH-TOKEN': this.props.identityToken.authToken})
-    if(res){
-      console.log(res);
-    }
-  }
-
   async submit(){
+    if(!this.state.rateSpeed){ Alert.alert('请为上门时间打分'); return; }
+    if(!this.state.rateService){ Alert.alert('请为服务态度打分'); return; }
+    if(!this.state.rateConvenience){ Alert.alert('请为回收便捷度打分'); return; }
     const res = await request.post(`${config.api.rateOrder}/${this.props.recordItem.id}`,this.state,{'X-AUTH-TOKEN': this.props.identityToken.authToken})
-    console.log(res);
     if(res){
       if(!res.status){
         Alert.alert('评价成功','感谢您的评价，虎哥会更加努力为您带来更好的服务',[
           {text: '返回', onPress: () => {
-              // 刷新回收记录列表
+              // 刷新回收记录列表(上一页)
               this.props.updateOrderList();
               // 返回上一页
               Actions.pop();

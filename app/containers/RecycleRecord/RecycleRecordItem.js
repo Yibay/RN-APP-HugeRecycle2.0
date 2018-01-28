@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, View, Text, Alert} from 'react-native';
+import {StyleSheet, View, Text, Alert, Linking} from 'react-native';
 
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
@@ -61,16 +61,19 @@ class RecycleRecordItem extends Component{
     switch(this.props.recordItem.orderStatusId){
       case 0: // 未审
       case 1: // 待确认
+        recordBtn = <RecordBtn style={styles.btnMargin} text='撤单' submit={() => this.cancelOrder(this.props.recordItem.id)} />;
+        statusDesc = <Text style={styles.statusFinish}>订单待审核</Text>;
+        break;
       case 2: // 已审／未派
       case 4: // 已派／未接
         recordBtn = <View style={styles.flexRow}><RecordBtn text='催单' submit={() => this.urgeOrder(this.props.recordItem.id)} /><RecordBtn style={styles.btnMargin} text='撤单' submit={() => this.cancelOrder(this.props.recordItem.id)} /></View>;
         statusDesc = <Text style={styles.status}>等待虎哥接单</Text>;
       break;
       case 5: // 已接
-        recordBtn = <RecordBtn text='联系取件员' submit={() => this.contactHuge(this.props.recordItem.id)} />;
+      case 6: // 到达
+        recordBtn = <View style={styles.flexRow}><RecordBtn text='催单' submit={() => this.urgeOrder(this.props.recordItem.id)} /><RecordBtn style={styles.btnMargin} text='联系取件员' submit={() => this.contactHuge(this.props.recordItem.id)} /></View>;
         statusDesc = <Text style={styles.status}>等待虎哥上门回收</Text>;
       break;
-      // case 6: // 到达
       case 7: // 完成
         // gradeStatus 5 未回访
         if(this.props.recordItem.gradeStatus === 5 ){
@@ -97,7 +100,7 @@ class RecycleRecordItem extends Component{
         break;
       default:
         recordBtn = <View/>;
-        statusDesc = <Text/>
+        statusDesc = <Text/>;
     }
 
     return <OrderItem style={[styles.container].concat(this.props.style)} firstSectionStyle={this.props.firstSectionStyle} createdTs={this.props.recordItem.id} createOrderTime={this.props.recordItem.createOrderTime} recycledItems={this.props.recordItem.recycleCategoryDesc} statusDesc={statusDesc} rightButton={recordBtn}/>
@@ -138,7 +141,8 @@ class RecycleRecordItem extends Component{
         Alert.alert(res.data);
       }
       else{
-        console.log(res.message);
+        console.log(res);
+        Alert.alert(res.data);
       }
     }
   }
@@ -147,10 +151,23 @@ class RecycleRecordItem extends Component{
   async contactHuge(orderId){
     const res = await request.get(`${config.api.contactHuge}${orderId}`,null,{'X-AUTH-TOKEN': this.props.authToken})
     if(res){
-      console.log(res);
       // 若请求正常、且数据正常
       if(!res.status){
-        console.log(res.data);
+        Alert.alert('联系收件员',`${res.data.recyclerName}：${res.data.recyclerWorkPhone}`,[
+          {
+            text: '拨打',
+            onPress: async () => {
+              const supported = await Linking.canOpenURL(`tel:${res.data.recyclerWorkPhone}`).catch(e => {console.log(e); return false;});
+              if(supported){
+                Linking.openURL(`tel:${res.data.recyclerWorkPhone}`);
+              }
+              else{
+                Alert.alert('此设备不支持 拨打电话',`请手动拨打${res.data.recyclerWorkPhone}`);
+              }
+            }
+          },
+          {text: '不了'}
+        ]);
       }
       else{
         Alert.alert(res.message);
