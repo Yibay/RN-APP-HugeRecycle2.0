@@ -14,9 +14,13 @@ class OrderItem extends Component {
     rightButton: PropTypes.element.isRequired
   };
 
+  static defaultProps = {
+    firstSectionStyle: undefined
+  };
+
   render(){
     return (<View style={[styles.container].concat(this.props.style)}>
-      <View style={styles.firstSection}>
+      <View style={[styles.firstSection].concat(this.props.firstSectionStyle)}>
         <View style={styles.orderAndTime}>
           <Text style={styles.orderId}>{`订单号: ${this.props.createdTs}`}</Text>
           <Text style={styles.orderTime}>{this.props.createOrderTime}</Text>
@@ -33,7 +37,8 @@ class OrderItem extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    alignSelf: 'stretch',
     backgroundColor: '#fff'
   },
   // 第1内容区
