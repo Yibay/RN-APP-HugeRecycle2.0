@@ -24,19 +24,21 @@ import AddressEdit from '../pages/AddressEdit';
 import RecycleRecord from '../pages/RecycleRecord';
 import CallSuccess from '../pages/CallSuccess';
 import RecycleEvaluation from '../pages/RecycleEvaluation';
+// TabIcon
+import { RecycleIcon, MallIcon, MineIcon } from '../HOC/configTabIcon';
 
 
 const AppRouter = () => (
   <Router>
     <Stack key='root'>
       {/* 主入口页 */}
-      <Scene key='home' tabs={true} tabBarPosition='bottom' labelStyle={tabsStyle.labelStyle} tabBarStyle={tabsStyle.tabBarStyle} >
+      <Scene key='home' tabs={true} tabBarPosition='bottom' labelStyle={tabsStyle.labelStyle} activeTintColor='#000' inactiveTintColor='#000' tabBarStyle={tabsStyle.tabBarStyle} >
         {/* 回收分页 */}
-        <Scene key='recycle' tabBarLabel='我要回收' component={Recycle} hideNavBar={true} />
+        <Scene key='recycle' tabBarLabel='我要回收' showLabel={false} icon={RecycleIcon} component={Recycle} hideNavBar={true} />
         {/* 商场分页 */}
-        <Scene key='shoppingMall' title='虎哥便利店' tabBarLabel='虎哥商场' component={Mall} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} />
+        <Scene key='shoppingMall' tabBarLabel='虎哥商场' icon={MallIcon} component={Mall} hideNavBar={true} />
         {/* 我的分页 */}
-        <Scene key='mine' tabBarLabel='我的' component={Mine} hideNavBar={true} />
+        <Scene key='mine' tabBarLabel='我的' icon={MineIcon} component={Mine} hideNavBar={true} />
       </Scene>
       {/* 定位地址页 */}
       <Scene key='locationPage' component={LocationPage} hideNavBar={true} />
@@ -82,19 +84,22 @@ const styles = StyleSheet.create({
 // tabs 修正样式
 const tabsStyle = {
   labelStyle: {
-    fontSize: 30
+    fontSize: 20
   },
   tabBarStyle: {
     ...Platform.select({
       ios: {
-        paddingBottom: 30,
+        paddingVertical: 14,
         height: 100
       },
       android: {
-        paddingBottom: 70,
+        paddingTop: 14,
+        paddingBottom: 54,
         height: 140
       }
-    })
+    }),
+    borderTopWidth: 1,
+    backgroundColor: '#fff'
   }
 };
 

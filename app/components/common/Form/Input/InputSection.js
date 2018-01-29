@@ -13,7 +13,8 @@ class InputSection extends Component {
     placeholder: PropTypes.string.isRequired, // placeholder 文案
     editable: PropTypes.bool.isRequired, // input 是否可手动编辑
     // leftButton: PropTypes.element.isRequired, // 左侧按钮
-    rightButton: PropTypes.element.isRequired // 右侧按钮
+    rightButton: PropTypes.element.isRequired, // 右侧按钮
+    keyboardType: PropTypes.oneOf(['default','numeric','email-address','phone-pad'])
   };
 
   static defaultProps = {
@@ -21,7 +22,8 @@ class InputSection extends Component {
     label: '',
     placeholder: '',
     editable: true,
-    rightButton: (<View />)
+    rightButton: (<View />),
+    keyboardType: 'default'
   };
 
   render(){
@@ -36,7 +38,7 @@ class InputSection extends Component {
           :
           <Text style={styles.label} onPress={() => this.focusInput()}>{this.props.label}</Text> // 没有自定义左侧按钮显示，label
       }
-      <TextInput style={styles.textInput} underlineColorAndroid="transparent" ref="input" value={this.props.value} onChangeText={val => this.props.onChangeText(val)} editable={this.props.editable} placeholder={this.props.placeholder} />
+      <TextInput style={styles.textInput} underlineColorAndroid="transparent" ref="input" value={this.props.value} onChangeText={val => this.props.onChangeText(val)} editable={this.props.editable} placeholder={this.props.placeholder} keyboardType={this.props.keyboardType} />
       {
         this.props.rightButton // 若有右侧按钮，则添加
       }

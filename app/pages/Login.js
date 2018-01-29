@@ -41,12 +41,12 @@ class Login extends Component{
             [
               /* 输入框: 手机验证码登录 */
               <View key={0} style={ styles.form }>
-                <InputSection label='手机号码' value={this.state.phone} onChangeText={text => this.changePhone(text)} rightButton={<Text style={styles.getCode} onPress={() => this.getCode()}>发送验证码</Text>}/>
-                <InputSection label='短信验证码' value={this.state.code} onChangeText={text => this.changeCode(text)}/>
+                <InputSection label='手机号码' value={this.state.phone} onChangeText={text => this.changePhone(text)} rightButton={<Text style={styles.getCode} onPress={() => this.getCode()}>发送验证码</Text>} keyboardType='numeric' />
+                <InputSection label='短信验证码' value={this.state.code} onChangeText={text => this.changeCode(text)} keyboardType='numeric'/>
               </View>,
               /* 输入框: 手机密码登录 */
               <View key={1} style={ styles.form }>
-                <InputSection label='手机号码' value={this.state.phone} onChangeText={text => this.changePhone(text)}/>
+                <InputSection label='手机号码' value={this.state.phone} onChangeText={text => this.changePhone(text)} keyboardType='numeric'/>
                 <InputSection label='密码' value={this.state.code} onChangeText={text => this.changeCode(text)}/>
               </View>
             ]
