@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Text, TouchableWithoutFeedback, StatusBar } from 'react-native';
 
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -46,6 +46,10 @@ class Header extends Component{
 
     return (
       <View style={styles.header}>
+        <StatusBar
+          backgroundColor='transparent' // android 状态栏 颜色
+          translucent={true} // android 状态栏 设为 沉浸式
+        />
         {
           leftButton
         }
