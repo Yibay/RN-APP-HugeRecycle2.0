@@ -88,6 +88,11 @@ export default {
     rateOrder: `${api_base}/api/mobile/deal/rateOrder/`,
     // 查看 订单详情 (GET) (根据path {id} 查询)需要登录 header X-AUTH-TOKEN
     order: `${api_base}api/mobile/deal/order/`,
+    // 修改密码(POST) 需要登录 header X-AUTH-TOKEN
+    // params:
+    //  oldPassword
+    //  newPassword
+    updatePassword: `${api_base}/api/auth/updatePassword`,
     // 发送 客户反馈
     createFeedback: 'api/mobile/deal/createFeedback',
     // 获取 最新版本号

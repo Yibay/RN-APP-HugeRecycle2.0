@@ -63,4 +63,42 @@ request.post = function(url, data, headers){
     .catch(e => {console.log('json解析时报错'); console.log(e); return null;})
 };
 
+/**
+ * postFormData 以Form表单形式，发送post请求
+ * @param url
+ * @param data
+ * @param headers
+ * @returns {Promise<any>}
+ */
+request.postFormData = function(url ,data, headers){
+
+  // fetch options
+  let options = _.merge(
+    { method: 'POST' },
+    { headers: {'Content-Type': 'application/x-www-form-urlencoded'} },
+    data ? { body: constructFormData(data)} : {},
+    headers ? { headers } : {}
+  );
+
+  console.log(options);
+
+  return fetch(url, options)
+    .catch(e => {console.log('fetch请求时报错'); console.log(e);})
+    .then(res => res.json())
+    .catch(e => {console.log('json解析时报错'); console.log(e); return null;})
+};
+
+function constructFormData(data){
+  if(typeof data === 'object'){
+    let formData = new FormData();
+    Reflect.ownKeys(data).forEach(key => {
+      formData.append(key, data[key]);
+    });
+    return formData;
+  }
+  else {
+    return {};
+  }
+}
+
 export default request;

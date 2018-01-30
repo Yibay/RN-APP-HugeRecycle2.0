@@ -23,7 +23,7 @@ class Mine extends Component {
             <Text style={styles.text}>{this.props.identityToken.user.name}</Text>
             <Text style={styles.text}>{this.props.identityToken.user.phone}</Text>
             <View style={styles.securityCenter}>
-              <Text style={styles.text}>安全中心</Text>
+              <Text style={styles.text} onPress={() => {Actions.manageCustomerAccounts()}}>安全中心</Text>
             </View>
           </View>
         </View>

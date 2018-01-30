@@ -24,6 +24,8 @@ import AddressEdit from '../pages/AddressEdit';
 import RecycleRecord from '../pages/RecycleRecord';
 import CallSuccess from '../pages/CallSuccess';
 import RecycleEvaluation from '../pages/RecycleEvaluation';
+import ManageCustomerAccounts from '../pages/ManageCustomerAccounts';
+import ManageLoginPassword from '../pages/ManageLoginPassword';
 // TabIcon
 import { RecycleIcon, MallIcon, MineIcon } from '../HOC/configTabIcon';
 
@@ -58,6 +60,10 @@ const AppRouter = () => (
       <Scene key='environmentalRecordPage' component={RecycleRecord} hideNavBar={true} />
       {/* 评价虎哥 */}
       <Scene key='recycleEvaluationPage' component={RecycleEvaluation} hideNavBar={true} />
+      {/* 安全中心 */}
+      <Scene key='manageCustomerAccounts' component={ManageCustomerAccounts} hideNavBar={true} />
+      {/* 修改登录密码 */}
+      <Scene key='manageLoginPassword' component={ManageLoginPassword} hideNavBar={true} />
       {/* 轮播简介页 */}
       <Scene key='intro' component={Intro} hideNavBar={true} />
       {/* 登录页 */}

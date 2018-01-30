@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 // form 表单 数据格式 验证器
 const validator = {
 
@@ -19,6 +21,11 @@ const validator = {
   // 验证是否为boolean
   isBoolean(value){
     return typeof value === 'boolean';
+  },
+
+  // 验证是否相等
+  isEqual(val1, val2){
+    return _.isEqual(val1, val2);
   }
 };
 
