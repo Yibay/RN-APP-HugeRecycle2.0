@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView, Alert } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, Alert, RefreshControl } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -7,16 +7,31 @@ import { connect } from 'react-redux';
 
 import { verifyLogin } from '../../HOC/verifyLogin';
 import { setIdentityToken, emptyIdentityToken } from '../../redux/actions/IdentityToken';
+import request from '../../util/request/request';
+import config from '../../util/request/config';
 
 import Header from '../../components/common/Header/Header';
 
 
 class Mine extends Component {
 
+  constructor(props){
+    super(props);
+
+    this.state = {
+      customerScore: 0,
+      isRefreshing: false
+    };
+  }
+
   render(){
     return (<View style={styles.container}>
       <Header title='我的' hideBack={true} rightButton={<Text style={styles.rightButton}>消息</Text>} />
-      <ScrollView>
+      <ScrollView style={styles.content} refreshControl={<RefreshControl
+        refreshing={this.state.isRefreshing}
+        onRefresh={() => this.refreshCustomerScore()}
+        title='下拉刷新'
+      />}>
         {/* 基本信息 */}
         <View style={styles.basicFacts}>
           <View style={styles.message}>
@@ -28,7 +43,8 @@ class Mine extends Component {
           </View>
         </View>
         <View style={styles.lineSection}>
-          <Text style={styles.text}>环保金</Text>
+          <Text style={styles.text} onPress={() => {Actions.customerScorePage()}}>环保金</Text>
+          <Text style={styles.customerScore}>{`¥${this.state.customerScore}`}</Text>
         </View>
         <View style={styles.lineSection}>
           <Text style={styles.text}>地址管理</Text>
@@ -41,6 +57,24 @@ class Mine extends Component {
         </View>
       </ScrollView>
     </View>)
+  }
+
+  async componentDidMount(){
+    this.refreshCustomerScore();
+  }
+
+  // 刷新环保金余额
+  async refreshCustomerScore(){
+    const res = await request.get(config.api.getCustomerScore,null,{'X-AUTH-TOKEN': this.props.identityToken.authToken});
+    if(res){
+      if(!res.status){
+        this.setState({customerScore: res.data, isRefreshing: false});
+      }
+      else {
+        console.log(res);
+        this.setState({isRefreshing: false});
+      }
+    }
   }
 
   // 退出登录
@@ -68,6 +102,9 @@ const styles = StyleSheet.create({
     fontSize: 24
   },
   // 内容区
+  content: {
+    flex: 1
+  },
   basicFacts: {
     flexDirection: 'row'
   },
@@ -92,8 +129,13 @@ const styles = StyleSheet.create({
   lineSection: {
     marginTop: 10,
     padding: 40,
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     backgroundColor: '#fff'
+  },
+  customerScore: {
+    fontSize: 26,
+    color: 'red'
   }
 });
 

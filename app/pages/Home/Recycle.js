@@ -35,7 +35,7 @@ class Recycle extends Component{
 
     return (<View style={styles.container}>
       {/* 页头 */}
-      <Header title='我要回收' hideBack={true} leftButton={<NavBarLocationButton/>} rightButton={!this.props.authToken ? <Text style={styles.loginBtn} onPress={() => Actions.login()}>登录</Text> : <View/>}/>
+      <Header title='我要回收' hideBack={true} leftButton={<NavBarLocationButton/>} rightButton={!this.props.authToken ? <Text style={styles.loginBtn} onPress={() => Actions.login({needPop: true})}>登录</Text> : <View/>}/>
       {/* 导航条 */}
       <Navigator navigationItems={this.props.category}>
         {

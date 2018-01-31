@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, Alert } from 'react-native';
 
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 
 
 import validator from '../util/form/validator';
@@ -121,6 +122,8 @@ class Login extends Component{
       });
       // 2. 登录成功更新全局数据
       this.props.setIdentityToken(res.data);
+      // 3. 需要退回上一页，则退回上一页
+      this.props.needPop && Actions.pop();
 
     }
   }

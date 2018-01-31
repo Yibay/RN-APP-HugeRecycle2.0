@@ -93,6 +93,10 @@ export default {
     //  oldPassword
     //  newPassword
     updatePassword: `${api_base}/api/auth/updatePassword`,
+    // 环保金余额接口(GET) 需要登录 header X-AUTH-TOKEN
+    getCustomerScore: `${api_base}/api/customer/app/auth/deal/getCustomerScore`,
+    // 环保金记录接口(GET) 需要登录 header X-AUTH-TOKEN
+    getCustomerScoreLog: `${api_base}/api/customer/app/auth/deal/getCustomerScoreLog`,
     // 发送 客户反馈
     createFeedback: 'api/mobile/deal/createFeedback',
     // 获取 最新版本号

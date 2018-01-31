@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Router, Scene, Stack } from 'react-native-router-flux';
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 
 // HOC 屏宽适配
@@ -26,6 +26,7 @@ import CallSuccess from '../pages/CallSuccess';
 import RecycleEvaluation from '../pages/RecycleEvaluation';
 import ManageCustomerAccounts from '../pages/ManageCustomerAccounts';
 import ManageLoginPassword from '../pages/ManageLoginPassword';
+import CustomerScore from '../pages/CustomerScore';
 // TabIcon
 import { RecycleIcon, MallIcon, MineIcon } from '../HOC/configTabIcon';
 
@@ -64,6 +65,8 @@ const AppRouter = () => (
       <Scene key='manageCustomerAccounts' component={ManageCustomerAccounts} hideNavBar={true} />
       {/* 修改登录密码 */}
       <Scene key='manageLoginPassword' component={ManageLoginPassword} hideNavBar={true} />
+      {/* 环保金余额 */}
+      <Scene key='customerScorePage' component={CustomerScore} hideNavBar={true} />
       {/* 轮播简介页 */}
       <Scene key='intro' component={Intro} hideNavBar={true} />
       {/* 登录页 */}
