@@ -1,29 +1,34 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 import PropTypes from 'prop-types';
 
 
 const styles = StyleSheet.create({
   container: {
-
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  icon: {
-    width: 20,
-    height: 20
+  label: {
+    fontSize: 20
   }
 });
 
 class TabIcon extends Component {
 
   static propTypes = {
+    focused: PropTypes.bool.isRequired,
     icon: PropTypes.element.isRequired,
-    activeIcon: PropTypes.element.isRequired
+    activeIcon: PropTypes.element.isRequired,
+    label: PropTypes.string.isRequired
   };
 
   static defaultProps = {
+    focused: false,
     icon: <View/>,
-    activeIcon: <View/>
+    activeIcon: <View/>,
+    label: ''
   };
 
   render(){
@@ -31,6 +36,7 @@ class TabIcon extends Component {
       {
         this.props.focused ? this.props.activeIcon : this.props.icon
       }
+      <Text style={styles.label}>{this.props.label}</Text>
     </View>
   }
 }

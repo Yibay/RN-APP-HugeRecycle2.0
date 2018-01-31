@@ -35,13 +35,13 @@ const AppRouter = () => (
   <Router>
     <Stack key='root'>
       {/* 主入口页 */}
-      <Scene key='home' tabs={true} tabBarPosition='bottom' labelStyle={tabsStyle.labelStyle} activeTintColor='#000' inactiveTintColor='#000' tabBarStyle={tabsStyle.tabBarStyle} >
+      <Scene key='home' tabs={true} tabBarPosition='bottom' labelStyle={tabsStyle.labelStyle} activeTintColor='#000' inactiveTintColor='#000' tabBarStyle={tabsStyle.tabBarStyle} showLabel={false} >
         {/* 回收分页 */}
-        <Scene key='recycle' tabBarLabel='我要回收' icon={RecycleIcon} component={Recycle} hideNavBar={true} />
+        <Scene key='recycle' icon={RecycleIcon} component={Recycle} hideNavBar={true} />
         {/* 商场分页 */}
-        <Scene key='shoppingMall' tabBarLabel='虎哥商场' icon={MallIcon} component={Mall} hideNavBar={true} />
+        <Scene key='shoppingMall' icon={MallIcon} component={Mall} hideNavBar={true} />
         {/* 我的分页 */}
-        <Scene key='mine' tabBarLabel='我的' icon={MineIcon} component={Mine} hideNavBar={true} />
+        <Scene key='mine' icon={MineIcon} component={Mine} hideNavBar={true} />
       </Scene>
       {/* 定位地址页 */}
       <Scene key='locationPage' component={LocationPage} hideNavBar={true} />
@@ -93,13 +93,19 @@ const styles = StyleSheet.create({
 // tabs 修正样式
 const tabsStyle = {
   labelStyle: {
+    paddingTop: 40,
     fontSize: 20
   },
   tabBarStyle: {
-    paddingVertical: 14,
+    position: 'relative',
+    alignItems: 'center',
+    // paddingVertical: 14,
     height: 100,
     borderTopWidth: 1,
     backgroundColor: '#fff'
+  },
+  tabStyle: {
+    flexDirection: 'column'
   }
 };
 
