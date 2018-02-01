@@ -80,8 +80,6 @@ request.postFormData = function(url ,data, headers){
     headers ? { headers } : {}
   );
 
-  console.log(options);
-
   return fetch(url, options)
     .catch(e => {console.log('fetch请求时报错'); console.log(e);})
     .then(res => res.json())

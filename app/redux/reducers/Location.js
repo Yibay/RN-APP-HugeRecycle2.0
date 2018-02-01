@@ -32,7 +32,7 @@ function currentLocation(state= defaultCurrentLocation, action){
 }
 /**
  * 自动定位flag
- * @param state
+ * @param {boolean} state
  * @param action
  * @returns {*}
  */
@@ -47,7 +47,7 @@ function autoLocationFlag(state=true, action){
 
 /**
  * 用户地址列表
- * @param state
+ * @param {array} state
  * @param action
  * @returns {Array}
  */

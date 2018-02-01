@@ -6,8 +6,10 @@ import { StyleSheet } from 'react-native';
 
 // HOC 屏宽适配
 import { adaptLayoutWidth } from '../HOC/adaptLayout';
-// HOC 初始化 登录状态
+// HOC 中间件 登录状态
 import initIdentityToken from '../HOC/initIdentityToken';
+// HOC 中间件 定位
+import locationManage from '../HOC/locationManage';
 
 // 页面路由
 import Intro from '../pages/Intro';
@@ -109,6 +111,6 @@ const tabsStyle = {
   }
 };
 
-// 初始化登录状态, 屏宽适配
-export default initIdentityToken(adaptLayoutWidth(AppRouter));
+// 屏宽适配, 登录状态管理相关数据, 地址管理相关数据
+export default adaptLayoutWidth(initIdentityToken(locationManage(AppRouter)));
 // export default adaptLayoutWidth(AppRouter);

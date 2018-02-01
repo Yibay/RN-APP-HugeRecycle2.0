@@ -4,9 +4,10 @@ import { createStore, combineReducers } from 'redux';
 import location from './reducers/Location';
 import recycle from './reducers/Recycle';
 import identityToken from './reducers/IdentityToken';
+import mall from './reducers/Mall';
 
 
-const allReducers = combineReducers({ location, recycle, identityToken });
+const allReducers = combineReducers({ location, recycle, identityToken, mall });
 // 通过 reducer生成store
 let store = createStore(allReducers);
 

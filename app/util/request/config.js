@@ -5,7 +5,7 @@
 const __dirname = __dirname || '/Users/zhouquan/workspace/nodeProgram/rn-hugeRecycle2.0/HugeRecycle2_0/app/util/request/';
 
 
-// const api_base_old = 'http://www.hugehuge.cn/';
+const api_base_old = 'http://www.hugehuge.cn/';
 // const api_base = 'http://192.168.50.145:8080/';
 const api_base = 'http://test.hugehuge.cn/';
 
@@ -17,6 +17,7 @@ export default {
   },
   // 请求 api接口
   api: {
+    /** ------ 回收 相关api ------  */
     // 获取回收物品 列表 (GET)
     getProducts: `${api_base}api/customer/app/deal/getProducts`,
     // 获取 定位小区 (GET) 如： /api/customer/app/deal/getLocateCommunity?longitude=120.173374306960&latitude=30.388771979180
@@ -88,6 +89,8 @@ export default {
     rateOrder: `${api_base}/api/mobile/deal/rateOrder/`,
     // 查看 订单详情 (GET) (根据path {id} 查询)需要登录 header X-AUTH-TOKEN
     order: `${api_base}api/mobile/deal/order/`,
+
+    /** ------ 我的 相关api ------  */
     // 修改密码(POST) 需要登录 header X-AUTH-TOKEN
     // params:
     //  oldPassword
@@ -108,7 +111,29 @@ export default {
     // 获取 发布信息列表
     publish: 'mobile/artical/all',
 
-    /* ------ Mock数据 ------*/
+    /** ------ 商场 便利店相关api ------  */
+    // 获取商场地址 (POST) 'Content-type': 'application/x-www-form-urlencoded'
+        // params:
+        //  latitude
+        //  longitude
+    getMallAddress: `${api_base_old}/api/address/getAddress`,
+    // 通过小区名字，获取服务站id (POST) 'Content-type': 'application/x-www-form-urlencoded'
+        // params:
+        //  communityName
+    loadInitMallInfoByCommunity: `${api_base_old}/wxMiniApp/mall/loadInitMallInfoByCommunity`,
+    // 通过服务站（便利店）id 获取物品大类id (POST) 'Content-type': 'application/x-www-form-urlencoded'
+        // params:
+        //  stationId
+    getMallIndexInfo: `${api_base_old}/web/wxmall/getMallIndexInfo`,
+    // 通过服务站id 大类id 获取 商品列表（POST）'Content-type': 'application/x-www-form-urlencoded'
+        // params:
+        //  stationId
+        //  categoryId
+    getProductListByCategory: `${api_base_old}/api/mall/product/station/getByCategory`,
+    // 获取全部服务站（便利店）
+    getAllStationCommunity: `${api_base_old}/api/mall/pay/getAllStationCommunity`,
+
+    /** ------ Mock数据 ------ */
     // 获取回收物品 列表
     // getProducts: `file://${__dirname}../mock/getProducts4Items.json`,
     // getProducts: 'http://192.168.11.124:3000/api/customer/app/deal/getProducts4Items', // 局域网访问 本地服务器 mock, android不支持file:// 请求，也访问不到127.0.0.1

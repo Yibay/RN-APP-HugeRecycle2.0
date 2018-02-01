@@ -13,7 +13,7 @@ import request from '../util/request/request';
 import config from '../util/request/config';
 
 
-export const locationAndroid = WrappedComponent => class extends Component{
+export const locationCrossPlatform = WrappedComponent => class extends Component{
 
   static propTypes = {
     autoLocationFlag: PropTypes.bool.isRequired, // 是否要更新定位
@@ -60,23 +60,27 @@ export const locationAndroid = WrappedComponent => class extends Component{
     let bd09Location = gcj02tobd09.apply(this, gcj02Location);
     console.log('百度坐标：', bd09Location);
 
-    // 发送定位请求
-    request
-      .get(config.api.getLocateCommunity,{
-        longitude: bd09Location[0],
-        latitude: bd09Location[1]
-      })
-      .then(res => {
-        // 验证请求结果 是否正常（status: 0 正常，1 异常）
-        if(res && !res.status){
-          this.setState({
-            LocateCommunities: res.data
-          })
-        }
-      });
+    // 获取定位小区（回收）(异步)
+    this.getLocateCommunity({
+      longitude: bd09Location[0],
+      latitude: bd09Location[1]
+    });
 
     // 关闭 定位
     this.props.setAutoLocationFlag(false);
+  }
+
+  // 获取定位小区（回收）
+  async getLocateCommunity({longitude, latitude}){
+    const res = await request
+      .get(config.api.getLocateCommunity,{ longitude, latitude });
+
+    // 验证请求结果 是否正常（status: 0 正常，1 异常）
+    if(res && !res.status){
+      this.setState({
+        LocateCommunities: res.data
+      })
+    }
   }
 
   // 获取定位信息失败
@@ -86,5 +90,3 @@ export const locationAndroid = WrappedComponent => class extends Component{
     this.props.setAutoLocationFlag(false);
   }
 };
-
-export const locationCrossPlatform =  locationAndroid;

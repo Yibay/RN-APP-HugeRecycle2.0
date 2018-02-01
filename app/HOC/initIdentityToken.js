@@ -1,5 +1,5 @@
 /**
- * 初始化 登录状态
+ * 中间件 登录状态（管理相关Redux状态）
  * 改变登录状态、切换用户信息（一键呼叫 回收地址、用户回收地址列表）
  * */
 
@@ -41,7 +41,7 @@ const initIdentityToken = (WrappedComponent) => connect(mapStateToProps, actions
     }
   }
 
-  // 获取回收品列表（无需登录）
+  // 2. 获取回收品列表（无需登录）
   async getProducts(){
     // 请求 回收类别相应数据
     request
@@ -49,8 +49,7 @@ const initIdentityToken = (WrappedComponent) => connect(mapStateToProps, actions
       .then(res => {
         // 若请求成功，数据正常
         if(!res.status){
-          console.log(res.data);
-          // 更新全局数据
+          // 2. 更新全局数据
           this.props.setAllProducts(res.data);
         }
       })
@@ -59,7 +58,7 @@ const initIdentityToken = (WrappedComponent) => connect(mapStateToProps, actions
 
   render(){
 
-    return (<WrappedComponent {..._.omit(this.props, ['setIdentityToken', 'setLocation', 'setUserAddressList'])} />);
+    return (<WrappedComponent {..._.omit(this.props, ['authToken', 'setIdentityToken', 'setLocation', 'setUserAddressList', 'setAllProducts'])} />);
   }
 
   // 登录状态发生变化时（更新 相关用户信息）
@@ -70,22 +69,22 @@ const initIdentityToken = (WrappedComponent) => connect(mapStateToProps, actions
 
       // 更新app需要的用户信息
       let [defaultAddress, addressList] = await Promise.all([ // 并发
-        // 2. 获取 一键呼叫 默认地址 (defaultAddress)
+        // 1-2. 获取 一键呼叫 默认地址 (defaultAddress)
         request
           .get(config.api.getDefaultAddress, null, {'X-AUTH-TOKEN': this.props.authToken})
           .catch(err => {console.log(err); return null;}), // 若请求报错，则log对应信息
-        // 3. 获取 用户地址列表
+        // 1-3. 获取 用户地址列表
         request
           .get(config.api.getAddressList, null, {'X-AUTH-TOKEN': this.props.authToken})
           .catch(err => {console.log(err); return null;})
       ]);
 
-      // 2. 一键呼叫 回收地址 数据正确
+      // 1-2. 一键呼叫 回收地址 数据正确
       if(defaultAddress && !defaultAddress.status) {
         this.props.setLocation(defaultAddress.data);
       }
 
-      // 3. 用户地址列表 数据正确
+      // 1-3. 用户地址列表 数据正确
       if(addressList && !addressList.status){
         this.props.setUserAddressList(addressList.data.addresses);
       }

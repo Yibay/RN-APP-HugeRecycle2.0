@@ -20,6 +20,9 @@ app.get("/api/customer/app/deal/getProducts2Items",function (request,response) {
   let data = require('./getProducts2Items.json');//要获取的json文件
   response.send(data);
 });
+// app.get("/test",function(request, response){
+//   response.sendFile(__dirname + '/test.html'); //要返回的html文件（必须是绝对路径）
+// });
 app.listen('3000',function () {
-  console.log('>listening on 3000')
+  console.log('>listening on 3000');
 });
