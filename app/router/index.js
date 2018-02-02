@@ -29,6 +29,7 @@ import RecycleEvaluation from '../pages/RecycleEvaluation';
 import ManageCustomerAccounts from '../pages/ManageCustomerAccounts';
 import ManageLoginPassword from '../pages/ManageLoginPassword';
 import CustomerScore from '../pages/CustomerScore';
+import MallCategory from '../pages/MallCategory';
 // TabIcon
 import { RecycleIcon, MallIcon, MineIcon } from '../HOC/configTabIcon';
 
@@ -69,6 +70,8 @@ const AppRouter = () => (
       <Scene key='manageLoginPassword' component={ManageLoginPassword} hideNavBar={true} />
       {/* 环保金余额 */}
       <Scene key='customerScorePage' component={CustomerScore} hideNavBar={true} />
+      {/* 商城 商品分类页 */}
+      <Scene key='mallCategoryPage' component={MallCategory} hideNavBar={true} />
       {/* 轮播简介页 */}
       <Scene key='intro' component={Intro} hideNavBar={true} />
       {/* 登录页 */}

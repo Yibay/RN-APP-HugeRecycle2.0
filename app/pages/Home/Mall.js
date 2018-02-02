@@ -9,8 +9,7 @@ import Header from '../../components/common/Header/Header';
 import NavBarLocationButton from '../../containers/Recycle/NavBarLocationButton/NavBarLocationButton';
 import Banner from '../../components/pages/Mall/Banner';
 import CategoryList from '../../containers/Mall/CategoryList';
-import ProductItem from '../../components/pages/Mall/ProductItem';
-import AddBtn from '../../components/common/Form/Btn/AddBtn';
+import ProductList from '../../containers/Mall/ProductList';
 
 
 class Mall extends Component{
@@ -21,7 +20,6 @@ class Mall extends Component{
     for(let item of this.props.productList){
       combineProductList = combineProductList.concat(item);
     }
-    console.log(combineProductList);
 
     return (<View style={styles.container}>
       <Header title='虎哥便利店' leftButton={<NavBarLocationButton showStationName={true} />} rightButton={!this.props.authToken ? <Text style={styles.loginBtn} onPress={() => Actions.login({needPop: true})}>登录</Text> : <View/>}/>
@@ -33,11 +31,7 @@ class Mall extends Component{
         {/* 按类查询 */}
         <CategoryList mainCategoryList={this.props.mallCategoryInfo.mainCategoryList} />
         {/* 详细商品列表 */}
-        <View style={styles.productList}>
-          {
-            combineProductList.map((item, index) => <ProductItem key={index} product={item} addToCart={<AddBtn/>} />)
-          }
-        </View>
+        <ProductList productList={combineProductList} />
       </ScrollView>
     </View>);
   }

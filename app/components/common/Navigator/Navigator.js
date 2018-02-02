@@ -36,7 +36,7 @@ class Navigator extends Component {
   };
 
   static defaultProps = {
-    pageFlex: true,
+    pageFlex: true, // 导航条 ＋ 内容，是否 自动填满剩余空间
     itemTextStyle: undefined, // 未选中项 文字样式
     activeItemTextStyle: undefined, // 选中项 文字样式
     pageStyle: undefined, // 页面内容 scroll 样式
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   itemFixed: {
-    width: 220,
+    minWidth: 220,
     alignItems: 'center'
   },
   itemTextSection: {

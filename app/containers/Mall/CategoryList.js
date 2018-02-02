@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
 
 import PropTypes from 'prop-types';
+import { Actions } from 'react-native-router-flux';
 
 
 class CategoryList extends Component {
@@ -30,9 +31,11 @@ class CategoryList extends Component {
 
     return (<View style={styles.container}>
       {
-        mainCategoryList.map(item => <View key={item.id} style={styles.categoryItem}>
-          <Text style={styles.categoryName}>{item.name}</Text>
-        </View>)
+        mainCategoryList.map(item => <TouchableWithoutFeedback key={item.id} onPress={() => Actions.mallCategoryPage()}>
+          <View style={styles.categoryItem}>
+            <Text style={styles.categoryName}>{item.name}</Text>
+          </View>
+        </TouchableWithoutFeedback>)
       }
     </View>);
   }
