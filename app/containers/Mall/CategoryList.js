@@ -20,14 +20,12 @@ class CategoryList extends Component {
   };
 
   render(){
-    console.log(this.props);
 
     let mainCategoryList = this.props.mainCategoryList;
 
     if(mainCategoryList.length >= 8){
       mainCategoryList = mainCategoryList.slice(0,7);
       mainCategoryList.push({id:'all',name:'全部类别'});
-      console.log(mainCategoryList);
     }
 
     return (<View style={styles.container}>
