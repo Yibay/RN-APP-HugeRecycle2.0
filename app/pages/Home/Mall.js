@@ -15,11 +15,18 @@ import ProductList from '../../containers/Mall/ProductList';
 class Mall extends Component{
   render(){
 
+    // 过滤掉 无商品的分类
+    let mainCategoryList = [];
     // 各类商品 合并后数组
     let combineProductList = [];
-    for(let item of this.props.productList){
-      combineProductList = combineProductList.concat(item);
+
+    for(let i=0;i<this.props.productList.length;i++){
+      if(this.props.productList[i].length){
+        mainCategoryList.push(this.props.mallCategoryInfo.mainCategoryList[i]);
+      }
+      combineProductList = combineProductList.concat(this.props.productList[i]);
     }
+
 
     return (<View style={styles.container}>
       <Header title='虎哥便利店' leftButton={<NavBarLocationButton showStationName={true} />} rightButton={!this.props.authToken ? <Text style={styles.loginBtn} onPress={() => Actions.login({needPop: true})}>登录</Text> : <View/>}/>
@@ -29,7 +36,7 @@ class Mall extends Component{
           <Banner bannerList={this.props.mallCategoryInfo.bannerList} />
         </View>
         {/* 按类查询 */}
-        <CategoryList mainCategoryList={this.props.mallCategoryInfo.mainCategoryList} />
+        <CategoryList mainCategoryList={mainCategoryList} />
         {/* 详细商品列表 */}
         <ProductList productList={combineProductList} />
       </ScrollView>

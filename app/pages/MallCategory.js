@@ -25,9 +25,19 @@ class MallCategory extends Component{
         productList.push(this.props.productList[i]);
       }
     }
+
+    // 根据路由传来的categoryId, 确定 初始选中页面index
+    let selectPageIndex = 0;
+    for(let i=0;i<mainCategoryList.length;i++){
+      if(mainCategoryList[i].id === this.props.categoryId){
+        selectPageIndex = i;
+        break;
+      }
+    }
+
     return <View style={styles.container}>
       <Header title='分类浏览'/>
-      <Navigator navigationItems={mainCategoryList.map(item => ({itemName: item.name}))}>
+      <Navigator navigationItems={mainCategoryList.map(item => ({itemName: item.name}))} selectPageIndex={selectPageIndex}>
         {
           productList.map((item, index) => <ProductList key={index} productList={item}/>)
         }

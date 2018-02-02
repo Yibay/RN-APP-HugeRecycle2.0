@@ -31,7 +31,7 @@ class CategoryList extends Component {
 
     return (<View style={styles.container}>
       {
-        mainCategoryList.map(item => <TouchableWithoutFeedback key={item.id} onPress={() => Actions.mallCategoryPage()}>
+        mainCategoryList.map(item => <TouchableWithoutFeedback key={item.id} onPress={() => Actions.mallCategoryPage({categoryId: item.id})}>
           <View style={styles.categoryItem}>
             <Text style={styles.categoryName}>{item.name}</Text>
           </View>
