@@ -8,10 +8,11 @@ import { SET_StationInfo, SET_MallCategoryInfo, SET_ProductList } from '../actio
 /**
  * 服务站信息
  * @param {{
- *  stationId: number,
- *  stationName: string,
+ *  stationId: number,     服务站id
+ *  stationName: string,   服务站名称
  *  stationNumber: string,
- *  stationPhone: string }} state
+ *  stationPhone: string   服务站电话
+ * }} state
  * @param actions
  * @returns {*}
  */
@@ -26,7 +27,11 @@ function stationInfo(state={}, actions){
 
 /**
  * 便利店 商品大类、banner信息
- * @param state
+ * @param {{
+ *  bannerList: arrayOf({id: number, imageSrc: string}),   便利店轮播图
+ *  mainCategoryList: arrayOf({id: string, name: string}), 便利店商品大类
+ *  mallStatus: number  便利店状态
+ * }} state
  * @param actions
  * @returns {*}
  */

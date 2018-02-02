@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   // 页头
   header: {
     position: 'relative',
-    paddingTop: 73,
+    paddingTop: 70,
     height: 128,
     backgroundColor: '#ffd101'
   },

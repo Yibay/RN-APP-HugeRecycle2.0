@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, Text, TouchableOpacity, View } from 'react-native';
 
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux';
+import PropTypes from 'prop-types';
 
 
 import { setAutoLocationFlag } from '../../../redux/actions/Location';
@@ -10,10 +11,27 @@ import { setAutoLocationFlag } from '../../../redux/actions/Location';
 
 /* 回收页 nav 右侧按钮组件 */
 class NavBarLocationButton extends Component{
+
+  static propTypes = {
+    showStationName: PropTypes.bool.isRequired
+  };
+
+  static defaultProps = {
+    showStationName: false
+  };
+
   render(){
     return(<TouchableOpacity style={styles.container} onPress={() => this.chooseCommunity()}>
       <Image style={styles.icon} resizeMode='contain' source={require('./img/location-black2x.png')} />
-      <Text style={styles.text}>{this.props.currentCommunityName}</Text>
+      {
+        this.props.showStationName ?
+          <View style={styles.text2lineBox}>
+            <Text style={styles.text2line}>{this.props.currentCommunityName}</Text>
+            <Text style={styles.text2line}>{`(${this.props.stationName ? this.props.stationName : '暂无服务站'})`}</Text>
+          </View>
+          :
+          <Text style={styles.text}>{this.props.currentCommunityName}</Text>
+      }
     </TouchableOpacity>);
   }
 
@@ -37,6 +55,13 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 28
+  },
+  text2lineBox: {
+    marginBottom: -3
+  },
+  text2line: {
+    fontSize: 20,
+    lineHeight: 20
   }
 });
 
@@ -44,7 +69,8 @@ const styles = StyleSheet.create({
 // 过滤出有用state映射给props
 function mapStateToProps(state){
   return {
-    currentCommunityName: state.location.currentLocation.communityName
+    currentCommunityName: state.location.currentLocation.communityName,
+    stationName: state.mall.stationInfo.stationName
   }
 }
 

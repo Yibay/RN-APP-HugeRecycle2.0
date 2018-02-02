@@ -146,7 +146,9 @@ export default {
   },
   // 静态资源base路径
   static: {
-    base: 'http://test.hugehuge.cn/web/'
+    base: 'http://test.hugehuge.cn/web/',
+    // 商城图片资源 base路径
+    mallBase: 'https://hugehuge.oss-cn-hangzhou.aliyuncs.com'
   },
   // 版本号
   version: 1.11
