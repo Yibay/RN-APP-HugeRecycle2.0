@@ -75,7 +75,7 @@ request.postFormData = function(url ,data, headers){
   // fetch options
   let options = _.merge(
     { method: 'POST' },
-    { headers: {'Content-Type': 'application/x-www-form-urlencoded'} },
+    { headers: {'Content-Type': 'multipart/form-data'} },
     data ? { body: constructFormData(data)} : {},
     headers ? { headers } : {}
   );

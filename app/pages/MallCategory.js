@@ -37,7 +37,7 @@ class MallCategory extends Component{
 
     return <View style={styles.container}>
       <Header title='分类浏览'/>
-      <Navigator navigationItems={mainCategoryList.map(item => ({itemName: item.name}))} selectPageIndex={selectPageIndex}>
+      <Navigator navigationItems={mainCategoryList.map(item => ({itemName: item.name}))} selectPageIndex={selectPageIndex} contentLayoutStyle='highlyFlexible'>
         {
           productList.map((item, index) => <ProductList key={index} productList={item}/>)
         }

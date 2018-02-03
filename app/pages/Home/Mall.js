@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -15,9 +15,9 @@ import ProductList from '../../containers/Mall/ProductList';
 class Mall extends Component{
   render(){
 
-    // 过滤掉 无商品的分类
+    // 1、过滤掉 无商品的分类
     let mainCategoryList = [];
-    // 各类商品 合并后数组
+    // 2、各类商品 合并后数组（商品列表）
     let combineProductList = [];
 
     for(let i=0;i<this.props.productList.length;i++){
@@ -27,19 +27,20 @@ class Mall extends Component{
       combineProductList = combineProductList.concat(this.props.productList[i]);
     }
 
+    // 3、列表头部组件（轮播图、按类查询）
+    let ListHeaderComponent = <View>
+      {/* 轮播图 */}
+      <View style={styles.bannerSection}>
+        <Banner bannerList={this.props.mallCategoryInfo.bannerList} />
+      </View>
+      {/* 按类查询 */}
+      <CategoryList mainCategoryList={mainCategoryList} />
+    </View>;
 
     return (<View style={styles.container}>
       <Header title='虎哥便利店' leftButton={<NavBarLocationButton showStationName={true} />} rightButton={!this.props.authToken ? <Text style={styles.loginBtn} onPress={() => Actions.login({needPop: true})}>登录</Text> : <View/>}/>
-      <ScrollView style={styles.content}>
-        {/* 轮播图 */}
-        <View style={styles.bannerSection}>
-          <Banner bannerList={this.props.mallCategoryInfo.bannerList} />
-        </View>
-        {/* 按类查询 */}
-        <CategoryList mainCategoryList={mainCategoryList} />
-        {/* 详细商品列表 */}
-        <ProductList productList={combineProductList} />
-      </ScrollView>
+      {/* 详细商品列表 */}
+      <ProductList productList={combineProductList} ListHeaderComponent={ListHeaderComponent} />
     </View>);
   }
 }
@@ -51,11 +52,6 @@ const styles = StyleSheet.create({
   // 页头
   loginBtn: {
     fontSize: 28
-  },
-  // 内容区
-  content: {
-    flex: 1,
-    backgroundColor: '#f7f7f7'
   },
   // banner 轮播
   bannerSection: {
