@@ -10,6 +10,7 @@ import NavBarLocationButton from '../../containers/Recycle/NavBarLocationButton/
 import Banner from '../../components/pages/Mall/Banner';
 import CategoryList from '../../containers/Mall/CategoryList';
 import ProductList from '../../containers/Mall/ProductList';
+import MallNotOpen from '../../containers/Mall/MallNotOpen';
 
 
 class Mall extends Component{
@@ -21,7 +22,7 @@ class Mall extends Component{
     let combineProductList = [];
 
     for(let i=0;i<this.props.productList.length;i++){
-      if(this.props.productList[i].length){
+      if(this.props.productList[i].length && this.props.mallCategoryInfo.mainCategoryList){
         mainCategoryList.push(this.props.mallCategoryInfo.mainCategoryList[i]);
       }
       combineProductList = combineProductList.concat(this.props.productList[i]);
@@ -39,8 +40,13 @@ class Mall extends Component{
 
     return (<View style={styles.container}>
       <Header title='虎哥便利店' leftButton={<NavBarLocationButton showStationName={true} />} rightButton={!this.props.authToken ? <Text style={styles.loginBtn} onPress={() => Actions.login({needPop: true})}>登录</Text> : <View/>}/>
-      {/* 详细商品列表 */}
-      <ProductList productList={combineProductList} ListHeaderComponent={ListHeaderComponent} />
+      {
+        // 详细商品列表
+        this.props.mallCategoryInfo.mainCategoryList ?
+          <ProductList productList={combineProductList} ListHeaderComponent={ListHeaderComponent} />
+          :
+          <MallNotOpen/>
+      }
     </View>);
   }
 }
