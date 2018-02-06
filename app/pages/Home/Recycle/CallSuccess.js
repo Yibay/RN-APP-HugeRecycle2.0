@@ -4,8 +4,8 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 
-import Header from '../components/common/Header/Header';
-import SubmitBtn from '../components/common/Form/Btn/SubmitBtn';
+import Header from '../../../components/common/Header/Header';
+import SubmitBtn from '../../../components/common/Form/Btn/SubmitBtn';
 
 
 class CallSuccess extends Component {
@@ -15,17 +15,23 @@ class CallSuccess extends Component {
     return (<View style={styles.container}>
       <Header title='呼叫成功' />
       <View style={styles.content}>
-        <Image source={require('../assets/icon/right-call2x.png')} resizeMode='contain' style={styles.logo} />
+        <Image source={require('../../../assets/icon/right-call2x.png')} resizeMode='contain' style={styles.logo} />
         <Text style={styles.message}>呼叫成功</Text>
         <Text style={[styles.message, styles.messageSpacing]}>虎哥会在15-30分钟内上门</Text>
         <Text style={[styles.message, styles.messageSpacing]}>请留意手机消息</Text>
         {
           this.props.alreadyLogged ?
-          <SubmitBtn style={styles.SubmitBtn} text='查看详情' submit={() => {Actions.environmentalRecordPage()}} />
+          <SubmitBtn style={styles.SubmitBtn} text='查看详情' submit={() => this.submit()} />
           : null
         }
       </View>
     </View>);
+  }
+
+  // 查看详情
+  submit(){
+    Actions.popTo('recycle');
+    Actions.environmentalRecordPage();
   }
 }
 

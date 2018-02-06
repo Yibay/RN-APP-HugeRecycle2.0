@@ -5,12 +5,12 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
 
-import { verifyLogin } from '../../HOC/verifyLogin';
-import { setIdentityToken, emptyIdentityToken } from '../../redux/actions/IdentityToken';
-import request from '../../util/request/request';
-import config from '../../util/request/config';
+import { verifyLogin } from '../../../HOC/verifyLogin';
+import { setIdentityToken, emptyIdentityToken } from '../../../redux/actions/IdentityToken';
+import request from '../../../util/request/request';
+import config from '../../../util/request/config';
 
-import Header from '../../components/common/Header/Header';
+import Header from '../../../components/common/Header/Header';
 
 
 class Mine extends Component {

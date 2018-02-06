@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
 
-import Header from '../../components/common/Header/Header';
-import NavBarLocationButton from '../../containers/Recycle/NavBarLocationButton/NavBarLocationButton';
-import Banner from '../../components/pages/Mall/Banner';
-import SearchInput from '../../containers/Mall/SearchInput';
-import CategoryList from '../../containers/Mall/CategoryList';
-import ProductList from '../../containers/Mall/ProductList';
-import MallNotOpen from '../../containers/Mall/MallNotOpen';
+import Header from '../../../components/common/Header/Header';
+import NavBarLocationButton from '../../../containers/Recycle/NavBarLocationButton/NavBarLocationButton';
+import Banner from '../../../components/pages/Mall/Banner';
+import SearchInput from '../../../containers/Mall/SearchInput';
+import CategoryList from '../../../containers/Mall/CategoryList';
+import ProductList from '../../../containers/Mall/ProductList';
+import MallNotOpen from '../../../containers/Mall/MallNotOpen';
 
 
 class Mall extends Component{

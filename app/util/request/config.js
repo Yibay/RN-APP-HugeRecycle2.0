@@ -5,9 +5,13 @@
 const __dirname = __dirname || '/Users/zhouquan/workspace/nodeProgram/rn-hugeRecycle2.0/HugeRecycle2_0/app/util/request/';
 
 
-const api_base_old = 'http://www.hugehuge.cn/';
+const api_base_mall = 'http://www.hugehuge.cn/';
+// const api_base_mall = 'http://192.168.50.123:8090';
+const api_base_mall2 = 'http://192.168.50.123:8070';
 // const api_base = 'http://192.168.50.145:8080/';
 const api_base = 'http://test.hugehuge.cn/';
+// const api_base = 'http://192.168.50.123:8090/';
+
 
 export default {
   // 封装 fetch请求头
@@ -116,28 +120,28 @@ export default {
         // params:
         //  latitude
         //  longitude
-    getMallAddress: `${api_base_old}/api/address/getAddress`,
+    getMallAddress: `${api_base_mall}/api/address/getAddress`,
     // 通过小区名字，获取服务站id (POST) 'Content-type': 'application/x-www-form-urlencoded'
         // params:
         //  communityName
-    loadInitMallInfoByCommunity: `${api_base_old}/wxMiniApp/mall/loadInitMallInfoByCommunity`,
+    loadInitMallInfoByCommunity: `${api_base_mall}/wxMiniApp/mall/loadInitMallInfoByCommunity`,
     // 通过服务站（便利店）id 获取物品大类id (POST) 'Content-type': 'application/x-www-form-urlencoded'
         // params:
         //  stationId
-    getMallIndexInfo: `${api_base_old}/web/wxmall/getMallIndexInfo`,
+    getMallIndexInfo: `${api_base_mall}/web/wxmall/getMallIndexInfo`,
     // 通过服务站id 大类id 获取 商品列表（POST）'Content-type': 'application/x-www-form-urlencoded'
         // params:
         //  stationId
         //  categoryId
-    getProductListByCategory: `${api_base_old}/api/mall/product/station/getByCategory`,
+    getProductListByCategory: `${api_base_mall}/api/mall/product/station/getByCategory`,
     // 获取全部服务站（便利店）
-    getAllStationCommunity: `${api_base_old}/api/mall/pay/getAllStationCommunity`,
+    getAllStationCommunity: `${api_base_mall}/api/mall/pay/getAllStationCommunity`,
     // 商品搜索 (POST) 'Content-type': 'application/x-www-form-urlencoded'
     // params:
     //  stationId
     //  searchType  oneOf(['productName'])
     //  searchVal
-    searchProduct: `${api_base_old}/api/mall/product/station/searchProduct`,
+    searchProduct: `${api_base_mall}/api/mall/product/station/searchProduct`,
 
     /** ------ Mock数据 ------ */
     // 获取回收物品 列表

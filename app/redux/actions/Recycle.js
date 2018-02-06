@@ -4,6 +4,7 @@ import _ from 'lodash';
 export const SET_AllProducts = 'SET_AllProducts'; // 初始化 电器列表、家具列表 等
 export const ADD_RecycledItem = 'ADD_RecycledItem'; // 向 待回收订单中，添加 回收物
 export const REDUCE_RecycledItem = 'REDUCE_RecycledItem'; // 从 待回收订单中，减少 回收物
+export const RESET_RecycledItemsList = 'RESET_RecycledItemsList'; // 重置待回收订单 ，清空 回收物
 
 
 /* ------ Action 生成函数 ------ */
@@ -60,4 +61,12 @@ export function reduceRecycledItem (sort, categoryId, specsId, itemNum){
     specsId,
     itemNum
   }
+}
+
+
+export function resetRecycledItem (AllProductsArray){
+  return {
+    type: RESET_RecycledItemsList,
+    AllProductsArray
+  };
 }

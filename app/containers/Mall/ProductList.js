@@ -3,7 +3,11 @@ import { StyleSheet, FlatList, View } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 
+
+import request from '../../util/request/request';
+import config from '../../util/request/config';
 
 import ProductItem from '../../components/pages/Mall/ProductItem';
 import AddBtn from '../../components/common/Form/Btn/AddBtn';
@@ -47,7 +51,7 @@ class ProductList extends Component {
     return <View style={styles.container}>
       <FlatList
         data={this.state.productList}
-        renderItem={({item}) =>  <ProductItem product={item} addToCart={<AddBtn/>} />}
+        renderItem={({item}) =>  <ProductItem product={item} addToCart={<AddBtn callBack={() => request.post(config.api.addCart + item.mallProductId,null,{'X-AUTH-TOKEN': this.props.authToken}).then(res => console.log(res))}/>} />}
         numColumns={2}
         onEndReached={() => {this.lazyLoadProducts()}}
         onEndReachedThreshold={0.5} // 外层不能为Scroll类组件，否则 此属性判定异常
@@ -78,4 +82,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ProductList;
+function mapStateToProps(state){
+  return {
+    authToken: state.identityToken.authToken
+  }
+}
+
+export default connect(mapStateToProps)(ProductList);

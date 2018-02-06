@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 
 // type 类型
-import { SET_AllProducts, ADD_RecycledItem, REDUCE_RecycledItem } from '../actions/Recycle';
+import { SET_AllProducts, ADD_RecycledItem, REDUCE_RecycledItem, RESET_RecycledItemsList } from '../actions/Recycle';
 
 
 /* ------ reducer 函数 ------ */
@@ -23,6 +23,8 @@ function recyclableGoods(state = { AllProductsObj:{}, AllProductsArray:[], AllPr
 
     // 1. 初始化 可回收物品 列表
     case SET_AllProducts:
+    // 4. 清空回收订单 内物品
+    case RESET_RecycledItemsList:
 
       // filter 掉不显示的数据结构
       new_state.AllProductsArray = action.AllProductsArray.filter(item => item.show);
@@ -162,6 +164,10 @@ function recycledItemsList (state={list:[],num:0}, action){
       new_state.num --;
 
       return new_state;
+
+    // 3. 清空回收订单 内物品
+    case RESET_RecycledItemsList:
+      return {list:[],num:0};
 
     default:
       return state;

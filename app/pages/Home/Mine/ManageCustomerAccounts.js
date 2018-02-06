@@ -4,7 +4,7 @@ import { StyleSheet, View, Image, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 
-import Header from '../components/common/Header/Header';
+import Header from '../../../components/common/Header/Header';
 
 
 class ManageCustomerAccounts extends Component {

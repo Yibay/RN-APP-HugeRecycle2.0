@@ -4,9 +4,9 @@ import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 
 
-import Header from '../components/common/Header/Header';
-import Navigator from '../components/common/Navigator/Navigator';
-import ProductList from '../containers/Mall/ProductList';
+import Header from '../../../components/common/Header/Header';
+import Navigator from '../../../components/common/Navigator/Navigator';
+import ProductList from '../../../containers/Mall/ProductList';
 
 
 class MallCategory extends Component{

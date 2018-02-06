@@ -8,15 +8,16 @@ import _ from 'lodash';
 import { Actions } from 'react-native-router-flux';
 
 
-import { createOrderValidator } from '../util/form/recycleOrderValidator';
-import request from '../util/request/request';
-import config from '../util/request/config';
+import { createOrderValidator } from '../../../util/form/recycleOrderValidator';
+import request from '../../../util/request/request';
+import config from '../../../util/request/config';
+import { resetRecycledItem } from '../../../redux/actions/Recycle';
 
-import { verifyLogin } from '../HOC/verifyLogin';
-import Header from '../components/common/Header/Header';
-import OrderAddressSection from '../containers/RecycleOrder/AddressSection/OrderAddressSection';
-import RecycledItemsList from '../containers/RecycleOrder/RecycledItemsList';
-import SubmitBtn from '../components/common/Form/Btn/SubmitBtn';
+import { verifyLogin } from '../../../HOC/verifyLogin';
+import Header from '../../../components/common/Header/Header';
+import OrderAddressSection from '../../../containers/RecycleOrder/AddressSection/OrderAddressSection';
+import RecycledItemsList from '../../../containers/RecycleOrder/RecycledItemsList';
+import SubmitBtn from '../../../components/common/Form/Btn/SubmitBtn';
 
 
 class RecycleOrder extends Component{
@@ -95,6 +96,11 @@ class RecycleOrder extends Component{
     const res = await request.post(config.api.createOrder, _.omit(orderParams, ['id']), {'X-AUTH-TOKEN': this.props.identityToken.authToken})
     if(res && !res.status){
       Actions.callSuccessPage({alreadyLogged: true}); // 通知 呼叫成功页 已登录
+    }
+    // 请求 回收类别相应数据
+    const products = await request.get(config.api.getProducts);
+    if(products && !products.status){
+      this.props.resetRecycledItem(products.data);
     }
   }
 }
@@ -176,4 +182,4 @@ function mapStateToProps(state){
   };
 }
 
-export default verifyLogin(connect(mapStateToProps)(RecycleOrder));
+export default verifyLogin(connect(mapStateToProps, {resetRecycledItem})(RecycleOrder));

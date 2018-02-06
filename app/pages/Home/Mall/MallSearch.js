@@ -3,13 +3,13 @@ import { StyleSheet, View, Text } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import request from '../util/request/request';
-import config from '../util/request/config';
+import request from '../../../util/request/request';
+import config from '../../../util/request/config';
 
 
-import Header from '../components/common/Header/Header';
-import SearchInput from '../containers/Mall/SearchInput';
-import ProductList from '../containers/Mall/ProductList';
+import Header from '../../../components/common/Header/Header';
+import SearchInput from '../../../containers/Mall/SearchInput';
+import ProductList from '../../../containers/Mall/ProductList';
 
 
 class MallSearch extends Component {

@@ -13,25 +13,25 @@ import locationManage from '../HOC/locationManage';
 
 // 页面路由
 import Intro from '../pages/Intro';
-import Recycle from '../pages/Home/Recycle';
-import Mall from '../pages/Home/Mall';
-import Mine from '../pages/Home/Mine';
+import Recycle from '../pages/Home/Recycle/Recycle';
+import Mall from '../pages/Home/Mall/Mall';
+import Mine from '../pages/Home/Mine/Mine';
 import LocationPage from '../pages/Location';
 import LocationManuallyPage from '../pages/LocationManually';
-import RecycleOrder from '../pages/RecycleOrder';
+import RecycleOrder from '../pages/Home/Recycle/RecycleOrder';
 import Login from '../pages/Login';
 import AddressSelection from '../pages/AddressSelection';
 import AddressAdd from '../pages/AddressAdd';
 import AddressEdit from '../pages/AddressEdit';
 import RecycleRecord from '../pages/RecycleRecord';
-import CallSuccess from '../pages/CallSuccess';
+import CallSuccess from '../pages/Home/Recycle/CallSuccess';
 import RecycleEvaluation from '../pages/RecycleEvaluation';
-import ManageCustomerAccounts from '../pages/ManageCustomerAccounts';
-import ManageLoginPassword from '../pages/ManageLoginPassword';
-import CustomerScore from '../pages/CustomerScore';
-import MallCategory from '../pages/MallCategory';
-import MallCart from '../pages/MallCart';
-import MallSearch from '../pages/MallSearch';
+import ManageCustomerAccounts from '../pages/Home/Mine/ManageCustomerAccounts';
+import ManageLoginPassword from '../pages/Home/Mine/ManageLoginPassword';
+import CustomerScore from '../pages/Home/Mine/CustomerScore';
+import MallCategory from '../pages/Home/Mall/MallCategory';
+import MallCart from '../pages/Home/Mall/MallCart';
+import MallSearch from '../pages/Home/Mall/MallSearch';
 // TabIcon
 import { RecycleIcon, MallIcon, MineIcon } from '../HOC/configTabIcon';
 
@@ -42,42 +42,51 @@ const AppRouter = () => (
       {/* 主入口页 */}
       <Scene key='home' tabs={true} tabBarPosition='bottom' labelStyle={tabsStyle.labelStyle} activeTintColor='#000' inactiveTintColor='#000' tabBarStyle={tabsStyle.tabBarStyle} showLabel={false} >
         {/* 回收分页 */}
-        <Scene key='recycle' icon={RecycleIcon} component={Recycle} hideNavBar={true} />
-        {/* 商场分页 */}
-        <Scene key='shoppingMall' icon={MallIcon} component={Mall} hideNavBar={true} />
+        <Scene key='tab1' icon={RecycleIcon}>
+          {/* 回收首页 */}
+          <Scene key='recycle' component={Recycle} hideNavBar={true} />
+          {/* 回收订单页 */}
+          <Scene key='recycleOrderPage' component={RecycleOrder} hideNavBar={true} />
+          {/* 呼叫成功 */}
+          <Scene key='callSuccessPage' component={CallSuccess} hideNavBar={true} />
+        </Scene>
+        {/* 商城分页 */}
+        <Scene key='tab2' icon={MallIcon}>
+          {/* 商城首页 */}
+          <Scene key='shoppingMall' component={Mall} hideNavBar={true} />
+          {/* 商城 商品分类页 */}
+          <Scene key='mallCategoryPage' component={MallCategory} hideNavBar={true} />
+          {/* 商城 商品购物车页 */}
+          <Scene key='mallCart' component={MallCart} hideNavBar={true} />
+          {/* 商城 商品搜索页 */}
+          <Scene key='mallSearch' component={MallSearch} hideNavBar={true} />
+        </Scene>
         {/* 我的分页 */}
-        <Scene key='mine' icon={MineIcon} component={Mine} hideNavBar={true} />
+        <Scene key='tab3' icon={MineIcon}>
+          {/* 我的首页 */}
+          <Scene key='mine' component={Mine} hideNavBar={true} />
+          {/* 安全中心 */}
+          <Scene key='manageCustomerAccounts' component={ManageCustomerAccounts} hideNavBar={true} />
+          {/* 修改登录密码 */}
+          <Scene key='manageLoginPassword' component={ManageLoginPassword} hideNavBar={true} />
+          {/* 环保金余额 */}
+          <Scene key='customerScorePage' component={CustomerScore} hideNavBar={true} />
+        </Scene>
       </Scene>
       {/* 定位地址页 */}
       <Scene key='locationPage' component={LocationPage} hideNavBar={true} />
       {/* 手动输入小区 */}
       <Scene key='locationManuallyPage' component={LocationManuallyPage} hideNavBar={true} />
-      {/* 回收订单页 */}
-      <Scene key='recycleOrderPage' title='待回收物品' component={RecycleOrder} navigationBarStyle={styles.navigationBarStyle} titleStyle={styles.titleStyle} hideNavBar={true} />
       {/* 新增地址页 */}
       <Scene key='addressAddPage' component={AddressAdd} hideNavBar={true} />
       {/* 选择地址页 */}
       <Scene key='addressSelectionPage' component={AddressSelection} hideNavBar={true} />
       {/* 编辑地址 */}
       <Scene key='addressEditPage' component={AddressEdit} hideNavBar={true} />
-      {/* 呼叫成功 */}
-      <Scene key='callSuccessPage' component={CallSuccess} hideNavBar={true} />
       {/* 环保记录 */}
       <Scene key='environmentalRecordPage' component={RecycleRecord} hideNavBar={true} />
       {/* 评价虎哥 */}
       <Scene key='recycleEvaluationPage' component={RecycleEvaluation} hideNavBar={true} />
-      {/* 安全中心 */}
-      <Scene key='manageCustomerAccounts' component={ManageCustomerAccounts} hideNavBar={true} />
-      {/* 修改登录密码 */}
-      <Scene key='manageLoginPassword' component={ManageLoginPassword} hideNavBar={true} />
-      {/* 环保金余额 */}
-      <Scene key='customerScorePage' component={CustomerScore} hideNavBar={true} />
-      {/* 商城 商品分类页 */}
-      <Scene key='mallCategoryPage' component={MallCategory} hideNavBar={true} />
-      {/* 商城 商品购物车页 */}
-      <Scene key='mallCart' component={MallCart} hideNavBar={true} />
-      {/* 商城 商品搜索页 */}
-      <Scene key='mallSearch' component={MallSearch} hideNavBar={true} />
       {/* 轮播简介页 */}
       <Scene key='intro' component={Intro} hideNavBar={true} />
       {/* 登录页 */}

@@ -4,11 +4,11 @@ import { StyleSheet, View, Text, ScrollView, RefreshControl, Dimensions, Animate
 import _ from 'lodash';
 
 
-import { verifyLogin } from '../HOC/verifyLogin';
-import request from '../util/request/request';
-import config from '../util/request/config';
+import { verifyLogin } from '../../../HOC/verifyLogin';
+import request from '../../../util/request/request';
+import config from '../../../util/request/config';
 
-import Header from '../components/common/Header/Header';
+import Header from '../../../components/common/Header/Header';
 
 
 const { width, height } = Dimensions.get('window');

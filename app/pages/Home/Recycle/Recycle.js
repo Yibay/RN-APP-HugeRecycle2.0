@@ -5,16 +5,16 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
 
-import request from '../../util/request/request';
-import config from '../../util/request/config';
-import { setAllProducts } from '../../redux/actions/Recycle';
+import request from '../../../util/request/request';
+import config from '../../../util/request/config';
+import { setAllProducts } from '../../../redux/actions/Recycle';
 
-import Header from '../../components/common/Header/Header';
-import NavBarLocationButton from '../../containers/Recycle/NavBarLocationButton/NavBarLocationButton';
-import Navigator from '../../components/common/Navigator/Navigator';
-import SubCategory from '../../components/pages/Recycle/SubCategory';
-import CallModule from '../../containers/Recycle/CallModule';
-import CallModal from '../../containers/Recycle/CallModal';
+import Header from '../../../components/common/Header/Header';
+import NavBarLocationButton from '../../../containers/Recycle/NavBarLocationButton/NavBarLocationButton';
+import Navigator from '../../../components/common/Navigator/Navigator';
+import SubCategory from '../../../components/pages/Recycle/SubCategory';
+import CallModule from '../../../containers/Recycle/CallModule';
+import CallModal from '../../../containers/Recycle/CallModal';
 
 
 // 展示图片 固定宽度

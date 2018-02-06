@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Alert } from 'react-native';
 
 
-import { verifyLogin } from '../HOC/verifyLogin';
-import { updatePasswordValidator } from '../util/form/mineValidator';
-import request from '../util/request/request';
-import config from '../util/request/config';
+import { verifyLogin } from '../../../HOC/verifyLogin';
+import { updatePasswordValidator } from '../../../util/form/mineValidator';
+import request from '../../../util/request/request';
+import config from '../../../util/request/config';
 
-import Header from '../components/common/Header/Header';
-import InputSection from '../components/common/Form/Input/InputSection';
-import SubmitBtn from '../components/common/Form/Btn/SubmitBtn';
+import Header from '../../../components/common/Header/Header';
+import InputSection from '../../../components/common/Form/Input/InputSection';
+import SubmitBtn from '../../../components/common/Form/Btn/SubmitBtn';
 
 
 class ManageLoginPassword extends Component{
