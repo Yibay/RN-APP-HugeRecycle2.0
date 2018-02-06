@@ -132,6 +132,12 @@ export default {
     getProductListByCategory: `${api_base_old}/api/mall/product/station/getByCategory`,
     // 获取全部服务站（便利店）
     getAllStationCommunity: `${api_base_old}/api/mall/pay/getAllStationCommunity`,
+    // 商品搜索 (POST) 'Content-type': 'application/x-www-form-urlencoded'
+    // params:
+    //  stationId
+    //  searchType  oneOf(['productName'])
+    //  searchVal
+    searchProduct: `${api_base_old}/api/mall/product/station/searchProduct`,
 
     /** ------ Mock数据 ------ */
     // 获取回收物品 列表

@@ -30,6 +30,8 @@ import ManageCustomerAccounts from '../pages/ManageCustomerAccounts';
 import ManageLoginPassword from '../pages/ManageLoginPassword';
 import CustomerScore from '../pages/CustomerScore';
 import MallCategory from '../pages/MallCategory';
+import MallCart from '../pages/MallCart';
+import MallSearch from '../pages/MallSearch';
 // TabIcon
 import { RecycleIcon, MallIcon, MineIcon } from '../HOC/configTabIcon';
 
@@ -72,6 +74,10 @@ const AppRouter = () => (
       <Scene key='customerScorePage' component={CustomerScore} hideNavBar={true} />
       {/* 商城 商品分类页 */}
       <Scene key='mallCategoryPage' component={MallCategory} hideNavBar={true} />
+      {/* 商城 商品购物车页 */}
+      <Scene key='mallCart' component={MallCart} hideNavBar={true} />
+      {/* 商城 商品搜索页 */}
+      <Scene key='mallSearch' component={MallSearch} hideNavBar={true} />
       {/* 轮播简介页 */}
       <Scene key='intro' component={Intro} hideNavBar={true} />
       {/* 登录页 */}

@@ -8,12 +8,22 @@ import { Actions } from 'react-native-router-flux';
 import Header from '../../components/common/Header/Header';
 import NavBarLocationButton from '../../containers/Recycle/NavBarLocationButton/NavBarLocationButton';
 import Banner from '../../components/pages/Mall/Banner';
+import SearchInput from '../../containers/Mall/SearchInput';
 import CategoryList from '../../containers/Mall/CategoryList';
 import ProductList from '../../containers/Mall/ProductList';
 import MallNotOpen from '../../containers/Mall/MallNotOpen';
 
 
 class Mall extends Component{
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      searchText: ''
+    };
+  }
+
   render(){
 
     // 1、过滤掉 无商品的分类
@@ -33,6 +43,7 @@ class Mall extends Component{
       {/* 轮播图 */}
       <View style={styles.bannerSection}>
         <Banner bannerList={this.props.mallCategoryInfo.bannerList} />
+        <SearchInput style={styles.searchInput} searchText={this.state.searchText} onChangeText={val => this.setState({searchText: val})} onSearch={() => this.searchProduct()} />
       </View>
       {/* 按类查询 */}
       <CategoryList mainCategoryList={mainCategoryList} />
@@ -41,13 +52,17 @@ class Mall extends Component{
     return (<View style={styles.container}>
       <Header title='虎哥便利店' leftButton={<NavBarLocationButton showStationName={true} />} rightButton={!this.props.authToken ? <Text style={styles.loginBtn} onPress={() => Actions.login({needPop: true})}>登录</Text> : <View/>}/>
       {
-        // 详细商品列表
+        /* 详细商品列表 */
         this.props.mallCategoryInfo.mainCategoryList ?
           <ProductList productList={combineProductList} ListHeaderComponent={ListHeaderComponent} />
           :
           <MallNotOpen/>
       }
     </View>);
+  }
+
+  searchProduct(){
+    Actions.mallSearch({searchText: this.state.searchText});
   }
 }
 
@@ -62,6 +77,14 @@ const styles = StyleSheet.create({
   // banner 轮播
   bannerSection: {
     position: 'relative'
+  },
+  // 搜索框
+  searchInput: {
+    position: 'absolute',
+    zIndex: 10,
+    top: 20,
+    left: 375,
+    transform: [{translateX: -300}]
   },
   // 详细商品列表
   productList: {

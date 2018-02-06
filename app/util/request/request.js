@@ -18,8 +18,8 @@ let request = {};
 /**
  * get 请求函数
  * @param {string} url
- * @param {Object} [data]
- * @param {Object} [header]
+ * @param {object} [data]
+ * @param {object} [headers]
  * @returns {Promise<any>}
  */
 request.get = function(url, data, headers){
@@ -43,8 +43,8 @@ request.get = function(url, data, headers){
 /**
  * post 请求函数
  * @param {string} url
- * @param {Object} [data]
- * @param {Object} [header]
+ * @param {object} [data]
+ * @param {object} [headers]
  * @returns {Promise<any>}
  */
 request.post = function(url, data, headers){
@@ -65,8 +65,8 @@ request.post = function(url, data, headers){
 
 /**
  * postFormData 以Form表单形式，发送post请求
- * @param url
- * @param data
+ * @param {string} url
+ * @param {object} data
  * @param headers
  * @returns {Promise<any>}
  */

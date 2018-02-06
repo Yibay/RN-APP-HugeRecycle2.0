@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, FlatList } from 'react-native';
+import { StyleSheet, FlatList, View } from 'react-native';
 
 import PropTypes from 'prop-types';
+import { Actions } from 'react-native-router-flux';
 
 
 import ProductItem from '../../components/pages/Mall/ProductItem';
 import AddBtn from '../../components/common/Form/Btn/AddBtn';
+import CartBtn from '../../components/common/Form/Btn/CartBtn';
 
 
 class ProductList extends Component {
@@ -42,15 +44,17 @@ class ProductList extends Component {
   }
 
   render(){
-    return <FlatList
-      style={styles.container}
-      data={this.state.productList}
-      renderItem={({item}) =>  <ProductItem product={item} addToCart={<AddBtn/>} />}
-      numColumns={2}
-      onEndReached={() => {this.lazyLoadProducts()}}
-      onEndReachedThreshold={0.5} // 外层不能为Scroll类组件，否则 此属性判定异常
-      ListHeaderComponent={this.props.ListHeaderComponent}
-    />
+    return <View style={styles.container}>
+      <FlatList
+        data={this.state.productList}
+        renderItem={({item}) =>  <ProductItem product={item} addToCart={<AddBtn/>} />}
+        numColumns={2}
+        onEndReached={() => {this.lazyLoadProducts()}}
+        onEndReachedThreshold={0.5} // 外层不能为Scroll类组件，否则 此属性判定异常
+        ListHeaderComponent={this.props.ListHeaderComponent}
+      />
+      <CartBtn style={styles.cartBtn} onPress={() => {Actions.mallCart()}}/>
+    </View>
   }
 
   // 懒加载 产品列表
@@ -64,7 +68,13 @@ class ProductList extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    position: 'relative',
     flex: 1
+  },
+  cartBtn: {
+    position: 'absolute',
+    bottom: 100,
+    right: 10
   }
 });
 

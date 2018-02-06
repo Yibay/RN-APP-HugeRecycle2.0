@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Promise</title>
+    <style type="text/css">
+        html,body{margin: 0;}
+      #div1{
+        position: relative;
+        margin-left: 50px;
+        height: 50vh;
+        border: 1px solid;
+      }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        var drapObj = function(){
+            var dragElement = null;
+            var touchLeft, touchTop;
+
+            // 1、移动端 拖动事件
+            function touchStart(ev) {
+                dragElement = ev.target;
+                touchLeft = ev.touches[0].clientX - dragElement.offsetLeft;
+                touchTop = ev.touches[0].clientY - dragElement.offsetTop;
+                console.log(dragElement.parentNode.offsetLeft, dragElement.parentNode.offsetTop)
+            }
+            function touchMove(ev) {
+                ev.preventDefault();
+                var new_offset_left = ev.touches[0].clientX - touchLeft;
+                var new_offset_top = ev.touches[0].clientY - touchTop;
+                var cssText = `position: absolute; left: ${new_offset_left}px;top: ${new_offset_top}px`;
+                dragElement.style.cssText = cssText;
+            }
+
+            // 2、PC端 拖动事件
+            function dragStart(ev) {
+                dragElement = ev.target;
+                touchLeft = ev.clientX;
+                touchTop = ev.clientY;
+            }
+            function dragOver(ev) {
+                ev.preventDefault();
+            }
+            function drop(ev) {
+                ev.preventDefault();
+                var new_offset_left = dragElement.offsetLeft + ev.clientX - touchLeft;
+                var new_offset_top = dragElement.offsetTop + ev.clientY - touchTop;
+                var cssText = `position: absolute; left: ${new_offset_left}px;top: ${new_offset_top}px`;
+                dragElement.style.cssText = cssText;
+            }
+
+            // 3、添加 可拖拽物
+            function addDraggableElement(ele){
+
+              // 检验元素节点
+              if(ele.nodeType !== 1){return;}
+
+              // 初始化 容器（否则，PC端 同容器下一些没加入 可拖拽的元素，会对可拖拽元素产生干扰）
+              if(!ele.parentNode.dataset.drapContainerInited){
+                Array.prototype.forEach.call(ele.parentNode.children,function(item){
+                  // 容器下，除可拖拽元素外，均设为不可拖拽元素。
+                  item.setAttribute('draggable', false);
+                });
+                // 标记已初始化过
+                ele.parentNode.dataset.drapContainerInited = true;
+              }
+
+              if(window.getComputedStyle(ele.parentNode).getPropertyValue('position') === 'static'){
+                ele.parentNode.style.setProperty('position','relative');
+              }
+
+              // 移动端拖拽
+              ele.addEventListener('touchstart', this.touchStart);
+              ele.addEventListener('touchmove', this.touchMove);
+
+              // PC端拖拽
+              ele.setAttribute('draggable', true);
+              ele.addEventListener('dragstart', this.dragStart);
+              ele.parentNode.removeEventListener('dragover', this.dragOver);
+              ele.parentNode.removeEventListener('drop', this.drop);
+              ele.parentNode.addEventListener('dragover', this.dragOver);
+              ele.parentNode.addEventListener('drop', this.drop);
+            }
+
+            // 4、移除 可拖拽物
+            function removeDraggableElement(ele){
+                if(ele.nodeType !== 1){return;}
+                // 移动端拖拽
+                ele.removeEventListener('touchstart', this.touchStart);
+                ele.removeEventListener('touchmove', this.touchMove);
+                // PC端拖拽
+                ele.setAttribute('draggable', false);
+            }
+
+            return {
+              touchStart: touchStart,
+              touchMove: touchMove,
+              dragStart: dragStart,
+              dragOver: dragOver,
+              drop: drop,
+              addDraggableElement: addDraggableElement,
+              removeDraggableElement: removeDraggableElement
+            }
+        }();
+    </script>
+
+    <div id="div1">
+        <img id="img1" src="http://www.baidu.com/img/baidu_jgylogo3.gif"  width="336" height="69" />
+        <img id="img2" src="http://www.baidu.com/img/baidu_jgylogo3.gif" width="336" height="69" />
+    </div>
+    <script>
+      drapObj.addDraggableElement(document.getElementById('img1'));
+      drapObj.addDraggableElement(document.getElementById('img2'));
+    </script>
+</body>
+</html>
