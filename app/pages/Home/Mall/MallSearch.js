@@ -52,14 +52,14 @@ class MallSearch extends Component {
 
   // 搜索商品
   async searchProduct(){
-    const res = await request.postFormData(config.api.searchProduct, {
-      stationId: this.props.stationId,
+    const res = await request.get(config.api.searchProduct, {
+      storeId: this.props.storeId,
       searchType: 'productName',
       searchVal: this.state.searchText
     });
 
-    if(res){
-      this.setState({productList: res});
+    if(res && !res.status){
+      this.setState({productList: res.data});
     }
   }
 }
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
-    stationId: state.mall.stationInfo.stationId
+    storeId: state.mall.storeInfo[0].storeId
   }
 }
 

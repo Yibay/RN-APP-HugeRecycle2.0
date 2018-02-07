@@ -13,7 +13,6 @@ class Banner extends Component {
   static propTypes = {
     bannerList: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number.isRequired,
         imageSrc: PropTypes.string.isRequired
       })
     )
@@ -28,7 +27,7 @@ class Banner extends Component {
       return (<View style={styles.slide}>
         <Swiper autoplay={true} autoplayTimeout={4}>
           {
-            this.props.bannerList.map(item => <Image key={item.id} style={styles.slide} source={{uri: `${config.static.mallBase}${item.imageSrc}`}} resizeMode='stretch' />)
+            this.props.bannerList.map((item, index) => <Image key={index} style={styles.slide} source={{uri: `${config.static.mallBase}${item.imageSrc}`}} resizeMode='stretch' />)
           }
         </Swiper>
       </View>)

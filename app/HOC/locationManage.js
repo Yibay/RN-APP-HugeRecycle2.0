@@ -11,65 +11,70 @@ import _ from 'lodash';
 
 import request from "../util/request/request";
 import config from "../util/request/config";
-import { setStationInfo, setMallCategoryInfo, setProductList } from '../redux/actions/Mall';
+import { setStoreInfo, setMallCategoryInfo, setProductList } from '../redux/actions/Mall';
 
 
-const locationManage = WrappedComponent => connect(mapStateToProps, {setStationInfo, setMallCategoryInfo, setProductList} )(class extends Component{
+const locationManage = WrappedComponent => connect(mapStateToProps, {setStoreInfo, setMallCategoryInfo, setProductList} )(class extends Component{
 
   render(){
-    return <WrappedComponent {..._.omit(this.props, ['currentLocation','setStationInfo','setMallCategoryInfo','setProductList'])} />
+    return <WrappedComponent {..._.omit(this.props, ['currentLocation','setStoreInfo','setMallCategoryInfo','setProductList'])} />
   }
 
   /** redux currentLocation 变更后，刷新如下 数据 */
   async componentDidUpdate(){
 
-    /** 1、根据小区名字, 获取服务站信息 */
-    let stationInfo = await this.loadInitMallInfoByCommunity(this.props.currentLocation.communityName);
+    /** 1、根据小区id, 获取服务站信息 */
+    let storeInfo = await this.loadInitStoreInfoByCommunityId(this.props.currentLocation.communityId);
       // 若数据异常、立即结束（包含该小区无对应服务站）
-    if(!stationInfo || stationInfo.status || !stationInfo.data){  // {data: null, status: 0}
-      this.props.setStationInfo({});
+    if(!storeInfo || storeInfo.status || !storeInfo.data || !storeInfo.data.length){  // {data: null, status: 0}
+      this.props.setStoreInfo([]);
       this.props.setMallCategoryInfo({});
       this.props.setProductList([]);
       return;
     }
       // 若成功
-    this.props.setStationInfo(stationInfo.data);
+    this.props.setStoreInfo(storeInfo.data);
 
     /** 2、根据 小区对应服务站，获取便利店 categoryId 数组、头部banner图片 */
-    let mallCategoryInfo = await this.getMallIndexInfo(stationInfo.data.stationId);
+    let mallCategoryInfo = await this.getMallIndexInfo(storeInfo.data[0].storeId);
       // 若异常
-    if(!mallCategoryInfo){
+    if(!mallCategoryInfo || mallCategoryInfo.status){
       this.props.setMallCategoryInfo({});
       this.props.setProductList([]);
       return;
     }
       // 若成功
-    this.props.setMallCategoryInfo(mallCategoryInfo);
+    this.props.setMallCategoryInfo(mallCategoryInfo.data);
+    let starttime = new Date();
+    console.log(starttime);
 
     /** 3、根据服务站Id、便利店 categoryId，获取便利店 各categoryId下，商品数组 */
-    let productList = await this.getProductListByCategory(stationInfo.data.stationId, mallCategoryInfo.mainCategoryList);
+    let productList = await this.getProductListByCategory(storeInfo.data[0].storeId, mallCategoryInfo.data.mainCategoryList);
+    console.log('-----',productList);
+    let endtime = new Date();
+    console.log(endtime);
     this.props.setProductList(productList);
   }
 
   /** 1、根据小区名字, 获取服务站信息 */
-  async loadInitMallInfoByCommunity(communityName){
-    const stationInfo = await request.postFormData(config.api.loadInitMallInfoByCommunity, {communityName});
-    return stationInfo;
+  async loadInitStoreInfoByCommunityId(communityId){
+    const storeInfo = await request.get(config.api.loadInitStoreInfoByCommunityId, {communityId});
+    return storeInfo;
   }
 
   /** 2、根据服务站Id, 获取便利店 categoryId 数组、头部banner图片 */
-  async getMallIndexInfo(stationId){
-    const mallCategoryInfo = await request.postFormData(config.api.getMallIndexInfo, {stationId});
+  async getMallIndexInfo(storeId){
+    const mallCategoryInfo = await request.get(config.api.getMallIndexInfo, {storeId});
     return mallCategoryInfo;
   }
 
   /** 3、根据服务站Id、便利店 categoryId，获取便利店 各categoryId下，商品数组 */
-  async getProductListByCategory(stationId, mainCategoryList){
-    const productList = await Promise.all(mainCategoryList.map(item => request.postFormData(config.api.getProductListByCategory, {
-      stationId,
+  async getProductListByCategory(storeId, mainCategoryList){
+    const productList = await Promise.all(mainCategoryList.map(item => request.get(config.api.getProductListByCategory, {
+      storeId,
       categoryId: item.id
     })));
-    return productList;
+    return productList.map(item => item.data);
   }
 });
 

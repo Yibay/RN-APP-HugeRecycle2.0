@@ -19,9 +19,9 @@ class ProductList extends Component {
   static propTypes = {
     productList: PropTypes.arrayOf(
       PropTypes.shape({
-        smallMallProductImgPath: PropTypes.string.isRequired,
-        mallProductName: PropTypes.string.isRequired,
-        mallProductPrice: PropTypes.number.isRequired,
+        productImgAddress: PropTypes.string.isRequired,
+        productName: PropTypes.string.isRequired,
+        productOriginalPrice: PropTypes.number.isRequired,
         hugePrice: PropTypes.number.isRequired
       })
     ),
@@ -38,20 +38,20 @@ class ProductList extends Component {
 
     this.state = {
       // FlatList data 中每项，需要 key
-      productList: this.props.productList.slice(0,10).map(item => ({ ...item, key: item.mallProductId }))
+      productList: this.props.productList.slice(0,10).map(item => ({ ...item, key: item.storeProductId }))
     };
   }
 
   componentWillReceiveProps(nextProps){
     // FlatList data 中每项，需要 key
-    this.setState({productList: nextProps.productList.slice(0,10).map(item => ({ ...item, key: item.mallProductId })) })
+    this.setState({productList: nextProps.productList.slice(0,10).map(item => ({ ...item, key: item.storeProductId })) })
   }
 
   render(){
     return <View style={styles.container}>
       <FlatList
         data={this.state.productList}
-        renderItem={({item}) =>  <ProductItem product={item} addToCart={<AddBtn callBack={() => request.post(config.api.addCart + item.mallProductId,null,{'X-AUTH-TOKEN': this.props.authToken}).then(res => console.log(res))}/>} />}
+        renderItem={({item}) =>  <ProductItem product={item} addToCart={<AddBtn callBack={() => this.addCart(item)} />} />}
         numColumns={2}
         onEndReached={() => {this.lazyLoadProducts()}}
         onEndReachedThreshold={0.5} // 外层不能为Scroll类组件，否则 此属性判定异常
@@ -67,6 +67,13 @@ class ProductList extends Component {
     this.setState(state => ({
       productList: state.productList.concat(this.props.productList.slice(state.productList.length, this.state.productList.length + 10).map(item => ({ ...item, key: item.mallProductId })))
     }));
+  }
+
+  // 添加到购物车
+  addCart(item){
+    request
+      .get(`${config.api.addCart}${item.storeProductId}`,{amount:1},{'X-AUTH-TOKEN': this.props.authToken})
+      .then(res => console.log(res))
   }
 }
 

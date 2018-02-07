@@ -11,9 +11,9 @@ class ProductItem extends Component {
 
   static propTypes = {
     product: PropTypes.shape({
-      smallMallProductImgPath: PropTypes.string.isRequired,
-      mallProductName: PropTypes.string.isRequired,
-      mallProductPrice: PropTypes.number.isRequired,
+      productImgAddress: PropTypes.string.isRequired,
+      productName: PropTypes.string.isRequired,
+      productOriginalPrice: PropTypes.number.isRequired,
       hugePrice: PropTypes.number.isRequired
     }),
     addToCart: PropTypes.element.isRequired
@@ -25,9 +25,9 @@ class ProductItem extends Component {
 
   render(){
     return (<View style={styles.container}>
-      <Image style={styles.productImg} resizeMode='stretch' source={{uri: `${config.static.mallBase}${this.props.product.smallMallProductImgPath}`}}/>
-      <Text style={styles.productName}>{this.props.product.mallProductName}</Text>
-      <Text style={styles.productPrice}>{`¥${this.props.product.mallProductPrice}`}</Text>
+      <Image style={styles.productImg} resizeMode='stretch' source={{uri: `${config.static.mallBase}${this.props.product.productImgAddress}`}}/>
+      <Text style={styles.productName}>{this.props.product.productName}</Text>
+      <Text style={styles.productPrice}>{`¥${this.props.product.productOriginalPrice}`}</Text>
       <Text style={styles.hugePrice}>{`虎哥价：¥${this.props.product.hugePrice}`}</Text>
       <View style={styles.addToCart}>
         {

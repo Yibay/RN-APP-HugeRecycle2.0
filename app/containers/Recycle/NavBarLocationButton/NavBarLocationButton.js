@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
   return {
     currentCommunityName: state.location.currentLocation.communityName,
-    stationName: state.mall.stationInfo.stationName
+    stationName: state.mall.storeInfo.stationName
   }
 }
 

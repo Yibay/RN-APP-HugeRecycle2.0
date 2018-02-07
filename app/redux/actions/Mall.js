@@ -1,20 +1,20 @@
 import _ from 'lodash';
 
-export const SET_StationInfo = 'SET_StationInfo';
+export const SET_StoreInfo = 'SET_StoreInfo';
 export const SET_MallCategoryInfo = 'SET_MallCategoryInfo';
 export const SET_ProductList = 'SET_ProductList';
 
 
 /**
- * 设置 商场服务站 基本信息
- * @param stationInfo
+ * 设置 商场便利店 基本信息
+ * @param storeInfo
  * @returns {*}
  */
-export function setStationInfo(stationInfo){
-  return _.merge(
-    { type: SET_StationInfo },
-    stationInfo
-  )
+export function setStoreInfo(storeInfo){
+  return {
+    type: SET_StoreInfo,
+    storeInfo
+  }
 }
 
 /**

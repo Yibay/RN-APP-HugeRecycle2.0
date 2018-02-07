@@ -2,24 +2,26 @@ import { combineReducers } from 'redux';
 import _ from 'lodash';
 
 
-import { SET_StationInfo, SET_MallCategoryInfo, SET_ProductList } from '../actions/Mall';
+import { SET_StoreInfo, SET_MallCategoryInfo, SET_ProductList } from '../actions/Mall';
+import { SET_Location } from '../actions/Location';
 
 
 /**
  * 服务站信息
- * @param {{
- *  stationId: number,     服务站id
- *  stationName: string,   服务站名称
- *  stationNumber: string,
- *  stationPhone: string   服务站电话
- * }} state
+ * @param {arrayOf({
+ *  storeId: number,     服务站id
+ *  storeName: string,   服务站名称
+ *  storeNumber: string,
+ *  storePhone: string,   服务站电话
+ *  onlineStatus: number
+ * })} state
  * @param actions
  * @returns {*}
  */
-function stationInfo(state={}, actions){
+function storeInfo(state=[], actions){
   switch(actions.type){
-    case SET_StationInfo:
-      return _.omit(actions, ['type']);
+    case SET_StoreInfo:
+      return actions.storeInfo;
     default:
       return state;
   }
@@ -59,5 +61,20 @@ function productList(state=[], actions){
   }
 }
 
+/**
+ * 小区对应多个便利店时，当前选中的便利店序号
+ * @param {number} state
+ * @param actions
+ * @returns {number}
+ */
+function storeIndex(state=0, actions){
+  switch(actions.type){
+    case SET_Location:
+      return 0;
+    default:
+      return state;
+  }
+}
 
-export default combineReducers({ stationInfo, mallCategoryInfo, productList });
+
+export default combineReducers({ storeInfo, mallCategoryInfo, productList, storeIndex });
