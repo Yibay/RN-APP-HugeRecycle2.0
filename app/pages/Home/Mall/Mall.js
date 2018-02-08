@@ -40,6 +40,8 @@ class Mall extends Component{
 
     // 3、列表头部组件（轮播图、按类查询）
     let ListHeaderComponent = <View>
+      {/* 搜索框 */}
+      <SearchInput style={styles.searchInput} searchText={this.state.searchText} onChangeText={val => this.setState({searchText: val})} onSearch={() => this.searchProduct()} />
       {/* 按类查询 */}
       <CategoryList mainCategoryList={mainCategoryList} />
       {/* 轮播图 */}
@@ -50,8 +52,6 @@ class Mall extends Component{
 
     return (<View style={styles.container}>
       <Header title='虎哥便利店' leftButton={<NavBarLocationButton showStationName={true} />} rightButton={!this.props.authToken ? <Text style={styles.loginBtn} onPress={() => Actions.login({needPop: true})}>登录</Text> : <View/>}/>
-      {/* 搜索框 */}
-      <SearchInput style={styles.searchInput} searchText={this.state.searchText} onChangeText={val => this.setState({searchText: val})} onSearch={() => this.searchProduct()} />
       {
         /* 详细商品列表 */
         this.props.mallCategoryInfo.mainCategoryList ?

@@ -4,6 +4,7 @@ import { StyleSheet, Image, Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 
 import { setAutoLocationFlag } from '../../../redux/actions/Location';
@@ -68,10 +69,13 @@ const styles = StyleSheet.create({
 
 // 过滤出有用state映射给props
 function mapStateToProps(state){
-  return {
-    currentCommunityName: state.location.currentLocation.communityName,
-    stationName: state.mall.storeInfo.stationName
-  }
+  return _.merge(
+    {
+      currentCommunityName: state.location.currentLocation.communityName,
+    },
+    // 若 便利店 数组不为空
+    state.mall.storeInfo.length ? { stationName: state.mall.storeInfo[state.mall.storeIndex].storeName } : {}
+  )
 }
 
 const actionsCreator = {

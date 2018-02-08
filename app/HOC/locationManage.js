@@ -11,10 +11,10 @@ import _ from 'lodash';
 
 import request from "../util/request/request";
 import config from "../util/request/config";
-import { setStoreInfo, setMallCategoryInfo, setProductList } from '../redux/actions/Mall';
+import { setStoreInfo, setProductList } from '../redux/actions/Mall';
 
 
-const locationManage = WrappedComponent => connect(mapStateToProps, {setStoreInfo, setMallCategoryInfo, setProductList} )(class extends Component{
+const locationManage = WrappedComponent => connect(mapStateToProps, {setStoreInfo, setProductList} )(class extends Component{
 
   render(){
     return <WrappedComponent {..._.omit(this.props, ['currentLocation','setStoreInfo','setMallCategoryInfo','setProductList'])} />
@@ -28,8 +28,7 @@ const locationManage = WrappedComponent => connect(mapStateToProps, {setStoreInf
       // 若数据异常、立即结束（包含该小区无对应服务站）
     if(!storeInfo || storeInfo.status || !storeInfo.data || !storeInfo.data.length){  // {data: null, status: 0}
       this.props.setStoreInfo([]);
-      this.props.setMallCategoryInfo({});
-      this.props.setProductList([]);
+      this.props.setProductList({mallCategoryInfo: {}, productList:[]});
       return;
     }
       // 若成功
@@ -39,8 +38,7 @@ const locationManage = WrappedComponent => connect(mapStateToProps, {setStoreInf
     let mallCategoryInfo = await this.getMallIndexInfo(storeInfo.data[0].storeId);
       // 若异常
     if(!mallCategoryInfo || mallCategoryInfo.status){
-      this.props.setMallCategoryInfo({});
-      this.props.setProductList([]);
+      this.props.setProductList({mallCategoryInfo: {}, productList:[]});
       return;
     }
       // 若成功
@@ -48,15 +46,30 @@ const locationManage = WrappedComponent => connect(mapStateToProps, {setStoreInf
       {id: -1, name: '推荐', imgAddress: '/images/category/tuijian.png'},
       {id: -2, name: '限时促销', imgAddress: '/images/category/tuijian.png'}
     ].concat(mallCategoryInfo.data.mainCategoryList);
-    this.props.setMallCategoryInfo(mallCategoryInfo.data);
-    let startTime = new Date();
-    console.log(startTime);
+
+    console.log('startTime', new Date());
 
     /** 3、根据服务站Id、便利店 categoryId，获取便利店 各categoryId下，商品数组 */
     let productList = await this.getProductListByCategory(storeInfo.data[0].storeId, mallCategoryInfo.data.mainCategoryList);
-    let endTime = new Date();
-    console.log(endTime);
-    this.props.setProductList(productList);
+
+    console.log('endTime', new Date());
+
+    // 过滤掉 无商品的类别
+    let filter_mainCategoryList = [];
+    let filter_productList = [];
+
+    for (let i=0;i<productList.length;i++){
+      if(productList[i].length){
+        filter_mainCategoryList.push(mallCategoryInfo.data.mainCategoryList[i]);
+        filter_productList.push(productList[i]);
+      }
+    }
+    mallCategoryInfo.data.mainCategoryList = filter_mainCategoryList;
+    productList = filter_productList;
+
+
+    // 更新 商品大类、banner图、产品列表
+    this.props.setProductList({mallCategoryInfo: mallCategoryInfo.data, productList});
   }
 
   /** 1、根据小区名字, 获取服务站信息 */

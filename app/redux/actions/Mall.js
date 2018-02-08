@@ -1,7 +1,5 @@
-import _ from 'lodash';
 
 export const SET_StoreInfo = 'SET_StoreInfo';
-export const SET_MallCategoryInfo = 'SET_MallCategoryInfo';
 export const SET_ProductList = 'SET_ProductList';
 
 
@@ -18,25 +16,15 @@ export function setStoreInfo(storeInfo){
 }
 
 /**
- * 设置 便利店 商品大类、banner 信息
- * @param mallCategoryInfo
- * @returns {*}
- */
-export function setMallCategoryInfo(mallCategoryInfo){
-  return _.merge(
-    { type: SET_MallCategoryInfo },
-    mallCategoryInfo
-  )
-}
-
-/**
- * 设置 便利店 商品列表
+ * 设置 便利店 商品大类、banner、商品列表
+ * @param {object} mallCategoryInfo
  * @param {array} productList
- * @returns {{type: string, productList: *}}
+ * @returns {{type: string, mallCategoryInfo: *, productList: *}}
  */
-export function setProductList(productList) {
+export function setProductList({mallCategoryInfo, productList}) {
   return {
     type: SET_ProductList,
+    mallCategoryInfo,
     productList
   }
 }

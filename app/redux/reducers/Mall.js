@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
-import _ from 'lodash';
 
 
-import { SET_StoreInfo, SET_MallCategoryInfo, SET_ProductList } from '../actions/Mall';
+import { SET_StoreInfo, SET_ProductList } from '../actions/Mall';
 import { SET_Location } from '../actions/Location';
 
 
@@ -27,6 +26,7 @@ function storeInfo(state=[], actions){
   }
 }
 
+// 注意 mallCategoryInfo、productList 必须在一个action中同时更改，否则切换 便利店时，就会因 2者不匹配，发生bug
 /**
  * 便利店 商品大类、banner信息
  * @param {{
@@ -39,8 +39,8 @@ function storeInfo(state=[], actions){
  */
 function mallCategoryInfo(state={}, actions){
   switch(actions.type){
-    case SET_MallCategoryInfo:
-      return _.omit(actions, ['type']);
+    case SET_ProductList:
+      return actions.mallCategoryInfo;
     default:
       return state;
   }
