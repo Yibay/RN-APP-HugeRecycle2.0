@@ -16,7 +16,7 @@ class ProductItem extends Component {
       productOriginalPrice: PropTypes.number.isRequired,
       hugePrice: PropTypes.number.isRequired
     }),
-    addToCart: PropTypes.element.isRequired
+    addToCart: PropTypes.element.isRequired,
   };
 
   static defaultProps = {
@@ -24,11 +24,10 @@ class ProductItem extends Component {
   };
 
   render(){
-    return (<View style={styles.container}>
+    return (<View style={[styles.container].concat(this.props.style)}>
       <Image style={styles.productImg} resizeMode='stretch' source={{uri: `${config.static.mallBase}${this.props.product.productImgAddress}`}}/>
       <Text style={styles.productName}>{this.props.product.productName}</Text>
-      <Text style={styles.productPrice}>{`¥${this.props.product.productOriginalPrice}`}</Text>
-      <Text style={styles.hugePrice}>{`虎哥价：¥${this.props.product.hugePrice}`}</Text>
+      <Text style={styles.hugePrice}>{`¥${this.props.product.hugePrice}`}</Text>
       <View style={styles.addToCart}>
         {
           this.props.addToCart
@@ -41,34 +40,31 @@ class ProductItem extends Component {
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
-    width: 375,
-    borderWidth: 1.5,
-    borderColor: '#e1e5e8',
-    paddingHorizontal:21,
-    paddingTop: 20,
+    width: 340,
+    height: 516,
     backgroundColor: '#fff'
   },
   productImg: {
-    width: 330,
-    height: 330
+    width: 340,
+    height: 340
   },
   productName: {
-    paddingVertical: 20,
-    fontSize: 26
-  },
-  productPrice: {
-    fontSize: 26,
-    color: '#ababab',
-    textDecorationLine: 'line-through'
+    paddingHorizontal: 10,
+    paddingVertical: 18,
+    fontSize: 24,
+    color: '#000'
   },
   hugePrice: {
-    paddingVertical: 20,
-    fontSize: 26,
-    color: '#ff0f00'
+    position: 'absolute',
+    bottom: 30,
+    left: 10,
+    fontSize: 30,
+    lineHeight: 30,
+    color: '#ef3300'
   },
   addToCart: {
     position: 'absolute',
-    bottom: 30,
+    bottom: 18,
     right: 20
   }
 });

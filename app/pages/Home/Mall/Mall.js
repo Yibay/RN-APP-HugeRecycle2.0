@@ -40,17 +40,18 @@ class Mall extends Component{
 
     // 3、列表头部组件（轮播图、按类查询）
     let ListHeaderComponent = <View>
-      {/* 轮播图 */}
-      <View style={styles.bannerSection}>
-        <Banner bannerList={this.props.mallCategoryInfo.bannerList} />
-        <SearchInput style={styles.searchInput} searchText={this.state.searchText} onChangeText={val => this.setState({searchText: val})} onSearch={() => this.searchProduct()} />
-      </View>
       {/* 按类查询 */}
       <CategoryList mainCategoryList={mainCategoryList} />
+      {/* 轮播图 */}
+      <View style={styles.bannerSection}>
+        <Banner style={styles.banner} bannerList={this.props.mallCategoryInfo.bannerList} />
+      </View>
     </View>;
 
     return (<View style={styles.container}>
       <Header title='虎哥便利店' leftButton={<NavBarLocationButton showStationName={true} />} rightButton={!this.props.authToken ? <Text style={styles.loginBtn} onPress={() => Actions.login({needPop: true})}>登录</Text> : <View/>}/>
+      {/* 搜索框 */}
+      <SearchInput style={styles.searchInput} searchText={this.state.searchText} onChangeText={val => this.setState({searchText: val})} onSearch={() => this.searchProduct()} />
       {
         /* 详细商品列表 */
         this.props.mallCategoryInfo.mainCategoryList ?
@@ -68,23 +69,31 @@ class Mall extends Component{
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#f7f7f7'
   },
   // 页头
   loginBtn: {
     fontSize: 28
   },
+  // 搜索框
+  searchInput: {
+    alignSelf: 'center',
+    marginVertical: 20,
+    width: 686,
+    height: 56,
+    borderRadius: 26,
+    backgroundColor: '#ececec'
+  },
   // banner 轮播
   bannerSection: {
     position: 'relative'
   },
-  // 搜索框
-  searchInput: {
-    position: 'absolute',
-    zIndex: 10,
-    top: 20,
-    left: 375,
-    transform: [{translateX: -300}]
+  banner: {
+    alignSelf: 'center',
+    marginBottom: 16,
+    width: 686,
+    height: 260
   },
   // 详细商品列表
   productList: {

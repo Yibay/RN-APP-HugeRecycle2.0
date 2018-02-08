@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Text, TouchableWithoutFeedback, Image } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
+
+
+import config from "../../util/request/config";
 
 
 class CategoryList extends Component {
@@ -10,7 +13,7 @@ class CategoryList extends Component {
   static propTypes = {
     mainCategoryList: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired
       })
     )
@@ -31,8 +34,9 @@ class CategoryList extends Component {
 
     return (<View style={styles.container}>
       {
-        mainCategoryList.map(item => <TouchableWithoutFeedback key={item.id} onPress={() => Actions.mallCategoryPage({categoryId: item.id})}>
-          <View style={styles.categoryItem}>
+        mainCategoryList.map((item, index) => <TouchableWithoutFeedback key={item.id} onPress={() => Actions.mallCategoryPage({categoryId: item.id})}>
+          <View style={[styles.categoryItem, index % 4 === 0 ? styles.firstItem : undefined]}>
+            <Image style={styles.categoryImage} source={{uri: `${config.static.mallBase}${item.imgAddress}`}} resizeMode='contain' />
             <Text style={styles.categoryName}>{item.name}</Text>
           </View>
         </TouchableWithoutFeedback>)
@@ -47,19 +51,31 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap'
   },
   categoryItem: {
-    width: 140,
-    height: 140,
-    marginHorizontal: 23.75,
-    marginVertical: 15,
-    borderRadius: 70,
-    borderWidth: 2,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center'
+    position: 'relative',
+    marginLeft: 104,
+    paddingBottom: 62,
+    alignItems: 'center',
+    overflow: 'visible'
+  },
+  firstItem: {
+    marginLeft: 32
+  },
+  categoryImage: {
+    width: 90,
+    height: 90
   },
   categoryName: {
-    fontSize: 26,
-    fontWeight: '700'
+    position: 'absolute',
+    bottom: 0,
+    left: 45,
+    transform: [{translateX: -50}],
+    width: 100,
+    marginTop: 14,
+    marginBottom: 24,
+    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#000'
   }
 });
 

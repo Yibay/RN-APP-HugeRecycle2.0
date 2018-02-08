@@ -21,10 +21,10 @@ AddBtn.defaultProps = {
 
 const styles = StyleSheet.create({
   container: {
-    width: 100,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: '#e9463d',
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    backgroundColor: '#828282',
     justifyContent: 'center',
     alignItems: 'center'
   }

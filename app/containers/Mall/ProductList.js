@@ -51,7 +51,7 @@ class ProductList extends Component {
     return <View style={styles.container}>
       <FlatList
         data={this.state.productList}
-        renderItem={({item}) =>  <ProductItem product={item} addToCart={<AddBtn callBack={() => this.addCart(item)} />} />}
+        renderItem={({item, index}) =>  <ProductItem style={index % 2 === 0 ? styles.firstItem : styles.item} product={item} addToCart={<AddBtn callBack={() => this.addCart(item)} />} />}
         numColumns={2}
         onEndReached={() => {this.lazyLoadProducts()}}
         onEndReachedThreshold={0.5} // 外层不能为Scroll类组件，否则 此属性判定异常
@@ -82,6 +82,16 @@ const styles = StyleSheet.create({
     position: 'relative',
     flex: 1
   },
+  item: {
+    marginRight: 30,
+    marginBottom: 14
+  },
+  firstItem: {
+    marginLeft: 30,
+    marginRight: 10,
+    marginBottom: 14
+  },
+  // 购物车
   cartBtn: {
     position: 'absolute',
     bottom: 100,
