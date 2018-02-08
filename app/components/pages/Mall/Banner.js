@@ -15,14 +15,31 @@ class Banner extends Component {
       PropTypes.shape({
         imageSrc: PropTypes.string.isRequired
       })
-    )
+    ),
+    bannerWidth: PropTypes.number.isRequired
   };
 
   static defaultProps = {
-    bannerList: []
+    bannerList: [],
+    bannerWidth: 750
   };
 
+  constructor(props){
+    super(props);
+
+    this.state = {
+      bannerHeight: 0
+    };
+  }
+
   render(){
+    let styles = StyleSheet.create({
+      slide: {
+        width: this.props.bannerWidth,
+        height: this.state.bannerHeight
+      }
+    });
+
     if(this.props.bannerList.length){
       return (<View style={[styles.slide].concat(this.props.style)}>
         <Swiper autoplay={true} autoplayTimeout={4}>
@@ -36,13 +53,17 @@ class Banner extends Component {
       return null;
     }
   }
-}
 
-const styles = StyleSheet.create({
-  slide: {
-    width: 750,
-    height: 284
+  componentDidMount(){
+    // 获取banner 图尺寸
+    if(this.props.bannerList.length){
+      Image.getSize(`${config.static.mallBase}${this.props.bannerList[0].imageSrc}`, (width, height) => {
+        this.setState({
+          bannerHeight: height / width * this.props.bannerWidth
+        })
+      });
+    }
   }
-});
+}
 
 export default Banner;

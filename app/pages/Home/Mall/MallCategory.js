@@ -37,7 +37,7 @@ class MallCategory extends Component{
 
     return <View style={styles.container}>
       <Header title='分类浏览'/>
-      <Navigator navigationItems={mainCategoryList.map(item => ({itemName: item.name}))} selectPageIndex={selectPageIndex} contentLayoutStyle='highlyFlexible'>
+      <Navigator navigationItems={mainCategoryList.map(item => ({itemName: item.name}))} selectPageIndex={selectPageIndex} contentLayoutStyle='highlyFlexible' style={styles.navigator} activeLineStyle={styles.activeLineStyle}>
         {
           productList.map((item, index) => <ProductList key={index} productList={item}/>)
         }
@@ -48,7 +48,15 @@ class MallCategory extends Component{
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#f7f7f7'
+  },
+  // 导航条
+  navigator: {
+    borderBottomWidth: 0
+  },
+  activeLineStyle: {
+    borderColor: '#f7f7f7'
   }
 });
 

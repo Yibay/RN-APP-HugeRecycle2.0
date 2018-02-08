@@ -44,7 +44,7 @@ class Mall extends Component{
       <CategoryList mainCategoryList={mainCategoryList} />
       {/* 轮播图 */}
       <View style={styles.bannerSection}>
-        <Banner style={styles.banner} bannerList={this.props.mallCategoryInfo.bannerList} />
+        <Banner style={styles.banner} bannerWidth={686} bannerList={this.props.mallCategoryInfo.bannerList} />
       </View>
     </View>;
 
@@ -92,8 +92,6 @@ const styles = StyleSheet.create({
   banner: {
     alignSelf: 'center',
     marginBottom: 16,
-    width: 686,
-    height: 260
   },
   // 详细商品列表
   productList: {

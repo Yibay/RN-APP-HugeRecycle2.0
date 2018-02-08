@@ -44,15 +44,18 @@ const locationManage = WrappedComponent => connect(mapStateToProps, {setStoreInf
       return;
     }
       // 若成功
+    mallCategoryInfo.data.mainCategoryList = [
+      {id: -1, name: '推荐', imgAddress: '/images/category/tuijian.png'},
+      {id: -2, name: '限时促销', imgAddress: '/images/category/tuijian.png'}
+    ].concat(mallCategoryInfo.data.mainCategoryList);
     this.props.setMallCategoryInfo(mallCategoryInfo.data);
-    let starttime = new Date();
-    console.log(starttime);
+    let startTime = new Date();
+    console.log(startTime);
 
     /** 3、根据服务站Id、便利店 categoryId，获取便利店 各categoryId下，商品数组 */
     let productList = await this.getProductListByCategory(storeInfo.data[0].storeId, mallCategoryInfo.data.mainCategoryList);
-    console.log('-----',productList);
-    let endtime = new Date();
-    console.log(endtime);
+    let endTime = new Date();
+    console.log(endTime);
     this.props.setProductList(productList);
   }
 
