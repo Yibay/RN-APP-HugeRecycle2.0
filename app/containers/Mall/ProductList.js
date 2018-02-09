@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, FlatList, View } from 'react-native';
+import { StyleSheet, FlatList, View, ActivityIndicator } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
@@ -56,6 +56,7 @@ class ProductList extends Component {
         onEndReached={() => {this.lazyLoadProducts()}}
         onEndReachedThreshold={0.5} // 外层不能为Scroll类组件，否则 此属性判定异常
         ListHeaderComponent={this.props.ListHeaderComponent}
+        ListFooterComponent={(this.state.productList.length === this.props.productList.length && this.state.productList.length !== 0) ? undefined :<ActivityIndicator style={styles.activityIndicator} size='large'/>}
       />
       <CartBtn style={styles.cartBtn} onPress={() => {Actions.mallCart()}}/>
     </View>
@@ -96,6 +97,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 100,
     right: 10
+  },
+  // loading icon
+  activityIndicator: {
+    marginVertical: 40,
+    transform: [{scale: 2}]
   }
 });
 

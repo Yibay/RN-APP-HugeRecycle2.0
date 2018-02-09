@@ -32,6 +32,11 @@ class Banner extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps){
+    // 获取banner 图尺寸
+    this.resizeImage(nextProps.bannerList);
+  }
+
   render(){
     let styles = StyleSheet.create({
       slide: {
@@ -56,8 +61,14 @@ class Banner extends Component {
 
   componentDidMount(){
     // 获取banner 图尺寸
-    if(this.props.bannerList.length){
-      Image.getSize(`${config.static.mallBase}${this.props.bannerList[0].imageSrc}`, (width, height) => {
+    this.resizeImage(this.props.bannerList);
+  }
+
+  // 调整banner图片尺寸
+  resizeImage(bannerList){
+    // 获取banner 图尺寸
+    if(bannerList.length){
+      Image.getSize(`${config.static.mallBase}${bannerList[0].imageSrc}`, (width, height) => {
         this.setState({
           bannerHeight: height / width * this.props.bannerWidth
         })

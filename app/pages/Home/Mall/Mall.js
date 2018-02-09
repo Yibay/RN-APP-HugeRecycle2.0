@@ -54,7 +54,7 @@ class Mall extends Component{
       <Header title='虎哥便利店' leftButton={<NavBarLocationButton showStationName={true} />} rightButton={!this.props.authToken ? <Text style={styles.loginBtn} onPress={() => Actions.login({needPop: true})}>登录</Text> : <View/>}/>
       {
         /* 详细商品列表 */
-        this.props.mallCategoryInfo.mainCategoryList ?
+        this.props.storeInfo.length ?
           <ProductList productList={combineProductList} ListHeaderComponent={ListHeaderComponent} />
           :
           <MallNotOpen/>
@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
   return {
     authToken: state.identityToken.authToken,
+    storeInfo: state.mall.storeInfo,
     mallCategoryInfo: state.mall.mallCategoryInfo,
     productList: state.mall.productList
   }
