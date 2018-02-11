@@ -5,13 +5,14 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
 
+import { verifyStoreInfo } from '../../../HOC/verifyStoreInfo';
+
 import Header from '../../../components/common/Header/Header';
 import NavBarLocationButton from '../../../containers/Recycle/NavBarLocationButton/NavBarLocationButton';
 import Banner from '../../../components/pages/Mall/Banner';
 import SearchInput from '../../../containers/Mall/SearchInput';
 import CategoryList from '../../../containers/Mall/CategoryList';
 import ProductList from '../../../containers/Mall/ProductList';
-import MallNotOpen from '../../../containers/Mall/MallNotOpen';
 
 
 class Mall extends Component{
@@ -52,13 +53,8 @@ class Mall extends Component{
 
     return (<View style={styles.container}>
       <Header title='虎哥便利店' leftButton={<NavBarLocationButton showStationName={true} />} rightButton={!this.props.authToken ? <Text style={styles.loginBtn} onPress={() => Actions.login({needPop: true})}>登录</Text> : <View/>}/>
-      {
-        /* 详细商品列表 */
-        this.props.storeInfo.length ?
-          <ProductList productList={combineProductList} ListHeaderComponent={ListHeaderComponent} />
-          :
-          <MallNotOpen/>
-      }
+      {/* 详细商品列表 */}
+      <ProductList productList={combineProductList} ListHeaderComponent={ListHeaderComponent} />
     </View>);
   }
 
@@ -109,4 +105,5 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps)(Mall);
+// 需验证便利店信息
+export default verifyStoreInfo(connect(mapStateToProps)(Mall));

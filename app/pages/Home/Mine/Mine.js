@@ -82,11 +82,13 @@ class Mine extends Component {
     Alert.alert('确认退出登录？','',[
       {text: '取消', onPress: () => {}},
       {text: '确认', onPress: () => {
+
+          Actions.jump('shoppingMall');
+          Actions.jump('recycle');
           // 更新全局身份令牌
           this.props.setIdentityToken(emptyIdentityToken);
           // 删除本地身份令牌
           storage.remove({key: 'identityToken'});
-          Actions.jump('recycle');
         }
       }
     ]);

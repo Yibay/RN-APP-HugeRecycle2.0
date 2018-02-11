@@ -47,7 +47,7 @@ class Banner extends Component {
 
     if(this.props.bannerList.length){
       return (<View style={[styles.slide].concat(this.props.style)}>
-        <Swiper autoplay={true} autoplayTimeout={4}>
+        <Swiper autoplay={true} autoplayTimeout={4} showsPagination={false}>
           {
             this.props.bannerList.map((item, index) => <Image key={index} style={[styles.slide].concat(this.props.style)} source={{uri: `${config.static.mallBase}${item.imageSrc}`}} resizeMode='stretch' />)
           }

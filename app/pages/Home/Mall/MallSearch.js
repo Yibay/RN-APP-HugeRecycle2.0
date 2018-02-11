@@ -3,9 +3,11 @@ import { StyleSheet, View, Text } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+
 import request from '../../../util/request/request';
 import config from '../../../util/request/config';
-
+import { verifyStoreInfo } from '../../../HOC/verifyStoreInfo';
 
 import Header from '../../../components/common/Header/Header';
 import SearchInput from '../../../containers/Mall/SearchInput';
@@ -36,11 +38,12 @@ class MallSearch extends Component {
   }
 
   render(){
+
     return <View style={styles.container}>
       <Header title='搜索结果'/>
       <View style={styles.content}>
         <SearchInput style={styles.searchInput} searchText={this.state.searchText} onChangeText={val => this.setState({searchText: val})} onSearch={() => this.searchProduct()}/>
-        <Text style={styles.msg}>找到下列与 {this.state.searchText} 相关的物品</Text>
+        <Text style={styles.msg}>找到下列与 <Text style={styles.goods}>{this.state.searchText}</Text> 相关的物品</Text>
         <ProductList productList={this.state.productList}/>
       </View>
     </View>
@@ -57,6 +60,7 @@ class MallSearch extends Component {
       searchType: 'productName',
       searchVal: this.state.searchText
     });
+    console.log(res);
 
     if(res && !res.status){
       this.setState({productList: res.data});
@@ -66,7 +70,8 @@ class MallSearch extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#f7f7f7'
   },
   // 内容区
   content: {
@@ -74,21 +79,31 @@ const styles = StyleSheet.create({
   },
   // 搜索框
   searchInput: {
-    marginTop: 20,
-    width: 700,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    marginVertical: 20,
+    width: 686,
+    height: 56,
+    borderRadius: 26,
+    backgroundColor: '#ececec'
   },
   // 结果提示语
   msg: {
-    padding: 25,
-    fontSize: 26
+    paddingBottom: 20,
+    paddingHorizontal: 32,
+    fontSize: 28,
+    color: '#000'
+  },
+  goods: {
+    fontSize: 28,
+    color: '#ef3300'
   }
 });
 
 function mapStateToProps(state){
   return {
-    storeId: state.mall.storeInfo[0].storeId
+    storeId: state.mall.storeInfo[state.mall.storeIndex].storeId
   }
 }
 
-export default connect(mapStateToProps)(MallSearch);
+// 需验证绑定便利店
+export default verifyStoreInfo(connect(mapStateToProps)(MallSearch));

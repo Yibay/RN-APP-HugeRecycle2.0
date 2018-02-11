@@ -19,6 +19,7 @@ class ProductList extends Component {
   static propTypes = {
     productList: PropTypes.arrayOf(
       PropTypes.shape({
+        storeProductId: PropTypes.number.isRequired,
         productImgAddress: PropTypes.string.isRequired,
         productName: PropTypes.string.isRequired,
         productOriginalPrice: PropTypes.number.isRequired,
@@ -56,7 +57,7 @@ class ProductList extends Component {
         onEndReached={() => {this.lazyLoadProducts()}}
         onEndReachedThreshold={0.5} // 外层不能为Scroll类组件，否则 此属性判定异常
         ListHeaderComponent={this.props.ListHeaderComponent}
-        ListFooterComponent={(this.state.productList.length === this.props.productList.length && this.state.productList.length !== 0) ? undefined :<ActivityIndicator style={styles.activityIndicator} size='large'/>}
+        ListFooterComponent={(this.state.productList.length !== this.props.productList.length) ? <ActivityIndicator style={styles.activityIndicator} size='large'/> :  undefined}
       />
       <CartBtn style={styles.cartBtn} onPress={() => {Actions.mallCart()}}/>
     </View>

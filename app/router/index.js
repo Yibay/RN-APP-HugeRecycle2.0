@@ -32,6 +32,7 @@ import CustomerScore from '../pages/Home/Mine/CustomerScore';
 import MallCategory from '../pages/Home/Mall/MallCategory';
 import MallCart from '../pages/Home/Mall/MallCart';
 import MallSearch from '../pages/Home/Mall/MallSearch';
+import MallNotOpen from '../pages/Home/Mall/MallNotOpen';
 // TabIcon
 import { RecycleIcon, MallIcon, MineIcon } from '../HOC/configTabIcon';
 
@@ -60,6 +61,8 @@ const AppRouter = () => (
           <Scene key='mallCart' component={MallCart} hideNavBar={true} />
           {/* 商城 商品搜索页 */}
           <Scene key='mallSearch' component={MallSearch} hideNavBar={true} />
+          {/* 商城 便利店暂未开通页  */}
+          <Scene key='mallNotOpen' component={MallNotOpen} hideNavBar={true} />
         </Scene>
         {/* 我的分页 */}
         <Scene key='tab3' icon={MineIcon}>
