@@ -145,6 +145,9 @@ export default {
     // 获取全部服务站（便利店）
     getAllStationCommunity: `${api_base_mall}api/mall/pay/getAllStationCommunity`,
 
+    // 修改购买数量 (GET) params  shoppingCartId, amount, storeId
+    updateShoppingCartAmount: `${api_base_mall}online/mall/cart/updateShoppingCartAmount`,
+
     /** ------ Mock数据 ------ */
     // 获取回收物品 列表
     // getProducts: `file://${__dirname}../mock/getProducts4Items.json`,

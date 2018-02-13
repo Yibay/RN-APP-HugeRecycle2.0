@@ -10,29 +10,44 @@ import request from '../../../util/request/request';
 import config from '../../../util/request/config';
 
 import Header from '../../../components/common/Header/Header';
-import OrderAddressSection from '../../../containers/RecycleOrder/AddressSection/OrderAddressSection';
+import ProductList from '../../../containers/MallCart/ProductList';
+import SettlementModule from '../../../containers/MallCart/SettlementModule';
 
 
 class MallCart extends Component {
 
+  constructor(props){
+    super(props);
+
+    this.state = {
+      validProductList: [],
+      invalidProductList: []
+    };
+  }
+
   render(){
     return <View style={styles.container}>
-      <Header title='订单结算'/>
-      {/* 地址模块 */}
-      <OrderAddressSection />
+      <Header title={`购物车（${this.props.storeName}）`}/>
+      <ProductList validProductList={this.state.validProductList} invalidProductList={this.state.invalidProductList} updateCartProductList={() => this.getCartProductList()}/>
+      <SettlementModule validProductList={this.state.validProductList} />
     </View>
   }
 
   componentDidMount(){
-    console.log(this.props);
-    // this.getCartProductList();
+    this.getCartProductList();
   }
 
-  // 获取购物车
-  // async getCartProductList(){
-  //   const res = await request.get(config.api.getShoppingCartProductList,{storeId: this.props.storeId},{'X-AUTH-TOKEN': this.props.identityToken.authToken});
-  //   console.log(res);
-  // }
+  // 获取购物车 商品
+  async getCartProductList(){
+    const res = await request.get(config.api.getShoppingCartProductList,{storeId: this.props.storeId},{'X-AUTH-TOKEN': this.props.identityToken.authToken});
+    console.log(res);
+    if(res && !res.status){
+      this.setState({
+        validProductList: res.data.validProductList,
+        invalidProductList: res.data.invalidProductList
+      })
+    }
+  }
 }
 
 const styles = StyleSheet.create({
@@ -43,7 +58,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
-    storeId: state.mall.storeInfo[state.mall.storeIndex].storeId
+    storeId: state.mall.storeInfo[state.mall.storeIndex].storeId,
+    storeName: state.mall.storeInfo[state.mall.storeIndex].storeName
   }
 }
 
