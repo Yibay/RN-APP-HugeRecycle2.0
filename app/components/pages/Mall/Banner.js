@@ -61,7 +61,7 @@ class Banner extends Component {
 
   componentDidMount(){
     // 获取banner 图尺寸
-    this.resizeImage(this.props.bannerList);
+    // this.resizeImage(this.props.bannerList);
   }
 
   // 调整banner图片尺寸

@@ -33,8 +33,8 @@ class MallCart extends Component {
     </View>
   }
 
-  componentDidMount(){
-    this.getCartProductList();
+  async componentDidMount(){
+    await this.getCartProductList();
   }
 
   // 获取购物车 商品

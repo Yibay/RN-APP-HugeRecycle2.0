@@ -67,7 +67,7 @@ class ProductList extends Component {
   lazyLoadProducts(){
     if(this.state.productList.length === this.props.productList.length) return;
     this.setState(state => ({
-      productList: state.productList.concat(this.props.productList.slice(state.productList.length, this.state.productList.length + 10).map(item => ({ ...item, key: item.mallProductId })))
+      productList: state.productList.concat(this.props.productList.slice(state.productList.length, this.state.productList.length + 10).map(item => ({ ...item, key: item.storeProductId })))
     }));
   }
 
