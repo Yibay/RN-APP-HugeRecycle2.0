@@ -4,7 +4,7 @@ import { StyleSheet, View, FlatList } from 'react-native';
 import PropTypes from 'prop-types';
 
 
-import ProductItem from '../../components/pages/MallCart/ProductItem';
+import ProductItem from './ProductItem';
 
 
 class ProductList extends Component{
@@ -41,6 +41,7 @@ class ProductList extends Component{
     let validProductList = this.props.validProductList;
     for(let item of validProductList){
       item.valid = true;
+      item.key = item.shoppingCartId;
     }
 
     // 无效商品
@@ -48,6 +49,7 @@ class ProductList extends Component{
     for(let i=0;i<invalidProductList.length;i++){
       i===0 && (invalidProductList[i].firstItem = true);
       invalidProductList[i].valid = false;
+      invalidProductList[i].key = invalidProductList[i].shoppingCartId;
     }
 
     let productList = validProductList.concat(invalidProductList);

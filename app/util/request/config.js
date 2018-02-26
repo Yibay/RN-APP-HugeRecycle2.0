@@ -145,8 +145,11 @@ export default {
     // 获取全部服务站（便利店）
     getAllStationCommunity: `${api_base_mall}api/mall/pay/getAllStationCommunity`,
 
-    // 修改购买数量 (GET) params  shoppingCartId, amount, storeId
+    // 7, 修改购买数量 (GET) params  shoppingCartId, amount, storeId, 需要登录 header X-AUTH-TOKEN
     updateShoppingCartAmount: `${api_base_mall}online/mall/cart/updateShoppingCartAmount`,
+
+    // 8, 修改购物车商品状态 (GET) online/mall/cart/changeNeedPay/{shoppingCartId}   params  isNeedPay (1购买，0不买) 需要登录 header X-AUTH-TOKEN
+    changeNeedPay: `${api_base_mall}online/mall/cart/changeNeedPay/`,
 
     /** ------ Mock数据 ------ */
     // 获取回收物品 列表

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableWithoutFeedback, Alert } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -13,6 +13,7 @@ class ControllerBtn extends Component{
 
   static propTypes = {
     buyAmount: PropTypes.number.isRequired,
+    storageAmount: PropTypes.number.isRequired,
     shoppingCartId: PropTypes.number.isRequired,
     updateCartProductList: PropTypes.func.isRequired
   };
@@ -45,41 +46,57 @@ class ControllerBtn extends Component{
 
   async plus(){
 
-    const res = await request.get(config.api.updateShoppingCartAmount,
-      {
-        storeId: this.props.storeId,
-        shoppingCartId: this.props.shoppingCartId,
-        amount: this.state.buyAmount + 1
-      },
-      {'X-AUTH-TOKEN': this.props.authToken});
+    // 库存为空
+    if(!this.props.storageAmount){
+      Alert.alert('该商品已售罄，无法购买');
+      return;
+    }
 
-    if(res && !res.status){
-      this.props.updateCartProductList();
-      // this.setState({
-      //   buyAmount: this.state.buyAmount + 1
-      // })
+    // 库存充足
+    if(this.props.storageAmount >= this.state.buyAmount + 1){
+      await this.updateShoppingCartAmount(this.state.buyAmount + 1);
+    }
+    // 库存不足
+    else{
+      Alert.alert('该商品库存不足');
     }
 
   }
 
   async reduce(){
 
-    if(this.state.buyAmount > 0){
+    // 库存为空
+    if(!this.props.storageAmount){
+      Alert.alert('该商品已售罄，无法购买');
+      return;
+    }
 
-      const res = await request.get(config.api.updateShoppingCartAmount,
-        {
-          storeId: this.props.storeId,
-          shoppingCartId: this.props.shoppingCartId,
-          amount: this.state.buyAmount - 1
-        },
-        {'X-AUTH-TOKEN': this.props.authToken});
+    // 库存充足
+    if(this.state.buyAmount > 1 && this.props.storageAmount >= this.state.buyAmount){
+      await this.updateShoppingCartAmount(this.state.buyAmount - 1);
+    }
+    // 库存不足
+    else if(this.state.buyAmount > 1 && this.props.storageAmount < this.state.buyAmount){
+      await this.updateShoppingCartAmount(this.props.storageAmount);
+    }
+  }
 
-      if(res && !res.status){
-        this.props.updateCartProductList();
-        // this.setState({
-        //   buyAmount: this.state.buyAmount - 1
-        // });
-      }
+  // 修改购买数量
+  async updateShoppingCartAmount(amount){
+    const res = await request.get(config.api.updateShoppingCartAmount,
+      {
+        storeId: this.props.storeId,
+        shoppingCartId: this.props.shoppingCartId,
+        amount
+      },
+      {'X-AUTH-TOKEN': this.props.authToken});
+
+    if(res && !res.status){
+      // 更新购物车列表
+      this.props.updateCartProductList();
+    }
+    else if(res && res.status){
+      Alert.alert(res.message)
     }
   }
 }
