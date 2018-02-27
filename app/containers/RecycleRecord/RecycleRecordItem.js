@@ -8,9 +8,9 @@ import { Actions } from 'react-native-router-flux';
 import config from "../../util/request/config";
 import request from "../../util/request/request";
 
-import OrderItem from '../../components/pages/RecycleRecord/OrderItem';
-import RecordBtn from '../../components/common/Form/Btn/RecordBtn';
-import DisableBtn from '../../components/common/Form/Btn/DisableBtn';
+import OrderItem from './OrderItem';
+import RecordBtn from '../../components/Form/Btn/RecordBtn';
+import DisableBtn from '../../components/Form/Btn/DisableBtn';
 
 
 const styles = StyleSheet.create({

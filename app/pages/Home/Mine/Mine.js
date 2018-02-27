@@ -10,10 +10,10 @@ import { setIdentityToken, emptyIdentityToken } from '../../../redux/actions/Ide
 import request from '../../../util/request/request';
 import config from '../../../util/request/config';
 
-import Header from '../../../components/common/Header/Header';
+import Header from '../../../components/Header/Header';
 import MsgBtn from '../../../containers/Mine/MessageBtn/MessageBtn';
-import LineSection from '../../../components/common/LineSection/LineSection';
-import SubmitBtn from '../../../components/common/Form/Btn/SubmitBtn';
+import LineSection from '../../../components/LineSection/LineSection';
+import SubmitBtn from '../../../components/Form/Btn/SubmitBtn';
 
 
 class Mine extends Component {

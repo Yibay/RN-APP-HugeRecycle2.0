@@ -9,9 +9,9 @@ import { connect } from 'react-redux';
 import request from '../../util/request/request';
 import config from '../../util/request/config';
 
-import ProductItem from '../../components/pages/Mall/ProductItem';
-import AddBtn from '../../components/common/Form/Btn/AddBtn';
-import CartBtn from '../../components/common/Form/Btn/CartBtn';
+import ProductItem from './ProductItem';
+import AddBtn from '../../components/Form/Btn/AddBtn';
+import CartBtn from '../../components/Form/Btn/CartBtn';
 
 
 class ProductList extends Component {

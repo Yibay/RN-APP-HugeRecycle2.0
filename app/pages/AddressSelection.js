@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 
 import { setLocation } from '../redux/actions/Location';
 
-import Header from '../components/common/Header/Header';
-import AddressSection from '../components/common/Address/AddressSection';
+import Header from '../components/Header/Header';
+import AddressSection from '../components/Address/AddressSection';
 
 
 class AddressSelection extends Component {

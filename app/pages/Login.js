@@ -10,10 +10,10 @@ import request from '../util/request/request';
 import config from '../util/request/config';
 import { setIdentityToken } from '../redux/actions/IdentityToken';
 
-import Header from '../components/common/Header/Header';
-import Navigator from '../components/common/Navigator/Navigator';
-import SubmitBtn from '../components/common/Form/Btn/SubmitBtn';
-import InputSection from '../components/common/Form/Input/InputSection';
+import Header from '../components/Header/Header';
+import Navigator from '../components/Navigator/Navigator';
+import SubmitBtn from '../components/Form/Btn/SubmitBtn';
+import InputSection from '../components/Form/Input/InputSection';
 
 
 class Login extends Component{

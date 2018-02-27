@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 
-import Header from '../components/common/Header/Header';
+import Header from '../components/Header/Header';
 
 
 class AddressEdit extends Component {

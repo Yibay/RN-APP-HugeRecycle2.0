@@ -7,8 +7,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import { verifyLogin } from '../../../HOC/verifyLogin';
 
-import Header from '../../../components/common/Header/Header';
-import LineSection from '../../../components/common/LineSection/LineSection';
+import Header from '../../../components/Header/Header';
+import LineSection from '../../../components/LineSection/LineSection';
 
 
 class ManageCustomerAccounts extends Component {

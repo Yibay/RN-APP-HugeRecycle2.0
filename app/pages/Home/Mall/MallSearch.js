@@ -9,7 +9,7 @@ import request from '../../../util/request/request';
 import config from '../../../util/request/config';
 import { verifyStoreInfo } from '../../../HOC/verifyStoreInfo';
 
-import Header from '../../../components/common/Header/Header';
+import Header from '../../../components/Header/Header';
 import SearchInput from '../../../containers/Mall/SearchInput';
 import ProductList from '../../../containers/Mall/ProductList';
 

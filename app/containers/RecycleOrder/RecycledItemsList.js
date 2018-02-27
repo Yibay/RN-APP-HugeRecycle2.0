@@ -4,7 +4,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import { connect } from 'react-redux';
 
 
-import RecycledItem from '../../components/pages/RecycleOrder/RecycledItem'
+import RecycledItem from './RecycledItem'
 
 
 class RecycledItemsList extends Component{

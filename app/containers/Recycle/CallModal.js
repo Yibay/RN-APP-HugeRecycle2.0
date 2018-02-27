@@ -11,10 +11,10 @@ import { createOrderValidator } from '../../util/form/recycleOrderValidator';
 import request from '../../util/request/request';
 import config from '../../util/request/config';
 
-import AdaptLayoutWidth from '../../components/common/AdaptLayoutWidth';
-import HouseNumberAddressSection from '../../components/common/Form/Module/HouseNumberAddressSection';
-import InputSection from '../../components/common/Form/Input/InputSection';
-import RecordBtn from '../../components/common/Form/Btn/RecordBtn';
+import AdaptLayoutWidth from '../../components/AdaptLayoutWidth';
+import HouseNumberAddressSection from '../../components/Form/Module/HouseNumberAddressSection';
+import InputSection from '../../components/Form/Input/InputSection';
+import RecordBtn from '../../components/Form/Btn/RecordBtn';
 import validator from "../../util/form/validator";
 
 

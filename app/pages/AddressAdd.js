@@ -11,11 +11,11 @@ import config from '../util/request/config';
 import request from '../util/request/request';
 import { setLocation, setUserAddressList } from '../redux/actions/Location';
 
-import Header from '../components/common/Header/Header';
-import InputSection from '../components/common/Form/Input/InputSection';
+import Header from '../components/Header/Header';
+import InputSection from '../components/Form/Input/InputSection';
 import LocationBtn from '../containers/common/LocationBtn';
-import HouseNumberAddressSection from '../components/common/Form/Module/HouseNumberAddressSection';
-import SubmitBtn from '../components/common/Form/Btn/SubmitBtn';
+import HouseNumberAddressSection from '../components/Form/Module/HouseNumberAddressSection';
+import SubmitBtn from '../components/Form/Btn/SubmitBtn';
 
 
 class AddressAdd extends Component {

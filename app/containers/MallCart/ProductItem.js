@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import config from '../../util/request/config';
 import request from '../../util/request/request';
 
-import CheckBox from '../../components/common/Form/CheckBox/CheckBox';
+import CheckBox from '../../components/Form/CheckBox/CheckBox';
 import ControllerBtn from './ControllerBtn';
 
 

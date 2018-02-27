@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
 
 
-import AddressSection from '../../../components/common/Address/AddressSection';
+import AddressSection from '../../../components/Address/AddressSection';
 
 
 class OrderAddressSection extends Component {

@@ -7,9 +7,9 @@ import { updatePasswordValidator } from '../../../util/form/mineValidator';
 import request from '../../../util/request/request';
 import config from '../../../util/request/config';
 
-import Header from '../../../components/common/Header/Header';
-import InputSection from '../../../components/common/Form/Input/InputSection';
-import SubmitBtn from '../../../components/common/Form/Btn/SubmitBtn';
+import Header from '../../../components/Header/Header';
+import InputSection from '../../../components/Form/Input/InputSection';
+import SubmitBtn from '../../../components/Form/Btn/SubmitBtn';
 
 
 class ManageLoginPassword extends Component{

@@ -4,9 +4,9 @@ import { StyleSheet, View, Image, Text } from 'react-native';
 import PropTypes from 'prop-types';
 
 
-import config from "../../../util/request/config";
+import config from "../../util/request/config";
 
-import SpecsItem from '../../../containers/Recycle/SpecsItem/SpecsItem';
+import SpecsItem from './SpecsItem/SpecsItem';
 
 
 const CategoryItem = props => {

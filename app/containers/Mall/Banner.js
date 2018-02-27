@@ -5,7 +5,7 @@ import Swiper from 'react-native-swiper';
 import PropTypes from 'prop-types';
 
 
-import config from '../../../util/request/config';
+import config from '../../util/request/config';
 
 
 class Banner extends Component {

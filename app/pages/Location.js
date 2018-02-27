@@ -5,7 +5,7 @@ import { Actions } from 'react-native-router-flux';
 
 
 import CommunitySelector from '../containers/Location/CommunitySelector/CommunitySelector';
-import SubmitBtn from '../components/common/Form/Btn/SubmitBtn';
+import SubmitBtn from '../components/Form/Btn/SubmitBtn';
 
 
 class LocationPage extends Component{

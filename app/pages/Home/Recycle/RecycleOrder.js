@@ -14,10 +14,10 @@ import config from '../../../util/request/config';
 import { resetRecycledItem } from '../../../redux/actions/Recycle';
 
 import { verifyLogin } from '../../../HOC/verifyLogin';
-import Header from '../../../components/common/Header/Header';
+import Header from '../../../components/Header/Header';
 import OrderAddressSection from '../../../containers/RecycleOrder/AddressSection/OrderAddressSection';
 import RecycledItemsList from '../../../containers/RecycleOrder/RecycledItemsList';
-import SubmitBtn from '../../../components/common/Form/Btn/SubmitBtn';
+import SubmitBtn from '../../../components/Form/Btn/SubmitBtn';
 
 
 class RecycleOrder extends Component{

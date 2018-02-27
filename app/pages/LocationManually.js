@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import Header from '../components/common/Header/Header';
+import Header from '../components/Header/Header';
 import CommunitySearchEngines from '../containers/LocationManually/CommunitySearchEngines/CommunitySearchEngines';
 
 

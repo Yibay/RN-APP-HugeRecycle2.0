@@ -12,10 +12,10 @@ import { verifyLogin } from '../HOC/verifyLogin';
 import request from '../util/request/request';
 import config from '../util/request/config';
 
-import Header from '../components/common/Header/Header';
-import GradeEvaluation from '../components/common/Form/Module/GradeEvaluation/GradeEvaluation';
+import Header from '../components/Header/Header';
+import GradeEvaluation from '../components/Form/Module/GradeEvaluation/GradeEvaluation';
 import RecycleRecordItem from '../containers/RecycleRecord/RecycleRecordItem';
-import SubmitBtn from '../components/common/Form/Btn/SubmitBtn';
+import SubmitBtn from '../components/Form/Btn/SubmitBtn';
 
 
 const styles = StyleSheet.create({

@@ -7,9 +7,9 @@ import { Actions } from 'react-native-router-flux';
 
 import { verifyStoreInfo } from '../../../HOC/verifyStoreInfo';
 
-import Header from '../../../components/common/Header/Header';
+import Header from '../../../components/Header/Header';
 import NavBarLocationButton from '../../../containers/Recycle/NavBarLocationButton/NavBarLocationButton';
-import Banner from '../../../components/pages/Mall/Banner';
+import Banner from '../../../containers/Mall/Banner';
 import SearchInput from '../../../containers/Mall/SearchInput';
 import CategoryList from '../../../containers/Mall/CategoryList';
 import ProductList from '../../../containers/Mall/ProductList';

@@ -4,7 +4,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 
-import Header from '../../../components/common/Header/Header';
+import Header from '../../../components/Header/Header';
 import NavBarLocationButton from '../../../containers/Recycle/NavBarLocationButton/NavBarLocationButton';
 import MallNotOpen from '../../../containers/Mall/MallNotOpen/MallNotOpen';
 

@@ -4,8 +4,8 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 
-import Header from '../../../components/common/Header/Header';
-import SubmitBtn from '../../../components/common/Form/Btn/SubmitBtn';
+import Header from '../../../components/Header/Header';
+import SubmitBtn from '../../../components/Form/Btn/SubmitBtn';
 
 
 class CallSuccess extends Component {

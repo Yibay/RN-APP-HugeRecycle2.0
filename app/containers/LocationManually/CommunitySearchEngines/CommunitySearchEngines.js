@@ -9,9 +9,9 @@ import request from '../../../util/request/request';
 import config from '../../../util/request/config';
 import { setLocation } from '../../../redux/actions/Location';
 
-import InputSection from '../../../components/common/Form/Input/InputSection';
-import CommunitySearched from '../../../components/pages/LocationManually/CommunitySearched';
-import SubmitBtn from '../../../components/common/Form/Btn/SubmitBtn';
+import InputSection from '../../../components/Form/Input/InputSection';
+import CommunitySearched from '../CommunitySearched';
+import SubmitBtn from '../../../components/Form/Btn/SubmitBtn';
 
 
 class CommunitySearchEngines extends Component {

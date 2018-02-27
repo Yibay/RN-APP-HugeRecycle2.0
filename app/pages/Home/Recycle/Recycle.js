@@ -5,14 +5,13 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
 
-import request from '../../../util/request/request';
 import config from '../../../util/request/config';
 import { setAllProducts } from '../../../redux/actions/Recycle';
 
-import Header from '../../../components/common/Header/Header';
+import Header from '../../../components/Header/Header';
 import NavBarLocationButton from '../../../containers/Recycle/NavBarLocationButton/NavBarLocationButton';
-import Navigator from '../../../components/common/Navigator/Navigator';
-import SubCategory from '../../../components/pages/Recycle/SubCategory';
+import Navigator from '../../../components/Navigator/Navigator';
+import SubCategory from '../../../containers/Recycle/SubCategory';
 import CallModule from '../../../containers/Recycle/CallModule';
 import CallModal from '../../../containers/Recycle/CallModal';
 

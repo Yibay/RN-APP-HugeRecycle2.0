@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Icons from 'react-native-vector-icons/Feather'
 
 
-import InputSection from '../../components/common/Form/Input/InputSection';
+import InputSection from '../../components/Form/Input/InputSection';
 
 
 class SearchInput extends Component {

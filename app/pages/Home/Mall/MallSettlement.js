@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 
 import {verifyStoreInfo} from "../../../HOC/verifyStoreInfo";
 import {verifyLogin} from "../../../HOC/verifyLogin";
-import Header from "../../../components/common/Header/Header";
+import Header from "../../../components/Header/Header";
 
 
 class MallSettlement extends Component {

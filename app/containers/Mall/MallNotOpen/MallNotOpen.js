@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 
-import SubmitBtn from '../../../components/common/Form/Btn/SubmitBtn';
+import SubmitBtn from '../../../components/Form/Btn/SubmitBtn';
 
 
 class MallNotOpen extends Component {
