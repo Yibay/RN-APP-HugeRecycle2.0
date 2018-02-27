@@ -11,6 +11,8 @@ import initIdentityToken from '../HOC/initIdentityToken';
 // HOC 中间件 定位
 import locationManage from '../HOC/locationManage';
 
+// 页面路由 TabIcon
+import { RecycleIcon, MallIcon, MineIcon } from '../HOC/configTabIcon';
 // 页面路由
 import Intro from '../pages/Intro';
 import Recycle from '../pages/Home/Recycle/Recycle';
@@ -33,8 +35,7 @@ import MallCategory from '../pages/Home/Mall/MallCategory';
 import MallCart from '../pages/Home/Mall/MallCart';
 import MallSearch from '../pages/Home/Mall/MallSearch';
 import MallNotOpen from '../pages/Home/Mall/MallNotOpen';
-// TabIcon
-import { RecycleIcon, MallIcon, MineIcon } from '../HOC/configTabIcon';
+import MallSettlement from "../pages/Home/Mall/MallSettlement";
 
 
 const AppRouter = () => (
@@ -63,6 +64,8 @@ const AppRouter = () => (
           <Scene key='mallSearch' component={MallSearch} hideNavBar={true} />
           {/* 商城 便利店暂未开通页  */}
           <Scene key='mallNotOpen' component={MallNotOpen} hideNavBar={true} />
+          {/* 商城 订单结算页 */}
+          <Scene key='mallSettlement' component={MallSettlement} hideNavBar={true} />
         </Scene>
         {/* 我的分页 */}
         <Scene key='tab3' icon={MineIcon}>
@@ -134,4 +137,3 @@ const tabsStyle = {
 
 // 屏宽适配, 登录状态管理相关数据, 地址管理相关数据
 export default adaptLayoutWidth(initIdentityToken(locationManage(AppRouter)));
-// export default adaptLayoutWidth(AppRouter);

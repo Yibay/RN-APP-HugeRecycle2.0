@@ -12,7 +12,8 @@ class SettlementModule extends Component {
         productPrice: PropTypes.number.isRequired,
         buyAmount: PropTypes.number.isRequired
       })
-    )
+    ),
+    onPress: PropTypes.func.isRequired
   };
 
   render(){
@@ -27,7 +28,7 @@ class SettlementModule extends Component {
       <View style={styles.total}>
         <Text style={styles.totalText}>已选中 {this.props.validProductList.length}件，合计 {total}元</Text>
       </View>
-      <Text style={styles.settlement}>
+      <Text style={styles.settlement} onPress={this.props.onPress}>
         结算
       </Text>
     </View>
