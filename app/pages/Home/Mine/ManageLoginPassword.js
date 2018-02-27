@@ -30,7 +30,7 @@ class ManageLoginPassword extends Component{
       <InputSection style={styles.inputSection} value={this.state.oldPassword} onChangeText={val => this.setState({oldPassword: val.trim()})} label='旧密码' placeholder='如未设置过登录密码请留空'/>
       <InputSection style={styles.inputSection} value={this.state.newPassword} onChangeText={val => this.setState({newPassword: val.trim()})} label='新密码'/>
       <InputSection style={styles.inputSection} value={this.state.confirmPassword} onChangeText={val => this.setState({confirmPassword: val.trim()})} label='重复密码'/>
-      <SubmitBtn style={styles.submitBtn} text='修改登录密码' submit={() => this.submit()}/>
+      <SubmitBtn style={styles.submitBtn} text='确认修改' submit={() => this.submit()}/>
     </View>);
   }
 
@@ -53,10 +53,10 @@ class ManageLoginPassword extends Component{
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#f7f7f7'
   },
   inputSection: {
-    backgroundColor: '#fff'
   },
   submitBtn: {
     marginTop: 80

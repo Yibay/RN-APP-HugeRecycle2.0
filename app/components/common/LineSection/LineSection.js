@@ -10,7 +10,8 @@ class LineSection extends Component {
     title: PropTypes.string.isRequired, // 标题
     icon: PropTypes.element.isRequired, // 左侧图标
     onPress: PropTypes.func.isRequired, // 点击回调函数
-    rightModule: PropTypes.element.isRequired
+    rightModule: PropTypes.element.isRequired, // 右侧组件
+    // textStyle: PropTypes.number.isRequired // title 样式
   };
 
   static defaultProps = {
@@ -27,7 +28,7 @@ class LineSection extends Component {
         {
           this.props.icon
         }
-        <Text style={styles.text}>{this.props.title}</Text>
+        <Text style={[styles.text].concat(this.props.textStyle)}>{this.props.title}</Text>
         <View style={styles.rightModule}>
           {
             this.props.rightModule

@@ -60,7 +60,7 @@ class Banner extends Component {
   }
 
   async componentDidMount(){
-    await this.resizeImage();
+    await this.resizeImage(this.props.bannerList);
   }
 
   // 调整banner图片尺寸
@@ -68,11 +68,11 @@ class Banner extends Component {
     // 获取banner 图尺寸
     if(bannerList.length){
       Image.getSize(`${config.static.mallBase}${bannerList[0].imageSrc}`, (width, height) => {
-        // if(this.refs.componentExisted){
+        if(this.refs.componentExisted){
           this.setState({
             bannerHeight: height / width * this.props.bannerWidth
           })
-        // }
+        }
       });
     }
   }
