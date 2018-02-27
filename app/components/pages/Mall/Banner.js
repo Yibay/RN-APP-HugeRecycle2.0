@@ -46,7 +46,7 @@ class Banner extends Component {
     });
 
     if(this.props.bannerList.length){
-      return (<View style={[styles.slide].concat(this.props.style)}>
+      return (<View style={[styles.slide].concat(this.props.style)} ref='componentExisted'>
         <Swiper autoplay={true} autoplayTimeout={4} showsPagination={false}>
           {
             this.props.bannerList.map((item, index) => <Image key={index} style={[styles.slide].concat(this.props.style)} source={{uri: `${config.static.mallBase}${item.imageSrc}`}} resizeMode='stretch' />)
@@ -59,9 +59,8 @@ class Banner extends Component {
     }
   }
 
-  componentDidMount(){
-    // 获取banner 图尺寸
-    // this.resizeImage(this.props.bannerList);
+  async componentDidMount(){
+    await this.resizeImage();
   }
 
   // 调整banner图片尺寸
@@ -69,9 +68,11 @@ class Banner extends Component {
     // 获取banner 图尺寸
     if(bannerList.length){
       Image.getSize(`${config.static.mallBase}${bannerList[0].imageSrc}`, (width, height) => {
-        this.setState({
-          bannerHeight: height / width * this.props.bannerWidth
-        })
+        // if(this.refs.componentExisted){
+          this.setState({
+            bannerHeight: height / width * this.props.bannerWidth
+          })
+        // }
       });
     }
   }

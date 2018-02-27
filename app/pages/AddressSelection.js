@@ -22,7 +22,7 @@ class AddressSelection extends Component {
             <View style={styles.addressItem}>
               <AddressSection currentLocation={item} rightButton={
                 <TouchableWithoutFeedback onPress={() => this.goToEditAddress()}>
-                  <Image source={require('../assets/icon/edit2x.png')} resizeMode='contain' style={styles.editButton} />
+                  <Image source={require('../assets/iconImg/edit2x.png')} resizeMode='contain' style={styles.editButton} />
                 </TouchableWithoutFeedback>
               } />
             </View>

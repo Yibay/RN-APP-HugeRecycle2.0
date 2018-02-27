@@ -22,7 +22,7 @@ class EnvironmentalRecord extends Component {
   }
   
   render(){
-    return (<View style={styles.container}>
+    return (<View style={styles.container} ref='componentExisted'>
       <Header title='我的环保记录' />
       {/* 环保记录列表 */}
       <ScrollView style={styles.container} refreshControl={<RefreshControl refreshing={this.state.isRefreshing} onRefresh={() => this.updateOrderList()} />}>
@@ -34,9 +34,9 @@ class EnvironmentalRecord extends Component {
   }
 
   // 单一入口页，数据采用本层管理
-  componentDidMount(){
+  async componentDidMount(){
     // 更新 环保记录列表数据
-    this.updateOrderList();
+    await this.updateOrderList();
   }
 
   // 更新回收订单列表
@@ -45,7 +45,7 @@ class EnvironmentalRecord extends Component {
       .get(config.api.myOrders, null, {'X-AUTH-TOKEN': this.props.identityToken.authToken})
 
     // 若请求正常、且数据正常
-    if(res && !res.status){
+    if(res && !res.status && this.refs.componentExisted){
       this.setState({recordItems: res.data});
     }
   }

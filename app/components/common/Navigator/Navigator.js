@@ -115,7 +115,7 @@ class Navigator extends Component {
             }
           </ScrollView>
         :
-        // 若为 铺满剩余空间 滚动
+        // 若为 铺满剩余空间 不可滚动
         this.props.contentLayoutStyle === 'highlyFlexible' ?
           <View style={styles.page}>
             {

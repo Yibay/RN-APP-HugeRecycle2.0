@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView, Alert, RefreshControl } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, Alert, RefreshControl, Image } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -11,6 +11,9 @@ import request from '../../../util/request/request';
 import config from '../../../util/request/config';
 
 import Header from '../../../components/common/Header/Header';
+import MsgBtn from '../../../containers/Mine/MessageBtn/MessageBtn';
+import LineSection from '../../../components/common/LineSection/LineSection';
+import SubmitBtn from '../../../components/common/Form/Btn/SubmitBtn';
 
 
 class Mine extends Component {
@@ -25,8 +28,14 @@ class Mine extends Component {
   }
 
   render(){
-    return (<View style={styles.container}>
-      <Header title='我的' hideBack={true} rightButton={<Text style={styles.rightButton}>消息</Text>} />
+    // 加密电话
+    let encryptedPhones = this.props.identityToken.user.phone.slice(0,3);
+    encryptedPhones += this.props.identityToken.user.phone.slice(3,-4).replace(/\d/g,'*');
+    encryptedPhones += this.props.identityToken.user.phone.slice(-4);
+
+
+    return (<View style={styles.container} ref='componentExisted'>
+      <Header title='我的' hideBack={true} rightButton={<MsgBtn />} />
       <ScrollView style={styles.content} refreshControl={<RefreshControl
         refreshing={this.state.isRefreshing}
         onRefresh={() => this.refreshCustomerScore()}
@@ -34,39 +43,37 @@ class Mine extends Component {
       />}>
         {/* 基本信息 */}
         <View style={styles.basicFacts}>
+          <Image style={styles.personalImage} source={require('../../../assets/img/personalImage2x.png')} resizeMode='contain' />
           <View style={styles.message}>
-            <Text style={styles.text}>{this.props.identityToken.user.name}</Text>
-            <Text style={styles.text}>{this.props.identityToken.user.phone}</Text>
+            <Text style={styles.name}>{this.props.identityToken.user.name}</Text>
+            <Text style={styles.phone}>{encryptedPhones}</Text>
             <View style={styles.securityCenter}>
-              <Text style={styles.text} onPress={() => {Actions.manageCustomerAccounts()}}>安全中心</Text>
+              <Text style={styles.securityCenterText} onPress={() => {Actions.manageCustomerAccounts()}}>安全中心</Text>
             </View>
           </View>
         </View>
-        <View style={styles.lineSection}>
-          <Text style={styles.text} onPress={() => {Actions.customerScorePage()}}>环保金</Text>
-          <Text style={styles.customerScore}>{`¥${this.state.customerScore}`}</Text>
-        </View>
-        <View style={styles.lineSection}>
-          <Text style={styles.text}>地址管理</Text>
-        </View>
-        <View style={styles.lineSection}>
-          <Text style={styles.text} onPress={() => Actions.environmentalRecordPage()}>环保记录</Text>
-        </View>
-        <View style={styles.lineSection}>
-          <Text style={styles.text} onPress={() => this.exitLogon()}>退出登录</Text>
-        </View>
+        {/* 各模块 */}
+        <LineSection title='环保金' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/customerScore.png')} resizeMode='contain'/>} onPress={() => {Actions.customerScorePage()}} rightModule={<Text style={styles.customerScore}>{`¥${this.state.customerScore}`}</Text>}/>
+        <LineSection title='地址管理' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/location.png')} resizeMode='contain'/>} />
+        <LineSection title='环保记录' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/recycleRecord.png')} resizeMode='contain'/>} onPress={() => Actions.environmentalRecordPage()}/>
+        <LineSection title='虎哥资讯' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/hugeInformation.png')} resizeMode='contain'/>} />
+        <LineSection title='在线客服' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/onlineService.png')} resizeMode='contain'/>} />
+        <LineSection title='关于我们' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/aboutUs.png')} resizeMode='contain'/>} />
+        <LineSection title='服务范围' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/serviceScope.png')} resizeMode='contain'/>} />
+        <SubmitBtn style={styles.logout} text='退出登录' submit={() => this.exitLogon()}/>
       </ScrollView>
     </View>)
   }
 
   async componentDidMount(){
-    // this.refreshCustomerScore();
+    await this.refreshCustomerScore();
   }
 
   // 刷新环保金余额
   async refreshCustomerScore(){
     const res = await request.get(config.api.getCustomerScore,null,{'X-AUTH-TOKEN': this.props.identityToken.authToken});
-    if(res){
+    // 异步后，验证 组件存在，再setState
+    if(res && this.refs.componentExisted){
       if(!res.status){
         this.setState({customerScore: res.data, isRefreshing: false});
       }
@@ -105,21 +112,41 @@ const styles = StyleSheet.create({
   },
   // 内容区
   content: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#f7f7f7'
   },
+  // 基本信息
   basicFacts: {
-    flexDirection: 'row'
+    marginBottom: 12,
+    flexDirection: 'row',
+    backgroundColor: '#fff'
   },
+  // 个人头像
+  personalImage: {
+    alignSelf: 'center',
+    width: 157,
+    height: 157,
+    marginHorizontal: 24
+  },
+  // 个人信息
   message: {
     position: 'relative',
     flex: 1,
-    height: 150,
-    padding: 40,
-    justifyContent: 'space-between',
+    height: 188,
+    justifyContent: 'center',
     backgroundColor: '#fff'
   },
-  text: {
-    fontSize: 26
+  // 个人名称
+  name: {
+    marginBottom: 24,
+    fontSize: 32,
+    fontWeight: '900',
+    color: '#000'
+  },
+  phone: {
+    fontSize: 24,
+    fontWeight: '500',
+    color: '#000'
   },
   securityCenter: {
     position: 'absolute',
@@ -128,16 +155,30 @@ const styles = StyleSheet.create({
     bottom: 0,
     justifyContent: 'center'
   },
-  lineSection: {
-    marginTop: 10,
-    padding: 40,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#fff'
+  securityCenterText: {
+    width: 128,
+    height: 46,
+    borderRadius: 22,
+    backgroundColor: '#ffd100',
+    overflow: 'hidden',
+    fontSize: 22,
+    lineHeight: 44,
+    textAlign: 'center',
+    fontWeight: '700'
+  },
+  // 行模块
+  icon: {
+    width: 54,
+    height: 54
   },
   customerScore: {
-    fontSize: 26,
-    color: 'red'
+    fontSize: 28,
+    color: '#ef3300'
+  },
+  // 退出登录
+  logout: {
+    marginTop: 59,
+    backgroundColor: '#de2c10'
   }
 });
 
