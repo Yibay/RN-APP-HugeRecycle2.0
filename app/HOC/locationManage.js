@@ -50,7 +50,7 @@ const locationManage = WrappedComponent => connect(mapStateToProps, {setStoreInf
     console.log('startTime', new Date());
 
     /** 3、根据服务站Id、便利店 categoryId，获取便利店 各categoryId下，商品数组 */
-    let productList = await this.getProductListByCategory(storeInfo.data[0].storeId, mallCategoryInfo.data.mainCategoryList);
+    let productList = await this.getProductListByCategory(storeInfo.data[this.props.storeIndex].storeId, mallCategoryInfo.data.mainCategoryList);
 
     console.log('endTime', new Date());
 
@@ -96,7 +96,8 @@ const locationManage = WrappedComponent => connect(mapStateToProps, {setStoreInf
 
 function mapStateToProps(state){
   return {
-    currentLocation: state.location.currentLocation
+    currentLocation: state.location.currentLocation,
+    storeIndex: state.mall.storeIndex
   };
 }
 

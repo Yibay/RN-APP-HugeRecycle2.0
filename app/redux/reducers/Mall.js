@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 
-import { SET_StoreInfo, SET_ProductList } from '../actions/Mall';
+import { SET_StoreInfo, SET_ProductList, SET_StoreIndex, SET_ShowStoreSelector } from '../actions/Mall';
 import { SET_Location } from '../actions/Location';
 
 
@@ -71,10 +71,29 @@ function storeIndex(state=0, actions){
   switch(actions.type){
     case SET_Location:
       return 0;
+    case SET_StoreIndex:
+      return actions.storeIndex;
+    default:
+      return state;
+  }
+}
+
+/**
+ * 小区对应多个便利店时，是否显示便利店选择器
+ * @param state
+ * @param actions
+ * @returns {bool}
+ */
+function showStoreSelector(state=true, actions){
+  switch(actions.type){
+    case SET_Location:
+      return true;
+    case SET_ShowStoreSelector:
+      return actions.showStoreSelector;
     default:
       return state;
   }
 }
 
 
-export default combineReducers({ storeInfo, mallCategoryInfo, productList, storeIndex });
+export default combineReducers({ storeInfo, mallCategoryInfo, productList, storeIndex, showStoreSelector });
