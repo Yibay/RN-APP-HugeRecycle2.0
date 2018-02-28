@@ -1,26 +1,57 @@
 import { combineReducers } from 'redux';
 
+import _ from 'lodash';
+
 
 import { SET_StoreInfo, SET_ProductList, SET_StoreIndex, SET_ShowStoreSelector } from '../actions/Mall';
 import { SET_Location } from '../actions/Location';
 
 
 /**
- * 服务站信息
- * @param {arrayOf({
+ * storeInfo: 服务站信息
+ * storeIndex: 小区对应多个便利店时，当前选中的便利店序号
+ * showStoreSelector: 小区对应多个便利店时，是否显示便利店选择器
+ *
+ * @param {{
+ * storeInfo: arrayOf({
  *  storeId: number,     服务站id
  *  storeName: string,   服务站名称
  *  storeNumber: string,
  *  storePhone: string,   服务站电话
  *  onlineStatus: number
- * })} state
+ * }),
+ * storeIndex: number,
+ * showStoreSelector: boolean
+ * }} state
  * @param actions
- * @returns {*}
+ * @returns {{storeInfo: Array, storeIndex: number, showStoreSelector: boolean}}
  */
-function storeInfo(state=[], actions){
+function store(state={storeInfo:[],storeIndex:0,showStoreSelector:true}, actions){
+
+  let new_state = _.assign({}, state);
   switch(actions.type){
+
+    // 切换 小区地址
+    case SET_Location:
+      new_state.storeIndex = 0;
+      new_state.showStoreSelector = true;
+      return new_state;
+
+    // 设置服务站信息
     case SET_StoreInfo:
-      return actions.storeInfo;
+      new_state.storeInfo = actions.storeInfo;
+      return new_state;
+
+    // 切换 小区便利店
+    case SET_StoreIndex:
+      new_state.storeIndex = actions.storeIndex;
+      return new_state;
+
+    // 控制显示 便利店选择器 开关
+    case SET_ShowStoreSelector:
+      new_state.showStoreSelector = actions.showStoreSelector;
+      return new_state;
+
     default:
       return state;
   }
@@ -96,4 +127,4 @@ function showStoreSelector(state=true, actions){
 }
 
 
-export default combineReducers({ storeInfo, mallCategoryInfo, productList, storeIndex, showStoreSelector });
+export default combineReducers({ store, mallCategoryInfo, productList, storeIndex, showStoreSelector });

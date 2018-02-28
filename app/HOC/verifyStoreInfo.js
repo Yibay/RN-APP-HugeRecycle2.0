@@ -40,7 +40,7 @@ export const verifyStoreInfo = WrappedComponent => connect(mapStateToProps)(clas
 
 function mapStateToProps(state){
   return {
-    storeInfo: state.mall.storeInfo,
+    storeInfo: state.mall.store.storeInfo,
     showStoreSelector: state.mall.showStoreSelector
   }
 }

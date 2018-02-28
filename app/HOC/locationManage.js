@@ -97,7 +97,7 @@ const locationManage = WrappedComponent => connect(mapStateToProps, {setStoreInf
 function mapStateToProps(state){
   return {
     currentLocation: state.location.currentLocation,
-    storeIndex: state.mall.storeIndex
+    storeIndex: state.mall.store.storeIndex
   };
 }
 

@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
   return {
     authToken: state.identityToken.authToken,
-    storeId: state.mall.storeInfo[state.mall.storeIndex].storeId
+    storeId: state.mall.store.storeInfo[state.mall.store.storeIndex].storeId
   }
 }
 

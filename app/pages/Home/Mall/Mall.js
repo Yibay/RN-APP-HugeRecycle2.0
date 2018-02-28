@@ -31,6 +31,7 @@ class Mall extends Component{
     let mainCategoryList = [];
     // 2、各类商品 合并后数组（商品列表）
     let combineProductList = [];
+    console.log(this.props.productList);
 
     for(let i=0;i<this.props.productList.length;i++){
       if(this.props.productList[i].length && this.props.mallCategoryInfo.mainCategoryList){
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
   return {
     authToken: state.identityToken.authToken,
-    storeInfo: state.mall.storeInfo,
+    storeInfo: state.mall.store.storeInfo,
     mallCategoryInfo: state.mall.mallCategoryInfo,
     productList: state.mall.productList
   }

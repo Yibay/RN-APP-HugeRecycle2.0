@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
-    storeId: state.mall.storeInfo[state.mall.storeIndex].storeId,
-    storeName: state.mall.storeInfo[state.mall.storeIndex].storeName
+    storeId: state.mall.store.storeInfo[state.mall.store.storeIndex].storeId,
+    storeName: state.mall.store.storeInfo[state.mall.store.storeIndex].storeName
   }
 }
 
