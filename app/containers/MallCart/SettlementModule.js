@@ -9,7 +9,7 @@ class SettlementModule extends Component {
   static propTypes = {
     validProductList: PropTypes.arrayOf(
       PropTypes.shape({
-        productPrice: PropTypes.number.isRequired,
+        hugePrice: PropTypes.number.isRequired,
         buyAmount: PropTypes.number.isRequired
       })
     ),
@@ -21,7 +21,7 @@ class SettlementModule extends Component {
     let total = 0;
 
     this.props.validProductList.forEach(item => {
-      total += item.productPrice * item.buyAmount;
+      total += item.hugePrice * item.buyAmount;
     });
 
     return <View style={styles.container}>

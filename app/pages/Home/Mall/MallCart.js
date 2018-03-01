@@ -29,13 +29,15 @@ class MallCart extends Component {
   render(){
     return <View style={styles.container} ref='componentExisted'>
       <Header title={`购物车（${this.props.storeName}）`}/>
-      <ProductList validProductList={this.state.validProductList} invalidProductList={this.state.invalidProductList} updateCartProductList={() => this.getCartProductList()}/>
+      <ProductList validProductList={this.state.validProductList} invalidProductList={this.state.invalidProductList} updateCartProductList={() => this.getCartProductList()} validProductListShowTotal={false}/>
       <SettlementModule validProductList={this.state.validProductList} onPress={() => Actions.mallSettlement()} />
     </View>
   }
 
   async componentDidMount(){
+    console.log('---MallCart---start');
     await this.getCartProductList();
+    console.log('---MallCart---end');
   }
 
   // 获取购物车 商品

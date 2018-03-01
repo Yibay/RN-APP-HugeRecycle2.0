@@ -33,7 +33,7 @@ class ControllerBtn extends Component{
   }
 
   render(){
-    return <View style={styles.controller}>
+    return <View style={[styles.controller].concat(this.props.style)}>
       <TouchableWithoutFeedback onPress={() => this.reduce()}>
         <Image style={styles.controllerBtn} resize='contain' source={require('../Recycle/SpecsItem/img/reduce2x.png')} />
       </TouchableWithoutFeedback>
@@ -104,9 +104,6 @@ class ControllerBtn extends Component{
 const styles = StyleSheet.create({
   // 控制器 按钮（添加物品，删除物品）
   controller: {
-    position: 'absolute',
-    right: 30,
-    bottom: 26,
     flexDirection: 'row',
     alignItems: 'center'
   },

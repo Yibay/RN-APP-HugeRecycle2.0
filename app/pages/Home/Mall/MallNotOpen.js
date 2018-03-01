@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 
 
 import Header from '../../../components/Header/Header';
@@ -30,4 +31,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MallNotOpenPage;
+function mapStateToProps(state){
+  return {
+    authToken: state.identityToken.authToken
+  }
+}
+
+export default connect(mapStateToProps)(MallNotOpenPage);

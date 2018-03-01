@@ -151,6 +151,9 @@ export default {
     // 8, 修改购物车商品状态 (GET) online/mall/cart/changeNeedPay/{shoppingCartId}   params  isNeedPay (1购买，0不买) 需要登录 header X-AUTH-TOKEN
     changeNeedPay: `${api_base_mall}online/mall/cart/changeNeedPay/`,
 
+    // 9, 获取结算页面商品列表（GET）params  storeId    需要登录 header X-AUTH-TOKEN
+    settlementProductList: `${api_base_mall}/online/mall/cart/getNeedPayShoppingCartProductList`,
+
     /** ------ Mock数据 ------ */
     // 获取回收物品 列表
     // getProducts: `file://${__dirname}../mock/getProducts4Items.json`,

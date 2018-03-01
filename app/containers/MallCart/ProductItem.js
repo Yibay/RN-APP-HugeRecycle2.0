@@ -35,8 +35,7 @@ class ProductItem extends Component {
 
   render(){
     return <View>
-        <Text style={(this.props.productItem.firstItem && !this.props.editable) ? styles.invalidProductList : styles.none}>以下商品已失效</Text>
-        <View style={this.props.editable ? styles.container : [styles.container].concat(styles.nonEditableContainer)}>
+        <View style={styles.container}>
           {
             this.props.editable ? <CheckBox style={styles.isNeedPay} value={!!this.props.productItem.isNeedPay} onValueChange={this.changeNeedPay.bind(this)} /> : undefined
           }
@@ -44,9 +43,13 @@ class ProductItem extends Component {
           <View style={styles.content}>
             <Text style={styles.title}>{this.props.productItem.productName}</Text>
             <Text style={styles.price}>{`¥${this.props.productItem.hugePrice}`}</Text>
-            <ControllerBtn buyAmount={this.props.productItem.buyAmount} storageAmount={this.props.productItem.storageAmount} shoppingCartId={this.props.productItem.shoppingCartId} updateCartProductList={this.props.updateCartProductList} />
+            {
+              this.props.editable ?
+                <ControllerBtn style={styles.ctrlBtn} buyAmount={this.props.productItem.buyAmount} storageAmount={this.props.productItem.storageAmount} shoppingCartId={this.props.productItem.shoppingCartId} updateCartProductList={this.props.updateCartProductList} />
+                :
+                <Text style={styles.buyAmount}>{`x ${this.props.productItem.buyAmount}`}</Text>
+            }
           </View>
-          <View style={this.props.editable ? styles.none : styles.mask} />
         </View>
       </View>
   }
@@ -67,17 +70,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#fff'
   },
-  nonEditableContainer: {
-    marginBottom: 0,
-  },
-  // 失效商品title
-  invalidProductList: {
-    height: 90,
-    paddingLeft: 28,
-    fontSize: 28,
-    lineHeight: 90,
-    fontWeight: '700'
-  },
+  // 可编辑：选中按钮
   isNeedPay: {
     alignSelf: 'center',
     width: 30,
@@ -109,19 +102,19 @@ const styles = StyleSheet.create({
     color: '#ef3300',
     fontWeight: '700'
   },
-  // 失效商品、不可编辑
-  none: {
-    display: 'none'
-  },
-  mask: {
+  // 可编辑：控制器
+  ctrlBtn: {
     position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0,0,0,0.6)',
-    backgroundColor: 'rgba(0,0,0,0.4)'
+    right: 30,
+    bottom: 26
+  },
+  // 不可编辑：购买数量
+  buyAmount: {
+    position: 'absolute',
+    right: 30,
+    bottom: 26,
+    fontSize: 30,
+    fontWeight: '700'
   }
 });
 

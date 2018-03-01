@@ -35,7 +35,7 @@ const locationManage = WrappedComponent => connect(mapStateToProps, {setStoreInf
     this.props.setStoreInfo(storeInfo.data);
 
     /** 2、根据 小区对应服务站，获取便利店 categoryId 数组、头部banner图片 */
-    let mallCategoryInfo = await this.getMallIndexInfo(storeInfo.data[0].storeId);
+    let mallCategoryInfo = await this.getMallIndexInfo(storeInfo.data[this.props.storeIndex].storeId);
       // 若异常
     if(!mallCategoryInfo || mallCategoryInfo.status){
       this.props.setProductList({mallCategoryInfo: {}, productList:[]});
