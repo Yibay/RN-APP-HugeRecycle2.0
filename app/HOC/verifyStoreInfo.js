@@ -22,13 +22,13 @@ export const verifyStoreInfo = WrappedComponent => connect(mapStateToProps)(clas
 
   render(){
     // 该小区 有多个便利店
-    if(this.props.storeInfo.length > 1 && this.props.showStoreSelector){
-      return <StoreSelector storeInfo={this.props.storeInfo}>
+    if(this.props.storeObj.storeInfo.length > 1 && this.props.storeObj.showStoreSelector){
+      return <StoreSelector storeInfo={this.props.storeObj.storeInfo}>
         <WrappedComponent {...this.props}/>
       </StoreSelector>
     }
     // 该小区 一个便利店
-    if(this.props.storeInfo.length){
+    if(this.props.storeObj.storeInfo.length){
       return <WrappedComponent {...this.props} />
     }
     // 该小区 无便利店
@@ -40,7 +40,7 @@ export const verifyStoreInfo = WrappedComponent => connect(mapStateToProps)(clas
 
 function mapStateToProps(state){
   return {
-    storeInfo: state.mall.store.storeInfo,
-    showStoreSelector: state.mall.showStoreSelector
+    // react组件上，不能随意绑定 store属性，所以此处改名storeObj，便于后续 使用...this.props 直接将 storeObj绑定到 react组件上
+    storeObj: state.mall.store
   }
 }

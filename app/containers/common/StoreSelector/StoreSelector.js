@@ -30,6 +30,7 @@ class StoreSelector extends Component {
   }
 
   render(){
+    console.log(this.props.storeInfo);
     return <View style={styles.container}>
       {
         this.props.children
@@ -53,7 +54,6 @@ class StoreSelector extends Component {
   }
 
   closeModel(){
-    this.props.setShowStoreSelector(false); // 标记 显示便利店选择器bool值为false
     this.setState({showModal: false});
   }
 

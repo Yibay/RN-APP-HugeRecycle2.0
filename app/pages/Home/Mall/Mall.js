@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
   return {
     authToken: state.identityToken.authToken,
-    storeInfo: state.mall.store.storeInfo,
     mallCategoryInfo: state.mall.mallCategoryInfo,
     productList: state.mall.productList
   }

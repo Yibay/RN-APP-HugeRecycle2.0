@@ -29,15 +29,17 @@ import { SET_Location } from '../actions/Location';
 function store(state={storeInfo:[],storeIndex:0,showStoreSelector:true}, actions){
 
   let new_state = _.assign({}, state);
+
   switch(actions.type){
 
     // 切换 小区地址
     case SET_Location:
+      // new_state.storeInfo= [];
       new_state.storeIndex = 0;
       new_state.showStoreSelector = true;
       return new_state;
 
-    // 设置服务站信息
+    // 设置 便利店信息
     case SET_StoreInfo:
       new_state.storeInfo = actions.storeInfo;
       return new_state;
@@ -45,6 +47,7 @@ function store(state={storeInfo:[],storeIndex:0,showStoreSelector:true}, actions
     // 切换 小区便利店
     case SET_StoreIndex:
       new_state.storeIndex = actions.storeIndex;
+      new_state.showStoreSelector = false;
       return new_state;
 
     // 控制显示 便利店选择器 开关
@@ -92,39 +95,5 @@ function productList(state=[], actions){
   }
 }
 
-/**
- * 小区对应多个便利店时，当前选中的便利店序号
- * @param {number} state
- * @param actions
- * @returns {number}
- */
-function storeIndex(state=0, actions){
-  switch(actions.type){
-    case SET_Location:
-      return 0;
-    case SET_StoreIndex:
-      return actions.storeIndex;
-    default:
-      return state;
-  }
-}
 
-/**
- * 小区对应多个便利店时，是否显示便利店选择器
- * @param state
- * @param actions
- * @returns {bool}
- */
-function showStoreSelector(state=true, actions){
-  switch(actions.type){
-    case SET_Location:
-      return true;
-    case SET_ShowStoreSelector:
-      return actions.showStoreSelector;
-    default:
-      return state;
-  }
-}
-
-
-export default combineReducers({ store, mallCategoryInfo, productList, storeIndex, showStoreSelector });
+export default combineReducers({ store, mallCategoryInfo, productList });
