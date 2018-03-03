@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Alert } from 'react-native';
 
-import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
 
 import validator from '../util/form/validator';
 import request from '../util/request/request';
 import config from '../util/request/config';
-import { setIdentityToken } from '../redux/actions/IdentityToken';
+import { changeIdentityToken } from '../util/task/IdentityToken';
 
 import Header from '../components/Header/Header';
 import Navigator from '../components/Navigator/Navigator';
@@ -121,7 +120,7 @@ class Login extends Component{
         expires: null
       });
       // 2. 登录成功更新全局数据
-      this.props.setIdentityToken(res.data);
+      changeIdentityToken(res.data);
       // 3. 需要退回上一页，则退回上一页
       this.props.needPop && Actions.pop();
 
@@ -218,6 +217,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const actionsCreator = { setIdentityToken };
-
-export default connect(null, actionsCreator)(Login)
+export default Login;

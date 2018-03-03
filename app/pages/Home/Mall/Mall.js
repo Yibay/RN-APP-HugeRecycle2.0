@@ -59,6 +59,10 @@ class Mall extends Component{
     </View>);
   }
 
+  componentDidMount(){
+    console.log(123123123123,'Mall componentDidMount');
+  }
+
   searchProduct(){
     Actions.mallSearch({searchText: this.state.searchText});
   }
@@ -107,3 +111,4 @@ function mapStateToProps(state){
 
 // 需验证便利店信息
 export default verifyStoreInfo(connect(mapStateToProps)(Mall));
+// export default Mall;

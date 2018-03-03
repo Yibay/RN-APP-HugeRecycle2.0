@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableWithoutFeedback, ScrollView, Alert } from 'react-native';
+import { StyleSheet, View, Image, TouchableWithoutFeedback, ScrollView, Alert } from 'react-native';
 
-import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
 
 import request from '../../../util/request/request';
 import config from '../../../util/request/config';
-import { setLocation } from '../../../redux/actions/Location';
+import { changeLocation } from '../../../util/task/LocationManage';
 
 import InputSection from '../../../components/Form/Input/InputSection';
 import CommunitySearched from '../CommunitySearched';
@@ -69,7 +68,7 @@ class CommunitySearchEngines extends Component {
   // 更新选中小区 到全局
   commitCommunity(){
     if(this.state.communitySelected){
-      this.props.setLocation(this.state.communitySelected);
+      changeLocation(this.state.communitySelected);
       Actions.pop();
       Actions.pop();
     }
@@ -105,4 +104,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, { setLocation })(CommunitySearchEngines);
+export default CommunitySearchEngines;

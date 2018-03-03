@@ -32,16 +32,14 @@ function store(state={storeInfo:[],storeIndex:0,showStoreSelector:true}, actions
 
   switch(actions.type){
 
-    // 切换 小区地址
     case SET_Location:
-      // new_state.storeInfo= [];
-      new_state.storeIndex = 0;
       new_state.showStoreSelector = true;
       return new_state;
 
     // 设置 便利店信息
     case SET_StoreInfo:
       new_state.storeInfo = actions.storeInfo;
+      new_state.storeIndex = 0;
       return new_state;
 
     // 切换 小区便利店

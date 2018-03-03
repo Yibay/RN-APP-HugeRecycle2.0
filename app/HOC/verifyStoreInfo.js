@@ -13,14 +13,19 @@ import MallNotOpen from '../pages/Home/Mall/MallNotOpen';
 export const verifyStoreInfo = WrappedComponent => connect(mapStateToProps)(class extends Component{
 
   static propTypes = {
-    storeInfo: PropTypes.arrayOf(
-      PropTypes.shape({
-        storeId: PropTypes.number.isRequired
-      })
-    )
+    storeObj: PropTypes.shape({
+      storeInfo: PropTypes.arrayOf(
+        PropTypes.shape({
+          storeId: PropTypes.number.isRequired
+        })
+      ),
+      storeIndex: PropTypes.number.isRequired,
+      showStoreSelector: PropTypes.bool.isRequired
+    })
   };
 
   render(){
+    console.log(123123123,this.props);
     // 该小区 有多个便利店
     if(this.props.storeObj.storeInfo.length > 1 && this.props.storeObj.showStoreSelector){
       return <StoreSelector storeInfo={this.props.storeObj.storeInfo}>

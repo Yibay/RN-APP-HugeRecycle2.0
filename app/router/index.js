@@ -8,8 +8,6 @@ import { StyleSheet } from 'react-native';
 import { adaptLayoutWidth } from '../HOC/adaptLayout';
 // HOC 中间件 登录状态
 import initIdentityToken from '../HOC/initIdentityToken';
-// HOC 中间件 定位
-import locationManage from '../HOC/locationManage';
 
 // 页面路由 TabIcon
 import { RecycleIcon, MallIcon, MineIcon } from '../HOC/configTabIcon';
@@ -137,5 +135,5 @@ const tabsStyle = {
 };
 
 // 屏宽适配, 登录状态管理相关数据, 地址管理相关数据
-export default adaptLayoutWidth(initIdentityToken(locationManage(AppRouter)));
-// export default adaptLayoutWidth(initIdentityToken(AppRouter));
+// export default adaptLayoutWidth(initIdentityToken(locationManage(AppRouter)));
+export default adaptLayoutWidth(initIdentityToken(AppRouter));

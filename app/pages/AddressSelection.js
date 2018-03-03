@@ -5,7 +5,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
 
-import { setLocation } from '../redux/actions/Location';
+import { changeLocation } from '../util/task/LocationManage';
 
 import Header from '../components/Header/Header';
 import AddressSection from '../components/Address/AddressSection';
@@ -35,7 +35,7 @@ class AddressSelection extends Component {
   // 选择地址
   selectAddress(location){
     // 设置为选中地址
-    this.props.setLocation(location);
+    changeLocation(location);
     // 返回上一页
     Actions.pop();
   }
@@ -75,6 +75,4 @@ function mapStateToProps(state){
   };
 }
 
-const actionsCreator = { setLocation };
-
-export default connect(mapStateToProps, actionsCreator)(AddressSelection);
+export default connect(mapStateToProps)(AddressSelection);

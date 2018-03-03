@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Modal, Text, Image, TouchableWithoutFeedback } from 'react-native';
 
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 
-import { setStoreIndex, setShowStoreSelector } from '../../../redux/actions/Mall';
+import { changeStore } from '../../../util/task/StoreManage';
 
 import AdaptLayoutWidth from '../../../components/AdaptLayoutWidth';
 
@@ -58,7 +57,7 @@ class StoreSelector extends Component {
   }
 
   selectStoreIndex(storeIndex){
-    this.props.setStoreIndex(storeIndex); // 切换 便利店下的小区
+    changeStore(undefined, storeIndex); // 切换 便利店下的小区
     this.closeModel();
   }
 
@@ -118,4 +117,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, {setStoreIndex, setShowStoreSelector})(StoreSelector);
+export default StoreSelector;

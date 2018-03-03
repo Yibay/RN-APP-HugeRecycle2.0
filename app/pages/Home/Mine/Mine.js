@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, ScrollView, Alert, RefreshControl, Image } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
-import { connect } from 'react-redux';
 
 
 import { verifyLogin } from '../../../HOC/verifyLogin';
-import { setIdentityToken, emptyIdentityToken } from '../../../redux/actions/IdentityToken';
 import request from '../../../util/request/request';
 import config from '../../../util/request/config';
+import { changeIdentityToken } from '../../../util/task/IdentityToken';
+import { emptyIdentityToken } from '../../../redux/actions/IdentityToken';
 
 import Header from '../../../components/Header/Header';
 import MsgBtn from '../../../containers/Mine/MessageBtn/MessageBtn';
@@ -92,8 +92,8 @@ class Mine extends Component {
 
           Actions.jump('shoppingMall');
           Actions.jump('recycle');
-          // 更新全局身份令牌
-          this.props.setIdentityToken(emptyIdentityToken);
+          // 置空全局身份令牌
+          changeIdentityToken(emptyIdentityToken);
           // 删除本地身份令牌
           storage.remove({key: 'identityToken'});
         }
@@ -183,4 +183,4 @@ const styles = StyleSheet.create({
 });
 
 // 此页面需验证身份
-export default verifyLogin(connect(null, { setIdentityToken })(Mine));
+export default verifyLogin(Mine);

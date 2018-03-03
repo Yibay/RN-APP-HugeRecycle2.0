@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Platform, Alert } from 'react-native';
 
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import BackgroundGeolocation from 'react-native-mauron85-background-geolocation'; // iOS定位
 import { wgs84togcj02, gcj02tobd09 } from 'coordtransform'; // 坐标转换
 import _ from 'lodash';
@@ -11,9 +12,15 @@ import _ from 'lodash';
 
 import request from '../util/request/request';
 import config from '../util/request/config';
+import { setAutoLocationFlag } from '../redux/actions/Location';
 
 
-export const locationCrossPlatform = WrappedComponent => class extends Component{
+function mapStateToProps(state){
+  return {
+    autoLocationFlag: state.location.autoLocationFlag,
+  }
+}
+export const locationCrossPlatform = WrappedComponent => connect(mapStateToProps,{setAutoLocationFlag})(class extends Component{
 
   static propTypes = {
     autoLocationFlag: PropTypes.bool.isRequired, // 是否要更新定位
@@ -89,4 +96,4 @@ export const locationCrossPlatform = WrappedComponent => class extends Component
     // 关闭 定位
     this.props.setAutoLocationFlag(false);
   }
-};
+});

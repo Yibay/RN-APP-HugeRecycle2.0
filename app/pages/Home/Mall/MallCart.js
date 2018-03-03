@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import PropTypes from 'prop-types';
 
 
 import { verifyLogin } from '../../../HOC/verifyLogin';
@@ -17,6 +18,11 @@ import SettlementModule from '../../../containers/MallCart/SettlementModule';
 
 class MallCart extends Component {
 
+  static propTypes = {
+    storeId: PropTypes.number.isRequired,
+    storeName: PropTypes.string.isRequired
+  };
+
   constructor(props){
     super(props);
 
@@ -30,14 +36,13 @@ class MallCart extends Component {
     return <View style={styles.container} ref='componentExisted'>
       <Header title={`购物车（${this.props.storeName}）`}/>
       <ProductList validProductList={this.state.validProductList} invalidProductList={this.state.invalidProductList} updateCartProductList={() => this.getCartProductList()} validProductListShowTotal={false}/>
-      <SettlementModule validProductList={this.state.validProductList} onPress={() => Actions.mallSettlement()} />
+      <SettlementModule validProductList={this.state.validProductList} onPress={() => Actions.mallSettlement({updateCartProductList: this.getCartProductList.bind(this)})} />
     </View>
   }
 
-  async componentDidMount(){
-    console.log('---MallCart---start');
-    await this.getCartProductList();
-    console.log('---MallCart---end');
+  componentDidMount(){
+    // 把 更新方法传入 结算页，结算页返回时，更新本页购物车数据
+    this.getCartProductList();
   }
 
   // 获取购物车 商品
@@ -68,4 +73,4 @@ function mapStateToProps(state){
 
 // 需验证登录
 // 需验证绑定便利店
-export default verifyLogin(verifyStoreInfo(connect(mapStateToProps)(MallCart)));
+export default verifyLogin(connect(mapStateToProps)(MallCart));

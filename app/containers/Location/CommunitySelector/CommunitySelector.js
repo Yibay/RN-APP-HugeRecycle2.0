@@ -6,7 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 
 
-import { setLocation, setAutoLocationFlag } from '../../../redux/actions/Location';
+import { changeLocation } from '../../../util/task/LocationManage'; // 修改 当前选中小区的方法（Redux 提供）
 import { locationCrossPlatform } from '../../../HOC/locationCrossPlatform';
 
 
@@ -17,7 +17,7 @@ class CommunitySelector extends Component{
     communitySelected: PropTypes.shape({ // 当前选中小区 (Redux 提供)
       communityName: PropTypes.string.isRequired
     }),
-    setLocation: PropTypes.func.isRequired // 修改 当前选中小区的方法（Redux 提供）
+    userAddressList: PropTypes.array.isRequired // 用户地址列表
   };
 
   constructor(props){
@@ -86,11 +86,11 @@ class CommunitySelector extends Component{
     let matchingAddress = this.props.userAddressList.filter(item => item.communityId === this.state.communitySelected.communityId);
     // 有,则取那个地址
     if(matchingAddress.length){
-      this.props.setLocation(matchingAddress[0]);
+      changeLocation(matchingAddress[0]);
     }
     // 没有,则仅取定位小区
     else{
-      this.props.setLocation(this.state.communitySelected);
+      changeLocation(this.state.communitySelected);
     }
     // 返回回收页
     Actions.pop();
@@ -194,12 +194,8 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
   return {
     communitySelected: state.location.currentLocation,
-    autoLocationFlag: state.location.autoLocationFlag,
     userAddressList: state.location.userAddressList
   }
 }
 
-// 打包 actions 成obj
-const actionCreator = { setLocation, setAutoLocationFlag };
-
-export default connect(mapStateToProps, actionCreator)(locationCrossPlatform(CommunitySelector));
+export default connect(mapStateToProps)(locationCrossPlatform(CommunitySelector));

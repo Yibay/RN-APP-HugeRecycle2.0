@@ -3,6 +3,8 @@ import { StyleSheet, View } from 'react-native';
 
 
 import {connect} from "react-redux";
+import PropType from 'prop-types';
+import {Actions} from 'react-native-router-flux';
 
 
 import request from '../../../util/request/request';
@@ -18,6 +20,16 @@ import ProductList from "../../../containers/MallCart/ProductList";
 
 class MallSettlement extends Component {
 
+  static propTypes = {
+    storeId: PropType.number.isRequired,
+    storeIndex: PropType.number.isRequired,
+    updateCartProductList: PropType.func.isRequired
+  };
+
+  static defaultProps = {
+    updateCartProductList: () => {}
+  };
+
   constructor(props){
     super(props);
 
@@ -29,7 +41,7 @@ class MallSettlement extends Component {
 
   render(){
     return <View style={styles.container} ref='componentExisted'>
-      <Header title='订单结算'/>
+      <Header title='订单结算' back={() => this.back()}/>
       <Notice/>
       {/* 地址模块 */}
       <OrderAddressSection/>
@@ -60,6 +72,12 @@ class MallSettlement extends Component {
         invalidProductList: res.data.invalidProductList
       });
     }
+  }
+
+  // 返回上一页
+  back(){
+    this.props.updateCartProductList && this.props.updateCartProductList();
+    Actions.pop();
   }
 }
 
