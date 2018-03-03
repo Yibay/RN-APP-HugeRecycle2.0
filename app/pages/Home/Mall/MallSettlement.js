@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 
 import {connect} from "react-redux";
@@ -16,6 +16,8 @@ import Header from "../../../components/Header/Header";
 import Notice from "../../../containers/MallSettlement/Notice";
 import OrderAddressSection from '../../../containers/RecycleOrder/AddressSection/OrderAddressSection';
 import ProductList from "../../../containers/MallCart/ProductList";
+import Remark from "../../../components/Form/Module/Remark";
+import SubmitBtn from "../../../components/Form/Btn/SubmitBtn";
 
 
 class MallSettlement extends Component {
@@ -23,7 +25,7 @@ class MallSettlement extends Component {
   static propTypes = {
     storeId: PropType.number.isRequired,
     storeIndex: PropType.number.isRequired,
-    updateCartProductList: PropType.func.isRequired
+    updateCartProductList: PropType.func.isRequired // 更新上一页 购物车内商品列表
   };
 
   static defaultProps = {
@@ -35,7 +37,9 @@ class MallSettlement extends Component {
 
     this.state = {
       validProductList: [],
-      invalidProductList: []
+      invalidProductList: [],
+      remark: '',
+      payMsg: {}
     };
   }
 
@@ -46,30 +50,51 @@ class MallSettlement extends Component {
       {/* 地址模块 */}
       <OrderAddressSection/>
       {/* 商品列表 */}
-      <ProductList validProductList={this.state.validProductList} invalidProductList={this.state.invalidProductList} updateCartProductList={() => this.getSettlementProductList()} validProductEditable={false}/>
+      <ProductList
+        validProductList={this.state.validProductList}
+        invalidProductList={this.state.invalidProductList}
+        updateCartProductList={() => this.getSettlementProductList()}
+        validProductEditable={false}
+        ListFooterComponent={<View style={styles.listFooterComponent}>
+          {/* 备注模块 */}
+          <Remark val={this.state.remark} onChangeText={val => this.setState({remark: val})}/>
+          {/* 支付信息 */}
+          <View style={styles.payMsg}>
+            <Text style={styles.payMsgText1}>环保金抵扣¥{this.state.payMsg.needPayScore}，还需支付¥{this.state.payMsg.needPayTotalPrice}</Text>
+            <Text style={styles.payMsgText2}>剩余金额请在收获时直接付给送货员</Text>
+          </View>
+          {/* 下单按钮 */}
+          <SubmitBtn text='立即下单' submit={() => {}}/>
+        </View>}
+      />
     </View>
   }
 
-  componentDidUpdate(){
-    console.log('-----update-------');
-    console.log(this.props.storeId);
-  }
-
   async componentDidMount(){
-    await this.getSettlementProductList();
-    console.log('----didMount---');
-    console.log(this.props.storeId);
+    await Promise.all([
+      this.getSettlementProductList(),
+      this.getNeedPayResult()
+    ]);
   }
 
   // 获取结算页 商品列表 数据
   async getSettlementProductList(){
-    console.log('---storeId---', this.props.storeId);
     const res = await request.get(config.api.settlementProductList,{storeId: this.props.storeId},{'X-AUTH-TOKEN': this.props.identityToken.authToken});
-    console.log(res);
     if(res && !res.status && this.refs.componentExisted){
       this.setState({
         validProductList: res.data.validProductList,
         invalidProductList: res.data.invalidProductList
+      });
+    }
+  }
+
+  // 获取结算页 支付信息
+  async getNeedPayResult(){
+    const res = await request.get(config.api.getNeedPayResult,{storeId: this.props.storeId},{'X-AUTH-TOKEN': this.props.identityToken.authToken});
+    console.log(res);
+    if(res && !res.status && this.refs.componentExisted){
+      this.setState({
+        payMsg: res.data
       });
     }
   }
@@ -85,6 +110,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f7f7f7'
+  },
+  // 列表底部组件（备注、支付信息、下单按钮等）
+  listFooterComponent: {
+    paddingBottom: 34
+  },
+  // 支付信息模块
+  payMsg: {
+    marginTop: 54,
+    marginBottom: 64,
+    paddingHorizontal: 30,
+  },
+  payMsgText1: {
+    marginBottom: 22,
+    fontSize: 30,
+    color: '#000',
+    fontWeight: '500'
+  },
+  payMsgText2: {
+    fontSize: 30,
+    color: '#ef3300',
+    fontWeight: '500'
   }
 });
 

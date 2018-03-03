@@ -25,7 +25,6 @@ export const verifyStoreInfo = WrappedComponent => connect(mapStateToProps)(clas
   };
 
   render(){
-    console.log(123123123,this.props);
     // 该小区 有多个便利店
     if(this.props.storeObj.storeInfo.length > 1 && this.props.storeObj.showStoreSelector){
       return <StoreSelector storeInfo={this.props.storeObj.storeInfo}>

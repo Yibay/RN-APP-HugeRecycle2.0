@@ -18,6 +18,7 @@ import Header from '../../../components/Header/Header';
 import OrderAddressSection from '../../../containers/RecycleOrder/AddressSection/OrderAddressSection';
 import RecycledItemsList from '../../../containers/RecycleOrder/RecycledItemsList';
 import SubmitBtn from '../../../components/Form/Btn/SubmitBtn';
+import Remark from "../../../components/Form/Module/Remark";
 
 
 class RecycleOrder extends Component{
@@ -56,10 +57,7 @@ class RecycleOrder extends Component{
           </View>
         </View>
         {/* 备注模块 */}
-        <View style={styles.remarkSection}>
-          <Text style={styles.remarksTitle}>如有特殊需求，请备注</Text>
-          <TextInput style={styles.remarks} multiline={true} onChangeText={val => this.setState({remarks: val})} value={this.state.remarks} />
-        </View>
+        <Remark title='如有特殊需求，请备注' val={this.state.remarks} onChangeText={val => this.setState({remarks: val})}/>
         {/* 服务时间 */}
         <View style={styles.serviceTimeSection}>
           <Icon name='ios-time-outline' size={40} color='#828282' />
@@ -136,25 +134,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 20
   },
   // 备注模块
-  remarkSection: {
-    paddingHorizontal: 30,
-    paddingTop: 36
-  },
-  remarksTitle: {
-    fontSize: 22,
-    color: '#888'
-  },
-  remarks: {
-    height: 245,
-    marginTop: 15,
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    borderWidth: 2,
-    borderColor: '#d5d5d5',
-    borderRadius: 10,
-    fontSize: 28,
-    fontWeight: '700'
-  },
   // 服务时间
   serviceTimeSection: {
     height: 76,

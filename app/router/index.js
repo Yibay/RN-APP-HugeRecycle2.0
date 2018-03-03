@@ -135,5 +135,4 @@ const tabsStyle = {
 };
 
 // 屏宽适配, 登录状态管理相关数据, 地址管理相关数据
-// export default adaptLayoutWidth(initIdentityToken(locationManage(AppRouter)));
 export default adaptLayoutWidth(initIdentityToken(AppRouter));

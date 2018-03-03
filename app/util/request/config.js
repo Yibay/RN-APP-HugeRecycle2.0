@@ -154,6 +154,9 @@ export default {
     // 9, 获取结算页面商品列表（GET）params  storeId    需要登录 header X-AUTH-TOKEN
     settlementProductList: `${api_base_mall}/online/mall/cart/getNeedPayShoppingCartProductList`,
 
+    // 10, 获取需要支付的信息（GET）params  storeId   需要登录 header X-AUTH-TOKEN
+    getNeedPayResult: `${api_base_mall}/online/mall/order/getNeedPayResult`
+
     /** ------ Mock数据 ------ */
     // 获取回收物品 列表
     // getProducts: `file://${__dirname}../mock/getProducts4Items.json`,
