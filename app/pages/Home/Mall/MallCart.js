@@ -51,8 +51,8 @@ class MallCart extends Component {
     console.log(res);
     if(res && !res.status && this.refs.componentExisted){
       this.setState({
-        validProductList: res.data.validProductList,
-        invalidProductList: res.data.invalidProductList
+        validProductList: res.data.validProductList || [],
+        invalidProductList: res.data.invalidProductList || []
       })
     }
   }

@@ -10,7 +10,8 @@ class SettlementModule extends Component {
     validProductList: PropTypes.arrayOf(
       PropTypes.shape({
         hugePrice: PropTypes.number.isRequired,
-        buyAmount: PropTypes.number.isRequired
+        buyAmount: PropTypes.number.isRequired,
+        isNeedPay: PropTypes.number.isRequired
       })
     ),
     onPress: PropTypes.func.isRequired
@@ -18,15 +19,20 @@ class SettlementModule extends Component {
 
   render(){
 
+    let amount = 0;
     let total = 0;
+    console.log(this.props.validProductList);
 
     this.props.validProductList.forEach(item => {
-      total += item.hugePrice * item.buyAmount;
+      if(item.isNeedPay){
+        amount += 1;
+        total += item.hugePrice * item.buyAmount;
+      }
     });
 
     return <View style={styles.container}>
       <View style={styles.total}>
-        <Text style={styles.totalText}>已选中 {this.props.validProductList.length}件，合计 {total}元</Text>
+        <Text style={styles.totalText}>已选中 {amount}件，合计 {total.toFixed(2)}元</Text>
       </View>
       <Text style={styles.settlement} onPress={this.props.onPress}>
         结算

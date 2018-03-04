@@ -25,6 +25,12 @@ class CheckBox extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      value: nextProps.value
+    })
+  }
+
   render(){
     return <TouchableWithoutFeedback onPress={() => this._onValueChange()}>
       <View style={[styles.container].concat(this.props.style)}>

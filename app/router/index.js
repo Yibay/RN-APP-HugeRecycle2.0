@@ -34,6 +34,7 @@ import MallCart from '../pages/Home/Mall/MallCart';
 import MallSearch from '../pages/Home/Mall/MallSearch';
 import MallNotOpen from '../pages/Home/Mall/MallNotOpen';
 import MallSettlement from "../pages/Home/Mall/MallSettlement";
+import MallOrderRecord from "../pages/MallOrderRecord";
 
 
 class AppRouter extends Component{
@@ -91,6 +92,8 @@ class AppRouter extends Component{
         <Scene key='environmentalRecordPage' component={RecycleRecord} hideNavBar={true} />
         {/* 评价虎哥 */}
         <Scene key='recycleEvaluationPage' component={RecycleEvaluation} hideNavBar={true} />
+        {/* 消费记录 */}
+        <Scene key='mallOrderRecordPage' component={MallOrderRecord} hideNavBar={true} />
         {/* 轮播简介页 */}
         <Scene key='intro' component={Intro} hideNavBar={true} />
         {/* 登录页 */}

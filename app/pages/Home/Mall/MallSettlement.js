@@ -51,6 +51,7 @@ class MallSettlement extends Component {
       <OrderAddressSection/>
       {/* 商品列表 */}
       <ProductList
+        style={styles.productList}
         validProductList={this.state.validProductList}
         invalidProductList={this.state.invalidProductList}
         updateCartProductList={() => this.getSettlementProductList()}
@@ -64,7 +65,10 @@ class MallSettlement extends Component {
             <Text style={styles.payMsgText2}>剩余金额请在收获时直接付给送货员</Text>
           </View>
           {/* 下单按钮 */}
-          <SubmitBtn text='立即下单' submit={() => {}}/>
+          <SubmitBtn
+            style={this.state.payMsg.canSale ? undefined : styles.cannotSale}
+            text={this.state.payMsg.canSale ? '立即下单' : this.state.payMsg.message}
+            submit={() => this.submit()}/>
         </View>}
       />
     </View>
@@ -104,6 +108,13 @@ class MallSettlement extends Component {
     this.props.updateCartProductList && this.props.updateCartProductList();
     Actions.pop();
   }
+
+  // 下单
+  submit(){
+    if(this.state.payMsg.canSale){
+
+    }
+  }
 }
 
 const styles = StyleSheet.create({
@@ -111,9 +122,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f7f7f7'
   },
+  // 商品列表
+  productList: {
+    paddingTop: 20
+  },
   // 列表底部组件（备注、支付信息、下单按钮等）
   listFooterComponent: {
-    paddingBottom: 34
+    paddingBottom: 60
   },
   // 支付信息模块
   payMsg: {
@@ -131,6 +146,10 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: '#ef3300',
     fontWeight: '500'
+  },
+  // 下单支付按钮
+  cannotSale: {
+    backgroundColor: '#898989',
   }
 });
 

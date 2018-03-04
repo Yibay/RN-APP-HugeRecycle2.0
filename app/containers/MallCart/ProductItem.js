@@ -58,7 +58,10 @@ class ProductItem extends Component {
   async changeNeedPay(value){
     const res = await request.get(`${config.api.changeNeedPay}${this.props.productItem.shoppingCartId}`,{isNeedPay: Number(value)}, {'X-AUTH-TOKEN': this.props.authToken});
     // 若请求成功
-    if(res && !res.status){ return true; }
+    if(res && !res.status){
+      await this.props.updateCartProductList();
+      return false;
+    }
   }
 }
 
