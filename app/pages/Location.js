@@ -11,17 +11,18 @@ import SubmitBtn from '../components/Form/Btn/SubmitBtn';
 
 class LocationPage extends Component{
   render(){
+    console.log(this.props.authToken);
     return (<View style={styles.container}>
       <Text style={styles.prompt}>为了更好的为您服务，虎哥需要知道您的位置，请选择您所在的小区</Text>
       <CommunitySelector style={styles.communitySelector} />
       {
         this.props.authToken ?
-          <SubmitBtn style={styles.loginBtn} text='已回收过，手机号码直接登录' submit={() => {Actions.login();}}/>
-          :
           undefined
+          :
+          <SubmitBtn style={styles.loginBtn} text='已回收过，手机号码直接登录' submit={() => {Actions.login();}}/>
       }
 
-      <View style={this.props.authToken ? styles.serviceScope : [styles.serviceScope].concat(styles.serviceScopeOnly)}>
+      <View style={this.props.authToken ? [styles.serviceScope].concat(styles.serviceScopeOnly) : styles.serviceScope }>
         <Text style={styles.serviceScopeText}>查看全部服务范围</Text>
       </View>
     </View>)

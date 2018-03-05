@@ -167,6 +167,27 @@ export default {
     //   ])
     getMallOrderList: `${api_base_mall}/online/mall/order/getOrderList`,
 
+    // 12, 生成结算订单 (POST) multipart/form-data 需要登录 header X-AUTH-TOKEN
+    // params
+    //   storeId: app.globalData.stationId,
+    //   customerName: selectedLocation.customerName,
+    //   customerPhone: selectedLocation.telNo,
+    //   regionId: selectedLocation.regionId,
+    //   regionName: selectedLocation.region,
+    //   streetId: selectedLocation.streetId,
+    //   streetName: selectedLocation.street,
+    //   communityId: selectedLocation.communityId,
+    //   communityName: selectedLocation.communityName,
+    //   address: selectedLocation.address || '',
+    //   building: selectedLocation.building || '',
+    //   unit: selectedLocation.unit || '',
+    //   room: selectedLocation.room || '',
+    //   orderSource:3  // 下单平台（3为 app下单）
+    confirmMallOrder: `${api_base_mall}/online/mall/order/confirmOrder`,
+
+    // 13, 确认订单 params orderId
+    receiptMallOrderPay: `${api_base_mall}/online/mall/order/receiptPay`
+
     /** ------ Mock数据 ------ */
     // 获取回收物品 列表
     // getProducts: `file://${__dirname}../mock/getProducts4Items.json`,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Alert } from 'react-native';
 
 
 import {connect} from "react-redux";
@@ -9,6 +9,7 @@ import {Actions} from 'react-native-router-flux';
 
 import request from '../../../util/request/request';
 import config from '../../../util/request/config';
+import {createMallOrderValidator} from '../../../util/form/mallOrderValidator';
 
 import {verifyStoreInfo} from "../../../HOC/verifyStoreInfo";
 import {verifyLogin} from "../../../HOC/verifyLogin";
@@ -25,7 +26,11 @@ class MallSettlement extends Component {
   static propTypes = {
     storeId: PropType.number.isRequired,
     storeIndex: PropType.number.isRequired,
-    updateCartProductList: PropType.func.isRequired // 更新上一页 购物车内商品列表
+    updateCartProductList: PropType.func.isRequired, // 更新上一页 购物车内商品列表
+    // 身份令牌
+    identityToken: PropType.shape({
+      authToken: PropType.string.isRequired
+    })
   };
 
   static defaultProps = {
@@ -38,8 +43,9 @@ class MallSettlement extends Component {
     this.state = {
       validProductList: [],
       invalidProductList: [],
-      remark: '',
-      payMsg: {}
+      payMsg: {},
+      // form 表单
+      remark: '' // 备注
     };
   }
 
@@ -105,15 +111,51 @@ class MallSettlement extends Component {
 
   // 返回上一页
   back(){
-    this.props.updateCartProductList && this.props.updateCartProductList();
+    this.props.updateCartProductList && this.props.updateCartProductList(); // 更新上一页 购物车列表
     Actions.pop();
   }
 
   // 下单
-  submit(){
+  async submit(){
     if(this.state.payMsg.canSale){
-
+      let option = {
+        storeId: this.props.storeId,
+        customerName: this.props.currentLocation.customerName,
+        customerPhone: this.props.currentLocation.telNo,
+        regionId: this.props.currentLocation.regionId,
+        regionName: this.props.currentLocation.region,
+        streetId: this.props.currentLocation.streetId,
+        streetName: this.props.currentLocation.street,
+        communityId: this.props.currentLocation.communityId,
+        communityName: this.props.currentLocation.communityName,
+        address: this.props.currentLocation.address || '',
+        building: this.props.currentLocation.building || '',
+        unit: this.props.currentLocation.unit || '',
+        room: this.props.currentLocation.room || '',
+        orderSource: 3, // 下单平台标示码（3为 app下单）
+        remark: this.state.remark
+      };
+      if(createMallOrderValidator(option)){
+        Alert.alert('立即下单','',[
+          {text:'确认', onPress: () => this.submitReq(option)},
+          {text:'取消'}])
+      }
     }
+  }
+
+  // 下单请求
+  async submitReq(option){
+    // 1. 下单请求
+    const res = await request.postFormData(config.api.confirmMallOrder, option, {'X-AUTH-TOKEN': this.props.identityToken.authToken});
+    // 2. 支付请求
+    let resReceipt;
+    (res && !res.status) && (resReceipt = await request.postFormData(config.api.receiptMallOrderPay,{orderId:res.data.orderId},{'X-AUTH-TOKEN': this.props.identityToken.authToken}));
+
+    (resReceipt && resReceipt.status)
+      ?
+      (Alert.alert('下单成功')) // 跳转到下单成功页面
+      :
+      (Alert.alert('下单失败'));
   }
 }
 
@@ -156,7 +198,8 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
   return {
     storeId: state.mall.store.storeInfo[state.mall.store.storeIndex].storeId,
-    storeIndex: state.mall.store.storeIndex
+    storeIndex: state.mall.store.storeIndex,
+    currentLocation: state.location.currentLocation
   }
 }
 

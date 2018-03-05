@@ -15,7 +15,7 @@ const validator = {
 
   // 验证是否为数字
   isNumber(value){
-    return typeof value === 'number' && value === value; // typeof NaN === 'number
+    return typeof value === 'number' && value === value; // typeof NaN === 'number'
   },
 
   // 验证是否为boolean

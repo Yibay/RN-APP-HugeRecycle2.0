@@ -28,7 +28,7 @@ class MallOrderRecord extends Component {
   }
 
   render(){
-    console.log(this.state.mallOrderList,this.state.renderedOrderList);
+    console.log(this.state.mallOrderList);
     return <View style={styles.container}>
       <Header title='我的消费订单'/>
       <FlatList
