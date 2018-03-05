@@ -23,7 +23,6 @@ class ManageLoginPassword extends Component{
     this.state = {
       oldPassword: '',
       newPassword: '',
-      confirmPassword: '',
       secureTextEntry: true
     };
   }
@@ -53,7 +52,7 @@ class ManageLoginPassword extends Component{
     console.log(res);
     if(res){
       if(!res.status && res.data.result){
-        Alert.alert('修改成功');
+        Alert.alert('修改成功','',[{text: '确定', onPress: () => Actions.popTo('manageCustomerAccounts')}]);
       }
       else{
         Alert.alert(res.message);
@@ -68,6 +67,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f7f7f7'
   },
   inputSection: {
+    height: 98
   },
   submitBtn: {
     marginTop: 80
