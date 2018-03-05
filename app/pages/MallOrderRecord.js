@@ -8,6 +8,7 @@ import Header from "../components/Header/Header";
 import request from "../util/request/request";
 import config from '../util/request/config';
 import {verifyLogin} from "../HOC/verifyLogin";
+import MallOrderItemsList from "../containers/MallOrderRecord/MallOrderItemsList";
 
 
 class MallOrderRecord extends Component {
@@ -22,21 +23,14 @@ class MallOrderRecord extends Component {
     super(props);
 
     this.state = {
-      mallOrderList: [],
-      renderedOrderList: []
+      mallOrderList: []
     }
   }
 
   render(){
-    console.log(this.state.mallOrderList);
     return <View style={styles.container}>
       <Header title='我的消费订单'/>
-      <FlatList
-        style={styles.content}
-        data={this.state.mallOrderList}
-        renderItem={({item}) => <View/>}
-        onEndReached={() => this.lazyLoadList()}
-        onEndReachedThreshold={0.5}/>
+      <MallOrderItemsList mallOrderList={this.state.mallOrderList} />
     </View>
   }
 
@@ -55,19 +49,10 @@ class MallOrderRecord extends Component {
     let mallOrderList = res
       .map(val => val && !val.status ? val.data : [])
       .reduce((preVal, curVal) => preVal.concat(curVal))
+      .map(item => {item.key = item.orderId; return item;})
     this.setState({
-      mallOrderList,
-      renderedOrderList: mallOrderList.slice(0,10)
+      mallOrderList
     });
-  }
-
-  // 懒加载列表
-  lazyLoadList(){
-    if(this.state.renderedOrderList.length < this.state.mallOrderList.length){
-      this.setState({
-        renderedOrderList: this.state.renderedOrderList.concat(this.state.mallOrderList.slice(this.state.renderedOrderList.length, this.state.renderedOrderList.length + 10))
-      })
-    }
   }
 }
 

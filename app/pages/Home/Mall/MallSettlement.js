@@ -151,7 +151,7 @@ class MallSettlement extends Component {
     let resReceipt;
     (res && !res.status) && (resReceipt = await request.postFormData(config.api.receiptMallOrderPay,{orderId:res.data.orderId},{'X-AUTH-TOKEN': this.props.identityToken.authToken}));
 
-    (resReceipt && resReceipt.status)
+    (resReceipt && !resReceipt.status)
       ?
       (Alert.alert('下单成功')) // 跳转到下单成功页面
       :

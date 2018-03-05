@@ -30,28 +30,27 @@ class ProductItem extends Component {
   };
 
   static defaultProps = {
-    editable: true
+    editable: true,
+    updateCartProductList: () => {}
   };
 
   render(){
-    return <View>
-        <View style={styles.container}>
-          {
-            this.props.editable ? <CheckBox style={styles.isNeedPay} value={!!this.props.productItem.isNeedPay} onValueChange={this.changeNeedPay.bind(this)} /> : undefined
-          }
-          <Image style={styles.img} resizeMdoe='contain' source={{uri: `${config.static.mallBase}${this.props.productItem.productImgAddress}`}}/>
-          <View style={styles.content}>
-            <Text style={styles.title}>{this.props.productItem.productName}</Text>
-            <Text style={styles.price}>{`¥${this.props.productItem.hugePrice}`}</Text>
-            {
-              this.props.editable ?
-                <ControllerBtn style={styles.ctrlBtn} buyAmount={this.props.productItem.buyAmount} storageAmount={this.props.productItem.storageAmount} shoppingCartId={this.props.productItem.shoppingCartId} updateCartProductList={this.props.updateCartProductList} />
-                :
-                <Text style={styles.buyAmount}>{`x ${this.props.productItem.buyAmount}`}</Text>
-            }
-          </View>
-        </View>
+    return <View style={[styles.container].concat(this.props.style)}>
+      {
+        this.props.editable ? <CheckBox style={styles.isNeedPay} value={!!this.props.productItem.isNeedPay} onValueChange={this.changeNeedPay.bind(this)} /> : undefined
+      }
+      <Image style={[styles.img].concat(this.props.imgStyle)} resizeMdoe='contain' source={{uri: `${config.static.mallBase}${this.props.productItem.productImgAddress}`}}/>
+      <View style={styles.content}>
+        <Text style={styles.title}>{this.props.productItem.productName}</Text>
+        <Text style={styles.price}>{`¥${this.props.productItem.hugePrice}`}</Text>
+        {
+          this.props.editable ?
+            <ControllerBtn style={styles.ctrlBtn} buyAmount={this.props.productItem.buyAmount} storageAmount={this.props.productItem.storageAmount} shoppingCartId={this.props.productItem.shoppingCartId} updateCartProductList={this.props.updateCartProductList} />
+            :
+            <Text style={styles.buyAmount}>{`x ${this.props.productItem.buyAmount}`}</Text>
+        }
       </View>
+    </View>
   }
 
   // 修改购物车商品选中状态
