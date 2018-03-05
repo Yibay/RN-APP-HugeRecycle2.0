@@ -28,6 +28,7 @@ import CallSuccess from '../pages/Home/Recycle/CallSuccess';
 import RecycleEvaluation from '../pages/RecycleEvaluation';
 import ManageCustomerAccounts from '../pages/Home/Mine/ManageCustomerAccounts';
 import ManageLoginPassword from '../pages/Home/Mine/ManageLoginPassword';
+import ForgetLoginPassword from "../pages/Home/Mine/ForgetLoginPassword";
 import CustomerScore from '../pages/Home/Mine/CustomerScore';
 import MallCategory from '../pages/Home/Mall/MallCategory';
 import MallCart from '../pages/Home/Mall/MallCart';
@@ -75,6 +76,8 @@ class AppRouter extends Component{
         <Scene key='manageCustomerAccounts' component={ManageCustomerAccounts} hideNavBar={true} />
         {/* 修改登录密码 */}
         <Scene key='manageLoginPassword' component={ManageLoginPassword} hideNavBar={true} />
+        {/* 修改登录密码（忘记密码） */}
+        <Scene key='forgetLoginPassword' component={ForgetLoginPassword} hideNavBar={true}/>
         {/* 环保金余额 */}
         <Scene key='customerScorePage' component={CustomerScore} hideNavBar={true} />
 

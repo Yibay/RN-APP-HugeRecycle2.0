@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Alert } from 'react-native';
+import { StyleSheet, View, Alert, Text } from 'react-native';
+
+import { Actions } from 'react-native-router-flux';
 
 
 import { verifyLogin } from '../../../HOC/verifyLogin';
@@ -10,6 +12,7 @@ import config from '../../../util/request/config';
 import Header from '../../../components/Header/Header';
 import InputSection from '../../../components/Form/Input/InputSection';
 import SubmitBtn from '../../../components/Form/Btn/SubmitBtn';
+import PasswordBtn from "../../../components/Form/Btn/PasswordBtn/PasswordBtn";
 
 
 class ManageLoginPassword extends Component{
@@ -20,7 +23,8 @@ class ManageLoginPassword extends Component{
     this.state = {
       oldPassword: '',
       newPassword: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      secureTextEntry: true
     };
   }
 
@@ -28,10 +32,17 @@ class ManageLoginPassword extends Component{
     return (<View style={styles.container}>
       <Header title='修改登录密码'/>
       <InputSection style={styles.inputSection} value={this.state.oldPassword} onChangeText={val => this.setState({oldPassword: val.trim()})} label='旧密码' placeholder='如未设置过登录密码请留空'/>
-      <InputSection style={styles.inputSection} value={this.state.newPassword} onChangeText={val => this.setState({newPassword: val.trim()})} label='新密码'/>
-      <InputSection style={styles.inputSection} value={this.state.confirmPassword} onChangeText={val => this.setState({confirmPassword: val.trim()})} label='重复密码'/>
+      <InputSection style={styles.inputSection} value={this.state.newPassword} onChangeText={val => this.setState({newPassword: val.trim()})} label='新密码' secureTextEntry={this.state.secureTextEntry} rightButton={<PasswordBtn secureTextEntry={this.state.secureTextEntry} setSecure={val => this.setSecure(val)}/>}/>
       <SubmitBtn style={styles.submitBtn} text='确认修改' submit={() => this.submit()}/>
+      <Text style={styles.forgetBtn} onPress={() => Actions.forgetLoginPassword()}>忘记密码</Text>
     </View>);
+  }
+
+  // 显示／隐藏 新密码
+  setSecure(val){
+    this.setState({
+      secureTextEntry: val
+    })
   }
 
   async submit() {
@@ -60,6 +71,12 @@ const styles = StyleSheet.create({
   },
   submitBtn: {
     marginTop: 80
+  },
+  forgetBtn: {
+    marginTop: 34,
+    alignSelf: 'center',
+    fontSize: 24,
+    color: '#888'
   }
 });
 
