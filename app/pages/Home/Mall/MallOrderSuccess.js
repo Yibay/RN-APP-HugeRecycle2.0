@@ -2,44 +2,30 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
-import PropType from 'prop-types';
 
 
 import Header from '../../../components/Header/Header';
 import SubmitBtn from '../../../components/Form/Btn/SubmitBtn';
 
 
-class CallSuccess extends Component {
-
-  static propTypes = {
-    alreadyLogged: PropType.bool.isRequired
-  };
-
-  static defaultProps = {
-    alreadyLogged: false
-  };
+class MallOrderSuccess extends Component {
 
   render(){
     return (<View style={styles.container}>
-      <Header title='呼叫成功' />
+      <Header title='下单成功' />
       <View style={styles.content}>
         <Image source={require('../../../assets/iconImg/right-call2x.png')} resizeMode='contain' style={styles.logo} />
-        <Text style={styles.message}>呼叫成功</Text>
-        <Text style={[styles.message, styles.messageSpacing]}>虎哥会在15-30分钟内上门</Text>
+        <Text style={styles.message}>下单成功，商家会在</Text>
+        <Text style={[styles.message, styles.messageSpacing]}>30-60分钟内送货上门</Text>
         <Text style={[styles.message, styles.messageSpacing]}>请留意手机消息</Text>
-        {
-          this.props.alreadyLogged ?
-            <SubmitBtn style={styles.SubmitBtn} text='查看详情' submit={() => this.submit()} />
-            :
-            null
-        }
+        <SubmitBtn style={styles.SubmitBtn} text='查看详情' submit={() => this.submit()} />
       </View>
     </View>);
   }
 
   // 查看详情
   submit(){
-    Actions.environmentalRecordPage();
+    Actions.mallOrderRecordPage();
   }
 }
 
@@ -71,4 +57,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CallSuccess;
+export default MallOrderSuccess;

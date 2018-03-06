@@ -36,6 +36,7 @@ import MallSearch from '../pages/Home/Mall/MallSearch';
 import MallNotOpen from '../pages/Home/Mall/MallNotOpen';
 import MallSettlement from "../pages/Home/Mall/MallSettlement";
 import MallOrderRecord from "../pages/MallOrderRecord";
+import MallOrderSuccess from "../pages/Home/Mall/MallOrderSuccess";
 
 
 class AppRouter extends Component{
@@ -47,7 +48,7 @@ class AppRouter extends Component{
         <Scene key='home' tabs={true} tabBarPosition='bottom' labelStyle={tabsStyle.labelStyle} activeTintColor='#000' inactiveTintColor='#000' tabBarStyle={tabsStyle.tabBarStyle} showLabel={false} >
           {/* 回收分页: 回收首页 */}
           <Scene key='recycle' icon={RecycleIcon} component={Recycle} hideNavBar={true} />
-          {/* 商城分页: 商城首页 */}
+          {/* 商城分页: 商城首页 key='mall' 不可用 */}
           <Scene key='shoppingMall' icon={MallIcon} component={Mall} hideNavBar={true} />
           {/* 我的分页 */}
           <Scene key='mine' icon={MineIcon} component={Mine} hideNavBar={true} />
@@ -70,6 +71,8 @@ class AppRouter extends Component{
         <Scene key='mallNotOpen' component={MallNotOpen} hideNavBar={true} />
         {/* 商城 订单结算页 */}
         <Scene key='mallSettlement' component={MallSettlement} hideNavBar={true} />
+        {/* 商城 下单成功页 */}
+        <Scene key='mallOrderSuccess' component={MallOrderSuccess} hideNavBar={true} />
 
         {/* 我的分页 */}
         {/* 安全中心 */}

@@ -153,7 +153,7 @@ class MallSettlement extends Component {
 
     (resReceipt && !resReceipt.status)
       ?
-      (Alert.alert('下单成功')) // 跳转到下单成功页面
+      (Actions.mallOrderSuccess()) // 跳转到下单成功页面
       :
       (Alert.alert('下单失败'));
   }
