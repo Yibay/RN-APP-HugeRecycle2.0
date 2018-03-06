@@ -9,6 +9,7 @@ import request from '../../../util/request/request';
 import config from '../../../util/request/config';
 
 import Header from '../../../components/Header/Header';
+import ScoreLogItem from "../../../containers/CustomerScore/ScoreLogItem";
 
 
 const { width, height } = Dimensions.get('window');
@@ -23,7 +24,8 @@ class CustomerScore extends Component{
       isRefreshing: false,
       customerScore: 0,
       customerScoreLog: [],
-      customerScoreLogMaxHeight: new Animated.Value(0)
+      customerScoreLogMaxHeight: new Animated.Value(0),
+      listBtnText: '展开明细'
     };
   }
 
@@ -31,15 +33,14 @@ class CustomerScore extends Component{
     return (<View style={styles.container}>
       <Header title='环保金余额'/>
       <ScrollView style={styles.content} refreshControl={<RefreshControl refreshing={this.state.isRefreshing} onRefresh={() => this.refreshCustomerScoreLog()}/>}>
-        <Text style={styles.prompt}>环保金余额可用于虎哥在线商城和虎哥便利店直接消费</Text>
-        <Text style={styles.customerScore}>{`¥${this.state.customerScore}`}</Text>
+        <View style={styles.customerScoreSection}>
+          <Text style={styles.customerScore}>{`¥${this.state.customerScore.toFixed(2)}`}</Text>
+        </View>
         <Animated.ScrollView style={{maxHeight: this.state.customerScoreLogMaxHeight}}>
           {
             this.state.customerScoreLog.map((item, index) => {
 
-              console.log(item);
-
-              let income;
+              let income; // 收入or消费
 
               switch(item.integralType){
                 case 0: // 回收
@@ -56,20 +57,13 @@ class CustomerScore extends Component{
                   break;
               }
 
-              return <View key={index} style={styles.lineSection}>
-                <Text style={[styles.icon, styles.text]}>{income ? '+' : '-'}</Text>
-                <View style={styles.scoreLog}>
-                  <View style={styles.firstSection}>
-                    <Text style={[styles.text, income ? styles.incomeScore : styles.consumeScore]}>{`¥${item.customerScore}`}</Text>
-                    <Text style={styles.text}>{item.times}</Text>
-                  </View>
-                  <Text style={[styles.secondSection, styles.text]}>{item.type}</Text>
-                </View>
-              </View>
+              return <ScoreLogItem key={index} income={income} item={item}/>
             })
           }
         </Animated.ScrollView>
-        <Text style={styles.listBtn} onPress={() => this.toggleCustomerScoreLog()}>展开明细</Text>
+        <View style={styles.listBtn}>
+          <Text style={styles.listBtnText} onPress={() => this.toggleCustomerScoreLog()}>{this.state.listBtnText}</Text>
+        </View>
       </ScrollView>
     </View>);
   }
@@ -100,6 +94,9 @@ class CustomerScore extends Component{
         toValue: this.state.customerScoreLogMaxHeight._value ? 0 : winSizeHeight - 500,
       }
     ).start();
+    this.setState({
+      listBtnText: this.state.customerScoreLogMaxHeight._value ? '展开明细' : '收起明细'
+    })
   }
 }
 
@@ -111,18 +108,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f7f7f7'
   },
-  prompt: {
-    marginTop: 30,
-    alignSelf: 'center',
-    fontSize: 24
+  customerScoreSection: {
+    height: 228,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   customerScore: {
-    marginTop: 20,
-    marginBottom: 50,
-    alignSelf: 'center',
-    fontSize: 70,
+    fontSize: 72,
     fontWeight: '700',
-    color: 'red'
+    color: '#000'
   },
   lineSection: {
     marginTop: 10,
@@ -140,27 +134,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     textAlign: 'center'
   },
-  scoreLog: {
-    flex: 1
-  },
-  firstSection: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
   text: {
     fontSize: 26
   },
-  incomeScore: {
-    color: 'red'
-  },
-  consumeScore: {
-    color: 'green'
-  },
   listBtn: {
+    borderTopWidth: 2,
+    borderTopColor: '#e4e5e7',
+  },
+  listBtnText: {
     marginTop: 50,
     alignSelf: 'center',
-    fontSize: 26
+    fontSize: 24,
+    color: '#888'
   }
 });
 
