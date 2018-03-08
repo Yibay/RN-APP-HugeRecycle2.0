@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Image, TouchableWithoutFeedback, ScrollView, Alert } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
+import PropTypes from 'prop-types';
 
 
 import request from '../../../util/request/request';
@@ -14,6 +15,10 @@ import SubmitBtn from '../../../components/Form/Btn/SubmitBtn';
 
 
 class CommunitySearchEngines extends Component {
+
+  static propTypes = {
+    selectedLocationCallBack: PropTypes.func // 有此回调函数，则选中小区后，不更新给redux currentLocation
+  };
 
   constructor(props){
     super(props);
@@ -68,7 +73,14 @@ class CommunitySearchEngines extends Component {
   // 更新选中小区 到全局
   commitCommunity(){
     if(this.state.communitySelected){
-      changeLocation(this.state.communitySelected);
+      // 若有回调函数，则回传数据
+      if(this.props.selectedLocationCallBack){
+        this.props.selectedLocationCallBack(this.state.communitySelected);
+      }
+      // 否则更新到 redux currentLocation
+      else{
+        changeLocation(this.state.communitySelected);
+      }
       Actions.pop();
       Actions.pop();
     }

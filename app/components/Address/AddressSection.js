@@ -13,6 +13,7 @@ class AddressSection extends Component {
 
   static propTypes = {
     currentLocation: PropTypes.shape({
+      id: PropTypes.number.isRequired, // 本条地址id
       customerName: PropTypes.string.isRequired,
       telNo: PropTypes.string.isRequired,
       city: PropTypes.string.isRequired,

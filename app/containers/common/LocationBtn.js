@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Actions } from 'react-native-router-flux';
 
 

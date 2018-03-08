@@ -66,8 +66,26 @@ export default {
     //   unit
     //   room
     addAddress: `${api_base_recycle}/api/mobile/deal/addAddress`,
-    // 编辑 客户地址
-    editAddress: '/api/mobile/deal/editAddress',
+    // 编辑 客户地址 (POST) 需要登录 header X-AUTH-TOKEN
+    // params:
+    //   id (必填)
+    //   cityId (必填)
+    //   city (必填)
+    //   regionId (必填)
+    //   region (必填)
+    //   streetId (必填)
+    //   street (必填)
+    //   communityId (必填)
+    //   communityName (必填)
+    //   address (必填)
+    //   telNo (必填)
+    //   customerName (必填)
+    //   haveHouseNumber (必填)
+    //   isLocationDefault (必填)
+    //   building
+    //   unit
+    //   room
+    editAddress: `${api_base_recycle}/api/mobile/deal/editAddress`,
     // 删除 客户地址
     deleteAddress: '/api/mobile/deal/deleteAddress/',
     // 设置 默认地址

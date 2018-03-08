@@ -37,6 +37,7 @@ import MallNotOpen from '../pages/Home/Mall/MallNotOpen';
 import MallSettlement from "../pages/Home/Mall/MallSettlement";
 import MallOrderRecord from "../pages/MallOrderRecord";
 import MallOrderSuccess from "../pages/Home/Mall/MallOrderSuccess";
+import AddressManagement from "../pages/AddressManagement";
 
 
 class AppRouter extends Component{
@@ -94,6 +95,8 @@ class AppRouter extends Component{
         <Scene key='addressSelectionPage' component={AddressSelection} hideNavBar={true} />
         {/* 编辑地址 */}
         <Scene key='addressEditPage' component={AddressEdit} hideNavBar={true} />
+        {/* 地址管理页 */}
+        <Scene key='addressManagementPage' component={AddressManagement} hideNavBar={true} />
         {/* 环保记录 */}
         <Scene key='environmentalRecordPage' component={RecycleRecord} hideNavBar={true} />
         {/* 评价虎哥 */}

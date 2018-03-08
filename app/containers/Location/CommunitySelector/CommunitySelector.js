@@ -17,7 +17,8 @@ class CommunitySelector extends Component{
     communitySelected: PropTypes.shape({ // 当前选中小区 (Redux 提供)
       communityName: PropTypes.string.isRequired
     }),
-    userAddressList: PropTypes.array.isRequired // 用户地址列表
+    userAddressList: PropTypes.array.isRequired, // 用户地址列表
+    selectedLocationCallBack: PropTypes.func // 有此回调函数，则选中小区后，不更新给redux currentLocation
   };
 
   constructor(props){
@@ -62,7 +63,7 @@ class CommunitySelector extends Component{
                   <Text style={styles.commitText}>确认选择</Text>
                 </View>
               </TouchableWithoutFeedback>
-              <TouchableWithoutFeedback onPress={() => Actions.locationManuallyPage()}>
+              <TouchableWithoutFeedback onPress={() => Actions.locationManuallyPage({selectedLocationCallBack: this.props.selectedLocationCallBack})}>
                 <View style={styles.manualInputBtn}>
                   <Text style={styles.manualInputText}>手动输入小区</Text>
                 </View>
@@ -80,17 +81,22 @@ class CommunitySelector extends Component{
     });
   }
   commitCommunity(){
-    // 更新选中小区 到全局
-
-    // 查看 用户地址列表中，是否有相同小区
-    let matchingAddress = this.props.userAddressList.filter(item => item.communityId === this.state.communitySelected.communityId);
-    // 有,则取那个地址
-    if(matchingAddress.length){
-      changeLocation(matchingAddress[0]);
+    // 有回调函数，则传入选中的地址
+    if(this.props.selectedLocationCallBack){
+      this.props.selectedLocationCallBack(this.state.communitySelected);
     }
-    // 没有,则仅取定位小区
+    // 否则 更新选中小区 到全局
     else{
-      changeLocation(this.state.communitySelected);
+      // 查看 用户地址列表中，是否有相同小区
+      let matchingAddress = this.props.userAddressList.filter(item => item.communityId === this.state.communitySelected.communityId);
+      // 有,则取那个地址
+      if(matchingAddress.length){
+        changeLocation(matchingAddress[0]);
+      }
+      // 没有,则仅取定位小区
+      else{
+        changeLocation(this.state.communitySelected);
+      }
     }
     // 返回回收页
     Actions.pop();

@@ -6,15 +6,17 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 
-import { changeLocation } from '../util/task/LocationManage';
-
 import Header from '../components/Header/Header';
 import AddressSection from '../components/Address/AddressSection';
+import {verifyLogin} from "../HOC/verifyLogin";
 
 
-class AddressSelection extends Component {
+class AddressManagement extends Component {
 
   static propTypes = {
+    identityToken: PropTypes.shape({
+      authToken: PropTypes.string.isRequired
+    }),
     userAddressList: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -32,7 +34,7 @@ class AddressSelection extends Component {
 
   render(){
     return (<View style={styles.container}>
-      <Header title='选择地址' rightButton={<Text style={styles.rightButton} onPress={() => Actions.addressAddPage()}>新增地址</Text>} />
+      <Header title='地址管理' rightButton={<Text style={styles.rightButton} onPress={() => Actions.addressAddPage()}>新增地址</Text>} />
       <ScrollView style={styles.addressList}>
         {
           this.props.userAddressList.map(item => <TouchableWithoutFeedback key={item.id} onPress={() => this.selectAddress(item)}>
@@ -49,19 +51,18 @@ class AddressSelection extends Component {
     </View>);
   }
 
-  // 选择地址
+  // 长按地址模块
   selectAddress(location){
-    // 设置为选中地址
-    changeLocation(location);
-    // 返回上一页
-    Actions.pop();
+    // 删除地址
+    console.log('显示 删除地址 按钮');
   }
 
-  // 编辑地址页
+  // 去编辑地址页
   goToEditAddress(location){
     // 去编辑地址页
-    Actions.addressEditPage({location,getSelectedLocationFunc: this.getSelectedLocationFunc});
+    Actions.addressEditPage({location});
   }
+
 }
 
 const styles = StyleSheet.create({
@@ -91,4 +92,4 @@ function mapStateToProps(state){
   };
 }
 
-export default connect(mapStateToProps)(AddressSelection);
+export default verifyLogin(connect(mapStateToProps)(AddressManagement));

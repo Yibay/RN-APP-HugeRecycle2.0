@@ -3,6 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 
 import CommunitySelector from '../containers/Location/CommunitySelector/CommunitySelector';
@@ -10,11 +11,16 @@ import SubmitBtn from '../components/Form/Btn/SubmitBtn';
 
 
 class LocationPage extends Component{
+
+  static propTypes = {
+    authToken: PropTypes.string,
+    selectedLocationCallBack: PropTypes.func // 有此回调函数，则选中小区后，不更新给redux currentLocation
+  };
+
   render(){
-    console.log(this.props.authToken);
     return (<View style={styles.container}>
       <Text style={styles.prompt}>为了更好的为您服务，虎哥需要知道您的位置，请选择您所在的小区</Text>
-      <CommunitySelector style={styles.communitySelector} />
+      <CommunitySelector style={styles.communitySelector} selectedLocationCallBack={this.props.selectedLocationCallBack} />
       {
         this.props.authToken ?
           undefined

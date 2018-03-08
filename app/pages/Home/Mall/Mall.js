@@ -60,7 +60,7 @@ class Mall extends Component{
   }
 
   componentDidMount(){
-    console.log(123123123123,'Mall componentDidMount');
+    console.log('Mall componentDidMount');
   }
 
   searchProduct(){
