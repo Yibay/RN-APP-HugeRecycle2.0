@@ -12,6 +12,7 @@ import initIdentityToken from '../HOC/initIdentityToken';
 // 页面路由 TabIcon
 import { RecycleIcon, MallIcon, MineIcon } from '../HOC/configTabIcon';
 // 页面路由
+import AboutUs from '../pages/Home/Mine/AboutUs';
 import Intro from '../pages/Intro';
 import Recycle from '../pages/Home/Recycle/Recycle';
 import Mall from '../pages/Home/Mall/Mall';
@@ -38,6 +39,8 @@ import MallSettlement from "../pages/Home/Mall/MallSettlement";
 import MallOrderRecord from "../pages/MallOrderRecord";
 import MallOrderSuccess from "../pages/Home/Mall/MallOrderSuccess";
 import AddressManagement from "../pages/AddressManagement";
+import HugeInformation from "../pages/Home/Mine/HugeInformation";
+import HugeInformationDetail from "../pages/Home/Mine/HugeInformationDetail";
 
 
 class AppRouter extends Component{
@@ -55,13 +58,13 @@ class AppRouter extends Component{
           <Scene key='mine' icon={MineIcon} component={Mine} hideNavBar={true} />
         </Scene>
 
-        {/* 回收分页 */}
+        {/* 1、回收分页 */}
         {/* 回收订单页 */}
         <Scene key='recycleOrderPage' component={RecycleOrder} hideNavBar={true} />
         {/* 呼叫成功 */}
         <Scene key='callSuccessPage' component={CallSuccess} hideNavBar={true} />
 
-        {/* 商城分页 */}
+        {/* 2、商城分页 */}
         {/* 商城 商品分类页 */}
         <Scene key='mallCategoryPage' component={MallCategory} hideNavBar={true} />
         {/* 商城 商品购物车页 */}
@@ -75,16 +78,26 @@ class AppRouter extends Component{
         {/* 商城 下单成功页 */}
         <Scene key='mallOrderSuccess' component={MallOrderSuccess} hideNavBar={true} />
 
-        {/* 我的分页 */}
-        {/* 安全中心 */}
+        {/* 3、我的分页 */}
+        {/* 环保金余额 */}
+        <Scene key='customerScorePage' component={CustomerScore} hideNavBar={true} />
+        {/* 地址管理页 */}
+        <Scene key='addressManagementPage' component={AddressManagement} hideNavBar={true} />
+        {/* 虎哥资讯 */}
+        <Scene key='hugeInformationPage' component={HugeInformation} hideNavBar={true} />
+        {/* 虎哥资讯（详情） */}
+        <Scene key='hugeInformationDetail' component={HugeInformationDetail} hideNavBar={true} />
+        {/* 关于我们 */}
+        <Scene key='aboutUsPage' component={AboutUs} hideNavBar={true} />
+
+        {/* 3.2 安全中心 */}
         <Scene key='manageCustomerAccounts' component={ManageCustomerAccounts} hideNavBar={true} />
         {/* 修改登录密码 */}
         <Scene key='manageLoginPassword' component={ManageLoginPassword} hideNavBar={true} />
         {/* 修改登录密码（忘记密码） */}
         <Scene key='forgetLoginPassword' component={ForgetLoginPassword} hideNavBar={true}/>
-        {/* 环保金余额 */}
-        <Scene key='customerScorePage' component={CustomerScore} hideNavBar={true} />
 
+        {/* 4、其他 */}
         {/* 定位地址页 */}
         <Scene key='locationPage' component={LocationPage} hideNavBar={true} />
         {/* 手动输入小区 */}
@@ -95,18 +108,18 @@ class AppRouter extends Component{
         <Scene key='addressSelectionPage' component={AddressSelection} hideNavBar={true} />
         {/* 编辑地址 */}
         <Scene key='addressEditPage' component={AddressEdit} hideNavBar={true} />
-        {/* 地址管理页 */}
-        <Scene key='addressManagementPage' component={AddressManagement} hideNavBar={true} />
         {/* 环保记录 */}
         <Scene key='environmentalRecordPage' component={RecycleRecord} hideNavBar={true} />
         {/* 评价虎哥 */}
         <Scene key='recycleEvaluationPage' component={RecycleEvaluation} hideNavBar={true} />
         {/* 消费记录 */}
         <Scene key='mallOrderRecordPage' component={MallOrderRecord} hideNavBar={true} />
-        {/* 轮播简介页 */}
-        <Scene key='intro' component={Intro} hideNavBar={true} />
+
+        {/* 5、HOC */}
         {/* 登录页 */}
         <Scene key='login' component={Login} hideNavBar={true} />
+        {/* 轮播简介页 */}
+        <Scene key='intro' component={Intro} hideNavBar={true} />
       </Stack>
     </Router>
   }

@@ -10,16 +10,15 @@ class Header extends Component{
 
   static propTypes = {
     title: PropTypes.string.isRequired, // 标题
-    back: PropTypes.func.isRequired, // 返回 函数
-    rightButton: PropTypes.element.isRequired, // 右侧按钮
-    // leftButton: PropTypes.element.isRequired  // 左侧按钮
-    hideBack: PropTypes.bool.isRequired
+    back: PropTypes.func, // 返回 函数
+    rightButton: PropTypes.element, // 右侧按钮
+    leftButton: PropTypes.element,  // 左侧按钮
+    hideBack: PropTypes.bool
   };
 
   static defaultProps = {
     title: '',
     back: () => Actions.pop(),
-    rightButton: (<View />),
     hideBack: false
   };
 

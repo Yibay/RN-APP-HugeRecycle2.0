@@ -137,8 +137,8 @@ export default {
     userCenter: '/web/mobile/mall/user/index?code=',
     // WebView 进入商城主页
     shoppingMall: '/web/mobile/mall/index?code=',
-    // 获取 发布信息列表
-    publish: '/mobile/artical/all',
+    // 获取 发布信息列表 (GET)
+    publish: `${api_base_recycle}/mobile/artical/all`,
 
 
     /** ------ 商场 便利店相关api ------  */
