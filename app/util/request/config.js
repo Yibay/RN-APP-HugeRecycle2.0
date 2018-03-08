@@ -86,8 +86,8 @@ export default {
     //   unit
     //   room
     editAddress: `${api_base_recycle}/api/mobile/deal/editAddress`,
-    // 删除 客户地址
-    deleteAddress: '/api/mobile/deal/deleteAddress/',
+    // 删除 客户地址 (GET) /api/mobile/deal/deleteAddress/{id} 需要登录 header X-AUTH-TOKEN
+    deleteAddress: `${api_base_recycle}/api/mobile/deal/deleteAddress/`,
     // 设置 默认地址
     setDefaultLocation: '/api/mobile/deal/setDefaultLocation/',
     // 一键呼叫回收 下单 (POST) params:

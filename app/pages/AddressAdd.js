@@ -4,6 +4,7 @@ import { StyleSheet, View, Alert, TouchableWithoutFeedback } from 'react-native'
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Actions } from 'react-native-router-flux';
+import PropTypes from 'prop-types';
 
 
 import validator  from '../util/form/validator';
@@ -20,6 +21,10 @@ import SubmitBtn from '../components/Form/Btn/SubmitBtn';
 
 
 class AddressAdd extends Component {
+
+  static propTypes = {
+    getSelectedLocationFunc: PropTypes.func, // 此方法 获取 选中location，代替 更新全局 currentLocation
+  };
 
   constructor(props){
     super(props);
@@ -49,7 +54,7 @@ class AddressAdd extends Component {
       <InputSection label='手机号码' value={this.state.telNo} onChangeText={val => this.setState({telNo: val})} />
       <View style={styles.communitySection}>
         <InputSection label='小区名称' value={this.state.communityName} editable={false} rightButton={<LocationBtn/>} />
-        <TouchableWithoutFeedback onPress={() => {Actions.locationPage()}}>
+        <TouchableWithoutFeedback onPress={() => {Actions.locationPage({getSelectedLocationFunc: this.props.getSelectedLocationFunc})}}>
           <View style={styles.mask} />
         </TouchableWithoutFeedback>
       </View>
