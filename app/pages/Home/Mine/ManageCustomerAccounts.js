@@ -3,6 +3,7 @@ import { StyleSheet, View, Image, Text } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
+import PropTypes from 'prop-types';
 
 
 import { verifyLogin } from '../../../HOC/verifyLogin';
@@ -12,6 +13,14 @@ import LineSection from '../../../components/LineSection/LineSection';
 
 
 class ManageCustomerAccounts extends Component {
+
+  static propTypes = {
+    identityToken: PropTypes.shape({
+      user: PropTypes.shape({
+        name: PropTypes.string
+      })
+    })
+  };
 
   render(){
     return (<View style={styles.container}>
@@ -23,7 +32,7 @@ class ManageCustomerAccounts extends Component {
         <LineSection title='昵称' style={styles.lineSection} rightModule={<Text style={styles.name}>{this.props.identityToken.user.name}</Text>} textStyle={styles.text}/>
         <LineSection title='绑定微信' style={styles.lineSection} textStyle={styles.text} rightModule={<Icon style={styles.icon} name='ios-arrow-forward' size={50} color='#828282' />}/>
         <LineSection title='修改登录密码' style={styles.lineSection} textStyle={styles.text} onPress={() => Actions.manageLoginPassword()} rightModule={<Icon style={styles.icon} name='ios-arrow-forward' size={50} color='#828282' />}/>
-        <LineSection title='修改消费密码' style={styles.lineSection} textStyle={styles.text} rightModule={<Icon style={styles.icon} name='ios-arrow-forward' size={50} color='#828282' />}/>
+        <LineSection title='修改消费密码' style={styles.lineSection} textStyle={styles.text} onPress={() => Actions.manageConsumePassword()} rightModule={<Icon style={styles.icon} name='ios-arrow-forward' size={50} color='#828282' />}/>
       </View>
     </View>)
   }

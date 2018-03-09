@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, ScrollView, Alert, RefreshControl, Image } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
+import PropTypes from 'prop-types';
 
 
 import { verifyLogin } from '../../../HOC/verifyLogin';
@@ -17,6 +18,16 @@ import SubmitBtn from '../../../components/Form/Btn/SubmitBtn';
 
 
 class Mine extends Component {
+
+  static propTypes = {
+    identityToken: PropTypes.shape({
+      user: PropTypes.shape({
+        name: PropTypes.string,
+        phone: PropTypes.string.isRequired
+      }),
+      authToken: PropTypes.string.isRequired
+    })
+  };
 
   constructor(props){
     super(props);

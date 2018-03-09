@@ -26,6 +26,17 @@ const validator = {
   // 验证是否相等
   isEqual(val1, val2){
     return _.isEqual(val1, val2);
+  },
+
+  // 长度限制
+  isLength(val, min, max){
+    let length = val.toString().trim().length;
+    // 验证结果
+    let result = true;
+    // 长度 大于等于min, 小于等于max
+    typeof min !== 'undefined' && (result = result && length >= min);
+    typeof max !== 'undefined' && (result = result && length <= max);
+    return result;
   }
 };
 

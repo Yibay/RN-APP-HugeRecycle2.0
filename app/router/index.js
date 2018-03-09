@@ -41,6 +41,7 @@ import MallOrderSuccess from "../pages/Home/Mall/MallOrderSuccess";
 import AddressManagement from "../pages/AddressManagement";
 import HugeInformation from "../pages/Home/Mine/HugeInformation";
 import HugeInformationDetail from "../pages/Home/Mine/HugeInformationDetail";
+import ManageConsumePassword from "../pages/Home/Mine/ManageConsumePassword";
 
 
 class AppRouter extends Component{
@@ -96,6 +97,8 @@ class AppRouter extends Component{
         <Scene key='manageLoginPassword' component={ManageLoginPassword} hideNavBar={true} />
         {/* 修改登录密码（忘记密码） */}
         <Scene key='forgetLoginPassword' component={ForgetLoginPassword} hideNavBar={true}/>
+        {/* 设置消费密码 */}
+        <Scene key='manageConsumePassword' component={ManageConsumePassword} hideNavBar={true}/>
 
         {/* 4、其他 */}
         {/* 定位地址页 */}

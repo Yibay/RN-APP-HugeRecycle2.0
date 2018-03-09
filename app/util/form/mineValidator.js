@@ -24,3 +24,19 @@ export const forgetPasswordValidator = ({code, newPassword}) => {
   }
   return true;
 };
+
+// 验证消费密码(6位码)
+export const updateConsumePWValidator = (newPasswordSource) => {
+  if(validator.isEmpty(newPasswordSource)){
+    Alert.alert('请输入新密码','',[{text:'确定'}]);
+    return {value: false,reset: false};
+  }
+  if(!validator.isLength(newPasswordSource,12,12)){
+    return {value: false,reset: false};
+  }
+  if(!validator.isEqual(newPasswordSource.substr(0,6),newPasswordSource.substr(6))){
+    Alert.alert('二次密码不一致','',[{text:'确定'}]);
+    return {value: false,reset: true};
+  }
+  return {value:true};
+};
