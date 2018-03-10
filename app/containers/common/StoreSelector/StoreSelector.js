@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Modal, Text, Image, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableWithoutFeedback } from 'react-native';
 
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 
 import { changeStore } from '../../../util/task/StoreManage';
-
-import AdaptLayoutWidth from '../../../components/AdaptLayoutWidth';
+import { setShowStoreSelector } from '../../../redux/actions/Mall';
 
 
 class StoreSelector extends Component {
@@ -23,7 +23,6 @@ class StoreSelector extends Component {
     super(props);
 
     this.state = {
-      showModal: true,
       storeIndex: 0
     }
   }
@@ -34,42 +33,41 @@ class StoreSelector extends Component {
       {
         this.props.children
       }
-      <Modal transparent={true} visible={this.state.showModal} onRequestClose={() => this.onRequestClose()}>
-        <AdaptLayoutWidth>
-          <View style={styles.mask}>
-            <View style={styles.selector}>
-              <Text style={styles.title}>请选择便利店</Text>
-              {
-                this.props.storeInfo.map((item, index) => <Text key={index} style={this.state.storeIndex === index ? [styles.option, styles.optionActive] : styles.option } onPress={() => this.selectStoreIndex(index)} >{item.storeName}</Text>)
-              }
-              <TouchableWithoutFeedback onPress={() => this.closeModel()}>
-                <Image style={styles.closeButton} source={require('./img/cancel23x.png')} resizeMode='contain' />
-              </TouchableWithoutFeedback>
-            </View>
-          </View>
-        </AdaptLayoutWidth>
-      </Modal>
+      <View style={styles.mask}>
+        <View style={styles.selector}>
+          <Text style={styles.title}>请选择便利店</Text>
+          {
+            this.props.storeInfo.map((item, index) => <Text key={index} style={this.state.storeIndex === index ? [styles.option, styles.optionActive] : styles.option } onPress={() => this.selectStoreIndex(index)} >{item.storeName}</Text>)
+          }
+          <TouchableWithoutFeedback onPress={() => this.closeModel()}>
+            <Image style={styles.closeButton} source={require('./img/cancel23x.png')} resizeMode='contain' />
+          </TouchableWithoutFeedback>
+        </View>
+      </View>
     </View>
   }
 
   closeModel(){
-    this.setState({showModal: false});
+    this.props.setShowStoreSelector(false);
   }
 
   selectStoreIndex(storeIndex){
     changeStore(undefined, storeIndex); // 切换 便利店下的小区
-    this.closeModel();
   }
 
-  // Android Modal 必须属性
-  onRequestClose(){}
 }
 
 const styles = StyleSheet.create({
   container: {
+    position: 'relative',
     flex: 1
   },
   mask: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
@@ -117,4 +115,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default StoreSelector;
+export default connect(null,{setShowStoreSelector})(StoreSelector);

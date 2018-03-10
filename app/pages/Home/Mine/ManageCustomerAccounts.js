@@ -30,7 +30,7 @@ class ManageCustomerAccounts extends Component {
           <Image style={styles.customerPhoto} source={require('../../../assets/img/personalImage2x.png')} resizeMode='contain'/>
         </View>
         <LineSection title='昵称' style={styles.lineSection} rightModule={<Text style={styles.name}>{this.props.identityToken.user.name}</Text>} textStyle={styles.text}/>
-        <LineSection title='绑定微信' style={styles.lineSection} textStyle={styles.text} rightModule={<Icon style={styles.icon} name='ios-arrow-forward' size={50} color='#828282' />}/>
+        {/*<LineSection title='绑定微信' style={styles.lineSection} textStyle={styles.text} rightModule={<Icon style={styles.icon} name='ios-arrow-forward' size={50} color='#828282' />}/>*/}
         <LineSection title='修改登录密码' style={styles.lineSection} textStyle={styles.text} onPress={() => Actions.manageLoginPassword()} rightModule={<Icon style={styles.icon} name='ios-arrow-forward' size={50} color='#828282' />}/>
         <LineSection title='修改消费密码' style={styles.lineSection} textStyle={styles.text} onPress={() => Actions.manageConsumePassword()} rightModule={<Icon style={styles.icon} name='ios-arrow-forward' size={50} color='#828282' />}/>
       </View>
