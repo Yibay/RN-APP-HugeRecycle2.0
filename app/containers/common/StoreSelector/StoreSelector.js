@@ -36,7 +36,11 @@ class StoreSelector extends Component {
         <View style={styles.selector}>
           <Text style={styles.title}>请选择便利店</Text>
           {
-            this.props.storeInfo.map((item, index) => <Text key={index} style={this.state.storeIndex === index ? [styles.option, styles.optionActive] : styles.option } onPress={() => this.selectStoreIndex(index)} >{item.storeName}</Text>)
+            this.props.storeInfo.map((item, index) => <TouchableWithoutFeedback key={index} onPress={() => this.selectStoreIndex(index)}>
+              <View style={this.state.storeIndex === index ? [styles.option, styles.optionActive] : styles.option }>
+                <Text style={this.state.storeIndex === index ? [styles.optionText, styles.optionActiveText] : styles.optionText} >{item.storeName}</Text>
+              </View>
+            </TouchableWithoutFeedback>)
           }
           <TouchableWithoutFeedback onPress={() => this.closeModel()}>
             <Image style={styles.closeButton} source={require('./img/cancel23x.png')} resizeMode='contain' />
@@ -92,17 +96,21 @@ const styles = StyleSheet.create({
     height: 83,
     marginBottom: 34,
     borderRadius: 41,
-    borderWidth: 1,
-    textAlign: 'center',
-    lineHeight: 78,
-    fontSize: 28,
-    fontWeight: '700',
-    color: '#000'
+    borderWidth: 2,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   optionActive: {
     borderWidth: 0,
     backgroundColor: '#ffd100',
     overflow: 'hidden',
+  },
+  optionText: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#000'
+  },
+  optionActiveText: {
     color: '#fff'
   },
   closeButton: {

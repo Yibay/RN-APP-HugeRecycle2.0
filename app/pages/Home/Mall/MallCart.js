@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state){
+  // 计划，应该在 购物车按钮 处，点击事件，触发获取购物车数据。这样本页重跑生命周期，不会重复请求购物车数据（同时后续页面下订单成功，也发一次请求购物车数据）
   return {
     storeId: state.mall.store.storeInfo[state.mall.store.storeIndex].storeId,
     storeName: state.mall.store.storeInfo[state.mall.store.storeIndex].storeName
@@ -72,4 +73,4 @@ function mapStateToProps(state){
 
 // 需验证登录
 // 需验证绑定便利店
-export default verifyLogin(connect(mapStateToProps)(MallCart));
+export default verifyLogin(verifyStoreInfo(connect(mapStateToProps)(MallCart)));

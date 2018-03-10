@@ -76,8 +76,6 @@ class AddressEdit extends Component {
   }
 
   render(){
-    console.log(123);
-    console.log(this.props);
     return (<View style={styles.container}>
       <Header title='编辑地址' rightButton={<Text style={styles.rightButton} onPress={() => this.deleteAddress()}>删除地址</Text>} />
       <InputSection label='联系人' value={this.state.customerName} onChangeText={val => this.setState({customerName: val})} />

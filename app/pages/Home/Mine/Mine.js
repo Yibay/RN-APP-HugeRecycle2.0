@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView, Alert, RefreshControl, Image } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, Alert, RefreshControl, Image, TouchableWithoutFeedback } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
@@ -58,8 +58,12 @@ class Mine extends Component {
           <View style={styles.message}>
             <Text style={styles.name}>{this.props.identityToken.user.name}</Text>
             <Text style={styles.phone}>{encryptedPhones}</Text>
-            <View style={styles.securityCenter}>
-              <Text style={styles.securityCenterText} onPress={() => {Actions.manageCustomerAccounts()}}>安全中心</Text>
+            <View style={styles.rightModule}>
+              <TouchableWithoutFeedback onPress={() => {Actions.manageCustomerAccounts()}}>
+                <View style={styles.securityCenter}>
+                  <Text style={styles.securityCenterText}>安全中心</Text>
+                </View>
+              </TouchableWithoutFeedback>
             </View>
           </View>
         </View>
@@ -160,22 +164,23 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#000'
   },
-  securityCenter: {
+  rightModule: {
     position: 'absolute',
     right: 20,
     top: 0,
     bottom: 0,
     justifyContent: 'center'
   },
-  securityCenterText: {
+  securityCenter: {
     width: 128,
     height: 46,
     borderRadius: 22,
     backgroundColor: '#ffd100',
-    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  securityCenterText: {
     fontSize: 22,
-    lineHeight: 44,
-    textAlign: 'center',
     fontWeight: '700'
   },
   // 行模块

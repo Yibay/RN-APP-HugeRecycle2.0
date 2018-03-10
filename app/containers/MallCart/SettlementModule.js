@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
 
 import PropTypes from 'prop-types';
 
@@ -33,9 +33,11 @@ class SettlementModule extends Component {
       <View style={styles.total}>
         <Text style={styles.totalText}>已选中 {amount}件，合计 {total.toFixed(2)}元</Text>
       </View>
-      <Text style={styles.settlement} onPress={this.props.onPress}>
-        结算
-      </Text>
+      <TouchableWithoutFeedback onPress={this.props.onPress}>
+        <View style={styles.settlement}>
+          <Text style={styles.settlementText}>结算</Text>
+        </View>
+      </TouchableWithoutFeedback>
     </View>
   }
 }
@@ -59,7 +61,10 @@ const styles = StyleSheet.create({
   settlement: {
     width: 243,
     backgroundColor: '#ffd101',
-    lineHeight: 88,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  settlementText: {
     textAlign: 'center',
     fontSize: 30,
     color: '#fff',
