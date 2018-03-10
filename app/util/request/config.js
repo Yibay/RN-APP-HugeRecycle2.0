@@ -139,6 +139,8 @@ export default {
     shoppingMall: '/web/mobile/mall/index?code=',
     // 获取 发布信息列表 (GET)
     publish: `${api_base_recycle}/mobile/artical/all`,
+    // 覆盖小区
+    getCommunityCoverageArea: `${api_base_recycle}/api/mobile/normal/getCommunityCoverageArea`,
 
 
     /** ------ 商场 便利店相关api ------  */

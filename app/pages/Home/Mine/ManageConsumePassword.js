@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Alert} from 'react-native';
 
 import PropTypes from 'prop-types';
+import {Actions} from 'react-native-router-flux';
 
 
 import {updateConsumePWValidator} from '../../../util/form/mineValidator';
@@ -58,6 +59,9 @@ class ManageConsumePassword extends Component {
     }
     // 发送请求
     console.log(password.substr(0,6));
+    Alert.alert('修改成功','',[
+      {text: '确定', onPress: () => Actions.pop()}
+    ]);
   }
 }
 

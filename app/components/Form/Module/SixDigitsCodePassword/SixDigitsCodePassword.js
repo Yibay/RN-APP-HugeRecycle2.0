@@ -12,12 +12,14 @@ class SixDigitsCodePassword extends Component {
     msg: PropTypes.string,
     btnText: PropTypes.string,
     onChangeText: PropTypes.func, // 即时获取修改后的密码（12位原始值）
-    submit: PropTypes.func // 提交密码修改
+    submit: PropTypes.func, // 提交密码修改
+    encode: PropTypes.bool // 显示加密
   };
 
   static defaultProps = {
     msg: '使用6位不连续的数字来作为消费密码',
-    btnText: '确认修改'
+    btnText: '确认修改',
+    encode: true
   };
 
   constructor(props){
@@ -33,12 +35,12 @@ class SixDigitsCodePassword extends Component {
       <View style={styles.container}>
         {/* 6位码 */}
         <View style={styles.passwordView}>
-          <DigitItem encode={true} code={this.state.password.length <6 ? this.state.password.substr(0,1) : this.state.password.substr(6,1)} />
-          <DigitItem encode={true} code={this.state.password.length <6 ? this.state.password.substr(1,1) : this.state.password.substr(7,1)} />
-          <DigitItem encode={true} code={this.state.password.length <6 ? this.state.password.substr(2,1) : this.state.password.substr(8,1)} />
-          <DigitItem encode={true} code={this.state.password.length <6 ? this.state.password.substr(3,1) : this.state.password.substr(9,1)} />
-          <DigitItem encode={true} code={this.state.password.length <6 ? this.state.password.substr(4,1) : this.state.password.substr(10,1)} />
-          <DigitItem encode={true} code={this.state.password.length <6 ? this.state.password.substr(5,1) : this.state.password.substr(11,1)} />
+          <DigitItem encode={this.props.encode} code={this.state.password.length <6 ? this.state.password.substr(0,1) : this.state.password.substr(6,1)} />
+          <DigitItem encode={this.props.encode} code={this.state.password.length <6 ? this.state.password.substr(1,1) : this.state.password.substr(7,1)} />
+          <DigitItem encode={this.props.encode} code={this.state.password.length <6 ? this.state.password.substr(2,1) : this.state.password.substr(8,1)} />
+          <DigitItem encode={this.props.encode} code={this.state.password.length <6 ? this.state.password.substr(3,1) : this.state.password.substr(9,1)} />
+          <DigitItem encode={this.props.encode} code={this.state.password.length <6 ? this.state.password.substr(4,1) : this.state.password.substr(10,1)} />
+          <DigitItem encode={this.props.encode} code={this.state.password.length <6 ? this.state.password.substr(5,1) : this.state.password.substr(11,1)} />
         </View>
         <TextInput ref='passwordData' style={styles.passwordData} value={this.state.password} onChangeText={val => this.setPassword(val)} keyboardType='numeric' underlineColorAndroid='transparent'/>
         {/* 消息提示 */}

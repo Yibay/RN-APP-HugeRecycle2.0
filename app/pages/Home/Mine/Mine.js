@@ -71,7 +71,7 @@ class Mine extends Component {
         <LineSection title='虎哥资讯' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/hugeInformation.png')} resizeMode='contain'/>} onPress={() => Actions.hugeInformationPage()}/>
         {/*<LineSection title='在线客服' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/onlineService.png')} resizeMode='contain'/>} />*/}
         <LineSection title='关于我们' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/aboutUs.png')} resizeMode='contain'/>} onPress={() => Actions.aboutUsPage()} />
-        <LineSection title='服务范围' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/serviceScope.png')} resizeMode='contain'/>} />
+        <LineSection title='服务范围' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/serviceScope.png')} resizeMode='contain'/>} onPress={() => Actions.coverageAreaPage()} />
         <SubmitBtn style={styles.logout} text='退出登录' submit={() => this.exitLogon()}/>
       </ScrollView>
     </View>)

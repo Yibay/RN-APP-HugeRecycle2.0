@@ -42,6 +42,7 @@ import AddressManagement from "../pages/AddressManagement";
 import HugeInformation from "../pages/Home/Mine/HugeInformation";
 import HugeInformationDetail from "../pages/Home/Mine/HugeInformationDetail";
 import ManageConsumePassword from "../pages/Home/Mine/ManageConsumePassword";
+import CoverageArea from "../pages/Home/Mine/CoverageArea";
 
 
 class AppRouter extends Component{
@@ -90,6 +91,8 @@ class AppRouter extends Component{
         <Scene key='hugeInformationDetail' component={HugeInformationDetail} hideNavBar={true} />
         {/* 关于我们 */}
         <Scene key='aboutUsPage' component={AboutUs} hideNavBar={true} />
+        {/* 服务范围 */}
+        <Scene key='coverageAreaPage' component={CoverageArea} hideNavBar={true} />
 
         {/* 3.2 安全中心 */}
         <Scene key='manageCustomerAccounts' component={ManageCustomerAccounts} hideNavBar={true} />
