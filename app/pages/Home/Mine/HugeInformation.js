@@ -20,7 +20,6 @@ class HugeInformation extends Component{
   }
 
   render(){
-    console.log(this.state.informationList);
     return <View style={styles.container}>
       <Header title='虎哥资讯'/>
       <FlatList style={styles.informationList} data={this.state.informationList} renderItem={({item}) => <InformationItem item={item} />}/>

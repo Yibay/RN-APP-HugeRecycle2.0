@@ -20,7 +20,6 @@ class CoverageArea extends Component {
   }
 
   render(){
-    console.log(this.state);
     return <View style={styles.container}>
       <Header title='服务范围'/>
       <ScrollView style={styles.content}>

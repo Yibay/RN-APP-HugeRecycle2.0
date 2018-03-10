@@ -21,7 +21,6 @@ class SettlementModule extends Component {
 
     let amount = 0;
     let total = 0;
-    console.log(this.props.validProductList);
 
     this.props.validProductList.forEach(item => {
       if(item.isNeedPay){

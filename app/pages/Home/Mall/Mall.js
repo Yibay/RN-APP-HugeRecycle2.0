@@ -31,7 +31,6 @@ class Mall extends Component{
     let mainCategoryList = [];
     // 2、各类商品 合并后数组（商品列表）
     let combineProductList = [];
-    console.log(this.props.productList);
 
     for(let i=0;i<this.props.productList.length;i++){
       if(this.props.productList[i].length && this.props.mallCategoryInfo.mainCategoryList){
@@ -57,10 +56,6 @@ class Mall extends Component{
       {/* 详细商品列表 */}
       <ProductList productList={combineProductList} ListHeaderComponent={ListHeaderComponent} />
     </View>);
-  }
-
-  componentDidMount(){
-    console.log('Mall componentDidMount');
   }
 
   searchProduct(){

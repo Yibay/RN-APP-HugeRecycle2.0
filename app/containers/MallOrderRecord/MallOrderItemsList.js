@@ -36,7 +36,6 @@ class MallOrderItemsList extends Component{
   }
 
   render(){
-    console.log(123123,this.state.renderedOrderList);
     return <FlatList
       style={styles.container}
       data={this.state.renderedOrderList}

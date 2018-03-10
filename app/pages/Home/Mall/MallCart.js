@@ -48,7 +48,6 @@ class MallCart extends Component {
   // 获取购物车 商品
   async getCartProductList(){
     const res = await request.get(config.api.getShoppingCartProductList,{storeId: this.props.storeId},{'X-AUTH-TOKEN': this.props.identityToken.authToken});
-    console.log(res);
     if(res && !res.status && this.refs.componentExisted){
       this.setState({
         validProductList: res.data.validProductList || [],

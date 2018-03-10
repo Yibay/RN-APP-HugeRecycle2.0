@@ -28,7 +28,6 @@ class StoreSelector extends Component {
   }
 
   render(){
-    console.log(this.props.storeInfo);
     return <View style={styles.container}>
       {
         this.props.children
