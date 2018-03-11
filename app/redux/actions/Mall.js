@@ -18,7 +18,7 @@ export function setStoreInfo(storeInfo){
     storeInfo
   }
 }
-// 便利店 关联数据
+/** 便利店 关联数据 */
 export function setStoreInfoThunk(storeInfo){
   return async (dispatch, getState) => {
 

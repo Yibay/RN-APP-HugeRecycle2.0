@@ -3,11 +3,12 @@ import { StyleSheet, View, Image, TouchableWithoutFeedback, ScrollView, Alert } 
 
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 
 import request from '../../../util/request/request';
 import config from '../../../util/request/config';
-import { changeLocation } from '../../../util/task/LocationManage';
+import { setLocationThunk } from '../../../redux/actions/Location';
 
 import InputSection from '../../../components/Form/Input/InputSection';
 import CommunitySearched from '../CommunitySearched';
@@ -79,7 +80,7 @@ class CommunitySearchEngines extends Component {
       }
       // 否则更新到 redux currentLocation
       else{
-        changeLocation(this.state.communitySelected);
+        this.props.setLocationThunk(this.state.communitySelected);
       }
       Actions.pop();
       Actions.pop();
@@ -116,4 +117,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CommunitySearchEngines;
+export default connect(null, {setLocationThunk})(CommunitySearchEngines);

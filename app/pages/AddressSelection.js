@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 
-import { changeLocation } from '../util/task/LocationManage';
+import {setLocationThunk} from "../redux/actions/Location";
 
 import Header from '../components/Header/Header';
 import AddressSection from '../components/Address/AddressSection';
@@ -52,7 +52,7 @@ class AddressSelection extends Component {
   // 选择地址
   selectAddress(location){
     // 设置为选中地址
-    changeLocation(location);
+    this.props.setLocationThunk(location);
     // 返回上一页
     Actions.pop();
   }
@@ -91,4 +91,4 @@ function mapStateToProps(state){
   };
 }
 
-export default connect(mapStateToProps)(AddressSelection);
+export default connect(mapStateToProps, {setLocationThunk})(AddressSelection);

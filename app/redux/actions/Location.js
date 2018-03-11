@@ -33,6 +33,7 @@ export function setLocation(location){
     location
   )
 }
+/** 当前地址 相关数据 */
 export function setLocationThunk(location){
   return async (dispatch, getState) => {
 
