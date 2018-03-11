@@ -18,7 +18,7 @@ export function setStoreInfo(storeInfo){
     storeInfo
   }
 }
-/** 便利店 关联数据 */
+/** Thunk: 小区对应的便利店数组 关联数据 */
 export function setStoreInfoThunk(storeInfo){
   return async (dispatch, getState) => {
 
@@ -26,7 +26,18 @@ export function setStoreInfoThunk(storeInfo){
     dispatch(setStoreInfo(storeInfo)); // 此处storeIndex 会被重置为0
 
     /** 2、根据 小区对应服务站，获取便利店 categoryId 数组、头部banner图片 */
-    let storeIndex = getState().mall.store.storeIndex;
+    dispatch(updateStoreProductList());
+
+  }
+}
+/** Thunk: 更新 便利店的具体信息：商品大类、banner图、产品列表 */
+function updateStoreProductList(){
+  return async (dispatch, getState) => {
+    let state = getState();
+    let storeInfo = state.mall.store.storeInfo;
+    let storeIndex = state.mall.store.storeIndex;
+
+    /** 2、根据 小区对应服务站，获取便利店 categoryId 数组、头部banner图片 */
     let mallCategoryInfo = await getMallIndexInfo(storeInfo[storeIndex].storeId);
 
     // 若异常
@@ -78,6 +89,8 @@ async function getProductListByCategory(storeId, mainCategoryList){
   return productList.map(item => item.data);
 }
 
+
+
 /**
  * 设置 便利店 商品大类、banner、商品列表
  * @param {object} mallCategoryInfo
@@ -92,6 +105,8 @@ export function setProductList({mallCategoryInfo, productList}) {
   }
 }
 
+
+
 /**
  * 设置 当前小区下的 便利店序号
  * @param {number}storeIndex
@@ -103,6 +118,19 @@ export function setStoreIndex(storeIndex){
     storeIndex
   }
 }
+/** Thunk: 选中 数组中 便利店序号 关联数据 */
+export function setStoreIndexThunk(storeIndex){
+  return async (dispatch, getState) => {
+
+    /** 1、设置 便利店序号 */
+    dispatch(setStoreIndex(storeIndex));
+
+    /** 2、根据 小区对应服务站，获取便利店 categoryId 数组、头部banner图片 */
+    dispatch(updateStoreProductList());
+  }
+}
+
+
 
 /**
  * 设置 显示小区下的 便利店选择器

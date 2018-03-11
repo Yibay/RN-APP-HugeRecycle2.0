@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 
-import { changeStore } from '../../../util/task/StoreManage';
-import { setShowStoreSelector } from '../../../redux/actions/Mall';
+import { setShowStoreSelector, setStoreIndexThunk } from '../../../redux/actions/Mall';
 
 
 class StoreSelector extends Component {
@@ -55,7 +54,7 @@ class StoreSelector extends Component {
   }
 
   selectStoreIndex(storeIndex){
-    changeStore(undefined, storeIndex); // 切换 便利店下的小区
+    this.props.setStoreIndexThunk(storeIndex); // 切换 便利店下的小区
   }
 
 }
@@ -122,4 +121,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null,{setShowStoreSelector})(StoreSelector);
+export default connect(null,{setShowStoreSelector, setStoreIndexThunk})(StoreSelector);
