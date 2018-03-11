@@ -3,13 +3,13 @@ import { StyleSheet, View, Text, ScrollView, Alert, RefreshControl, Image, Touch
 
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 
 import { verifyLogin } from '../../../HOC/verifyLogin';
 import request from '../../../util/request/request';
 import config from '../../../util/request/config';
-import { changeIdentityToken } from '../../../util/task/IdentityToken';
-import { emptyIdentityToken } from '../../../redux/actions/IdentityToken';
+import { emptyIdentityToken, setIdentityTokenThunk } from '../../../redux/actions/IdentityToken';
 
 import Header from '../../../components/Header/Header';
 import MsgBtn from '../../../containers/Mine/MessageBtn/MessageBtn';
@@ -109,7 +109,7 @@ class Mine extends Component {
           Actions.jump('shoppingMall');
           Actions.jump('recycle');
           // 置空全局身份令牌
-          changeIdentityToken(emptyIdentityToken);
+          this.props.setIdentityTokenThunk(emptyIdentityToken);
           // 删除本地身份令牌
           storage.remove({key: 'identityToken'});
         }
@@ -201,4 +201,4 @@ const styles = StyleSheet.create({
 });
 
 // 此页面需验证身份
-export default verifyLogin(Mine);
+export default verifyLogin(connect(null,{setIdentityTokenThunk})(Mine));

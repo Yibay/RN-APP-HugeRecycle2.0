@@ -11,11 +11,11 @@ import _ from 'lodash';
 import request from "../util/request/request";
 import config from "../util/request/config";
 // Action
+import { setIdentityTokenThunk } from '../redux/actions/IdentityToken';
 import { setAllProducts } from '../redux/actions/Recycle';
-import { changeIdentityToken } from '../util/task/IdentityToken';
 
 
-const initIdentityToken = (WrappedComponent) => connect(null, { setAllProducts })(class extends Component {
+const initIdentityToken = (WrappedComponent) => connect(null, { setAllProducts, setIdentityTokenThunk })(class extends Component {
 
   async componentWillMount(){
 
@@ -36,7 +36,7 @@ const initIdentityToken = (WrappedComponent) => connect(null, { setAllProducts }
 
     // 若找到 则更新到数据流中
     if(ret){
-      await changeIdentityToken(ret);
+      this.props.setIdentityTokenThunk(ret);
     }
   }
 

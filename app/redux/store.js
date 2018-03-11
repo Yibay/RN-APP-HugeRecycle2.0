@@ -1,4 +1,6 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import { createLogger } from 'redux-logger';
 
 
 import location from './reducers/Location';
@@ -8,14 +10,10 @@ import mall from './reducers/Mall';
 
 
 const allReducers = combineReducers({ location, recycle, identityToken, mall });
-// 通过 reducer生成store
-let store = createStore(allReducers);
-
-// 打印初始化state
-console.log(store.getState());
-
-// 监听state更新
-let unsubscribe = store.subscribe(() => console.log(store.getState()));
+// 中间件：Redux action 日志
+const loggerMiddleware = createLogger();
+// 通过 reducer生成store (配置中间件)
+let store = createStore(allReducers, applyMiddleware(thunkMiddleware, loggerMiddleware));
 
 
 export default store;

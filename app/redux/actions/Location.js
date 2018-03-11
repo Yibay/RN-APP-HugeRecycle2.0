@@ -1,5 +1,10 @@
 import _ from 'lodash';
 
+
+import request from "../../util/request/request";
+import config from "../../util/request/config";
+import {setProductList, setStoreInfo, setStoreInfoThunk } from "./Mall";
+
 // type 类型
 export const SET_Location = 'SET_Location';
 export const SET_AutoLocationFlag = 'SET_AutoLocationFlag';
@@ -27,6 +32,36 @@ export function setLocation(location){
     {type: SET_Location},
     location
   )
+}
+export function setLocationThunk(location){
+  return async (dispatch, getState) => {
+
+    /** 1、设置当前地址 */
+    dispatch(setLocation(location));
+
+    /** 2、联动其他数据 */
+    let communityId = location.communityId;
+    if(communityId !== undefined){
+      /** 1、根据小区id, 获取便利店信息 */
+      let storeInfo = await loadInitStoreInfoByCommunityId(communityId);
+      // 若数据异常、立即结束（包含该小区无对应服务站）
+      if(!storeInfo || storeInfo.status || !storeInfo.data || !storeInfo.data.length){  // {data: null, status: 0}
+        dispatch(setStoreInfo([])); // 置空小区 对应的便利店
+        dispatch(setProductList({mallCategoryInfo: {}, productList:[]})); // 置空便利店产品列表
+        return;
+      }
+      // 若成功
+      dispatch(setStoreInfoThunk(storeInfo.data));
+    }
+    else{
+      dispatch(setStoreInfo([])); // 置空小区 对应的便利店
+      dispatch(setProductList({mallCategoryInfo: {}, productList:[]})); // 置空便利店产品列表
+    }
+  }
+}
+/** 1、根据小区名字, 获取便利店信息 */
+async function loadInitStoreInfoByCommunityId(communityId){
+  return await request.get(config.api.loadInitStoreInfoByCommunityId, {communityId});
 }
 
 /**

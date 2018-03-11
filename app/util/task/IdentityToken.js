@@ -1,6 +1,6 @@
 import request from "../request/request";
 import config from "../request/config";
-import {setIdentityToken} from '../../redux/actions/IdentityToken';
+import {setIdentityTokenThunk} from '../../redux/actions/IdentityToken';
 import {defaultCurrentLocation, setUserAddressList} from "../../redux/actions/Location";
 import {changeLocation} from './LocationManage';
 
@@ -14,7 +14,7 @@ import {changeLocation} from './LocationManage';
 export const changeIdentityToken = async (identityToken) => {
   if(global.store){
     // 更新 身份令牌
-    global.store.dispatch(setIdentityToken(identityToken));
+    global.store.dispatch(setIdentityTokenThunk(identityToken));
     // 更新 身份相关数据
     await updateIdentityTokenAssociatedData(identityToken['X-AUTH-TOKEN']);
   }
