@@ -177,17 +177,7 @@ export default {
     // 10, 获取需要支付的信息（GET）params  storeId   需要登录 header X-AUTH-TOKEN
     getNeedPayResult: `${api_base_mall}/online/mall/order/getNeedPayResult`,
 
-    // 11, 获取商城订单列表 (GET)
-    // params
-    //   orderType: oneOf([
-    //     'unPayCount', //未支付
-    //     'payedCount', //待配送
-    //     'deliveringCount', //配送中
-    //     'completedCount', //已完成
-    //   ])
-    getMallOrderList: `${api_base_mall}/online/mall/order/getOrderList`,
-
-    // 12, 生成结算订单 (POST) multipart/form-data 需要登录 header X-AUTH-TOKEN
+    // 11, 生成结算订单 (POST) multipart/form-data 需要登录 header X-AUTH-TOKEN
     // params
     //   storeId: app.globalData.stationId,
     //   customerName: selectedLocation.customerName,
@@ -205,8 +195,24 @@ export default {
     //   orderSource:3  // 下单平台（3为 app下单）
     confirmMallOrder: `${api_base_mall}/online/mall/order/confirmOrder`,
 
-    // 13, 确认订单 params orderId
-    receiptMallOrderPay: `${api_base_mall}/online/mall/order/receiptPay`
+    // 12, 确认订单 params orderId
+    receiptMallOrderPay: `${api_base_mall}/online/mall/order/receiptPay`,
+
+    // 13, 获取商城订单列表 (GET)
+    // params
+    //   orderType: oneOf([
+    //     'unPayCount', //未支付
+    //     'payedCount', //待配送
+    //     'deliveringCount', //配送中
+    //     'completedCount', //已完成
+    //   ])
+    getMallOrderList: `${api_base_mall}/online/mall/order/getOrderList`,
+
+    // 14, 获取商城订单详情 (POST)  需要登录 header X-AUTH-TOKEN
+    // params
+    //   orderCode
+    getMallOrderDetail: `${api_base_mall}/online/mall/order/getOrderDetail`,
+
 
     /** ------ Mock数据 ------ */
     // 获取回收物品 列表

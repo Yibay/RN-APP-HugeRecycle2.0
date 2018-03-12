@@ -1,7 +1,8 @@
 import React,{Component} from 'react'
-import {StyleSheet,View,Text} from 'react-native';
+import {StyleSheet,View,Text,Alert,Linking} from 'react-native';
 
 import PropType from 'prop-types';
+import {Actions} from 'react-native-router-flux';
 
 
 import ProductItem from '../../containers/MallCart/ProductItem';
@@ -11,8 +12,9 @@ import RecordBtn from "../../components/Form/Btn/RecordBtn";
 class MallOrderItem extends Component{
 
   static propTypes = {
-    orderId: PropType.number.isRequired,
+    orderCode: PropType.string.isRequired,
     orderStatus: PropType.number.isRequired,
+    storePhone: PropType.string, // 商家电话，可能为空
     productViewList: PropType.arrayOf(
       PropType.shape({
         orderProductId: PropType.number.isRequired,
@@ -26,7 +28,13 @@ class MallOrderItem extends Component{
     leftOrderScore: PropType.number.isRequired, // 部分退货后，环保金消费
     leftOrderPrice: PropType.number.isRequired, // 部分退货后，现金消费
     orderScore: PropType.number.isRequired, // 下单时，环保金消费
-    orderPrice: PropType.number.isRequired // 下单时，现金消费
+    orderPrice: PropType.number.isRequired, // 下单时，现金消费
+    productListFooterStyle: PropType.number, // 列表底栏 样式
+    showFooter: PropType.bool, // 是否显示底栏（订单状态、控制按钮）
+  };
+
+  static defaultProps = {
+    showFooter: true
   };
 
   render(){
@@ -41,15 +49,15 @@ class MallOrderItem extends Component{
       case 3:
       case 4:
         orderStatusText = '等待商家接单';
-        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' submit={() => {}}/><RecordBtn style={styles.btnSpacing} text='联系商家' submit={() => {}}/></View>;
+        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' submit={() => {Actions.mallOrderDetailPage({orderCode: this.props.orderCode});}}/><RecordBtn style={styles.btnSpacing} text='联系商家' submit={() => {this.contactSeller()}}/></View>;
         break;
       case 5:
         orderStatusText = '已接单，等待配送';
-        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' submit={() => {}}/><RecordBtn style={styles.btnSpacing} text='联系商家' submit={() => {}}/></View>;
+        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' submit={() => {Actions.mallOrderDetailPage({orderCode: this.props.orderCode});}}/><RecordBtn style={styles.btnSpacing} text='联系商家' submit={() => {this.contactSeller()}}/></View>;
         break;
       case 6:
         orderStatusText = '已完成';
-        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' submit={() => {}}/></View>;
+        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' submit={() => {Actions.mallOrderDetailPage({orderCode: this.props.orderCode});}}/></View>;
         orderStatusTextGloom = true;
         break;
       case 8:
@@ -61,7 +69,7 @@ class MallOrderItem extends Component{
 
     return <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.orderId}>{`订单号：${this.props.orderId}`}{this.props.orderStatus === 8 ? '（已退货）' : undefined}</Text>
+        <Text style={styles.orderCode}>{`订单号：${this.props.orderCode}`}{this.props.orderStatus === 8 ? '（已退货）' : undefined}</Text>
         <Text style={styles.time}>{this.props.time}</Text>
       </View>
       {
@@ -77,17 +85,45 @@ class MallOrderItem extends Component{
           }))
           .map(item => <ProductItem key={item.shoppingCartId} style={styles.productItem} imgStyle={styles.productItemImg} productItem={item} editable={false} />)
       }
-      <View style={styles.productListFooter}>
+      <View style={[styles.productListFooter].concat(this.props.productListFooterStyle)}>
         <Text style={styles.productNum}>{`共${this.props.productViewList.length}件商品 小计：`}</Text>
         <Text style={styles.totalPrice}>{`¥${this.props.orderStatus === 8 ? (this.props.orderPrice + this.props.orderScore).toFixed(2) : (this.props.leftOrderPrice + this.props.leftOrderScore).toFixed(2)}`}</Text>
       </View>
-      <View style={styles.footer}>
-        <Text style={!orderStatusTextGloom ? styles.orderStatusText : [styles.orderStatusText].concat(styles.orderStatusTextGloom)}>{orderStatusText}</Text>
-        {
-          ctrlModule
-        }
-      </View>
+      {
+        this.props.showFooter ?
+          <View style={styles.footer}>
+            <Text style={!orderStatusTextGloom ? styles.orderStatusText : [styles.orderStatusText].concat(styles.orderStatusTextGloom)}>{orderStatusText}</Text>
+            {
+              ctrlModule
+            }
+          </View>
+          :
+          undefined
+      }
     </View>
+  }
+
+  // 联系商家
+  contactSeller(){
+    if(this.props.storePhone){
+      Alert.alert('联系商家','',[
+        {
+          text: '拨打',
+          onPress: async () => {
+            const supported = await Linking.canOpenURL(`tel:${this.props.storePhone}`).catch(e => {console.log(e);return false});
+            if(supported){
+              Linking.openURL(`tel:${this.props.storePhone}`);
+            }
+            else{
+              Alert.alert('此设备不支持 拨打电话',`请手动拨打${this.props.storePhone}`,[{text:'好的'}]);
+            }
+          }
+        }
+      ]);
+    }
+    else{
+      Alert.alert('无商家电话','',[{text:'确定'}])
+    }
   }
 }
 
@@ -104,7 +140,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center'
   },
-  orderId: {
+  orderCode: {
     fontSize: 28,
     color: '#000',
     fontWeight: '400'

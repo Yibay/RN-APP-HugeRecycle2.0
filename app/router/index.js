@@ -43,6 +43,7 @@ import HugeInformation from "../pages/Home/Mine/HugeInformation";
 import HugeInformationDetail from "../pages/Home/Mine/HugeInformationDetail";
 import ManageConsumePassword from "../pages/Home/Mine/ManageConsumePassword";
 import CoverageArea from "../pages/Home/Mine/CoverageArea";
+import MallOrderDetail from "../pages/MallOrderDetail";
 
 
 class AppRouter extends Component{
@@ -120,6 +121,8 @@ class AppRouter extends Component{
         <Scene key='recycleEvaluationPage' component={RecycleEvaluation} hideNavBar={true} />
         {/* 消费记录 */}
         <Scene key='mallOrderRecordPage' component={MallOrderRecord} hideNavBar={true} />
+        {/* 消费订单详情 */}
+        <Scene key='mallOrderDetailPage' component={MallOrderDetail} hideNavBar={true} />
 
         {/* 5、HOC */}
         {/* 登录页 */}
