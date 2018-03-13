@@ -98,7 +98,8 @@ const styles = StyleSheet.create({
   },
   // 6位码数据 (隐藏)
   passwordData: {
-    display: 'none'
+    // display: 'none' // display TextInput 失去聚焦功能
+    height: 0,
   },
   // 消息文案
   msg: {
