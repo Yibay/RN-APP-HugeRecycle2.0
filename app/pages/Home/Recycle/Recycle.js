@@ -39,7 +39,7 @@ class Recycle extends Component{
       <Navigator navigationItems={this.props.category}>
         {
           /* 分页: 1阶回收大分类 */
-          Reflect.ownKeys(AllProductsObj)
+          Object.keys(AllProductsObj)
             .sort((key1, key2) => AllProductsObj[key1].sort - AllProductsObj[key2].sort) // 按 sort 序号排序
             .map(key => {
 

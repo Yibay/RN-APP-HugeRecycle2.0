@@ -16,7 +16,7 @@ const CategoryItem = props => {
     <Text style={styles.categoryTitle}>{props.category.name}</Text>
   </View>
   {
-    Reflect.ownKeys(props.category.specsObj)
+    Object.keys(props.category.specsObj)
       .sort((val1, val2) => val1.sort - val2.sort)
       .map(key => (<SpecsItem key={key} specs={props.category.specsObj[key]} categoryId={props.category.id} sort={props.sort} onlyOnePiece={!props.category.show} />))
   }

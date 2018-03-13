@@ -24,7 +24,7 @@ class SubCategory extends Component{
     return (
       <ScrollView style={this.props.show ? styles.container : styles.hide}>
         {
-          Reflect.ownKeys(this.props.subCategoryObj)
+          Object.keys(this.props.subCategoryObj)
             .map(key => (<CategoryItem key={key} category={this.props.subCategoryObj[key]} sort={this.props.sort} />))
         }
       </ScrollView>

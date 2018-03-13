@@ -89,7 +89,7 @@ request.postFormData = function(url ,data, headers){
 function constructFormData(data){
   if(typeof data === 'object'){
     let formData = new FormData();
-    Reflect.ownKeys(data).forEach(key => {
+    Object.keys(data).forEach(key => {
       formData.append(key, data[key]);
     });
     return formData;

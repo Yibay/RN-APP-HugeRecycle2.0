@@ -77,7 +77,7 @@ class HouseNumberAddressSection extends Component {
   // 只能输入数字和字母
   onlyEnterNumbersAndLetters(valObj){
     // 过滤出，val为字母和数字的key值
-    let validKeys = Reflect.ownKeys(valObj).filter(key => /^[0-9a-zA-Z]*$/.test(valObj[key]));
+    let validKeys = Object.keys(valObj).filter(key => /^[0-9a-zA-Z]*$/.test(valObj[key]));
     // 仅保留val为字母和数字的key
     this.setState(_.merge(_.pick(valObj, validKeys), { stateUpdateFlag: true })); // flag标记 内部手动更新 state了
   }
