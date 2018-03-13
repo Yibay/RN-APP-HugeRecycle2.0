@@ -8,12 +8,14 @@ import { StyleSheet } from 'react-native';
 import { adaptLayoutWidth } from '../HOC/adaptLayout';
 // HOC 中间件 登录状态
 import initIdentityToken from '../HOC/initIdentityToken';
+// HOC 启动页、引导页轮播图
+import {guidePage} from '../HOC/guidePage';
 
 // 页面路由 TabIcon
 import { RecycleIcon, MallIcon, MineIcon } from '../HOC/configTabIcon';
 // 页面路由
 import AboutUs from '../pages/Home/Mine/AboutUs';
-import Intro from '../pages/Intro';
+import Intro from '../pages/Guide/Guide';
 import Recycle from '../pages/Home/Recycle/Recycle';
 import Mall from '../pages/Home/Mall/Mall';
 import Mine from '../pages/Home/Mine/Mine';
@@ -169,4 +171,4 @@ const tabsStyle = {
 };
 
 // 屏宽适配, 登录状态管理相关数据, 地址管理相关数据
-export default adaptLayoutWidth(initIdentityToken(AppRouter));
+export default adaptLayoutWidth(initIdentityToken(guidePage(AppRouter)));

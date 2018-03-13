@@ -28,6 +28,10 @@ export default {
   },
   // 请求 api接口
   api: {
+    /** ------ 引导页 相关api ------  */
+    // 获取 节假日首屏页
+    getBaseImages: 'http://www.hugehuge.cn/api/mobile/normal/getBaseImages',
+
     /** ------ 回收 相关api ------  */
     // 获取回收物品 列表 (GET)
     getProducts: `${api_base_recycle}/api/customer/app/deal/getProducts`,
