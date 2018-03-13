@@ -45,7 +45,7 @@ export const guidePage = WrappedComponent => class extends Component{
     return <View style={styles.container}>
       <WrappedComponent {...this.props} />
       {/* 引导页：轮播 */}
-      <Modal visible={this.state.showGuidePage || this.state.showHolidayPage} onRequestClose={() => this.onRequestClose()}>
+      <Modal visible={this.state.showGuidePage || this.state.showHolidayPage || this.state.waiting} onRequestClose={() => this.onRequestClose()}>
         {
           this.state.waiting ?
             undefined
