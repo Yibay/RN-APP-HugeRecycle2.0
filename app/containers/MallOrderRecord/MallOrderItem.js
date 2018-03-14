@@ -118,6 +118,9 @@ class MallOrderItem extends Component{
               Alert.alert('此设备不支持 拨打电话',`请手动拨打${this.props.storePhone}`,[{text:'好的'}]);
             }
           }
+        },
+        {
+          text: '不了'
         }
       ]);
     }
