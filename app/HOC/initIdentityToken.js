@@ -40,24 +40,9 @@ const initIdentityToken = (WrappedComponent) => connect(null, { setAllProducts, 
     }
   }
 
-  // 2. 获取回收品列表（无需登录）
-  async getProducts(){
-    // 请求 回收类别相应数据
-    request
-      .get(config.api.getProducts)
-      .then(res => {
-        // 若请求成功，数据正常
-        if(!res.status){
-          // 2. 更新全局数据
-          this.props.setAllProducts(res.data);
-        }
-      })
-      .catch(e => console.log(e));
-  }
-
   render(){
 
-    return (<WrappedComponent {..._.omit(this.props, ['setAllProducts'])} />);
+    return (<WrappedComponent {..._.omit(this.props, ['setIdentityTokenThunk'])} />);
   }
 });
 

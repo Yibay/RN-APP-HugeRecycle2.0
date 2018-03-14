@@ -14,6 +14,7 @@ import Navigator from '../../../components/Navigator/Navigator';
 import SubCategory from '../../../containers/Recycle/SubCategory';
 import CallModule from '../../../containers/Recycle/CallModule';
 import CallModal from '../../../containers/Recycle/CallModal';
+import request from "../../../util/request/request";
 
 
 // 展示图片 固定宽度
@@ -92,6 +93,25 @@ class Recycle extends Component{
     </View>)
   }
 
+  async componentDidMount(){
+    await this.getProducts();
+  }
+
+  // 获取回收品列表（无需登录）
+  async getProducts(){
+    // 请求 回收类别相应数据
+    request
+      .get(config.api.getProducts)
+      .then(res => {
+        // 若请求成功，数据正常
+        if(!res.status){
+          // 2. 更新全局数据
+          this.props.setAllProducts(res.data);
+        }
+      })
+      .catch(e => console.log(e));
+  }
+
   // 弹出 一键呼叫 弹窗
   showCallModal(){
     this.setState({
@@ -104,6 +124,7 @@ class Recycle extends Component{
       callModalVisible: false
     });
   }
+
 }
 
 const styles = StyleSheet.create({
@@ -128,6 +149,5 @@ function mapStateToProps(state){
   }
 }
 
-const actionsCreator = { setAllProducts };
 
-export default connect(mapStateToProps, actionsCreator)(Recycle);
+export default connect(mapStateToProps, { setAllProducts })(Recycle);
