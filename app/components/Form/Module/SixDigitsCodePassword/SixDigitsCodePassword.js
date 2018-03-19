@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import {StyleSheet, View, Text, TextInput, TouchableWithoutFeedback} from 'react-native';
+import {StyleSheet, View, Text, TextInput, TouchableWithoutFeedback, Platform} from 'react-native';
 
 import PropTypes from 'prop-types';
 import SubmitBtn from '../../Btn/SubmitBtn';
@@ -98,8 +98,10 @@ const styles = StyleSheet.create({
   },
   // 6位码数据 (隐藏)
   passwordData: {
-    // display: 'none' // display TextInput 失去聚焦功能
-    height: 0,
+    ...Platform.select({
+      ios: {display: 'none'}, // android 下，此方案 TextInput 聚焦失败
+      android: {height: 0} // iOS 下，此方案 Alert时，隐藏的TextInput会显示
+    })
   },
   // 消息文案
   msg: {

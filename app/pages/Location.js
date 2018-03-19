@@ -29,7 +29,7 @@ class LocationPage extends Component{
       }
 
       <View style={this.props.authToken ? [styles.serviceScope].concat(styles.serviceScopeOnly) : styles.serviceScope }>
-        <Text style={styles.serviceScopeText}>查看全部服务范围</Text>
+        <Text style={styles.serviceScopeText} onPress={() => Actions.coverageAreaPage()}>查看全部服务范围</Text>
       </View>
     </View>)
   }
