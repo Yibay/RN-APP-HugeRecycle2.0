@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import PropTypes from 'prop-types';
 
 
-const SubmitBtn = props => (<TouchableWithoutFeedback onPress={props.submit}>
+const SubmitBtn = props => (<TouchableOpacity onPress={props.submit}>
   <View style={[styles.container].concat(props.style)}>
     <Text style={styles.text}>{props.text}</Text>
   </View>
-</TouchableWithoutFeedback>);
+</TouchableOpacity>);
 
 SubmitBtn.propTypes = {
   text: PropTypes.string.isRequired,

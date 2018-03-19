@@ -95,7 +95,10 @@ class RecycleOrder extends Component{
     if(res && !res.status){
       Actions.callSuccessPage({alreadyLogged: true}); // 通知 呼叫成功页 已登录
     }
-    // 请求 回收类别相应数据
+    else{
+      return;
+    }
+    // 清空 回收物品列表（请求 回收类别相应数据）
     const products = await request.get(config.api.getProducts);
     if(products && !products.status){
       this.props.resetRecycledItem(products.data);

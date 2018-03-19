@@ -10,12 +10,13 @@ import { Actions } from "react-native-router-flux";
 import { createOrderValidator } from '../../util/form/recycleOrderValidator';
 import request from '../../util/request/request';
 import config from '../../util/request/config';
+import validator from "../../util/form/validator";
+import {resetRecycledItem} from "../../redux/actions/Recycle";
 
 import AdaptLayoutWidth from '../../components/AdaptLayoutWidth';
 import HouseNumberAddressSection from '../../components/Form/Module/HouseNumberAddressSection';
 import InputSection from '../../components/Form/Input/InputSection';
 import RecordBtn from '../../components/Form/Btn/RecordBtn';
-import validator from "../../util/form/validator";
 
 
 class CallModal extends Component{
@@ -127,6 +128,10 @@ class CallModal extends Component{
       if(res && !res.status){
         Actions.callSuccessPage({alreadyLogged: true}); // 通知 呼叫成功页 已登录
       }
+      else{
+        console.log(res);
+        return;
+      }
     }
     // 若未登录
     else {
@@ -141,6 +146,15 @@ class CallModal extends Component{
       if(res && !res.status){
         Actions.callSuccessPage({alreadyLogged: false}); // 通知 呼叫成功页 已登录
       }
+      else{
+        console.log(res);
+        return;
+      }
+    }
+    // 清空 回收物品列表
+    const products = await request.get(config.api.getProducts);
+    if(products && !products.status){
+      this.props.resetRecycledItem(products.data);
     }
 
     // 发送成功后，关闭弹窗
@@ -256,4 +270,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps)(CallModal);
+export default connect(mapStateToProps, {resetRecycledItem})(CallModal);

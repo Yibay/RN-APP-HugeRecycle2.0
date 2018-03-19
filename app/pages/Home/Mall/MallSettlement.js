@@ -147,15 +147,16 @@ class MallSettlement extends Component {
   async submitReq(option){
     // 1. 下单请求
     const res = await request.postFormData(config.api.confirmMallOrder, option, {'X-AUTH-TOKEN': this.props.identityToken.authToken});
+    if(!res || res.status){Alert.alert(res.message);return;}
+
     // 2. 支付请求
-    let resReceipt;
-    (res && !res.status) && (resReceipt = await request.postFormData(config.api.receiptMallOrderPay,{orderId:res.data.orderId},{'X-AUTH-TOKEN': this.props.identityToken.authToken}));
+    let resReceipt = await request.postFormData(config.api.receiptMallOrderPay,{orderId:res.data.orderId},{'X-AUTH-TOKEN': this.props.identityToken.authToken});
 
     (resReceipt && !resReceipt.status)
       ?
       (Actions.mallOrderSuccess()) // 跳转到下单成功页面
       :
-      (Alert.alert('下单失败'));
+      (resReceipt.message && Alert.alert(resReceipt.message));
   }
 }
 

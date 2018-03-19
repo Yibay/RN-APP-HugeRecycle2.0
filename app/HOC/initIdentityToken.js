@@ -8,8 +8,6 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 
-import request from "../util/request/request";
-import config from "../util/request/config";
 // Action
 import { setIdentityTokenThunk } from '../redux/actions/IdentityToken';
 import { setAllProducts } from '../redux/actions/Recycle';
@@ -18,12 +16,7 @@ import { setAllProducts } from '../redux/actions/Recycle';
 const initIdentityToken = (WrappedComponent) => connect(null, { setAllProducts, setIdentityTokenThunk })(class extends Component {
 
   async componentWillMount(){
-
-    await Promise.all([
-      this.setIdentityToken(),
-      this.getProducts()
-    ]);
-
+    await this.setIdentityToken();
   }
 
   // 1. 设置身份信息
