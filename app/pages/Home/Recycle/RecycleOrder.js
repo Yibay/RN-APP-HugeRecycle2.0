@@ -35,7 +35,8 @@ class RecycleOrder extends Component{
 
     this.state = {
       isAerialWork: false,
-      remarks: ''
+      remarks: '',
+      createOrderFetching: false
     };
   }
 
@@ -68,12 +69,16 @@ class RecycleOrder extends Component{
           <Text style={styles.serviceTime}>服务时间：08:00 - 17:00</Text>
         </View>
         {/* 呼叫按钮 */}
-        <SubmitBtn text='确认呼叫' submit={() => this.createOrder()} style={styles.submitBtn} />
+        <SubmitBtn text={this.state.createOrderFetching ? '呼叫中' : '确认呼叫'} submit={() => this.createOrder()} style={styles.submitBtn} disable={this.state.createOrderFetching} />
       </ScrollView>
     </View>);
   }
 
   async createOrder(){
+    if(this.state.createOrderFetching){
+      return;
+    }
+    this.setState({createOrderFetching: true});
     // 检验 地址一系列属性时，通过id，一步检验
     let orderParams = _.pick(this.props.currentLocation,['id','communityId','communityName','haveHouseNumber','building','unit','room','address']);
     orderParams.accountName = this.props.currentLocation.customerName;
@@ -91,13 +96,15 @@ class RecycleOrder extends Component{
     // 检验 回收订单数据
     if(!createOrderValidator(orderParams)){
       // 未通过检验，则不执行下面 上传数据
+      this.setState({createOrderFetching: false});
       return;
     }
 
     // 最终上传参数，不需要传 id
-    const res = await request.post(config.api.createOrder, _.omit(orderParams, ['id']), {'X-AUTH-TOKEN': this.props.identityToken.authToken})
+    const res = await request.post(config.api.createOrder, _.omit(orderParams, ['id']), {'X-AUTH-TOKEN': this.props.identityToken.authToken});
+    this.setState({createOrderFetching: false});
     if(res && !res.status){
-      Actions.callSuccessPage({alreadyLogged: true}); // 通知 呼叫成功页 已登录
+      Actions.replace('callSuccessPage',{alreadyLogged: true}); // 通知 呼叫成功页 已登录
     }
     else{
       return;

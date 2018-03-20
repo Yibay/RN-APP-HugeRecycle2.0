@@ -1,24 +1,38 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ViewPropTypes } from 'react-native';
 
 import PropTypes from 'prop-types';
 
 
-const SubmitBtn = props => (<TouchableOpacity onPress={props.submit}>
-  <View style={[styles.container].concat(props.style)}>
-    <Text style={styles.text}>{props.text}</Text>
-  </View>
-</TouchableOpacity>);
+class SubmitBtn extends Component {
 
-SubmitBtn.propTypes = {
-  text: PropTypes.string.isRequired,
-  submit: PropTypes.func.isRequired
-};
+  static propTypes = {
+    text: PropTypes.string.isRequired,
+    submit: PropTypes.func,
+    disable: PropTypes.bool,
+    disableStyle: ViewPropTypes.style
+  };
 
-SubmitBtn.defaultProps = {
-  text: '确认',
-  submit: function(){console.log('未绑定 提交回调');}
-};
+  static defaultProps = {
+    text: '确认',
+    submit: function(){console.log('未绑定 提交回调');},
+    disable: false
+  };
+
+  render(){
+    return <TouchableOpacity onPress={() => this.submit()}>
+      <View style={[styles.container].concat(this.props.style).concat(this.props.disable ? [styles.disable].concat(this.props.disableStyle) : undefined)}>
+        <Text style={styles.text}>{this.props.text}</Text>
+      </View>
+    </TouchableOpacity>;
+  }
+
+  submit(){
+    if(!this.props.disable){
+      this.props.submit();
+    }
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -31,6 +45,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  disable: {
+    backgroundColor: '#888'
   },
   text: {
     textAlign: 'center',
