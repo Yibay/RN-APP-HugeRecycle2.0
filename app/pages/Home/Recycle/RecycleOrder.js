@@ -42,6 +42,10 @@ class RecycleOrder extends Component{
   }
 
   render(){
+
+    // 回收物中，是否有空调
+    let hasAirConditioner = !!this.props.recycledItemsList.list.filter(item => item.categoryId === 5).length;
+
     return (<View style={styles.container}>
       {/* 页头 */}
       <Header title='待回收物品'/>
@@ -51,9 +55,11 @@ class RecycleOrder extends Component{
         {/* 回收物模块 */}
         <RecycledItemsList />
         {/* 拆卸空调模块 */}
-        <View style={styles.AerialWorkSection}>
-          <Text style={styles.AerialWorkMsg}>是否需要拆卸空调</Text>
-          <Switch containerStyle={styles.AerialWorkSwitch}
+        {
+          hasAirConditioner ?
+            <View style={styles.AerialWorkSection}>
+              <Text style={styles.AerialWorkMsg}>是否需要拆卸空调<Text style={styles.AerialWorkPrice}>（拆卸费 50元）</Text></Text>
+              <Switch containerStyle={styles.AerialWorkSwitch}
                   value={this.state.isAerialWork}
                   onValueChange={val => this.setState({isAerialWork: val})}
                   activeText='是' inActiveText='否'
@@ -61,7 +67,10 @@ class RecycleOrder extends Component{
                   circleSize={40}
                   activeTextStyle={[styles.AerialWorkSwitchText, styles.activeTextStyle]}
                   inactiveTextStyle={styles.AerialWorkSwitchText}/>
-        </View>
+            </View>
+            :
+            undefined
+        }
         {/* 备注模块 */}
         <Remark title='如有特殊需求，请备注' val={this.state.remarks} onChangeText={val => this.setState({remarks: val})}/>
         {/* 服务时间 */}
@@ -142,6 +151,9 @@ const styles = StyleSheet.create({
   AerialWorkMsg: {
     fontSize: 26,
     fontWeight: '500'
+  },
+  AerialWorkPrice: {
+    color: 'red'
   },
   AerialWorkSwitch: {
     marginHorizontal: 20,
