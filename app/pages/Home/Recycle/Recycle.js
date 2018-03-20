@@ -26,7 +26,8 @@ class Recycle extends Component{
     super(props);
 
     this.state = {
-      callModalVisible: false
+      callModalVisible: false,
+      createOrderFetching: false // 创建回收订单，请求中
     };
   }
 

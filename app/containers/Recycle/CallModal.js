@@ -37,7 +37,8 @@ class CallModal extends Component{
       building: props.currentLocation.building ? props.currentLocation.building : '',
       unit: props.currentLocation.unit ? props.currentLocation.unit : '',
       room: props.currentLocation.room ? props.currentLocation.room : '',
-      code: ''
+      code: '',
+      createOrderFetching: false // 呼叫中
     }
   }
 
@@ -76,11 +77,11 @@ class CallModal extends Component{
               <HouseNumberAddressSection onChangeText={valObj => this.setState(valObj)} currentLocation={this.props.currentLocation} />
             </View>
             <View style={styles.btnSection}>
-              <TouchableOpacity style={[styles.btn, styles.btnConfirm]} onPress={() => this.confirmCall()}>
-                <Text style={[styles.msgText, styles.btnConfirmText]}>确认呼叫</Text>
+              <TouchableOpacity style={[styles.btn, styles.btnConfirm, this.state.createOrderFetching ? styles.disable : undefined]} onPress={() => this.confirmCall()}>
+                <Text style={[styles.msgText, styles.btnConfirmText]}>{this.state.createOrderFetching ? '呼叫中' : '确认呼叫'}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.btn, styles.btnCancel]} onPress={() => this.cancelCall()}>
-                <Text style={styles.msgText}>取消呼叫</Text>
+                <Text style={styles.msgText}>取消</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -91,17 +92,22 @@ class CallModal extends Component{
 
   // 取消呼叫
   cancelCall(){
+    if(this.state.createOrderFetching){return;}
+
     this.props.hideCallModal();
   }
 
   // 确认呼叫
   async confirmCall(){
+    if(this.state.createOrderFetching){return;}
+
+    this.setState({createOrderFetching: true});
 
     // 请求数据
     let params = _.assign(
       {},
       _.pick(this.props.currentLocation, ['communityId', 'communityName']), // 小区信息
-      this.state // 联系人、电话、有无户号等信息
+      _.omit(this.state,['createOrderFetching']) // 联系人、电话、有无户号等信息
     );
     params.isAerialWork = false; // 是否需要拆卸空调
     params.orderSource = Platform.select({ android: 4, ios: 5 });
@@ -117,6 +123,7 @@ class CallModal extends Component{
 
     // 检验数据
     if(!createOrderValidator(params)){
+      this.setState({createOrderFetching: false});
       return;
     }
 
@@ -130,6 +137,7 @@ class CallModal extends Component{
       }
       else{
         console.log(res);
+        this.setState({createOrderFetching: false});
         return;
       }
     }
@@ -138,6 +146,7 @@ class CallModal extends Component{
       // 带验证码 发送请求
       if(validator.isEmpty(this.state.code)){
         Alert.alert('请输入验证码');
+        this.setState({createOrderFetching: false});
         return;
       }
       // 带 code 短信验证码 发送请求
@@ -148,6 +157,7 @@ class CallModal extends Component{
       }
       else{
         console.log(res);
+        this.setState({createOrderFetching: false});
         return;
       }
     }
@@ -159,6 +169,7 @@ class CallModal extends Component{
 
     // 发送成功后，关闭弹窗
     this.props.hideCallModal();
+    this.setState({createOrderFetching: false});
   }
 
   // 获取验证码
@@ -228,6 +239,9 @@ const styles = StyleSheet.create({
   btnConfirmText: {
     fontWeight: '700',
     color: '#fff'
+  },
+  disable: {
+    backgroundColor: '#888'
   },
   btnCancel: {
     backgroundColor: 'rgba(249, 249, 249, 1)'

@@ -24,16 +24,20 @@ export const guidePage = WrappedComponent => class extends Component{
 
   componentWillMount(){
     Promise.all([
-      // 是否展示 引导页（轮播图）
+      // 是否展示 引导页（轮播图）Android Studio AsyncStorage.load Promise 失效, 真机有效
       storage.load({key:'version'})
         .then(ret => {
           // 更新版本，显示引导页
-          ret === config.version && this.setState({showGuidePage: false})
+          ret === config.version && this.setState({showGuidePage: false});
         })
-        .catch(e => {console.warn(e);}),
+        .catch(e => {
+          console.warn(e);
+        }),
       // 是否展示 节假日（首屏图）
       request.get(config.api.getBaseImages)
-        .then(res => res && !res.status && this.setState({holidayData: res.data, showHolidayPage: !!res.data.filter(item => item.showed).length}))
+        .then(res => {
+          res && !res.status && this.setState({holidayData: res.data, showHolidayPage: !!res.data.filter(item => item.showed).length});
+        })
         .catch(e => console.warn(e))
       ])
       .then(() => {
