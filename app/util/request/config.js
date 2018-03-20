@@ -148,6 +148,14 @@ export default {
     publish: `${api_base_recycle}/mobile/artical/all`,
     // 覆盖小区
     getCommunityCoverageArea: `${api_base_recycle}/api/mobile/normal/getCommunityCoverageArea`,
+    // 是否开启消费密码 (POST 表单) 需要登录 header X-AUTH-TOKEN
+    // params:
+    //  payPasswordFlag (1是开启，0是关闭)
+    updatePayPasswordFlag: `${api_base_recycle}/web/customer/updatePayPasswordFlag`,
+    // 修改消费密码 (POST 表单) 需要登录 header X-AUTH-TOKEN
+    // params:
+    //  payPassword
+    updateCustomerPayPassword: `${api_base_recycle}/web/customer/updateCustomerPayPassword`,
 
 
     /** ------ 商场 便利店相关api ------  */

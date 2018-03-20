@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, Switch, TextInput, Platform } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, Platform } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Actions } from 'react-native-router-flux';
+import { Switch } from 'react-native-switch';
 
 
 import { createOrderValidator } from '../../../util/form/recycleOrderValidator';
@@ -50,11 +51,14 @@ class RecycleOrder extends Component{
         {/* 拆卸空调模块 */}
         <View style={styles.AerialWorkSection}>
           <Text style={styles.AerialWorkMsg}>是否需要拆卸空调</Text>
-          <View style={styles.AerialWorkSwitchSection}>
-            <Text style={styles.AerialWorkMsg}>否</Text>
-            <Switch style={styles.AerialWorkSwitch} value={this.state.isAerialWork} onValueChange={val => this.setState({isAerialWork: val})} />
-            <Text style={styles.AerialWorkMsg}>是</Text>
-          </View>
+          <Switch containerStyle={styles.AerialWorkSwitch}
+                  value={this.state.isAerialWork}
+                  onValueChange={val => this.setState({isAerialWork: val})}
+                  activeText='是' inActiveText='否'
+                  backgroundActive='#fed309'
+                  circleSize={40}
+                  activeTextStyle={[styles.AerialWorkSwitchText, styles.activeTextStyle]}
+                  inactiveTextStyle={styles.AerialWorkSwitchText}/>
         </View>
         {/* 备注模块 */}
         <Remark title='如有特殊需求，请备注' val={this.state.remarks} onChangeText={val => this.setState({remarks: val})}/>
@@ -129,12 +133,15 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: '500'
   },
-  AerialWorkSwitchSection: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
   AerialWorkSwitch: {
-    marginHorizontal: 20
+    marginHorizontal: 20,
+    overflow: 'hidden'
+  },
+  AerialWorkSwitchText: {
+    fontSize: 25
+  },
+  activeTextStyle: {
+    color: '#000'
   },
   // 备注模块
   // 服务时间

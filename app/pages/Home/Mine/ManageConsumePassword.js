@@ -6,6 +6,8 @@ import {Actions} from 'react-native-router-flux';
 
 
 import {updateConsumePWValidator} from '../../../util/form/mineValidator';
+import request from '../../../util/request/request';
+import config from '../../../util/request/config';
 
 import Header from "../../../components/Header/Header";
 import {verifyLogin} from "../../../HOC/verifyLogin";
@@ -51,17 +53,19 @@ class ManageConsumePassword extends Component {
   }
 
   // 确认修改
-  submit(password){
+  async submit(password){
     // 验证6位码，数据
     const result = updateConsumePWValidator(password);
     if(!result.value){
       return result.reset;
     }
     // 发送请求
-    console.log(password.substr(0,6));
-    Alert.alert('修改成功','',[
-      {text: '确定', onPress: () => Actions.pop()}
-    ]);
+    const res = await request.postFormData(config.api.updateCustomerPayPassword,{payPassword: password.substr(0,6)},{'X-AUTH-TOKEN': this.props.identityToken.authToken});
+    if(res && !res.status){
+      Alert.alert('修改成功','',[
+        {text: '确定', onPress: () => Actions.pop()}
+      ]);
+    }
   }
 }
 
