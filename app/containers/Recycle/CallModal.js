@@ -11,6 +11,7 @@ import { createOrderValidator } from '../../util/form/recycleOrderValidator';
 import request from '../../util/request/request';
 import config from '../../util/request/config';
 import validator from "../../util/form/validator";
+import {showRecycleOrderError} from "../../util/alertError";
 import {resetRecycledItem} from "../../redux/actions/Recycle";
 
 import AdaptLayoutWidth from '../../components/AdaptLayoutWidth';
@@ -136,8 +137,8 @@ class CallModal extends Component{
         Actions.callSuccessPage({alreadyLogged: true}); // 通知 呼叫成功页 已登录
       }
       else{
-        console.log(res);
         this.setState({createOrderFetching: false});
+        showRecycleOrderError(res);
         return;
       }
     }
@@ -156,8 +157,8 @@ class CallModal extends Component{
         Actions.callSuccessPage({alreadyLogged: false}); // 通知 呼叫成功页 已登录
       }
       else{
-        console.log(res);
         this.setState({createOrderFetching: false});
+        showRecycleOrderError(res);
         return;
       }
     }

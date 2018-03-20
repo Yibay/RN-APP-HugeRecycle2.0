@@ -12,6 +12,7 @@ import { Switch } from 'react-native-switch';
 import { createOrderValidator } from '../../../util/form/recycleOrderValidator';
 import request from '../../../util/request/request';
 import config from '../../../util/request/config';
+import {showRecycleOrderError} from '../../../util/alertError';
 import { resetRecycledItem } from '../../../redux/actions/Recycle';
 
 import { verifyLogin } from '../../../HOC/verifyLogin';
@@ -107,8 +108,10 @@ class RecycleOrder extends Component{
       Actions.replace('callSuccessPage',{alreadyLogged: true}); // 通知 呼叫成功页 已登录
     }
     else{
+      showRecycleOrderError(res);
       return;
     }
+
     // 清空 回收物品列表（请求 回收类别相应数据）
     const products = await request.get(config.api.getProducts);
     if(products && !products.status){
