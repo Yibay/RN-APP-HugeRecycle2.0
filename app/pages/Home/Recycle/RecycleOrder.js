@@ -36,7 +36,7 @@ class RecycleOrder extends Component{
     this.state = {
       isAerialWork: false,
       remarks: '',
-      createOrderFetching: false
+      createOrderFetching: false // 创建回收订单，请求中
     };
   }
 

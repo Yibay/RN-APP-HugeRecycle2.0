@@ -29,7 +29,7 @@ class Holiday extends Component{
   render(){
     return <AdaptLayoutWidth>
       <View style={styles.container} ref='componentExisted'>
-        <Image style={styles.holidayImg} source={{uri: this.props.holidayData[0].imageSrc}} resizeMode='contain'/>
+        <Image style={styles.holidayImg} source={{uri: this.props.holidayData[0].imageSrc}} resizeMode='stretch'/>
         <TouchableWithoutFeedback onPress={() => this.props.hideHolidayPage()}>
           <View style={styles.countDownBtn}>
             <Text style={styles.text}>跳过 <Text style={styles.countDown}>{this.state.countDown}</Text>秒</Text>

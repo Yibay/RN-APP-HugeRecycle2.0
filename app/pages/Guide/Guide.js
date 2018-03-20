@@ -2,7 +2,7 @@
 * 首次登陆介绍页
 * */
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions } from 'react-native';
 
 import Swiper from 'react-native-swiper';
 import PropTypes from 'prop-types';
@@ -13,6 +13,8 @@ let guidePage = [
   require('../../assets/img/Guide2.png'),
   require('../../assets/img/Guide3.png')
 ];
+
+let {width, height} = Dimensions.get('window');
 
 class Guide extends Component{
 
@@ -25,7 +27,7 @@ class Guide extends Component{
       <Swiper style={styles.wrapper} paginationStyle={styles.paginationStyle} loop={false}>
         {
           guidePage.map((item, index) => <View key={index} style={styles.slide}>
-            <Image style={styles.guideBg} source={item} resizeMode='contain' />
+            <Image style={{width, height}} source={item} resizeMode='stretch' />
             {
               index === guidePage.length - 1 ?
                 <TouchableOpacity style={styles.button} onPress={() => this.props.hideGuidePage()}><Text style={styles.buttonText}>立即体验</Text></TouchableOpacity>
@@ -48,18 +50,16 @@ const styles = StyleSheet.create({
   },
   paginationStyle: {
     // marginBottom: 50
+    // bottom: 20
   },
   slide: {
     position: 'relative',
     flex: 1,
     alignItems: 'center'
   },
-  guideBg: {
-    flex: 1
-  },
   button: {
     position: 'absolute',
-    bottom: 60,
+    bottom: 50,
     paddingVertical: 10,
     paddingHorizontal: 30,
     borderRadius: 5,
