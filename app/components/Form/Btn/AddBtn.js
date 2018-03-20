@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import PropTyps from 'prop-types';
 
 
-const AddBtn = props => <TouchableWithoutFeedback onPress={() => props.callBack()}>
+const AddBtn = props => <TouchableOpacity onPress={() => props.callBack()}>
   <View style={styles.container}>
     <Icon name='md-add' size={30} color='#fff' />
   </View>
-</TouchableWithoutFeedback>;
+</TouchableOpacity>;
 
 AddBtn.propTypes = {
-  callBack: PropTyps.func.isRequired
+  callBack: PropTyps.func
 };
 
 AddBtn.defaultProps = {

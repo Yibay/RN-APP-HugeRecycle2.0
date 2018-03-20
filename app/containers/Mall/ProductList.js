@@ -11,7 +11,7 @@ import config from '../../util/request/config';
 
 import ProductItem from './ProductItem';
 import AddBtn from '../../components/Form/Btn/AddBtn';
-import CartBtn from '../../components/Form/Btn/CartBtn';
+import CartBtn from '../../components/Form/Btn/CartBtn/CartBtn';
 
 
 class ProductList extends Component {

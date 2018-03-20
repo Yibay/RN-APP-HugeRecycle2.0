@@ -33,12 +33,17 @@ class SettlementModule extends Component {
       <View style={styles.total}>
         <Text style={styles.totalText}>已选中 {amount}件，合计 {total.toFixed(2)}元</Text>
       </View>
-      <TouchableWithoutFeedback onPress={this.props.onPress}>
-        <View style={styles.settlement}>
+      <TouchableWithoutFeedback onPress={() => this.settlement(amount)}>
+        <View style={amount ? styles.settlement : [styles.settlement, styles.disable]}>
           <Text style={styles.settlementText}>结算</Text>
         </View>
       </TouchableWithoutFeedback>
     </View>
+  }
+
+  settlement(amount){
+    if(!amount){return;}
+    this.props.onPress();
   }
 }
 
@@ -63,6 +68,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffd101',
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  disable: {
+    backgroundColor: '#888'
   },
   settlementText: {
     textAlign: 'center',
