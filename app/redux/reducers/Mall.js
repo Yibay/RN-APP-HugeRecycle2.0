@@ -109,7 +109,8 @@ function shoppingCart(state=defaultShoppingCart, actions){
       return {
         validProductList: actions.validProductList || state.validProductList,
         invalidProductList: actions.invalidProductList || state.invalidProductList,
-        isFetching: typeof actions.isFetching === 'undefined' ? state.isFetching : actions.isFetching
+        isFetching: typeof actions.isFetching === 'undefined' ? state.isFetching : actions.isFetching,
+        num: typeof actions.num === 'undefined' ? state.num : actions.num
       };
     default:
       return state;

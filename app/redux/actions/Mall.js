@@ -9,7 +9,7 @@ export const SET_ShowStoreSelector = 'SET_ShowStoreSelector';
 export const SET_ShoppingCart = 'SET_ShoppingCart';
 
 // 其他常量
-export const defaultShoppingCart = {validProductList:[],invalidProductList:[],isFetching: false}; // 用户购物车，默认值
+export const defaultShoppingCart = {validProductList:[],invalidProductList:[],isFetching: false,num: 0}; // 用户购物车，默认值
 
 
 /**
@@ -130,8 +130,11 @@ export function setStoreIndexThunk(storeIndex){
     /** 1、设置 便利店序号 */
     dispatch(setStoreIndex(storeIndex));
 
-    /** 2、根据 小区对应服务站，获取便利店 categoryId 数组、头部banner图片 */
+    /** 2、根据 便利店id，获取便利店 categoryId 数组、头部banner图片 */
     dispatch(updateStoreProductList());
+
+    /** 3、根据便利店id，获取 更新购物车 */
+    dispatch(setShoppingCartThunk());
   }
 }
 
@@ -149,19 +152,23 @@ export function setShowStoreSelector(showStoreSelector) {
   }
 }
 
+
+
 /**
  * 设置用户购物车
  * @param validProductList
  * @param invalidProductList
  * @param isFetching
- * @returns {{type: string, validProductList: *, invalidProductList: *, isFetching: *}}
+ * @param num
+ * @returns {{type: string, validProductList: *, invalidProductList: *, isFetching: *, num: *}}
  */
-export function setShoppingCart({validProductList,invalidProductList,isFetching}){
+export function setShoppingCart({validProductList,invalidProductList,isFetching,num}){
   return {
     type: SET_ShoppingCart,
     validProductList,
     invalidProductList,
-    isFetching
+    isFetching,
+    num
   }
 }
 export function setShoppingCartThunk(){
@@ -184,10 +191,25 @@ export function setShoppingCartThunk(){
       {'X-AUTH-TOKEN': state.identityToken.authToken});
 
     if(res && !res.status){
+      let buyAmount = 0;
+      if(res.data.validProductList){
+        if(res.data.validProductList.length === 1){
+          buyAmount = res.data.validProductList[0].buyAmount;
+        }
+        if(res.data.validProductList.length > 1){
+          buyAmount = res.data.validProductList.reduce((preVal, curVal, curIndex) => {
+            if(curIndex === 1){
+              preVal = preVal.buyAmount;
+            }
+            return preVal + curVal.buyAmount;
+          });
+        }
+      }
       dispatch(setShoppingCart({
         validProductList: res.data.validProductList || [],
         invalidProductList: res.data.invalidProductList || [],
-        isFetching: false
+        isFetching: false,
+        num: buyAmount
       }));
     }
     else{

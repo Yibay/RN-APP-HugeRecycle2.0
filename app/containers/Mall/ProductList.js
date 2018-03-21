@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 
 import request from '../../util/request/request';
 import config from '../../util/request/config';
+import {setShoppingCartThunk} from '../../redux/actions/Mall';
 
 import ProductItem from './ProductItem';
 import AddBtn from '../../components/Form/Btn/AddBtn';
@@ -59,7 +60,7 @@ class ProductList extends Component {
         ListHeaderComponent={this.props.ListHeaderComponent}
         ListFooterComponent={(this.state.productList.length !== this.props.productList.length) ? <ActivityIndicator style={styles.activityIndicator} size='large'/> :  undefined}
       />
-      <CartBtn style={styles.cartBtn} onPress={() => {Actions.mallCart()}}/>
+      <CartBtn style={styles.cartBtn} onPress={() => {Actions.mallCart()}} num={this.props.cartNum}/>
     </View>
   }
 
@@ -72,10 +73,14 @@ class ProductList extends Component {
   }
 
   // 添加到购物车
-  addCart(item){
-    request
-      .get(`${config.api.addCart}${item.storeProductId}`,{amount:1},{'X-AUTH-TOKEN': this.props.authToken})
-      .then(res => console.log(res))
+  async addCart(item){
+    const res = await request.get(`${config.api.addCart}${item.storeProductId}`,{amount:1},{'X-AUTH-TOKEN': this.props.authToken});
+    if(res && !res.status){
+      this.props.setShoppingCartThunk();
+    }
+    else{
+      console.log(res);
+    }
   }
 }
 
@@ -97,7 +102,7 @@ const styles = StyleSheet.create({
   cartBtn: {
     position: 'absolute',
     bottom: 100,
-    right: 10
+    right: 30
   },
   // loading icon
   activityIndicator: {
@@ -108,8 +113,9 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
-    authToken: state.identityToken.authToken
+    authToken: state.identityToken.authToken,
+    cartNum: state.mall.shoppingCart.num
   }
 }
 
-export default connect(mapStateToProps)(ProductList);
+export default connect(mapStateToProps,{setShoppingCartThunk})(ProductList);
