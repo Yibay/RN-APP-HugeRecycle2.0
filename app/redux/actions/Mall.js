@@ -33,6 +33,9 @@ export function setStoreInfoThunk(storeInfo){
     /** 2、根据 小区对应服务站，获取便利店 categoryId 数组、头部banner图片 */
     dispatch(updateStoreProductList());
 
+    /** 3、根据便利店id，获取 更新购物车 */
+    dispatch(setShoppingCartThunk());
+
   }
 }
 /** Thunk: 更新 便利店的具体信息：商品大类、banner图、产品列表 */
@@ -180,9 +183,9 @@ export function setShoppingCartThunk(){
       return;
     }
     // 之前请求未结束
-    if(state.mall.shoppingCart.isFetching){
-      return;
-    }
+    // if(state.mall.shoppingCart.isFetching){
+    //   return;
+    // }
     // 发起请求（购物车数据）
     dispatch(setShoppingCart({isFetching: true}));
     const res = await request.get(
