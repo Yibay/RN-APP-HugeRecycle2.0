@@ -80,7 +80,16 @@ class CommunitySearchEngines extends Component {
       }
       // 否则更新到 redux currentLocation
       else{
-        this.props.setLocationThunk(this.state.communitySelected);
+        // 查看 用户地址列表中，是否有相同小区
+        let matchingAddress = this.props.userAddressList.filter(item => item.communityId === this.state.communitySelected.communityId);
+        // 有,则取那个地址
+        if(matchingAddress.length){
+          this.props.setLocationThunk(matchingAddress[0]);
+        }
+        // 没有,则仅取定位小区
+        else{
+          this.props.setLocationThunk(this.state.communitySelected);
+        }
       }
       Actions.pop();
       Actions.pop();
@@ -117,4 +126,11 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, {setLocationThunk})(CommunitySearchEngines);
+function mapStateToProps(state){
+  return {
+    // communitySelected: state.location.currentLocation,
+    userAddressList: state.location.userAddressList
+  }
+}
+
+export default connect(mapStateToProps, {setLocationThunk})(CommunitySearchEngines);

@@ -1,10 +1,15 @@
 import request from "../../util/request/request";
 import config from "../../util/request/config";
 
+// type 类型
 export const SET_StoreInfo = 'SET_StoreInfo';
 export const SET_ProductList = 'SET_ProductList';
 export const SET_StoreIndex = 'SET_StoreIndex';
 export const SET_ShowStoreSelector = 'SET_ShowStoreSelector';
+export const SET_ShoppingCart = 'SET_ShoppingCart';
+
+// 其他常量
+export const defaultShoppingCart = {validProductList:[],invalidProductList:[],isFetching: false}; // 用户购物车，默认值
 
 
 /**
@@ -141,5 +146,54 @@ export function setShowStoreSelector(showStoreSelector) {
   return {
     type: SET_ShowStoreSelector,
     showStoreSelector
+  }
+}
+
+/**
+ * 设置用户购物车
+ * @param validProductList
+ * @param invalidProductList
+ * @param isFetching
+ * @returns {{type: string, validProductList: *, invalidProductList: *, isFetching: *}}
+ */
+export function setShoppingCart({validProductList,invalidProductList,isFetching}){
+  return {
+    type: SET_ShoppingCart,
+    validProductList,
+    invalidProductList,
+    isFetching
+  }
+}
+export function setShoppingCartThunk(){
+  return async function(dispatch, getState){
+    let state = getState();
+    // 未登录 或 当前地址无便利店
+    if(!state.identityToken.authToken || !state.mall.store.storeInfo.length){
+      dispatch(setShoppingCart(defaultShoppingCart));
+      return;
+    }
+    // 之前请求未结束
+    if(state.mall.shoppingCart.isFetching){
+      return;
+    }
+    // 发起请求（购物车数据）
+    dispatch(setShoppingCart({isFetching: true}));
+    const res = await request.get(
+      config.api.getShoppingCartProductList,
+      {storeId: state.mall.store.storeInfo[state.mall.store.storeIndex].storeId},
+      {'X-AUTH-TOKEN': state.identityToken.authToken});
+
+    if(res && !res.status){
+      dispatch(setShoppingCart({
+        validProductList: res.data.validProductList || [],
+        invalidProductList: res.data.invalidProductList || [],
+        isFetching: false
+      }));
+    }
+    else{
+      dispatch(setShoppingCart({
+        isFetching: false
+      }))
+    }
   }
 }

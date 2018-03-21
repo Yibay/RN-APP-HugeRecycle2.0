@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { Router, Scene, Stack } from 'react-native-router-flux';
 import { StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 
 
 // HOC 屏宽适配
@@ -10,6 +11,9 @@ import { adaptLayoutWidth } from '../HOC/adaptLayout';
 import initIdentityToken from '../HOC/initIdentityToken';
 // HOC 启动页、引导页轮播图
 import {guidePage} from '../HOC/guidePage';
+
+// Actions
+import { setShoppingCartThunk } from '../redux/actions/Mall';
 
 // 页面路由 TabIcon
 import { RecycleIcon, MallIcon, MineIcon } from '../HOC/configTabIcon';
@@ -73,7 +77,7 @@ class AppRouter extends Component{
         {/* 商城 商品分类页 */}
         <Scene key='mallCategoryPage' component={MallCategory} hideNavBar={true} />
         {/* 商城 商品购物车页 */}
-        <Scene key='mallCart' component={MallCart} hideNavBar={true} />
+        <Scene key='mallCart' component={MallCart} hideNavBar={true} onEnter={() => {this.props.setShoppingCartThunk()}} />
         {/* 商城 商品搜索页 */}
         <Scene key='mallSearch' component={MallSearch} hideNavBar={true} />
         {/* 商城 便利店暂未开通页  */}
@@ -171,4 +175,4 @@ const tabsStyle = {
 };
 
 // 屏宽适配, 登录状态管理相关数据, 地址管理相关数据
-export default adaptLayoutWidth(initIdentityToken(guidePage(AppRouter)));
+export default adaptLayoutWidth(initIdentityToken(guidePage(connect(null,{setShoppingCartThunk})(AppRouter))));
