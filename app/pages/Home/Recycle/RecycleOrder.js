@@ -46,7 +46,7 @@ class RecycleOrder extends Component{
     // 回收物中，是否有空调
     let hasAirConditioner = !!this.props.recycledItemsList.list.filter(item => item.categoryId === 5).length;
 
-    return (<View style={styles.container}>
+    return (<View style={styles.container} ref='componentExisted'>
       {/* 页头 */}
       <Header title='待回收物品'/>
       {/* 地址模块 */}
@@ -104,7 +104,7 @@ class RecycleOrder extends Component{
     }));
 
     // 检验 回收订单数据
-    if(!createOrderValidator(orderParams)){
+    if(!createOrderValidator(orderParams) && this.refs.componentExisted){
       // 未通过检验，则不执行下面 上传数据
       this.setState({createOrderFetching: false});
       return;
@@ -112,9 +112,9 @@ class RecycleOrder extends Component{
 
     // 最终上传参数，不需要传 id
     const res = await request.post(config.api.createOrder, _.omit(orderParams, ['id']), {'X-AUTH-TOKEN': this.props.identityToken.authToken});
-    this.setState({createOrderFetching: false});
+    this.refs.componentExisted && this.setState({createOrderFetching: false});
     if(res && !res.status){
-      Actions.replace('callSuccessPage',{alreadyLogged: true}); // 通知 呼叫成功页 已登录
+      Actions.callSuccessPage({alreadyLogged: true}); // 通知 呼叫成功页 已登录
     }
     else{
       showRecycleOrderError(res);

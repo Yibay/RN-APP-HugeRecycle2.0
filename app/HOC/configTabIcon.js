@@ -30,7 +30,7 @@ export const RecycleIcon = configTabIcon(TabIcon,
 // 商场Tab icon
 export const MallIcon = configTabIcon(TabIcon,
   {
-    label: '虎哥商场',
+    label: '虎哥商城',
     icon: <Image source={require('../containers/HomeTabs/TabIcon/img/store.png')} resizeMode='contain' style={styles.icon} />,
     activeIcon: <Image source={require('../containers/HomeTabs/TabIcon/img/Selected-store.png')} resizeMode='contain' style={styles.icon} />
   });

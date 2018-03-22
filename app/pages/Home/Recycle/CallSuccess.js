@@ -21,12 +21,12 @@ class CallSuccess extends Component {
 
   render(){
     return (<View style={styles.container}>
-      <Header title='呼叫成功' />
+      <Header title='呼叫成功' back={() => Actions.popTo('_recycle')} />
       <View style={styles.content}>
         <Image source={require('../../../assets/iconImg/right-call2x.png')} resizeMode='contain' style={styles.logo} />
         <Text style={styles.message}>呼叫成功</Text>
-        <Text style={[styles.message, styles.messageSpacing]}>虎哥会在15-30分钟内上门</Text>
-        <Text style={[styles.message, styles.messageSpacing]}>请留意手机消息</Text>
+        <Text style={[styles.message, styles.messageSpacing]}>虎哥会尽快上门</Text>
+        <Text style={[styles.message, styles.messageSpacing]}>请保持手机畅通</Text>
         {
           this.props.alreadyLogged ?
             <SubmitBtn style={styles.SubmitBtn} text='查看详情' submit={() => this.submit()} />

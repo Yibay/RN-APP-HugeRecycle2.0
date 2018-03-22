@@ -41,7 +41,9 @@ class AddressManagement extends Component {
             <View style={styles.addressItem}>
               <AddressSection currentLocation={item} rightButton={
                 <TouchableWithoutFeedback onPress={() => this.goToEditAddress(item)}>
-                  <Image source={require('../assets/iconImg/edit2x.png')} resizeMode='contain' style={styles.editButton} />
+                  <View style={styles.editButtonTouchable}>
+                    <Image source={require('../assets/iconImg/edit2x.png')} resizeMode='contain' style={styles.editButton} />
+                  </View>
                 </TouchableWithoutFeedback>
               } />
             </View>
@@ -79,6 +81,12 @@ const styles = StyleSheet.create({
   addressItem: {
     borderBottomWidth: 2,
     borderBottomColor: '#e1e5e8'
+  },
+  editButtonTouchable: {
+    width: 60,
+    height: 60,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   editButton: {
     width: 30,

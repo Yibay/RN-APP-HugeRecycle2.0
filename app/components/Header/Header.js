@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableWithoutFeedback, StatusBar } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableWithoutFeedback, StatusBar } from 'react-native';
 
 import PropTypes from 'prop-types';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
 
 
@@ -30,7 +29,9 @@ class Header extends Component{
     if(!this.props.hideBack){
       leftButton = (
         <TouchableWithoutFeedback onPress={() => this.props.back()}>
-          <Icon style={styles.back} name="ios-arrow-back" size={50} color="#000" />
+          <View style={styles.back}>
+            <Image source={require('./img/back2x.png')} resizeMode='contain' style={styles.backIcon}/>
+          </View>
         </TouchableWithoutFeedback>
       );
     }
@@ -81,8 +82,16 @@ const styles = StyleSheet.create({
   back: {
     position: 'absolute',
     zIndex: 10,
-    left: 30,
-    bottom: 5
+    left: 0,
+    bottom: 0,
+    width: 80,
+    height: 77,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  backIcon: {
+    width: 20,
+    height: 37
   },
   leftButton: {
     position: 'absolute',
