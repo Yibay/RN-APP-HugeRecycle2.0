@@ -104,28 +104,18 @@ class MallOrderItem extends Component{
   }
 
   // 联系商家
-  contactSeller(){
+  async contactSeller(){
     if(this.props.storePhone){
-      Alert.alert('联系商家','',[
-        {
-          text: '拨打',
-          onPress: async () => {
-            const supported = await Linking.canOpenURL(`tel:${this.props.storePhone}`).catch(e => {console.log(e);return false});
-            if(supported){
-              Linking.openURL(`tel:${this.props.storePhone}`);
-            }
-            else{
-              Alert.alert('此设备不支持 拨打电话',`请手动拨打${this.props.storePhone}`,[{text:'好的'}]);
-            }
-          }
-        },
-        {
-          text: '不了'
-        }
-      ]);
+      const supported = await Linking.canOpenURL(`tel:${this.props.storePhone}`).catch(e => {console.log(e);return false});
+      if(supported){
+        Linking.openURL(`tel:${this.props.storePhone}`);
+      }
+      else{
+        Alert.alert('此设备不支持 拨打电话',`请手动拨打${this.props.storePhone}`);
+      }
     }
     else{
-      Alert.alert('无商家电话','',[{text:'确定'}])
+      Alert.alert('无商家电话');
     }
   }
 }

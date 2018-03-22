@@ -12,11 +12,11 @@ class MallOrderSuccess extends Component {
 
   render(){
     return (<View style={styles.container}>
-      <Header title='下单成功' />
+      <Header title='下单成功' back={Actions.popTo('_shoppingMall')} />
       <View style={styles.content}>
         <Image source={require('../../../assets/iconImg/right-call2x.png')} resizeMode='contain' style={styles.logo} />
-        <Text style={styles.message}>下单成功，商家会在</Text>
-        <Text style={[styles.message, styles.messageSpacing]}>30-60分钟内送货上门</Text>
+        <Text style={styles.message}>下单成功</Text>
+        <Text style={[styles.message, styles.messageSpacing]}>商家回尽快送货上门</Text>
         <Text style={[styles.message, styles.messageSpacing]}>请留意手机消息</Text>
         <SubmitBtn style={styles.SubmitBtn} text='查看详情' submit={() => this.submit()} />
       </View>

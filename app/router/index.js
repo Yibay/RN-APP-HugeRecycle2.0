@@ -5,6 +5,8 @@ import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 
+// HOC 锁定视图方向
+import {lockOrientation} from '../HOC/lockOrientation';
 // HOC 屏宽适配
 import { adaptLayoutWidth } from '../HOC/adaptLayout';
 // HOC 中间件 登录状态
@@ -174,5 +176,5 @@ const tabsStyle = {
   }
 };
 
-// 屏宽适配, 登录状态管理相关数据, 地址管理相关数据
-export default adaptLayoutWidth(initIdentityToken(guidePage(connect(null,{setShoppingCartThunk})(AppRouter))));
+// 视图锁定纵向,屏宽适配, 登录状态管理相关数据, 地址管理相关数据
+export default lockOrientation(adaptLayoutWidth(initIdentityToken(guidePage(connect(null,{setShoppingCartThunk})(AppRouter)))));
