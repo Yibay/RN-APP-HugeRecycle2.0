@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import {StyleSheet, View, Text, TextInput, TouchableWithoutFeedback, Platform} from 'react-native';
+import {StyleSheet, View, Text, TextInput, TouchableWithoutFeedback, Platform, Keyboard} from 'react-native';
 
 import PropTypes from 'prop-types';
 import SubmitBtn from '../../Btn/SubmitBtn';
@@ -56,11 +56,20 @@ class SixDigitsCodePassword extends Component {
   componentDidMount(){
     // 进入页面自动聚焦
     this.focusPassword();
+    // 隐藏键盘时，失焦，再聚焦时，才能弹出键盘。
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide',() => this.blurPassword());
+  }
+
+  componentWillUnmount(){
+    this.keyboardDidHideListener.remove();
   }
 
   // 事件1: 聚焦真实密码(点击6位码框)
   focusPassword(){
     this.refs.passwordData.focus();
+  }
+  blurPassword(){
+    this.refs.passwordData.blur();
   }
 
   // 事件2: 设置真实密码(键盘输入密码)

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 import PropTypes from 'prop-types';
 
@@ -12,10 +12,10 @@ class InputSection extends Component {
     label: PropTypes.string.isRequired, // label 文案
     placeholder: PropTypes.string.isRequired, // placeholder 文案
     editable: PropTypes.bool.isRequired, // input 是否可手动编辑
-    // leftButton: PropTypes.element.isRequired, // 左侧按钮
-    rightButton: PropTypes.element.isRequired, // 右侧按钮
+    leftButton: PropTypes.element, // 左侧按钮
+    rightButton: PropTypes.element, // 右侧按钮
     keyboardType: PropTypes.oneOf(['default','numeric','email-address','phone-pad']),
-    secureTextEntry: PropTypes.bool.isRequired // 隐藏输入内容
+    secureTextEntry: PropTypes.bool.isRequired // 隐藏输入内容(密文)
   };
 
   static defaultProps = {
@@ -23,7 +23,6 @@ class InputSection extends Component {
     label: '',
     placeholder: '',
     editable: true,
-    rightButton: (<View />),
     keyboardType: 'default',
     secureTextEntry: false
   };
@@ -40,16 +39,39 @@ class InputSection extends Component {
           :
           <Text style={styles.label} onPress={() => this.focusInput()}>{this.props.label}</Text> // 没有自定义左侧按钮显示，label
       }
-      <TextInput style={styles.textInput} secureTextEntry={this.props.secureTextEntry} underlineColorAndroid="transparent" ref="input" value={this.props.value} onChangeText={val => this.props.onChangeText(val)} editable={this.props.editable} placeholder={this.props.placeholder} keyboardType={this.props.keyboardType} />
+      <TextInput style={styles.textInput}
+                 ref="input"
+                 value={this.props.value}
+                 onChangeText={val => this.props.onChangeText(val)}
+                 placeholder={this.props.placeholder}
+                 editable={this.props.editable}
+                 secureTextEntry={this.props.secureTextEntry}
+                 underlineColorAndroid="transparent"
+                 keyboardType={this.props.keyboardType}
+                 onSubmitEditing={() => this.blurInput()}/>
       {
         this.props.rightButton // 若有右侧按钮，则添加
       }
     </View>);
   }
 
+  componentDidMount(){
+    // 软键盘关闭时，失去焦点
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide',() => this.blurInput());
+  }
+
+  componentWillUnmount(){
+    this.keyboardDidHideListener.remove();
+  }
+
   // 点击label 聚焦input
   focusInput(){
     this.refs.input.focus();
+  }
+
+  // 失去焦点
+  blurInput(){
+    this.refs.input.blur();
   }
 }
 

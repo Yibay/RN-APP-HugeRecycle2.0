@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Modal, TouchableOpacity, Platform, Alert } from 'react-native';
+import { StyleSheet, View, Text, Modal, TouchableOpacity, Platform, Alert, KeyboardAvoidingView, Keyboard } from 'react-native';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -61,11 +61,12 @@ class CallModal extends Component{
   render(){
     return (<Modal transparent={true} visible={this.props.visible} onRequestClose={() => this.onRequestClose()}>
       <AdaptLayoutWidth>
-        <View style={styles.container}>
+        {/* 关闭软键盘，触发input失焦 */}
+        <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={-150} onStartShouldSetResponder={evt => true} onResponderRelease={evt => this.dismissKeyboard()} style={styles.container}>
           <View style={styles.msgBox}>
             <Text style={styles.title}>您未选择可回收物，直接呼叫虎哥</Text>
             <InputSection style={styles.lineSection} value={this.state.accountName} onChangeText={val => this.setState({accountName: val.trim()})} label='联系人' placeholder='请输入联系人姓名'/>
-            <InputSection style={styles.lineSection} value={this.state.phone} onChangeText={val => this.setState({phone: val.trim()})} label='电话' placeholder='请输入联系人电话'/>
+            <InputSection style={styles.lineSection} value={this.state.phone} onChangeText={val => this.setState({phone: val.trim()})} label='电话' placeholder='请输入联系人电话' keyboardType='phone-pad'/>
             {
               !this.props.authToken ?
                 <InputSection style={styles.lineSection} value={this.state.code} onChangeText={val => this.setState({code: val.trim()})} label='短信验证码' placeholder='请输入验证码' rightButton={<RecordBtn text='获取验证码' submit={() => {this.getCode()}}/>}/>
@@ -86,9 +87,13 @@ class CallModal extends Component{
               </TouchableOpacity>
             </View>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </AdaptLayoutWidth>
     </Modal>);
+  }
+
+  dismissKeyboard(){
+    Keyboard.dismiss();
   }
 
   // 取消呼叫
@@ -192,11 +197,10 @@ class CallModal extends Component{
 
 const styles = StyleSheet.create({
   container: {
-    position: 'relative',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(215, 215, 215, 0.8)'
+    backgroundColor: 'rgba(215, 215, 215, 0.8)',
   },
   msgBox: {
     width: 700,

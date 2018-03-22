@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   msgTextInput: {
     height: 58,
     padding: 0,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: '#888',
     borderRadius: 10,
     color: '#000'
