@@ -23,7 +23,7 @@ class ForgetLoginPassword extends Component {
     super(props);
 
     this.state = {
-      phone: '',
+      phone: this.props.identityToken.user.phone,
       code: '',
       newPassword: '',
       secureTextEntry: true
@@ -31,9 +31,10 @@ class ForgetLoginPassword extends Component {
   }
 
   render(){
+    console.log(this.props);
     return <View style={styles.container}>
       <Header title='修改登录密码'/>
-      <InputSection style={styles.inputSection} value={this.state.phone} onChangeText={val => this.setState({phone: val})} label='手机号码'/>
+      <InputSection style={styles.inputSection} value={this.state.phone} onChangeText={val => this.setState({phone: val})} editable={false} label='手机号码'/>
       <InputSection style={styles.inputSection} value={this.state.code} onChangeText={val => this.setState({code: val})} label='验证码' rightButton={<RecordBtn style={styles.getCode} text='发送验证码' submit={() => this.getCode()}/>}/>
       <InputSection style={styles.inputSection} value={this.state.newPassword} onChangeText={val => this.setState({newPassword: val.trim()})} label='新密码' secureTextEntry={this.state.secureTextEntry} rightButton={<PasswordBtn secureTextEntry={this.state.secureTextEntry} setSecure={val => this.setSecure(val)}/>}/>
       <SubmitBtn text='确认修改' style={styles.submitBtn} submit={() => this.submit()} />
