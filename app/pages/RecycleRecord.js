@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView ,View, RefreshControl } from 'react-native';
 
+import { Actions } from 'react-native-router-flux';
+
 
 import { verifyLogin } from '../HOC/verifyLogin';
 import request from '../util/request/request';
@@ -23,7 +25,7 @@ class EnvironmentalRecord extends Component {
   
   render(){
     return (<View style={styles.container} ref='componentExisted'>
-      <Header title='我的环保记录' />
+      <Header title='我的环保记录' back={() => Actions.popTo('_mine')} />
       {/* 环保记录列表 */}
       <ScrollView style={styles.container} refreshControl={<RefreshControl refreshing={this.state.isRefreshing} onRefresh={() => this.updateOrderList()} />}>
         {

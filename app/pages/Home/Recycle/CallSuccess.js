@@ -39,6 +39,8 @@ class CallSuccess extends Component {
 
   // 查看详情
   submit(){
+    Actions.popTo('_recycle');
+    Actions.jump('mine');
     Actions.environmentalRecordPage();
   }
 }
