@@ -37,6 +37,20 @@ export const createOrderValidator = recycleOrder => {
     Alert.alert('未确认 有无户号');
     return false;
   }
+  if(recycleOrder.haveHouseNumber){
+    if(validator.isEmpty(recycleOrder.building)){
+      Alert.alert('未填写 栋');
+      return false;
+    }
+    if(validator.isEmpty(recycleOrder.unit)){
+      Alert.alert('未填写 单元');
+      return false;
+    }
+    if(validator.isEmpty(recycleOrder.room)){
+      Alert.alert('未填写 室');
+      return false;
+    }
+  }
 
   // 无异常，返回true
   return true;
