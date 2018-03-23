@@ -12,6 +12,7 @@ import { setIdentityTokenThunk } from '../redux/actions/IdentityToken';
 
 import Header from '../components/Header/Header';
 import Navigator from '../components/Navigator/Navigator';
+import PasswordBtn from '../components/Form/Btn/PasswordBtn/PasswordBtn';
 import SubmitBtn from '../components/Form/Btn/SubmitBtn';
 import InputSection from '../components/Form/Input/InputSection';
 
@@ -28,7 +29,9 @@ class Login extends Component{
       ],
       navigationItemsIndex: 0,
       phone: '',
-      code: ''
+      password: '',
+      code: '',
+      secureTextEntry: true
     };
   }
 
@@ -37,7 +40,7 @@ class Login extends Component{
       <Header title='登录'/>
       <View style={styles.content}>
         {/* 导航条 */}
-        <Navigator style={styles.navigator} navigationItems={this.state.navigationItems} contentLayoutStyle='highlyAdaptive' getItemIndex={index => {this.setState({navigationItemsIndex: index})}} selectPageIndex={this.state.navigationItemsIndex}>
+        <Navigator style={styles.navigator} navigationItems={this.state.navigationItems} contentLayoutStyle='highlyAdaptive' getItemIndex={index => {this.changeTabCallBack(index)}} selectPageIndex={this.state.navigationItemsIndex}>
           {
             [
               /* 输入框: 手机验证码登录 */
@@ -48,7 +51,7 @@ class Login extends Component{
               /* 输入框: 手机密码登录 */
               <View key={1} style={ styles.form }>
                 <InputSection label='手机号码' value={this.state.phone} onChangeText={text => this.changePhone(text)} keyboardType='numeric'/>
-                <InputSection label='密码' value={this.state.code} onChangeText={text => this.changeCode(text)}/>
+                <InputSection label='密码' value={this.state.password} onChangeText={text => this.changePassword(text)} secureTextEntry={this.state.secureTextEntry} rightButton={<PasswordBtn secureTextEntry={this.state.secureTextEntry} setSecure={val => this.setSecure(val)}/>}/>
               </View>
             ]
           }
@@ -59,9 +62,31 @@ class Login extends Component{
     </View>)
   }
 
+  // 切换Tab 回调
+  changeTabCallBack(index){
+    if(index){
+      this.setState({navigationItemsIndex: index, code: ''});
+    }
+    else{
+      this.setState({navigationItemsIndex: index, password: ''});
+    }
+  }
+
+  // 显示／隐藏 新密码
+  setSecure(val){
+    this.setState({
+      secureTextEntry: val
+    })
+  }
+
   // 修改手机号
   changePhone(phone){
     this.setState({ phone });
+  }
+
+  // 修改密码
+  changePassword(password){
+    this.setState({ password });
   }
 
   // 修改短信验证码
@@ -90,14 +115,23 @@ class Login extends Component{
       Alert.alert('手机号码错误');
       return;
     }
-    if(validator.isEmpty(this.state.code)){
-      this.state.navigationItemsIndex ? Alert.alert('请填写密码') : Alert.alert('请填写短信验证码');
-      return;
+    if(this.state.navigationItemsIndex){
+      if(validator.isEmpty(this.state.password)){
+        Alert.alert('请填写密码');
+        return;
+      }
+    }
+    else {
+      if(validator.isEmpty(this.state.code)){
+        Alert.alert('请填写短信验证码');
+        return;
+      }
     }
 
     // 发送登录请求
+    let code = this.state.navigationItemsIndex ? this.state.password : this.state.code;
     const res = await request
-      .post(config.api.getToken, {phone: this.state.phone, code: this.state.code})
+      .post(config.api.getToken, {phone: this.state.phone, code})
       .catch(err => {console.log(err); return null;})
 
     if(res){

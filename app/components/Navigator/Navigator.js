@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableWithoutFeedback, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TouchableWithoutFeedback, ScrollView, ViewPropTypes } from 'react-native';
 
 import PropTypes from 'prop-types';
 
@@ -20,47 +20,21 @@ class Navigator extends Component {
       'highlyScrollable' // 高度弹性充满，超屏幕可滚动
     ]),
     // 未选中项 文字样式
-    itemTextStyle: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.arrayOf(
-        PropTypes.number
-      )
-    ]),
+    itemTextStyle: Text.propTypes.style,
     // 选中项 文字样式
-    activeItemTextStyle: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.arrayOf(
-        PropTypes.number
-      )
-    ]),
+    activeItemTextStyle: Text.propTypes.style,
     // 未选中项 下划线样式
-    unActiveLineStyle: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.arrayOf(
-        PropTypes.number
-      )
-    ]),
+    unActiveLineStyle: ViewPropTypes.style,
     // 选中项 下划线样式
-    activeLineStyle: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.arrayOf(
-        PropTypes.number
-      )
-    ]),
+    activeLineStyle: ViewPropTypes.style,
     // 获取当前切换页index
-    getItemIndex: PropTypes.func.isRequired,
+    getItemIndex: PropTypes.func,
     // 初始选中页面
-    selectPageIndex: PropTypes.number.isRequired
+    selectPageIndex: PropTypes.number
   };
 
   static defaultProps = {
     contentLayoutStyle: 'highlyScrollable',
-    itemTextStyle: undefined, // 未选中项 文字样式
-    activeItemTextStyle: undefined, // 选中项 文字样式
-    unActiveLineStyle: undefined, // 未选中项 下划线样式
-    activeLineStyle: undefined, // 选中项 下划线样式
-    pageStyle: undefined, // 页面内容 scroll 样式
-    getItemIndex: index => {},
     selectPageIndex: 0 // 默认初始选中页面 第1列
   };
 
@@ -135,7 +109,8 @@ class Navigator extends Component {
   }
 
   switchItemIndex(index){
-    this.props.getItemIndex(index);
+    // 若存在回调
+    this.props.getItemIndex && this.props.getItemIndex(index);
     this.setState({
       selectPageIndex: index
     });

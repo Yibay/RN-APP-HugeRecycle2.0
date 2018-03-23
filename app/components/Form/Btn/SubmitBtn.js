@@ -20,10 +20,8 @@ class SubmitBtn extends Component {
   };
 
   render(){
-    return <TouchableOpacity onPress={() => this.submit()}>
-      <View style={[styles.container].concat(this.props.style).concat(this.props.disable ? [styles.disable].concat(this.props.disableStyle) : undefined)}>
-        <Text style={styles.text}>{this.props.text}</Text>
-      </View>
+    return <TouchableOpacity onPress={() => this.submit()} style={[styles.container].concat(this.props.style).concat(this.props.disable ? [styles.disable].concat(this.props.disableStyle) : undefined)}>
+      <Text style={styles.text}>{this.props.text}</Text>
     </TouchableOpacity>;
   }
 
