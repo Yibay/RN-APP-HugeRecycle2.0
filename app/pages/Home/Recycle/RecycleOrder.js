@@ -13,7 +13,7 @@ import { createOrderValidator } from '../../../util/form/recycleOrderValidator';
 import request from '../../../util/request/request';
 import config from '../../../util/request/config';
 import {showRecycleOrderError} from '../../../util/alertError';
-import { resetRecycledItem } from '../../../redux/actions/Recycle';
+import { resetRecycledItem, fetchRecycleOrderThunk } from '../../../redux/actions/Recycle';
 
 import { verifyLogin } from '../../../HOC/verifyLogin';
 import Header from '../../../components/Header/Header';
@@ -37,7 +37,6 @@ class RecycleOrder extends Component{
     this.state = {
       isAerialWork: false,
       remarks: '',
-      createOrderFetching: false // 创建回收订单，请求中
     };
   }
 
@@ -79,16 +78,16 @@ class RecycleOrder extends Component{
           <Text style={styles.serviceTime}>服务时间：08:00 - 17:00</Text>
         </View>
         {/* 呼叫按钮 */}
-        <SubmitBtn text={this.state.createOrderFetching ? '呼叫中' : '确认呼叫'} submit={() => this.createOrder()} style={styles.submitBtn} disable={this.state.createOrderFetching} />
+        <SubmitBtn text={this.props.createOrderFetching ? '呼叫中' : '确认呼叫'} submit={() => this.createOrder()} style={styles.submitBtn} disable={this.props.createOrderFetching} />
       </ScrollView>
     </View>);
   }
 
   async createOrder(){
-    if(this.state.createOrderFetching){
+    if(this.props.createOrderFetching){
       return;
     }
-    this.setState({createOrderFetching: true});
+
     // 检验 地址一系列属性时，通过id，一步检验
     let orderParams = _.pick(this.props.currentLocation,['id','communityId','communityName','haveHouseNumber','building','unit','room','address']);
     orderParams.accountName = this.props.currentLocation.customerName;
@@ -104,28 +103,12 @@ class RecycleOrder extends Component{
     }));
 
     // 检验 回收订单数据
-    if(!createOrderValidator(orderParams) && this.refs.componentExisted){
-      // 未通过检验，则不执行下面 上传数据
-      this.setState({createOrderFetching: false});
+    if(!createOrderValidator(orderParams)){
       return;
     }
 
-    // 最终上传参数，不需要传 id
-    const res = await request.post(config.api.createOrder, _.omit(orderParams, ['id']), {'X-AUTH-TOKEN': this.props.identityToken.authToken});
-    this.refs.componentExisted && this.setState({createOrderFetching: false});
-    if(res && !res.status){
-      Actions.callSuccessPage({alreadyLogged: true}); // 通知 呼叫成功页 已登录
-    }
-    else{
-      showRecycleOrderError(res);
-      return;
-    }
-
-    // 清空 回收物品列表（请求 回收类别相应数据）
-    const products = await request.get(config.api.getProducts);
-    if(products && !products.status){
-      this.props.resetRecycledItem(products.data);
-    }
+    // 下回收订单
+    this.props.fetchRecycleOrderThunk(_.omit(orderParams, ['id']));
   }
 }
 
@@ -189,8 +172,9 @@ function mapStateToProps(state){
   return {
     recyclableGoods: state.recycle.recyclableGoods,
     currentLocation: state.location.currentLocation,
-    recycledItemsList: state.recycle.recycledItemsList
+    recycledItemsList: state.recycle.recycledItemsList,
+    createOrderFetching: state.recycle.recycleOrder.isFetching
   };
 }
 
-export default verifyLogin(connect(mapStateToProps, {resetRecycledItem})(RecycleOrder));
+export default verifyLogin(connect(mapStateToProps, {resetRecycledItem, fetchRecycleOrderThunk})(RecycleOrder));

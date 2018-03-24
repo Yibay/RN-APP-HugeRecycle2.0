@@ -1,10 +1,7 @@
 import _ from 'lodash';
 
 
-import request from "../../util/request/request";
-import config from "../../util/request/config";
-
-import {defaultCurrentLocation, setLocationThunk, setUserAddressList} from "./Location";
+import {defaultCurrentLocation, setLocationThunk, setUserAddressList, getUserAddressListThunk, getDefaultAddressThunk} from "./Location";
 
 
 // type 类型
@@ -49,26 +46,13 @@ export function setIdentityTokenThunk(identityToken){
     if(authToken){
 
       // 更新app需要的用户信息
-      let [defaultAddress, addressList] = await Promise.all([ // 并发
-        /** 2-1. 获取 默认地址 (defaultAddress) */
-        request
-          .get(config.api.getDefaultAddress, null, {'X-AUTH-TOKEN': authToken})
-          .catch(err => {console.log(err); return null;}), // 若请求报错，则log对应信息
+      await Promise.all([ // 并发
+        /** 2-1. 获取 默认地址 更新到 当前地址 (defaultAddress) */
+        dispatch(getDefaultAddressThunk()),
         /** 2-2. 获取 用户地址列表 */
-        request
-          .get(config.api.getAddressList, null, {'X-AUTH-TOKEN': authToken})
-          .catch(err => {console.log(err); return null;})
+        dispatch(getUserAddressListThunk())
       ]);
 
-      // 2-1. 默认地址 数据正确，用 默认地址 更新 redux 当前地址
-      if(defaultAddress && !defaultAddress.status) {
-        dispatch(setLocationThunk(defaultAddress.data));
-      }
-
-      // 2-2. 用户地址列表 数据正确，更新到 redux
-      if(addressList && !addressList.status){
-        dispatch(setUserAddressList(addressList.data.addresses));
-      }
     }
     // 3、若是 登出状态
     else{

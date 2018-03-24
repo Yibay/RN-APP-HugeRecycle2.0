@@ -64,6 +64,24 @@ export function setLocationThunk(location){
 async function loadInitStoreInfoByCommunityId(communityId){
   return await request.get(config.api.loadInitStoreInfoByCommunityId, {communityId});
 }
+/** Thunk: 获取 默认地址 更新到 当前地址 */
+export function getDefaultAddressThunk(){
+  return async (dispatch, getState) => {
+    let authToken = getState().identityToken.authToken;
+    // 若已登录
+    if(authToken){
+      // 获取 用户默认地址（一键呼叫地址）
+      let defaultAddress = await request
+        .get(config.api.getDefaultAddress, null, {'X-AUTH-TOKEN': authToken})
+        .catch(err => {console.log(err); return null;}); // 若请求报错，则log对应信息
+      // 默认地址 数据正确
+      // 默认地址data 可能为null, 如：当删光用户地址列表时
+      if(defaultAddress && !defaultAddress.status && defaultAddress.data) {
+        dispatch(setLocationThunk(defaultAddress.data));
+      }
+    }
+  };
+}
 
 /**
  * 刷新 自动定位 开关
@@ -86,5 +104,23 @@ export function setUserAddressList(addressList){
   return {
     type: SET_UserAddressList,
     addressList
+  }
+}
+/** Thunk: 获取、设置用户列表 */
+export function getUserAddressListThunk() {
+  return async (dispatch, getState) => {
+    let authToken = getState().identityToken.authToken;
+    // 若已登录
+    if(authToken){
+      console.log('更新地址123123');
+      // 请求更新 用户地址列表
+      let addressList = await request
+        .get(config.api.getAddressList, null, {'X-AUTH-TOKEN': authToken})
+        .catch(err => {console.log(err); return null;});
+      // 用户地址列表 数据正确
+      if(addressList && !addressList.status){
+        dispatch(setUserAddressList(addressList.data.addresses));
+      }
+    }
   }
 }

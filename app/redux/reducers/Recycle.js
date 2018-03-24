@@ -3,7 +3,8 @@ import _ from 'lodash';
 
 
 // type 类型
-import { SET_AllProducts, ADD_RecycledItem, REDUCE_RecycledItem, RESET_RecycledItemsList } from '../actions/Recycle';
+import { SET_AllProducts, ADD_RecycledItem, REDUCE_RecycledItem, RESET_RecycledItemsList,
+  FETCH_RecycleOrder_Request, FETCH_RecycleOrder_Success, FETCH_RecycleOrder_Failure } from '../actions/Recycle';
 
 
 /* ------ reducer 函数 ------ */
@@ -176,4 +177,17 @@ function recycledItemsList (state={list:[],num:0}, action){
 }
 
 
-export default combineReducers({ recyclableGoods, recycledItemsList });
+function recycleOrder(state={isFetching: false}, actions){
+  switch(actions.type){
+    case FETCH_RecycleOrder_Request:
+      return _.assign({},state,{isFetching: true});
+    case FETCH_RecycleOrder_Success:
+    case FETCH_RecycleOrder_Failure:
+      return _.assign({},state,{isFetching: false});
+    default:
+      return state;
+  }
+}
+
+
+export default combineReducers({ recyclableGoods, recycledItemsList, recycleOrder });

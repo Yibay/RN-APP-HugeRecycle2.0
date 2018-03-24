@@ -4,15 +4,13 @@ import { StyleSheet, View, Text, Modal, TouchableOpacity, Platform, Alert, Keybo
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { Actions } from "react-native-router-flux";
 
 
 import { createOrderValidator } from '../../util/form/recycleOrderValidator';
 import request from '../../util/request/request';
 import config from '../../util/request/config';
 import validator from "../../util/form/validator";
-import {showRecycleOrderError} from "../../util/alertError";
-import {resetRecycledItem} from "../../redux/actions/Recycle";
+import {resetRecycledItem, fetchRecycleOrderThunk} from "../../redux/actions/Recycle";
 
 import AdaptLayoutWidth from '../../components/AdaptLayoutWidth';
 import HouseNumberAddressSection from '../../components/Form/Module/HouseNumberAddressSection';
@@ -24,7 +22,8 @@ class CallModal extends Component{
 
   static propTypes = {
     visible: PropTypes.bool.isRequired,
-    hideCallModal: PropTypes.func.isRequired
+    hideCallModal: PropTypes.func.isRequired,
+    createOrderFetching: PropTypes.bool.isRequired
   };
 
   constructor(props){
@@ -38,8 +37,7 @@ class CallModal extends Component{
       building: props.currentLocation.building ? props.currentLocation.building : '',
       unit: props.currentLocation.unit ? props.currentLocation.unit : '',
       room: props.currentLocation.room ? props.currentLocation.room : '',
-      code: '',
-      createOrderFetching: false // 呼叫中
+      code: ''
     }
   }
 
@@ -79,8 +77,8 @@ class CallModal extends Component{
               <HouseNumberAddressSection onChangeText={valObj => this.setState(valObj)} currentLocation={this.props.currentLocation} />
             </View>
             <View style={styles.btnSection}>
-              <TouchableOpacity style={[styles.btn, styles.btnConfirm, this.state.createOrderFetching ? styles.disable : undefined]} onPress={() => this.confirmCall()}>
-                <Text style={[styles.msgText, styles.btnConfirmText]}>{this.state.createOrderFetching ? '呼叫中' : '确认呼叫'}</Text>
+              <TouchableOpacity style={[styles.btn, styles.btnConfirm, this.props.createOrderFetching ? styles.disable : undefined]} onPress={() => this.confirmCall()}>
+                <Text style={[styles.msgText, styles.btnConfirmText]}>{this.props.createOrderFetching ? '呼叫中' : '确认呼叫'}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.btn, styles.btnCancel]} onPress={() => this.cancelCall()}>
                 <Text style={styles.msgText}>取消</Text>
@@ -98,21 +96,19 @@ class CallModal extends Component{
 
   // 取消呼叫
   cancelCall(){
-    if(this.state.createOrderFetching){return;}
+    if(this.props.createOrderFetching){return;}
 
     this.props.hideCallModal();
   }
 
   // 确认呼叫
   async confirmCall(){
-    if(this.state.createOrderFetching){return;}
+    if(this.props.createOrderFetching){return;}
 
-    this.setState({createOrderFetching: true});
-
-    // 请求数据
+    // 构造请求数据
     let params = _.assign(
       {},
-      _.pick(this.props.currentLocation, ['communityId', 'communityName']), // 小区信息
+      _.pick(this.props.currentLocation, ['id','cityId','city','regionId','region','streetId','street','communityId', 'communityName']), // 小区信息
       _.omit(this.state,['createOrderFetching']) // 联系人、电话、有无户号等信息
     );
     params.isAerialWork = false; // 是否需要拆卸空调
@@ -129,53 +125,37 @@ class CallModal extends Component{
 
     // 检验数据
     if(!createOrderValidator(params)){
-      this.setState({createOrderFetching: false});
       return;
     }
+    // 调整格式
+    if(params.haveHouseNumber){
+      params.building.toUpperCase(); // 统一转成 大写字母
+      params.unit = Number(params.unit);
+      params.room = Number(params.room);
+    }
 
-    // 发送请求
+
     // 若已登录
     if(this.props.authToken){
-      // 带 X-AUTH-TOKEN 发送请求
-      let res = await request.post(config.api.createOrder, params, {'X-AUTH-TOKEN': this.props.authToken});
-      if(res && !res.status){
-        Actions.callSuccessPage({alreadyLogged: true}); // 通知 呼叫成功页 已登录
-      }
-      else{
-        this.setState({createOrderFetching: false});
-        showRecycleOrderError(res);
-        return;
-      }
+      let res = await this.props.fetchRecycleOrderThunk(params);
+      if(res.status){return;}
     }
     // 若未登录
     else {
       // 带验证码 发送请求
       if(validator.isEmpty(this.state.code)){
         Alert.alert('请输入验证码');
-        this.setState({createOrderFetching: false});
         return;
       }
       // 带 code 短信验证码 发送请求
       params.code = this.state.code;
-      let res = await request.post(config.api.createOrder, params);
-      if(res && !res.status){
-        Actions.callSuccessPage({alreadyLogged: false}); // 通知 呼叫成功页 已登录
-      }
-      else{
-        this.setState({createOrderFetching: false});
-        showRecycleOrderError(res);
-        return;
-      }
-    }
-    // 清空 回收物品列表
-    const products = await request.get(config.api.getProducts);
-    if(products && !products.status){
-      this.props.resetRecycledItem(products.data);
+      // 发送请求
+      let res = await this.props.fetchRecycleOrderThunk(params);
+      if(res.status){return;}
     }
 
     // 发送成功后，关闭弹窗
     this.props.hideCallModal();
-    this.setState({createOrderFetching: false});
   }
 
   // 获取验证码
@@ -285,8 +265,9 @@ function mapStateToProps(state){
     currentLocation: state.location.currentLocation,
     authToken: state.identityToken.authToken,
     recycledItemsList: state.recycle.recycledItemsList,
-    recyclableGoods: state.recycle.recyclableGoods
+    recyclableGoods: state.recycle.recyclableGoods,
+    createOrderFetching: state.recycle.recycleOrder.isFetching
   }
 }
 
-export default connect(mapStateToProps, {resetRecycledItem})(CallModal);
+export default connect(mapStateToProps, {resetRecycledItem, fetchRecycleOrderThunk})(CallModal);

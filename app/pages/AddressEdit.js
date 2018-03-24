@@ -14,7 +14,7 @@ import _ from 'lodash';
 import {editAddress} from '../util/form/locationValidator';
 import request from '../util/request/request';
 import config from '../util/request/config';
-import {setUserAddressList} from '../redux/actions/Location';
+import {getUserAddressListThunk} from '../redux/actions/Location';
 
 import Header from '../components/Header/Header';
 import InputSection from '../components/Form/Input/InputSection';
@@ -45,7 +45,7 @@ class AddressEdit extends Component {
       unit: PropTypes.string,
       room: PropTypes.string
     }),
-    setUserAddressList: PropTypes.func.isRequired, // 更新全局用户地址列表
+    getUserAddressListThunk: PropTypes.func.isRequired, // 更新全局用户地址列表
     identityToken: PropTypes.shape({
       authToken: PropTypes.string.isRequired // 身份令牌
     })
@@ -118,11 +118,9 @@ class AddressEdit extends Component {
       const res = await request.post(config.api.editAddress,this.state,{'X-AUTH-TOKEN': this.props.identityToken.authToken});
       // 刷新全局 userAddressList 数据
       if(res && !res.status){
-        const userAddressList = await request.get(config.api.getAddressList,null,{'X-AUTH-TOKEN': this.props.identityToken.authToken});
-        if(userAddressList && !userAddressList.status){
-          this.props.setUserAddressList(userAddressList.data.addresses);
-          Actions.pop();
-        }
+        // 刷新全局 userAddressList 数据
+        await this.props.getUserAddressListThunk();
+        Actions.pop();
       }
       else{
         Alert.alert('编辑失败');
@@ -136,14 +134,11 @@ class AddressEdit extends Component {
     Alert.alert('确认删除该地址','',[
       {text:'删除',onPress: async ()=>{
           const res = await request.get(`${config.api.deleteAddress}${this.state.id}`,null,{'X-AUTH-TOKEN': this.props.identityToken.authToken});
-          console.log(res);
-          // 刷新全局 userAddressList 数据
+
           if(res && !res.status){
-            const userAddressList = await request.get(config.api.getAddressList,null,{'X-AUTH-TOKEN': this.props.identityToken.authToken});
-            if(userAddressList && !userAddressList.status){
-              this.props.setUserAddressList(userAddressList.data.addresses);
-              Actions.pop();
-            }
+            // 刷新全局 userAddressList 数据
+            await this.props.getUserAddressListThunk();
+            Actions.pop();
           }
         }},
       {text:'不了'}
@@ -188,4 +183,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default verifyLogin(connect(null,{setUserAddressList})(AddressEdit));
+export default verifyLogin(connect(null,{getUserAddressListThunk})(AddressEdit));

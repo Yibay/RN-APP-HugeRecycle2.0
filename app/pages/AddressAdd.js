@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import validator  from '../util/form/validator';
 import config from '../util/request/config';
 import request from '../util/request/request';
-import { setUserAddressList, setLocationThunk } from '../redux/actions/Location';
+import { setLocationThunk, getUserAddressListThunk } from '../redux/actions/Location';
 
 import Header from '../components/Header/Header';
 import InputSection from '../components/Form/Input/InputSection';
@@ -106,7 +106,6 @@ class AddressAdd extends Component {
         return;
       }
     }
-    console.log(addAddress);
 
     // 1. 添加新地址 请求
     let newAddress = await request
@@ -114,26 +113,18 @@ class AddressAdd extends Component {
       .catch(err => {console.log(err); return null;});
 
     // 若请求成功 数据正确
-    if(newAddress && !newAddress.status){
-      console.log('新增地址成功');
-      this.props.setLocationThunk(newAddress.data); // 更新到 数据流
+    if(newAddress && !newAddress.status && newAddress.data){
+      await this.props.setLocationThunk(newAddress.data); // 更新到 数据流
       Actions.pop(); // 返回上一页
     }
     else {
       console.log(newAddress);
-      Alert.alert(newAddress.message);
+      Alert.alert(newAddress.message || '添加地址失败');
       return;
     }
 
-    // 2. 请求更新 用户地址列表
-    let addressList = await request
-      .get(config.api.getAddressList, null, {'X-AUTH-TOKEN': this.props.authToken})
-      .catch(err => {console.log(err); return null;});
-    // 用户地址列表 数据正确
-    if(addressList && !addressList.status){
-      this.props.setUserAddressList(addressList.data.addresses);
-    }
-
+    // 2. 请求更新 用户地址列表(异步)
+    this.props.getUserAddressListThunk();
   }
 }
 
@@ -174,4 +165,4 @@ function mapStateToProps(state){
 }
 
 
-export default connect(mapStateToProps, { setUserAddressList, setLocationThunk })(AddressAdd);
+export default connect(mapStateToProps, { setLocationThunk, getUserAddressListThunk })(AddressAdd);
