@@ -102,7 +102,6 @@ function fetchRecycleOrder(status, params){
 
 export function fetchRecycleOrderThunk(params) {
   return async (dispatch, getState) => {
-    console.log(params);
 
     // 1、发起请求
     dispatch(fetchRecycleOrder('request'));
@@ -120,11 +119,28 @@ export function fetchRecycleOrderThunk(params) {
         dispatch(resetRecycledItem(products.data));
       }
 
-      // 2-2、此处先添加地址？
+      if(authToken){
+        // 2-2、将 一键呼叫 地址 添加到用户
+        params.telNo = params.phone;
+        params.customerName = params.accountName;
+        params.isLocationDefault = true;
 
-      // 2-3、更新用户列表
-      console.log('刷新地址');
-      dispatch(getUserAddressListThunk());
+        // 添加新地址 请求
+        let newAddress = await request
+          .post(config.api.addAddress, params, {'X-AUTH-TOKEN': authToken})
+          .catch(err => {console.log(err); return null;});
+
+        // 若请求成功 数据正确
+        // if(newAddress && !newAddress.status && newAddress.data){
+        //   console.log('添加地址成功')
+        // }
+        // else {
+        //   console.log('添加地址失败');
+        // }
+
+        // 2-3、更新用户列表
+        dispatch(getUserAddressListThunk());
+      }
       return {status: 0};
     }
     else{

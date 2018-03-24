@@ -57,11 +57,11 @@ class InputSection extends Component {
 
   componentDidMount(){
     // 软键盘关闭时，失去焦点 (调试模式下，没有软键盘，聚焦 立即 失焦)
-    // this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide',() => this.blurInput());
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide',() => this.blurInput());
   }
 
   componentWillUnmount(){
-    // this.keyboardDidHideListener.remove();
+    this.keyboardDidHideListener.remove();
   }
 
   // 点击label 聚焦input

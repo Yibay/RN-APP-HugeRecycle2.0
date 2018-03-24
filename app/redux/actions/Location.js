@@ -112,7 +112,6 @@ export function getUserAddressListThunk() {
     let authToken = getState().identityToken.authToken;
     // 若已登录
     if(authToken){
-      console.log('更新地址123123');
       // 请求更新 用户地址列表
       let addressList = await request
         .get(config.api.getAddressList, null, {'X-AUTH-TOKEN': authToken})

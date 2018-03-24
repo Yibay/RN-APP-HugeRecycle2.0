@@ -156,7 +156,6 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state){
-  console.log(state.location.currentLocation);
   return {
     communityName: state.location.currentLocation.communityName,
     currentLocation: state.location.currentLocation,
