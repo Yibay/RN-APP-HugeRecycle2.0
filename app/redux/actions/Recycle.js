@@ -123,7 +123,7 @@ export function fetchRecycleOrderThunk(params) {
         // 2-2、将 一键呼叫 地址 添加到用户
         params.telNo = params.phone;
         params.customerName = params.accountName;
-        params.isLocationDefault = true;
+        params.isLocationDefault = true; // 设成一键呼叫默认地址
 
         // 添加新地址 请求
         let newAddress = await request

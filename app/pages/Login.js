@@ -130,6 +130,7 @@ class Login extends Component{
 
     // 发送登录请求
     let code = this.state.navigationItemsIndex ? this.state.password : this.state.code;
+    let navigationItemsIndex = this.state.navigationItemsIndex;
     const res = await request
       .post(config.api.getToken, {phone: this.state.phone, code})
       .catch(err => {console.log(err); return null;})
@@ -138,7 +139,8 @@ class Login extends Component{
 
       // 若登录失败 (登录成功 status 为 0，失败为 1)
       if(res.status){
-        Alert.alert(res.message); // 展示 提示信息
+        Alert.alert(navigationItemsIndex ? '密码错误' : '验证码错误');
+        // Alert.alert(res.message); // 展示 提示信息
         return;
       }
 
