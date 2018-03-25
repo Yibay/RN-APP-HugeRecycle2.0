@@ -57,28 +57,40 @@ class CommunitySelector extends Component{
                 )}
               </View>
             </ScrollView>
-            <View style={styles.commitLayout}>
-              <TouchableWithoutFeedback onPress={() => this.commitCommunity()}>
-                <View style={styles.commitBtn}>
-                  <Text style={styles.commitText}>确认选择</Text>
-                </View>
-              </TouchableWithoutFeedback>
-              <TouchableWithoutFeedback onPress={() => Actions.locationManuallyPage({selectedLocationCallBack: this.props.selectedLocationCallBack})}>
-                <View style={styles.manualInputBtn}>
-                  <Text style={styles.manualInputText}>手动输入小区</Text>
-                </View>
-              </TouchableWithoutFeedback>
-            </View>
           </View>
       }
+      <View style={styles.commitLayout}>
+        {
+          this.props.LocateCommunities.length === 0 ?
+            undefined
+            :
+            <TouchableWithoutFeedback onPress={() => this.commitCommunity()}>
+              <View style={styles.commitBtn}>
+                <Text style={styles.commitText}>确认选择</Text>
+              </View>
+            </TouchableWithoutFeedback>
+        }
+        <TouchableWithoutFeedback onPress={() => Actions.locationManuallyPage({selectedLocationCallBack: this.props.selectedLocationCallBack})}>
+          <View style={this.props.LocateCommunities.length === 0 ? [styles.manualInputBtn, styles.manualInputBtnOnly] : styles.manualInputBtn }>
+            <Text style={styles.manualInputText}>手动输入小区</Text>
+          </View>
+        </TouchableWithoutFeedback>
+      </View>
     </View>);
   }
 
   selectCommunity(communitySelected){
-    // 更新选中小区
-    this.setState({
-      communitySelected: communitySelected
-    });
+    // 两次选中 同一小区，则更新到 redux
+    if(communitySelected.communityId === this.state.communitySelected.communityId){
+      this.commitCommunity();
+    }
+    // 第一次选中，则mark，等待commit
+    else{
+      // 更新选中小区
+      this.setState({
+        communitySelected: communitySelected
+      });
+    }
   }
   commitCommunity(){
     // 有回调函数，则传入选中的地址
@@ -175,13 +187,17 @@ const styles = StyleSheet.create({
   },
   commitBtn: {
     flex: 1,
-    paddingHorizontal: 52
+    paddingHorizontal: 52,
+    borderRightWidth: 2,
+    borderRightColor: '#707070'
   },
   manualInputBtn: {
     flex: 1,
     paddingHorizontal: 52,
-    borderLeftWidth: 2,
-    borderLeftColor: '#707070'
+  },
+  manualInputBtnOnly: {
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   commitText: {
     textAlign: 'right',

@@ -117,6 +117,9 @@ export const locationCrossPlatform = WrappedComponent => connect(mapStateToProps
         ]);
       }
     }
+    else if(e.code === 3){
+      Alert.alert('定位超时','请选择手动定位');
+    }
     // 关闭 定位Flag
     if(this.props.autoLocationFlag){
       this.props.setAutoLocationFlag(false);
