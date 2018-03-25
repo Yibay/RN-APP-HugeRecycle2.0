@@ -49,13 +49,21 @@ export const locationCrossPlatform = WrappedComponent => connect(mapStateToProps
     this.props.autoLocationFlag && this.getCurrentPosition();
   }
 
+  componentWillUnmount(){
+    // 后续开启 定位权限：清除计时器
+    if (this.openGeolocationListener){
+      console.log('清除计时器');
+      clearInterval(this.openGeolocationListener);
+    }
+  }
+
   // 获取一次本地定位
   getCurrentPosition(){
-    navigator.geolocation.getCurrentPosition((position) => this.geo_success(position),(e) => this.geo_error(e))
+    navigator.geolocation.getCurrentPosition((position) => this.geo_success(position),(e) => this.geo_error(e),{timeout: 5000})
   }
 
   // 获取定位信息成功
-  geo_success(position){
+  geo_success(position) {
 
     // 地球坐标（WGS84）
     console.log('------ getCurrentPosition ------');
@@ -75,6 +83,11 @@ export const locationCrossPlatform = WrappedComponent => connect(mapStateToProps
 
     // 关闭 定位
     this.props.setAutoLocationFlag(false);
+
+    // 后续开启 定位权限：清除计时器
+    if (this.openGeolocationListener){
+      clearInterval(this.openGeolocationListener);
+    }
   }
 
   // 获取定位小区（回收）
@@ -93,7 +106,20 @@ export const locationCrossPlatform = WrappedComponent => connect(mapStateToProps
   // 获取定位信息失败
   geo_error(e){
     console.log(e);
-    // 关闭 定位
-    this.props.setAutoLocationFlag(false);
+    // 手机未开启定位功能
+    if(e.code === 2){
+      if (!this.openGeolocationListener){
+        Alert.alert('请去开启定位权限','',[
+          {text: '知道了', onPress: () => {
+            // 开启计时器 检查定位是否开启
+            this.openGeolocationListener = setInterval(() => this.getCurrentPosition(),1000);
+          }}
+        ]);
+      }
+    }
+    // 关闭 定位Flag
+    if(this.props.autoLocationFlag){
+      this.props.setAutoLocationFlag(false);
+    }
   }
 });
