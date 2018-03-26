@@ -19,7 +19,11 @@ class Remark extends Component {
   render(){
     return <View style={styles.remarkSection}>
       <Text style={styles.remarksTitle}>{this.props.title}</Text>
-      <TextInput style={styles.remarks} multiline={true} onChangeText={val => this.props.onChangeText(val)} value={this.props.value} />
+      <TextInput style={styles.remarks}
+                 multiline={true}
+                 onChangeText={val => this.props.onChangeText(val)}
+                 value={this.props.value}
+                 underlineColorAndroid="transparent" />
     </View>
   }
 }

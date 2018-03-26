@@ -12,7 +12,7 @@ const RecycledItem = props => (<View style={styles.container}>
   <View style={styles.specsContent}>
     <Text style={styles.specsName}>{`${props.subCategoryName} ${props.specs.name}`}</Text>
     <Text style={styles.specNum}>{'¥' + props.specs.price + ' *' + props.specs.number}</Text>
-    <Text style={styles.specTotalPrice}>{`¥${props.specs.price * props.specs.number}`}{props.specs.unit ? `/${props.specs.unit}` : ''}</Text>
+    <Text style={styles.specTotalPrice}>{`¥${props.specs.price * props.specs.number}`}{props.specs.unit ? `/${props.specs.unit}` : ''}{' '}</Text>
   </View>
 </View>);
 

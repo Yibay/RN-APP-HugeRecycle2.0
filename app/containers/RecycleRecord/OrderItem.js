@@ -19,10 +19,14 @@ class OrderItem extends Component {
   };
 
   render(){
+
     return (<View style={[styles.container].concat(this.props.style)}>
       <View style={[styles.firstSection].concat(this.props.firstSectionStyle)}>
         <View style={styles.orderAndTime}>
-          <Text style={styles.orderId}>{`订单号: ${this.props.createdTs}`}</Text>
+          <View style={styles.orderIdSection}>
+            <Text style={styles.orderId}>订单号: </Text>
+            <Text style={styles.orderId}>{this.props.createdTs}</Text>
+          </View>
           <Text style={styles.orderTime}>{this.props.createOrderTime}</Text>
         </View>
         <Text style={styles.recycledItems}>{this.props.recycledItems}</Text>
@@ -54,6 +58,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
+  orderIdSection: {
+    flexDirection: 'row'
+  },
   orderId: {
     fontSize: 28,
     fontWeight: '700'
@@ -68,7 +75,7 @@ const styles = StyleSheet.create({
   },
   // 第2内容区
   secondSection: {
-    height: 82,
+    minHeight: 82,
     paddingHorizontal: 30,
     flexDirection: 'row',
     justifyContent: 'space-between',

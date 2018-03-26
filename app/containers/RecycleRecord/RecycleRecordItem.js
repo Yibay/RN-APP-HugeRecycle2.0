@@ -23,10 +23,14 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   status: {
+    flex: 1,
+    paddingVertical: 10,
     fontSize: 28,
     color: '#ef3300'
   },
   statusFinish: {
+    flex: 1,
+    paddingVertical: 10,
     fontSize: 28,
     color: '#888'
   }
@@ -165,29 +169,21 @@ class RecycleRecordItem extends Component{
 
   // 联系虎哥上门收件
   async contactHuge(orderId){
-    const res = await request.get(`${config.api.contactHuge}${orderId}`,null,{'X-AUTH-TOKEN': this.props.authToken})
+    const res = await request.get(`${config.api.contactHuge}${orderId}`,null,{'X-AUTH-TOKEN': this.props.authToken});
     if(res){
       // 若请求正常、且数据正常
       if(!res.status){
-        Alert.alert('联系收件员',`${res.data.recyclerName}：${res.data.recyclerWorkPhone}`,[
-          {
-            text: '拨打',
-            onPress: async () => {
-              const supported = await Linking.canOpenURL(`tel:${res.data.recyclerWorkPhone}`).catch(e => {console.log(e); return false;});
-              if(supported){
-                Linking.openURL(`tel:${res.data.recyclerWorkPhone}`);
-              }
-              else{
-                Alert.alert('此设备不支持 拨打电话',`请手动拨打${res.data.recyclerWorkPhone}`);
-              }
-            }
-          },
-          {text: '不了'}
-        ]);
+        const supported = await Linking.canOpenURL(`tel:${res.data.recyclerWorkPhone}`).catch(e => {console.log(e); return false;});
+        if(supported){
+          Linking.openURL(`tel:${res.data.recyclerWorkPhone}`);
+        }
+        else{
+          Alert.alert('此设备不支持 拨打电话',`请手动拨打${res.data.recyclerWorkPhone}`);
+        }
       }
-      else{
-        Alert.alert(res.message);
-      }
+    }
+    else{
+      Alert.alert(res.message);
     }
   }
 
