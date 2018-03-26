@@ -13,7 +13,7 @@ const scalePT = PixelRatio.get();
 
 // 获取设备pt（像素点）宽高
 const { width, height } = Dimensions.get('window');
-let widthPT = width, heightPT = height;
+let widthPT = Math.min(width, height), heightPT = Math.max(height, width); // 防止初始化时，为横屏
 
 // 设计尺寸 宽高
 const designSize = { width: 750, height: 1334 };

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import Header from '../components/Header/Header';
 import CommunitySearchEngines from '../containers/LocationManually/CommunitySearchEngines/CommunitySearchEngines';
+import NetworkVerify from "../components/NetworkVerify";
 
 
 class LocationManually extends Component {
@@ -17,7 +18,9 @@ class LocationManually extends Component {
   render(){
     return (<View style={styles.container}>
       <Header title='手动输入小区'/>
-      <CommunitySearchEngines selectedLocationCallBack={this.props.selectedLocationCallBack} />
+      <NetworkVerify>
+        <CommunitySearchEngines selectedLocationCallBack={this.props.selectedLocationCallBack} />
+      </NetworkVerify>
     </View>)
   }
 }
