@@ -1365,7 +1365,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = HugeRecycle2_0;
-				PROVISIONING_PROFILE = "80bae1cf-a0be-4225-b3ef-7939e0a4f11e";
+				PROVISIONING_PROFILE = "ecefa786-ca1c-4632-9c65-d0ecda4f96e4";
 				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionTest;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1392,7 +1392,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = HugeRecycle2_0;
-				PROVISIONING_PROFILE = "80bae1cf-a0be-4225-b3ef-7939e0a4f11e";
+				PROVISIONING_PROFILE = "ecefa786-ca1c-4632-9c65-d0ecda4f96e4";
 				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionTest;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

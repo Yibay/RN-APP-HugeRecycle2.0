@@ -62,7 +62,7 @@ class CallModal extends Component{
         {/* 关闭软键盘，触发input失焦 */}
         <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={-150} onStartShouldSetResponder={evt => true} onResponderRelease={evt => this.dismissKeyboard()} style={styles.container}>
           <View style={styles.msgBox}>
-            <Text style={styles.title}>您未选择可回收物，直接呼叫虎哥</Text>
+            <Text style={styles.title}>确认您的联系方式，呼叫虎哥</Text>
             <InputSection style={styles.lineSection} value={this.state.accountName} onChangeText={val => this.setState({accountName: val.trim()})} label='联系人' placeholder='请输入联系人姓名'/>
             <InputSection style={styles.lineSection} value={this.state.phone} onChangeText={val => this.setState({phone: val.trim()})} label='电话' placeholder='请输入联系人电话' keyboardType='phone-pad'/>
             {
