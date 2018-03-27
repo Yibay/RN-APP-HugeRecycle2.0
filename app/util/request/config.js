@@ -138,8 +138,6 @@ export default {
     getCustomerScoreLog: `${api_base_recycle}/api/customer/app/auth/deal/getCustomerScoreLog`,
     // 发送 客户反馈
     createFeedback: '/api/mobile/deal/createFeedback',
-    // 获取 最新版本号
-    version: '/api/mobile/normal/version',
     // WebView 进入个人中心页面
     userCenter: '/web/mobile/mall/user/index?code=',
     // WebView 进入商城主页
@@ -228,6 +226,17 @@ export default {
     //   orderCode
     getMallOrderDetail: `${api_base_mall}/online/mall/order/getOrderDetail`,
 
+    /** ------ 版本检测 ------ */
+
+    // 获取 最新版本号
+    version: `${api_base_recycle}/api/mobile/normal/version`,
+    // android apk 下载地址
+    // androidAPK: `${api_base_recycle}/web/static/huge.apk`,
+    androidAPK: 'https://www.hugehuge.cn/web/static/huge.apk',
+    // 获取 最新版本号(iOS)
+    versionIOS: 'http://itunes.apple.com/cn/lookup?id=1078528907',
+    // 去appStore更新app
+    appStore: 'itms-apps://itunes.apple.com/cn/app/id1078528907',
 
     /** ------ Mock数据 ------ */
     // 获取回收物品 列表
@@ -248,5 +257,6 @@ export default {
     mallBase: 'https://hugetest.oss-cn-hangzhou.aliyuncs.com'
   },
   // 版本号
-  version: 1.11
+  version: 0.11,
+  versionIOS: '2.0.1'
 };

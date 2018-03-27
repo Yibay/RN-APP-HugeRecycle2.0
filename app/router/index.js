@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Router, Scene, Stack } from 'react-native-router-flux';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, NativeModules } from 'react-native';
 import { connect } from 'react-redux';
 
 
@@ -13,6 +13,8 @@ import { adaptLayoutWidth } from '../HOC/adaptLayout';
 import initIdentityToken from '../HOC/initIdentityToken';
 // HOC 启动页、引导页轮播图
 import {guidePage} from '../HOC/guidePage';
+// HOC 检测 版本
+import checkVersion from "../HOC/checkVersion";
 
 // Actions
 import { setShoppingCartThunk } from '../redux/actions/Mall';
@@ -52,6 +54,7 @@ import HugeInformationDetail from "../pages/Home/Mine/HugeInformationDetail";
 import ManageConsumePassword from "../pages/Home/Mine/ManageConsumePassword";
 import CoverageArea from "../pages/Home/Mine/CoverageArea";
 import MallOrderDetail from "../pages/MallOrderDetail";
+
 
 
 class AppRouter extends Component{
@@ -140,6 +143,7 @@ class AppRouter extends Component{
       </Stack>
     </Router>
   }
+
 }
 
 // 因为对屏幕做了适配，所以要对导航的默认样式做些调整
@@ -177,4 +181,4 @@ const tabsStyle = {
 };
 
 // 视图锁定纵向,屏宽适配, 登录状态管理相关数据, 地址管理相关数据
-export default lockOrientation(adaptLayoutWidth(initIdentityToken(guidePage(connect(null,{setShoppingCartThunk})(AppRouter)))));
+export default lockOrientation(adaptLayoutWidth(initIdentityToken(guidePage(checkVersion(connect(null,{setShoppingCartThunk})(AppRouter))))));
