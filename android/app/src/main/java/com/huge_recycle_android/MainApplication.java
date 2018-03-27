@@ -2,6 +2,7 @@ package com.huge_recycle_android;
 
 import android.app.Application;
 
+import com.huge_recycle_android.android_upgrade.UpgradePackage;
 import com.facebook.react.ReactApplication;
 import com.github.yamill.orientation.OrientationPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -25,8 +26,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new OrientationPackage(),
-            new VectorIconsPackage()
+          new OrientationPackage(),
+          new VectorIconsPackage(),
+          new UpgradePackage()
       );
     }
 
