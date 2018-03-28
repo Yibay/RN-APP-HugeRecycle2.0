@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, Text } from 'react-native';
 
+import {connect} from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
@@ -22,16 +23,25 @@ class ManageCustomerAccounts extends Component {
       user: PropTypes.shape({
         name: PropTypes.string
       })
-    })
+    }),
+    PayPasswordFlag: PropTypes.bool
+  };
+
+  static defaultProps = {
+    PayPasswordFlag: false
   };
 
   constructor(props){
     super(props);
 
     this.state = {
-      PayPasswordFlag: false,
+      PayPasswordFlag: this.props.PayPasswordFlag,
       PayPasswordFlagFetching: false
     };
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({PayPasswordFlag: nextProps.PayPasswordFlag});
   }
 
   render(){
@@ -124,4 +134,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default verifyLogin(ManageCustomerAccounts);
+function mapPropsToState(state){
+  return {
+    PayPasswordFlag: !!state.mine.payPasswordFlag.data
+  }
+}
+
+export default verifyLogin(connect(mapPropsToState)(ManageCustomerAccounts));

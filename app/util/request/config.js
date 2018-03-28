@@ -154,6 +154,8 @@ export default {
     // params:
     //  payPassword
     updateCustomerPayPassword: `${api_base_recycle}/web/customer/updateCustomerPayPassword`,
+    // 获取用户基础信息 需要登录 header X-AUTH-TOKEN
+    getUserInfo: `${api_base_recycle}/web/customer/getUserInfo`,
 
 
     /** ------ 商场 便利店相关api ------  */

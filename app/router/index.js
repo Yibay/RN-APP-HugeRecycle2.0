@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Router, Scene, Stack } from 'react-native-router-flux';
-import { StyleSheet, NativeModules } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 
@@ -18,6 +18,7 @@ import checkVersion from "../HOC/checkVersion";
 
 // Actions
 import { setShoppingCartThunk } from '../redux/actions/Mall';
+import { setPayPasswordFlagThunk } from '../redux/actions/Mine';
 
 // 页面路由 TabIcon
 import { RecycleIcon, MallIcon, MineIcon } from '../HOC/configTabIcon';
@@ -108,7 +109,7 @@ class AppRouter extends Component{
         <Scene key='coverageAreaPage' component={CoverageArea} hideNavBar={true} />
 
         {/* 3.2 安全中心 */}
-        <Scene key='manageCustomerAccounts' component={ManageCustomerAccounts} hideNavBar={true} />
+        <Scene key='manageCustomerAccounts' component={ManageCustomerAccounts} hideNavBar={true} onEnter={() => {this.props.setPayPasswordFlagThunk()}} />
         {/* 修改登录密码 */}
         <Scene key='manageLoginPassword' component={ManageLoginPassword} hideNavBar={true} />
         {/* 修改登录密码（忘记密码） */}
@@ -181,5 +182,8 @@ const tabsStyle = {
   }
 };
 
-// 视图锁定纵向,屏宽适配, 登录状态管理相关数据, 地址管理相关数据
-export default lockOrientation(adaptLayoutWidth(initIdentityToken(guidePage(checkVersion(connect(null,{setShoppingCartThunk})(AppRouter))))));
+// 视图锁定纵向,屏宽适配, 检验版本 ,登录状态管理相关数据, 地址管理相关数据
+export default lockOrientation(adaptLayoutWidth(initIdentityToken(checkVersion(guidePage(connect(null,{
+  setShoppingCartThunk,
+  setPayPasswordFlagThunk
+})(AppRouter))))));
