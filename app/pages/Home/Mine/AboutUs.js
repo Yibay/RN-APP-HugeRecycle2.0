@@ -19,7 +19,7 @@ class AboutUs extends Component{
           虎哥回收回收是浙江九仓再生资源开发有限公司自主打造的废旧物资回收平台，通过线上平台和线下物流体系相结合，搭建再生资源"互联网＋回收"的立体服务平台，回收社会可再生资源。
         </Text>
         <Text style={styles.version}>
-          软件版本号：v{config.version}
+          软件版本号：v{config.versionIOS}
         </Text>
       </View>
     </View>

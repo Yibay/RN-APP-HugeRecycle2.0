@@ -67,7 +67,8 @@ class AppRouter extends Component{
           {/* 回收分页: 回收首页 */}
           <Scene key='recycle' icon={RecycleIcon} component={Recycle} hideNavBar={true} />
           {/* 商城分页: 商城首页 key='mall' 不可用 */}
-          <Scene key='shoppingMall' icon={MallIcon} component={Mall} hideNavBar={true} onEnter={() => {this.props.setShoppingCartThunk()}} />
+          {/*<Scene key='shoppingMall' icon={MallIcon} component={Mall} hideNavBar={true} onEnter={() => {this.props.setShoppingCartThunk()}} />*/}
+          <Scene key='shoppingMall' icon={MallIcon} component={MallNotOpen} hideNavBar={true} onEnter={() => {this.props.setShoppingCartThunk()}} />
           {/* 我的分页 */}
           <Scene key='mine' icon={MineIcon} component={Mine} hideNavBar={true} />
         </Scene>

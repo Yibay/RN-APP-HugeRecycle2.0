@@ -75,7 +75,7 @@ class RecycleRecordItem extends Component{
       break;
       case 5: // 已接
       case 6: // 到达
-        recordBtn = <View style={styles.flexRow}><RecordBtn text='催单' submit={() => this.urgeOrder(this.props.recordItem.id)} /><RecordBtn style={styles.btnMargin} text='联系取件员' submit={() => this.contactHuge(this.props.recordItem.id)} /></View>;
+        recordBtn = <View style={styles.flexRow}><RecordBtn text='催单' submit={() => this.urgeOrder(this.props.recordItem.id)} /><RecordBtn style={styles.btnMargin} text='联系虎哥' submit={() => this.contactHuge(this.props.recordItem.id)} /></View>;
         statusDesc = <Text style={styles.status}>等待虎哥上门回收</Text>;
       break;
       case 7: // 完成

@@ -257,6 +257,6 @@ export default {
     mallBase: 'https://hugetest.oss-cn-hangzhou.aliyuncs.com'
   },
   // 版本号
-  version: 0.11,
-  versionIOS: '2.0.1'
+  version: 15,
+  versionIOS: '3.0.0'
 };
