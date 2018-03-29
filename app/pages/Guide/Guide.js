@@ -15,6 +15,7 @@ let guidePage = [
 ];
 
 let {width, height} = Dimensions.get('window');
+[width, height] = [Math.min(width, height), Math.max(width, height)];
 
 class Guide extends Component{
 

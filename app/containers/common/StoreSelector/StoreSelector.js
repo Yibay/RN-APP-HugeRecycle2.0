@@ -97,7 +97,8 @@ const styles = StyleSheet.create({
     borderRadius: 41,
     borderWidth: 2,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    overflow: 'hidden'
   },
   optionActive: {
     borderWidth: 0,
