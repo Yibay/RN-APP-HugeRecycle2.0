@@ -49,7 +49,6 @@ class ManageLoginPassword extends Component{
       return;
     }
     const res = await request.postFormData(config.api.updatePassword,{oldPassword: this.state.oldPassword, newPassword: this.state.newPassword}, {'X-AUTH-TOKEN': this.props.identityToken.authToken})
-    console.log(res);
     if(res){
       if(!res.status && res.data.result){
         Alert.alert('修改成功','',[{text: '确定', onPress: () => Actions.popTo('manageCustomerAccounts')}]);
