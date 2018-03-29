@@ -92,7 +92,7 @@ class RecycleRecordItem extends Component{
 
         // 评价页，此模块不可评价，显示内容有所差异
         this.props.evaluable ?
-          statusDesc = <Text style={styles.statusFinish}>{`已完成（获得${this.props.recordItem.tServiceOrder.orderScore}元环保金）`}</Text>
+          statusDesc = <Text style={styles.statusFinish}>{`已完成（${this.props.recordItem.tServiceOrder.phone} 获得${this.props.recordItem.tServiceOrder.orderScore}元环保金）`}</Text>
           :
           statusDesc = <Text style={styles.statusFinish}>{`获得${this.props.recordItem.tServiceOrder.orderScore}元环保金`}</Text>
         break;
