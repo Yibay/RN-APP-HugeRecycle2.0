@@ -48,13 +48,18 @@ class ManageLoginPassword extends Component{
     if(!updatePasswordValidator(this.state)){
       return;
     }
-    const res = await request.postFormData(config.api.updatePassword,{oldPassword: this.state.oldPassword, newPassword: this.state.newPassword}, {'X-AUTH-TOKEN': this.props.identityToken.authToken})
+    const res = await request.post(config.api.updatePassword,{oldPassword: this.state.oldPassword, newPassword: this.state.newPassword}, {'X-AUTH-TOKEN': this.props.identityToken.authToken})
     if(res){
       if(!res.status && res.data.result){
         Alert.alert('修改成功','',[{text: '确定', onPress: () => Actions.popTo('manageCustomerAccounts')}]);
       }
       else{
-        Alert.alert(res.message);
+        if(res.message === '验证码验证失败！'){
+          Alert.alert('旧密码验证失败！');
+        }
+        else{
+          Alert.alert(res.message);
+        }
       }
     }
   }

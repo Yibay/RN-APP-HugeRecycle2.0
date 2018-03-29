@@ -10,8 +10,8 @@ const __dirname = __dirname || '/Users/zhouquan/workspace/nodeProgram/rn-hugeRec
 // const api_base_mall = 'https://mall.hugehuge.cn';
 
 // 测试
-// const api_base_recycle = 'http://test.hugehuge.cn';
-// const api_base_mall = 'http://test.hugehuge.cn:8070';
+const api_base_recycle = 'http://test.hugehuge.cn';
+const api_base_mall = 'http://test.hugehuge.cn:8070';
 
 // 本机调试（小武）
 // const api_base_recycle = 'http://192.168.50.123:8090';
@@ -19,8 +19,8 @@ const __dirname = __dirname || '/Users/zhouquan/workspace/nodeProgram/rn-hugeRec
 // 本机调试（秦龙）
 // const api_base_recycle = 'http://192.168.50.145:8080';
 // 本机调试 (双全)
-const api_base_recycle = 'http://192.168.50.79:8080';
-const api_base_mall = 'http://192.168.50.79:8070';
+// const api_base_recycle = 'http://192.168.50.79:8080';
+// const api_base_mall = 'http://192.168.50.79:8070';
 
 
 export default {
@@ -127,16 +127,11 @@ export default {
     order: `${api_base_recycle}/api/mobile/deal/order/`,
 
     /** ------ 我的 相关api ------  */
-    // 修改密码(POST) form表单 需要登录 header X-AUTH-TOKEN
-    // params:
-    //  oldPassword
-    //  newPassword
-    updatePassword: `${api_base_recycle}/api/auth/updatePassword`,
     // 忘记密码 (POST) 需要登录 header X-AUTH-TOKEN
     // params:
     //  oldPassword
     //  newPassword
-    forgetPassword: `${api_base_recycle}/web/customer/updateCustomerPassword`,
+    updatePassword: `${api_base_recycle}/web/customer/updateCustomerPassword`,
     // 环保金余额接口(GET) 需要登录 header X-AUTH-TOKEN
     getCustomerScore: `${api_base_recycle}/api/customer/app/auth/deal/getCustomerScore`,
     // 环保金记录接口(GET) 需要登录 header X-AUTH-TOKEN
