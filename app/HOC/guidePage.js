@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {StyleSheet, View, Text, Modal,AsyncStorage} from 'react-native';
+import {StyleSheet, View, Modal} from 'react-native';
 
 
 import request from '../util/request/request';
