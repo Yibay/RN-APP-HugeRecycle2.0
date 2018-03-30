@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, View, Image, TouchableWithoutFeedback, ScrollView, Alert, FlatList } from 'react-native';
+import { StyleSheet, View, Image, TouchableWithoutFeedback, FlatList, Alert } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
@@ -106,22 +106,33 @@ class CommunitySearchEngines extends PureComponent {
 
   // 更新选中小区 到全局
   commitCommunity(){
-    if(this.state.communitySelected){
+
+    let communitySelected = this.state.communitySelected;
+
+    // 若未点击选中，输入的小区名字完全正确也行
+    if(!communitySelected){
+      let communitySelectedArray = this.state.allCommunities.filter(item => item.communityName === this.state.communityName);
+      if(communitySelectedArray.length){
+        communitySelected = communitySelectedArray[0];
+      }
+    }
+
+    if(communitySelected){
       // 若有回调函数，则回传数据
       if(this.props.selectedLocationCallBack){
-        this.props.selectedLocationCallBack(this.state.communitySelected);
+        this.props.selectedLocationCallBack(communitySelected);
       }
       // 否则更新到 redux currentLocation
       else{
         // 查看 用户地址列表中，是否有相同小区
-        let matchingAddress = this.props.userAddressList.filter(item => item.communityId === this.state.communitySelected.communityId);
+        let matchingAddress = this.props.userAddressList.filter(item => item.communityId === communitySelected.communityId);
         // 有,则取那个地址
         if(matchingAddress.length){
           this.props.setLocationThunk(matchingAddress[0]);
         }
         // 没有,则仅取定位小区
         else{
-          this.props.setLocationThunk(this.state.communitySelected);
+          this.props.setLocationThunk(communitySelected);
         }
       }
       Actions.pop();
