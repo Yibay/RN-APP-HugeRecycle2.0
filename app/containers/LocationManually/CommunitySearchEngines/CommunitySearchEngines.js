@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Image, TouchableWithoutFeedback, ScrollView, Alert } from 'react-native';
+import React, { PureComponent } from 'react';
+import { StyleSheet, View, Image, TouchableWithoutFeedback, ScrollView, Alert, FlatList } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
@@ -15,7 +15,7 @@ import CommunitySearched from '../CommunitySearched';
 import SubmitBtn from '../../../components/Form/Btn/SubmitBtn';
 
 
-class CommunitySearchEngines extends Component {
+class CommunitySearchEngines extends PureComponent {
 
   static propTypes = {
     selectedLocationCallBack: PropTypes.func // 有此回调函数，则选中小区后，不更新给redux currentLocation
@@ -26,9 +26,12 @@ class CommunitySearchEngines extends Component {
 
     this.state = {
       communityName: '',
-      allCommunity: [],
+      allCommunities: [],
+      relatedCommunities: [],
+      showCommunities: [],
       communitySelected: null
     };
+
   }
 
   render(){
@@ -38,31 +41,61 @@ class CommunitySearchEngines extends Component {
                     rightButton={<TouchableWithoutFeedback onPress={() => this.onChangeText('')}>
                       <Image style={styles.rightButton} source={require('./img/cancel2x.png')} resizeMode='contain' />
                     </TouchableWithoutFeedback>}/>
-      <ScrollView style={styles.searchResult}>
-        {
-          this.state.allCommunity.filter(item => item.communityName.indexOf(this.state.communityName) !== -1 ).map((item, index) =>
-            <TouchableWithoutFeedback key={index} onPress={() => this.selectCommunity(item)}>
-                <CommunitySearched  key={index} communityData={item} style={styles.CommunitySearched}/>
-            </TouchableWithoutFeedback>)
-        }
-      </ScrollView>
+      <FlatList style={styles.searchResult}
+                data={this.state.showCommunities}
+                renderItem={
+                  ({item, index}) =>
+                    <TouchableWithoutFeedback key={index} onPress={() => this.selectCommunity(item)}>
+                      <CommunitySearched  key={index} communityData={item} style={styles.CommunitySearched}/>
+                    </TouchableWithoutFeedback>
+                }
+                onEndReached={() => this.lazyLoadList()}
+                onEndReachedThreshold={0.5} />
       <SubmitBtn style={styles.SubmitBtn} submit={() => this.commitCommunity()}/>
     </View>)
   }
 
+
+
   async componentDidMount(){
     // 获取所有小区 信息列表
     const res = await request.get(config.api.getAllCommunity);
-    console.log(res);
+
     // 若返回数据正常
     if(res && !res.status){
-      this.setState({ allCommunity: res.data });
+      this.setState(state => {
+        let allCommunities = res.data;
+        let relatedCommunities = allCommunities.filter(item => item.communityName.indexOf(state.communityName) !== -1 );
+        return {
+          allCommunities,
+          relatedCommunities,
+          showCommunities: relatedCommunities.slice(0,6)
+        }
+      });
     }
   }
 
-  // 手动输入小区名
+  // 手动输入小区名 (联动 关联小区、显示小区)
   onChangeText(communityName){
-    this.setState({communityName, communitySelected: null});
+    this.setState(state => {
+      // 关联小区
+      let relatedCommunities = state.allCommunities.filter(item => item.communityName.indexOf(communityName) !== -1 );
+      return {
+        communityName,
+        communitySelected: null,
+        relatedCommunities,
+        showCommunities: relatedCommunities.slice(0,6)
+      }
+    });
+  }
+
+  // 懒加载 显示小区 (从关联小区中，分步显示)
+  lazyLoadList(){
+    if(this.state.showCommunities.length <= this.state.relatedCommunities.length){
+      this.setState(state => ({
+        showCommunities: state.showCommunities.concat(state.relatedCommunities.slice(state.showCommunities.length,state.showCommunities.length  + 6))
+      }));
+    }
   }
 
   // 选中小区
