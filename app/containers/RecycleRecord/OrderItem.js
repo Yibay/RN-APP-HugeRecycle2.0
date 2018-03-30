@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
   },
   // 第1内容区
   firstSection: {
-    height: 126,
+    minHeight: 126,
+    paddingVertical: 20,
     paddingHorizontal: 30,
     borderBottomWidth: 2,
     borderBottomColor: '#e1e5e8',

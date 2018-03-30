@@ -5,14 +5,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { Actions } from 'react-native-router-flux';
 import { Switch } from 'react-native-switch';
 
 
 import { createOrderValidator } from '../../../util/form/recycleOrderValidator';
-import request from '../../../util/request/request';
-import config from '../../../util/request/config';
-import {showRecycleOrderError} from '../../../util/alertError';
 import { resetRecycledItem, fetchRecycleOrderThunk } from '../../../redux/actions/Recycle';
 
 import { verifyLogin } from '../../../HOC/verifyLogin';
