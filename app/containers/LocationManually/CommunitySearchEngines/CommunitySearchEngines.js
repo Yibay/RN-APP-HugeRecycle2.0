@@ -28,7 +28,6 @@ class CommunitySearchEngines extends PureComponent {
       communityName: '',
       allCommunities: [],
       relatedCommunities: [],
-      showCommunities: [],
       communitySelected: null
     };
 
@@ -42,15 +41,13 @@ class CommunitySearchEngines extends PureComponent {
                       <Image style={styles.rightButton} source={require('./img/cancel2x.png')} resizeMode='contain' />
                     </TouchableWithoutFeedback>}/>
       <FlatList style={styles.searchResult}
-                data={this.state.showCommunities}
+                data={this.state.relatedCommunities}
                 renderItem={
                   ({item, index}) =>
                     <TouchableWithoutFeedback key={index} onPress={() => this.selectCommunity(item)}>
                       <CommunitySearched  key={index} communityData={item} style={styles.CommunitySearched}/>
                     </TouchableWithoutFeedback>
-                }
-                onEndReached={() => this.lazyLoadList()}
-                onEndReachedThreshold={0.5} />
+                } />
       <SubmitBtn style={styles.SubmitBtn} submit={() => this.commitCommunity()}/>
     </View>)
   }
@@ -68,8 +65,7 @@ class CommunitySearchEngines extends PureComponent {
         let relatedCommunities = allCommunities.filter(item => item.communityName.indexOf(state.communityName) !== -1 );
         return {
           allCommunities,
-          relatedCommunities,
-          showCommunities: relatedCommunities.slice(0,6)
+          relatedCommunities
         }
       });
     }
@@ -83,19 +79,9 @@ class CommunitySearchEngines extends PureComponent {
       return {
         communityName,
         communitySelected: null,
-        relatedCommunities,
-        showCommunities: relatedCommunities.slice(0,6)
+        relatedCommunities
       }
     });
-  }
-
-  // 懒加载 显示小区 (从关联小区中，分步显示)
-  lazyLoadList(){
-    if(this.state.showCommunities.length <= this.state.relatedCommunities.length){
-      this.setState(state => ({
-        showCommunities: state.showCommunities.concat(state.relatedCommunities.slice(state.showCommunities.length,state.showCommunities.length  + 6))
-      }));
-    }
   }
 
   // 选中小区
