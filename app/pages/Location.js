@@ -27,7 +27,7 @@ class LocationPage extends Component{
           this.props.authToken ?
             undefined
             :
-            <SubmitBtn style={styles.loginBtn} text='已回收过，手机号码直接登录' submit={() => {Actions.login();}}/>
+            <SubmitBtn style={styles.loginBtn} text='已回收过，手机号码直接登录' submit={() => {Actions.login({needPop: true});}}/>
         }
 
         <View style={this.props.authToken ? [styles.serviceScope].concat(styles.serviceScopeOnly) : styles.serviceScope }>

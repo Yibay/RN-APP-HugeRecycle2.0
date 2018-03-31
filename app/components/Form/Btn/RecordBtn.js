@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 import PropTypes from 'prop-types';
 
@@ -16,11 +16,11 @@ class RecordBtn extends Component {
   };
 
   render(){
-    return (<TouchableWithoutFeedback onPress={() => this.props.submit()}>
+    return (<TouchableOpacity onPress={() => this.props.submit()}>
       <View style={[styles.container].concat(this.props.style)}>
         <Text style={styles.text}>{this.props.text}</Text>
       </View>
-    </TouchableWithoutFeedback>)
+    </TouchableOpacity>)
   }
 
 }

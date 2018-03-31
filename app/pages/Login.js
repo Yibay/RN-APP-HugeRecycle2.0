@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Alert } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 
 import validator from '../util/form/validator';
@@ -18,6 +19,11 @@ import InputSection from '../components/Form/Input/InputSection';
 
 
 class Login extends Component{
+
+  static propTypes = {
+    needPop: PropTypes.bool,
+    setIdentityTokenThunk: PropTypes.func.isRequired
+  };
 
   constructor(props){
     super(props);
