@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView ,View, RefreshControl } from 'react-native';
+import { StyleSheet, View, RefreshControl, FlatList } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 
@@ -24,14 +24,13 @@ class EnvironmentalRecord extends Component {
   }
   
   render(){
+    let recordItems = this.state.recordItems.map((item, index) => {item.key = index; return item;});
     return (<View style={styles.container} ref='componentExisted'>
       <Header title='我的环保记录' back={() => Actions.popTo('_mine')} />
       {/* 环保记录列表 */}
-      <ScrollView style={styles.container} refreshControl={<RefreshControl refreshing={this.state.isRefreshing} onRefresh={() => this.updateOrderList()} />}>
-        {
-          this.state.recordItems.map((item, index) => <RecycleRecordItem key={index} style={styles.OrderItem} recordItem={item} authToken={this.props.identityToken.authToken} updateOrderList={() => this.updateOrderList()} />)
-        }
-      </ScrollView>
+      <FlatList style={styles.container} refreshControl={<RefreshControl refreshing={this.state.isRefreshing} onRefresh={() => this.updateOrderList()} />}
+                data={recordItems}
+                renderItem={({item}) => <RecycleRecordItem style={styles.OrderItem} recordItem={item} authToken={this.props.identityToken.authToken} updateOrderList={() => this.updateOrderList()} />} />
     </View>);
   }
 

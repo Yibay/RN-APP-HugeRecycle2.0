@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, FlatList } from 'react-native';
 
 import PropTypes from 'prop-types';
 
@@ -22,12 +22,9 @@ class SubCategory extends Component{
   render(){
 
     return (
-      <ScrollView style={this.props.show ? styles.container : styles.hide}>
-        {
-          Object.keys(this.props.subCategoryObj)
-            .map(key => (<CategoryItem key={key} category={this.props.subCategoryObj[key]} sort={this.props.sort} />))
-        }
-      </ScrollView>
+      <FlatList style={this.props.show ? styles.container : styles.hide}
+                data={Object.keys(this.props.subCategoryObj).map(key => ({key}))}
+                renderItem={({item}) => <CategoryItem category={this.props.subCategoryObj[item.key]} sort={this.props.sort} />} />
     );
   }
 

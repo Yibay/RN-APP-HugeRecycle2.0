@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView, Image, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Text, FlatList, Image, TouchableWithoutFeedback } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -33,23 +33,24 @@ class AddressManagement extends Component {
   };
 
   render(){
+    // 构造 key
+    let userAddressList = this.props.userAddressList.map((item, index) => {item.key = index;return item});
     return (<View style={styles.container}>
       <Header title='地址管理' rightButton={<Text style={styles.rightButton} onPress={() => Actions.addressAddPage()}>新增地址</Text>} />
-      <ScrollView style={styles.addressList}>
-        {
-          this.props.userAddressList.map(item => <TouchableWithoutFeedback key={item.id} onPress={() => this.selectAddress(item)}>
-            <View style={styles.addressItem}>
-              <AddressSection currentLocation={item} rightButton={
-                <TouchableWithoutFeedback onPress={() => this.goToEditAddress(item)}>
-                  <View style={styles.editButtonTouchable}>
-                    <Image source={require('../assets/iconImg/edit2x.png')} resizeMode='contain' style={styles.editButton} />
+      <FlatList style={styles.addressList} data={userAddressList}
+                renderItem={({item}) => <TouchableWithoutFeedback onPress={
+                  () => this.selectAddress(item)}>
+                  <View style={styles.addressItem}>
+                    <AddressSection currentLocation={item} rightButton={
+                      <TouchableWithoutFeedback onPress={() => this.goToEditAddress(item)}>
+                        <View style={styles.editButtonTouchable}>
+                          <Image source={require('../assets/iconImg/edit2x.png')} resizeMode='contain' style={styles.editButton} />
+                        </View>
+                      </TouchableWithoutFeedback>
+                    } />
                   </View>
                 </TouchableWithoutFeedback>
-              } />
-            </View>
-          </TouchableWithoutFeedback>)
-        }
-      </ScrollView>
+                } />
     </View>);
   }
 

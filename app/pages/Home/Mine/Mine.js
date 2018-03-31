@@ -46,7 +46,8 @@ class Mine extends Component {
 
 
     return (<View style={styles.container} ref='componentExisted'>
-      <Header title='我的' hideBack={true} rightButton={<MsgBtn />} />
+      {/*<Header title='我的' hideBack={true} rightButton={<MsgBtn />} />*/}
+      <Header title='我的' hideBack={true} />
       <ScrollView style={styles.content} refreshControl={<RefreshControl
         refreshing={this.state.isRefreshing}
         onRefresh={() => this.refreshCustomerScore()}
