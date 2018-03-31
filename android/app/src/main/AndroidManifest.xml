@@ -41,7 +41,7 @@
         <!-- 添加fileProvider配置代码-->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.updateFileProvider"
+            android:authorities="com.huge_recycle_android.updateFileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

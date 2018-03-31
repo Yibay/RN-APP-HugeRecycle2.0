@@ -1,10 +1,16 @@
 <paths>
+
+    <root-path
+        name="root_path"
+        path="."/>
+
     <!--升级-->
     <external-cache-path
-            name="update_external_cache"
-            path="." />
+        name="update_external_cache"
+        path="." />
 
     <cache-path
-            name="update_cache"
-            path="." />
+        name="update_cache"
+        path="." />
+
 </paths>
