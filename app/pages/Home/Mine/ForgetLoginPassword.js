@@ -70,7 +70,7 @@ class ForgetLoginPassword extends Component {
     }
     const res = await request.post(config.api.updatePassword,{oldPassword: this.state.code, newPassword: this.state.newPassword}, {'X-AUTH-TOKEN': this.props.identityToken.authToken})
     if(res){
-      if(!res.status && res.data.result){
+      if(!res.status){
         Alert.alert('修改成功','',[{text: '确定', onPress: () => Actions.popTo('manageCustomerAccounts')}]);
       }
       else{
