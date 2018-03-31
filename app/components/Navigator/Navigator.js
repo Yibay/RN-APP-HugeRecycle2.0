@@ -85,7 +85,8 @@ class Navigator extends Component {
         this.props.contentLayoutStyle === 'highlyScrollable' ?
           <ScrollView style={styles.page}>
             {
-              this.props.children ? this.props.children[this.state.selectPageIndex] : null // 页面内容区，显示 selectPageIndex 对应页面
+              // 页面内容区，显示 selectPageIndex 对应页面
+              this.props.children.map((item, index) => <View key={index} style={{display: index === this.state.selectPageIndex ? 'flex' : 'none'}}>{item}</View>)
             }
           </ScrollView>
         :
@@ -100,7 +101,8 @@ class Navigator extends Component {
         // 若为 高度自适应
           <View>
             {
-              this.props.children ? this.props.children[this.state.selectPageIndex] : null // 页面内容区，显示 selectPageIndex 对应页面
+              // 页面内容区，显示 selectPageIndex 对应页面
+              this.props.children.map((item, index) => <View key={index} style={{display: index === this.state.selectPageIndex ? 'flex' : 'none'}}>{item}</View>)
             }
           </View>
       }

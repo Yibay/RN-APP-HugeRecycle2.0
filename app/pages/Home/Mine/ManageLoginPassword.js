@@ -13,6 +13,7 @@ import Header from '../../../components/Header/Header';
 import InputSection from '../../../components/Form/Input/InputSection';
 import SubmitBtn from '../../../components/Form/Btn/SubmitBtn';
 import PasswordBtn from "../../../components/Form/Btn/PasswordBtn/PasswordBtn";
+import Loading from '../../../components/Alert/Loading';
 
 
 class ManageLoginPassword extends Component{
@@ -23,7 +24,8 @@ class ManageLoginPassword extends Component{
     this.state = {
       oldPassword: '',
       newPassword: '',
-      secureTextEntry: true
+      secureTextEntry: true,
+      showLoading: false
     };
   }
 
@@ -34,6 +36,7 @@ class ManageLoginPassword extends Component{
       <InputSection style={styles.inputSection} value={this.state.newPassword} onChangeText={val => this.setState({newPassword: val.trim()})} label='新密码' secureTextEntry={this.state.secureTextEntry} rightButton={<PasswordBtn secureTextEntry={this.state.secureTextEntry} setSecure={val => this.setSecure(val)}/>}/>
       <SubmitBtn style={styles.submitBtn} text='确认修改' submit={() => this.submit()}/>
       <Text style={styles.forgetBtn} onPress={() => Actions.forgetLoginPassword()}>忘记密码</Text>
+      <Loading show={this.state.showLoading} title='提交中' />
     </View>);
   }
 
@@ -48,20 +51,26 @@ class ManageLoginPassword extends Component{
     if(!updatePasswordValidator(this.state)){
       return;
     }
+    this.setState({showLoading: true});
     const res = await request.post(config.api.updatePassword,{oldPassword: this.state.oldPassword, newPassword: this.state.newPassword}, {'X-AUTH-TOKEN': this.props.identityToken.authToken})
-    if(res){
-      if(!res.status){
-        Alert.alert('修改成功','',[{text: '确定', onPress: () => Actions.popTo('manageCustomerAccounts')}]);
-      }
-      else{
-        if(res.message === '验证码验证失败！'){
-          Alert.alert('旧密码验证失败！');
+    this.setState({showLoading: false});
+    // 防止 Alert与Modal冲突
+    setTimeout(function(){
+      if(res){
+        if(!res.status){
+          Alert.alert('修改成功','',[{text: '确定', onPress: () => Actions.popTo('manageCustomerAccounts')}]);
         }
         else{
-          Alert.alert(res.message);
+          if(res.message === '验证码验证失败！'){
+            Alert.alert('旧密码验证失败！');
+          }
+          else{
+            Alert.alert(res.message);
+          }
         }
       }
-    }
+    },0);
+
   }
 }
 

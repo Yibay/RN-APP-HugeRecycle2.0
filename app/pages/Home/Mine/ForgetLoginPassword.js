@@ -15,6 +15,7 @@ import SubmitBtn from "../../../components/Form/Btn/SubmitBtn";
 import PasswordBtn from "../../../components/Form/Btn/PasswordBtn/PasswordBtn";
 import RecordBtn from "../../../components/Form/Btn/RecordBtn";
 import {verifyLogin} from "../../../HOC/verifyLogin";
+import Loading from '../../../components/Alert/Loading';
 
 
 class ForgetLoginPassword extends Component {
@@ -26,7 +27,8 @@ class ForgetLoginPassword extends Component {
       phone: this.props.identityToken.user.phone,
       code: '',
       newPassword: '',
-      secureTextEntry: true
+      secureTextEntry: true,
+      showLoading: false,
     };
   }
 
@@ -38,6 +40,7 @@ class ForgetLoginPassword extends Component {
       <InputSection style={styles.inputSection} value={this.state.code} onChangeText={val => this.setState({code: val})} label='验证码' rightButton={<RecordBtn style={styles.getCode} text='发送验证码' submit={() => this.getCode()}/>}/>
       <InputSection style={styles.inputSection} value={this.state.newPassword} onChangeText={val => this.setState({newPassword: val.trim()})} label='新密码' secureTextEntry={this.state.secureTextEntry} rightButton={<PasswordBtn secureTextEntry={this.state.secureTextEntry} setSecure={val => this.setSecure(val)}/>}/>
       <SubmitBtn text='确认修改' style={styles.submitBtn} submit={() => this.submit()} />
+      <Loading show={this.state.showLoading} />
     </View>
   }
 
@@ -49,34 +52,41 @@ class ForgetLoginPassword extends Component {
   }
 
   // 获取验证码
-  getCode(){
+  async getCode(){
     if(!validator.isPhone(this.state.phone)){
       Alert.alert('请填写正确手机号码');
       return;
     }
-    request
-      .post(config.api.getCode, {phone: this.state.phone})
-      .then(res => {
-        // 发送成功 status 为 0，弹出 返回的data信息
-        res.status || Alert.alert(res.data);
-      });
+    this.setState({showLoading: true});
+    const res = await request.post(config.api.getCode, {phone: this.state.phone});
+    this.setState({showLoading: false});
+
+    // 发送成功 status 为 0，弹出 返回的data信息
+    setTimeout(function(){
+      if(res && !res.status){
+        Alert.alert(res.data);
+      }
+    },0);
   }
 
   // 修改密码
   async submit() {
-    console.log(this.props);
     if(!forgetPasswordValidator(this.state)){
       return;
     }
+    this.setState({showLoading: true});
     const res = await request.post(config.api.updatePassword,{oldPassword: this.state.code, newPassword: this.state.newPassword}, {'X-AUTH-TOKEN': this.props.identityToken.authToken})
-    if(res){
-      if(!res.status){
-        Alert.alert('修改成功','',[{text: '确定', onPress: () => Actions.popTo('manageCustomerAccounts')}]);
+    this.setState({showLoading: false});
+    setTimeout(function(){
+      if(res){
+        if(!res.status){
+          Alert.alert('修改成功','',[{text: '确定', onPress: () => Actions.popTo('manageCustomerAccounts')}]);
+        }
+        else{
+          Alert.alert(res.message);
+        }
       }
-      else{
-        Alert.alert(res.message);
-      }
-    }
+    },0);
   }
 }
 
