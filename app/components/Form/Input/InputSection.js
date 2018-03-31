@@ -10,12 +10,12 @@ class InputSection extends Component {
     value: PropTypes.string.isRequired, // input value （必选）
     onChangeText: PropTypes.func.isRequired, // value 改变时，更新外部数据的func
     label: PropTypes.string.isRequired, // label 文案
-    placeholder: PropTypes.string.isRequired, // placeholder 文案
-    editable: PropTypes.bool.isRequired, // input 是否可手动编辑
+    placeholder: PropTypes.string, // placeholder 文案
+    editable: PropTypes.bool, // input 是否可手动编辑
     leftButton: PropTypes.element, // 左侧按钮
     rightButton: PropTypes.element, // 右侧按钮
     keyboardType: PropTypes.oneOf(['default','numeric','email-address','phone-pad']),
-    secureTextEntry: PropTypes.bool.isRequired // 隐藏输入内容(密文)
+    secureTextEntry: PropTypes.bool // 隐藏输入内容(密文)
   };
 
   static defaultProps = {
@@ -43,6 +43,7 @@ class InputSection extends Component {
                  ref="input"
                  value={this.props.value}
                  onChangeText={val => this.props.onChangeText(val)}
+                 autoCapitalize='none'
                  placeholder={this.props.placeholder}
                  editable={this.props.editable}
                  secureTextEntry={this.props.secureTextEntry}

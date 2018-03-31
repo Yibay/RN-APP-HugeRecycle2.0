@@ -46,7 +46,7 @@ class HouseNumberAddressSection extends Component {
       <SelectorPicker style={styles.SelectorPicker} selectedValue={this.state.haveHouseNumber} options={this.state.options} confirmPickerVal={val => this.selectHouseNumberType(val)} />
       {/* 有户号 地址模块 */}
       <View style={[this.state.haveHouseNumber ? styles.haveHouseNumberSection : styles.hide]}>
-        <TextInput underlineColorAndroid="transparent" value={this.state.building} onChangeText={val => this.onlyEnterNumbersAndLetters({building: val.trim()})} keyboardType='numeric' style={[styles.msgText, styles.msgTextInput, styles.address]} />
+        <TextInput underlineColorAndroid="transparent" value={this.state.building} onChangeText={val => this.onlyEnterNumbersAndLetters({building: val.trim()})} keyboardType='default' style={[styles.msgText, styles.msgTextInput, styles.address]} />
         <Text style={styles.msgText}>栋</Text>
         <TextInput underlineColorAndroid="transparent" value={this.state.unit} onChangeText={val => this.onlyEnterNumbers({unit: val.trim()})} keyboardType='numeric' style={[styles.msgText, styles.msgTextInput, styles.address]} />
         <Text style={styles.msgText}>单元</Text>
