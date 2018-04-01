@@ -8,9 +8,10 @@ import recycle from './reducers/Recycle';
 import identityToken from './reducers/IdentityToken';
 import mall from './reducers/Mall';
 import user from './reducers/user';
+import official from './reducers/official';
 
 
-const allReducers = combineReducers({ location, recycle, identityToken, mall, user });
+const allReducers = combineReducers({ location, recycle, identityToken, mall, user, official });
 // 中间件：Redux action 日志
 const loggerMiddleware = createLogger();
 // 通过 reducer生成store (配置中间件)

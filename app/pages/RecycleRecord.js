@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { StyleSheet, View, RefreshControl, FlatList } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 
 import { verifyLogin } from '../HOC/verifyLogin';
-import request from '../util/request/request';
-import config from '../util/request/config';
+import {fetchRecycleRecordThunk} from '../redux/actions/user/recycleRecord';
 
 import Header from '../components/Header/Header';
 import RecycleRecordItem from '../containers/RecycleRecord/RecycleRecordItem';
@@ -14,41 +15,33 @@ import RecycleRecordItem from '../containers/RecycleRecord/RecycleRecordItem';
 
 class EnvironmentalRecord extends Component {
 
-  constructor(props){
-    super(props);
-
-    this.state = {
-      recordItems: [], // 回收记录列表
-      isRefreshing: false // 下拉刷新loading图
-    };
-  }
+  static propTypes = {
+    fetchRecycleRecordThunk: PropTypes.func.isRequired,
+    recycleRecord: PropTypes.shape({
+      data: PropTypes.array.isRequired,
+      isFetching: PropTypes.bool.isRequired
+    })
+  };
   
   render(){
-    let recordItems = this.state.recordItems.map((item, index) => {item.key = index; return item;});
     return (<View style={styles.container} ref='componentExisted'>
       <Header title='我的环保记录' back={() => Actions.popTo('_mine')} />
       {/* 环保记录列表 */}
-      <FlatList style={styles.container} refreshControl={<RefreshControl refreshing={this.state.isRefreshing} onRefresh={() => this.updateOrderList()} />}
-                data={recordItems}
+      <FlatList style={styles.container} refreshControl={<RefreshControl refreshing={this.props.recycleRecord.isFetching} onRefresh={() => this.updateOrderList()} />}
+                data={this.props.recycleRecord.data}
                 renderItem={({item}) => <RecycleRecordItem style={styles.OrderItem} recordItem={item} authToken={this.props.identityToken.authToken} updateOrderList={() => this.updateOrderList()} />} />
     </View>);
   }
 
   // 单一入口页，数据采用本层管理
-  async componentDidMount(){
+  componentDidMount(){
     // 更新 环保记录列表数据
-    await this.updateOrderList();
+    this.updateOrderList();
   }
 
   // 更新回收订单列表
-  async updateOrderList(){
-    const res = await request
-      .get(config.api.myOrders, null, {'X-AUTH-TOKEN': this.props.identityToken.authToken})
-
-    // 若请求正常、且数据正常
-    if(res && !res.status && this.refs.componentExisted){
-      this.setState({recordItems: res.data});
-    }
+  updateOrderList(){
+    this.props.fetchRecycleRecordThunk();
   }
 
 }
@@ -62,4 +55,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default verifyLogin(EnvironmentalRecord);
+function mapStateToProps(state){
+  return {
+    recycleRecord: state.user.recycleRecord
+  }
+}
+
+export default verifyLogin(connect(mapStateToProps, {fetchRecycleRecordThunk})(EnvironmentalRecord));
