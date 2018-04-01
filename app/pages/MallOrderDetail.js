@@ -46,8 +46,8 @@ class MallOrderDetail extends Component{
                 {
                   [
                     orderItem.customerName,
-                    orderItem.customerLocation.customerPhone,
-                    `${orderItem.customerLocation.regionName} ${orderItem.customerLocation.streetName} ${orderItem.customerLocation.communityName} ${orderItem.customerLocation.address}`
+                    orderItem.customerLocation ? orderItem.customerLocation.customerPhone : '',
+                    orderItem.customerLocation ? [orderItem.customerLocation.regionName, orderItem.customerLocation.streetName, orderItem.customerLocation.communityName, orderItem.customerLocation.address].filter(item => item).join(' ') : ''
                   ].filter(item => item).join(', ')
                 }
               </Text>
