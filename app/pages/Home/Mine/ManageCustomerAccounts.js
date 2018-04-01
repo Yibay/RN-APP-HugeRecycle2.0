@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
 
 function mapPropsToState(state){
   return {
-    PayPasswordFlag: !!state.mine.payPasswordFlag.data
+    PayPasswordFlag: !!state.user.payPasswordFlag.data
   }
 }
 

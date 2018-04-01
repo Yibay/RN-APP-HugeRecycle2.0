@@ -7,10 +7,10 @@ import location from './reducers/Location';
 import recycle from './reducers/Recycle';
 import identityToken from './reducers/IdentityToken';
 import mall from './reducers/Mall';
-import mine from './reducers/Mine';
+import user from './reducers/user';
 
 
-const allReducers = combineReducers({ location, recycle, identityToken, mall, mine });
+const allReducers = combineReducers({ location, recycle, identityToken, mall, user });
 // 中间件：Redux action 日志
 const loggerMiddleware = createLogger();
 // 通过 reducer生成store (配置中间件)

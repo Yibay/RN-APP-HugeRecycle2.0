@@ -7,9 +7,8 @@ import { connect } from 'react-redux';
 
 
 import { verifyLogin } from '../../../HOC/verifyLogin';
-import request from '../../../util/request/request';
-import config from '../../../util/request/config';
 import { emptyIdentityToken, setIdentityTokenThunk } from '../../../redux/actions/IdentityToken';
+import {fetchCustomerScoreThunk} from '../../../redux/actions/user/customerScore';
 
 import Header from '../../../components/Header/Header';
 import MsgBtn from '../../../containers/Mine/MessageBtn/MessageBtn';
@@ -26,17 +25,12 @@ class Mine extends Component {
         phone: PropTypes.string.isRequired
       }),
       authToken: PropTypes.string.isRequired
+    }),
+    customerScore: PropTypes.shape({
+      data: PropTypes.number,
+      isFetching: PropTypes.bool
     })
   };
-
-  constructor(props){
-    super(props);
-
-    this.state = {
-      customerScore: 0,
-      isRefreshing: false
-    };
-  }
 
   render(){
     // 加密电话
@@ -49,7 +43,7 @@ class Mine extends Component {
       {/*<Header title='我的' hideBack={true} rightButton={<MsgBtn />} />*/}
       <Header title='我的' hideBack={true} />
       <ScrollView style={styles.content} refreshControl={<RefreshControl
-        refreshing={this.state.isRefreshing}
+        refreshing={this.props.customerScore.isFetching}
         onRefresh={() => this.refreshCustomerScore()}
         title='下拉刷新'
       />}>
@@ -69,7 +63,7 @@ class Mine extends Component {
           </View>
         </View>
         {/* 各模块 */}
-        <LineSection title='环保金' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/customerScore.png')} resizeMode='contain'/>} onPress={() => {Actions.customerScorePage()}} rightModule={<Text style={styles.customerScore}>{`¥${this.state.customerScore}`}</Text>}/>
+        <LineSection title='环保金' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/customerScore.png')} resizeMode='contain'/>} onPress={() => {Actions.customerScorePage()}} rightModule={<Text style={styles.customerScore}>{`¥${this.props.customerScore.data}`}</Text>}/>
         <LineSection title='地址管理' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/location.png')} resizeMode='contain'/>} onPress={() => {Actions.addressManagementPage()}} />
         <LineSection title='环保记录' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/recycleRecord.png')} resizeMode='contain'/>} onPress={() => Actions.environmentalRecordPage()}/>
         <LineSection title='消费记录' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/recycleRecord.png')} resizeMode='contain'/>} onPress={() => Actions.mallOrderRecordPage()}/>
@@ -82,23 +76,13 @@ class Mine extends Component {
     </View>)
   }
 
-  async componentDidMount(){
-    await this.refreshCustomerScore();
+  componentDidMount(){
+    this.refreshCustomerScore();
   }
 
   // 刷新环保金余额
-  async refreshCustomerScore(){
-    const res = await request.get(config.api.getCustomerScore,null,{'X-AUTH-TOKEN': this.props.identityToken.authToken});
-    // 异步后，验证 组件存在，再setState
-    if(res && this.refs.componentExisted){
-      if(!res.status){
-        this.setState({customerScore: res.data, isRefreshing: false});
-      }
-      else {
-        console.log(res);
-        this.setState({isRefreshing: false});
-      }
-    }
+  refreshCustomerScore(){
+    this.props.fetchCustomerScoreThunk();
   }
 
   // 退出登录
@@ -201,5 +185,11 @@ const styles = StyleSheet.create({
   }
 });
 
+function mapStateToProps(state){
+  return {
+    customerScore: state.user.customerScore
+  }
+}
+
 // 此页面需验证身份
-export default verifyLogin(connect(null,{setIdentityTokenThunk})(Mine));
+export default verifyLogin(connect(mapStateToProps, {setIdentityTokenThunk, fetchCustomerScoreThunk})(Mine));
