@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, FlatList} from 'react-native';
+import {StyleSheet, View, Text, FlatList, RefreshControl} from 'react-native';
 
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 
-import {fetchCoverageAreaThunk} from '../../../redux/actions/official/coverageArea';
+import {onEnter} from "../../../redux/actions/pagesLife/CoverageAreaLife";
 
 import Header from "../../../components/Header/Header";
 import StreetItem from "../../../containers/CoverageArea/StreetItem";
@@ -14,7 +14,7 @@ import StreetItem from "../../../containers/CoverageArea/StreetItem";
 class CoverageArea extends Component {
 
   static propTypes = {
-    fetchCoverageAreaThunk: PropTypes.func.isRequired,
+    onEnter: PropTypes.func.isRequired,
     coverageArea: PropTypes.shape({
       data: PropTypes.array.isRequired,
       isFetching: PropTypes.bool.isRequired
@@ -28,12 +28,13 @@ class CoverageArea extends Component {
                 data={this.props.coverageArea.data}
                 ListHeaderComponent={<Text style={styles.header}>服务站正在全面铺设当中，现有站点如下：</Text>}
                 renderItem={({item}) => <StreetItem street={item}/>}
-                ListFooterComponent={<Text style={styles.footer}>更多小区，敬请期待！</Text>} />
+                ListFooterComponent={<Text style={styles.footer}>更多小区，敬请期待！</Text>}
+                refreshControl={<RefreshControl refreshing={this.props.coverageArea.isFetching} onRefresh={() => this.props.onEnter()} />} />
     </View>
   }
 
   componentDidMount(){
-    this.props.fetchCoverageAreaThunk();
+    this.props.onEnter();
   }
 }
 
@@ -65,4 +66,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {fetchCoverageAreaThunk})(CoverageArea);
+export default connect(mapStateToProps, {onEnter})(CoverageArea);

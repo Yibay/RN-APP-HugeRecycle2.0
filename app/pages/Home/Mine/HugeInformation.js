@@ -1,11 +1,11 @@
 import React,{Component} from 'react';
-import {StyleSheet, View, FlatList} from 'react-native';
+import {StyleSheet, View, FlatList, RefreshControl} from 'react-native';
 
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 
-import {fetchHugeInformationThunk} from '../../../redux/actions/official/hugeInformation';
+import {onEnter} from "../../../redux/actions/pagesLife/HugeInformationLife";
 
 import Header from '../../../components/Header/Header';
 import InformationItem from "../../../containers/HugeInformation/InformationItem";
@@ -14,7 +14,7 @@ import InformationItem from "../../../containers/HugeInformation/InformationItem
 class HugeInformation extends Component{
 
   static propTypes = {
-    fetchHugeInformationThunk: PropTypes.func.isRequired,
+    onEnter: PropTypes.func.isRequired,
     hugeInformation: PropTypes.shape({
       data: PropTypes.array.isRequired,
       isFetching: PropTypes.bool.isRequired
@@ -25,12 +25,15 @@ class HugeInformation extends Component{
   render(){
     return <View style={styles.container}>
       <Header title='虎哥资讯'/>
-      <FlatList style={styles.informationList} data={this.props.hugeInformation.data} renderItem={({item}) => <InformationItem item={item} />}/>
+      <FlatList style={styles.informationList}
+                data={this.props.hugeInformation.data}
+                renderItem={({item}) => <InformationItem item={item} />}
+                refreshControl={<RefreshControl refreshing={this.props.hugeInformation.isFetching} onRefresh={() => this.props.onEnter()} />} />
     </View>
   }
 
   async componentDidMount(){
-    this.props.fetchHugeInformationThunk();
+    this.props.onEnter();
   }
 }
 
@@ -50,4 +53,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {fetchHugeInformationThunk})(HugeInformation);
+export default connect(mapStateToProps, {onEnter})(HugeInformation);
