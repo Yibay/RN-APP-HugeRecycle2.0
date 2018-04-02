@@ -72,12 +72,12 @@ const styles = StyleSheet.create({
   // 跳过按钮
   countDownBtn: {
     position: 'absolute',
-    top: 50,
+    top: 100,
     right: 50,
     height: 50,
     paddingHorizontal: 30,
     borderRadius: 25,
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(255,255,255,0.7)',
     justifyContent: 'center',
     alignItems: 'center'
   },

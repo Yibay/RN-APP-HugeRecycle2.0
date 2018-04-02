@@ -28,7 +28,7 @@ class Guide extends Component{
       <Swiper style={styles.wrapper} paginationStyle={styles.paginationStyle} loop={false}>
         {
           guidePage.map((item, index) => <View key={index} style={styles.slide}>
-            <Image style={{width, height}} source={item} resizeMode='stretch' />
+            <Image style={{width, height, marginTop: -0.05 * height}} source={item} resizeMode='stretch' />
             {
               index === guidePage.length - 1 ?
                 <TouchableOpacity style={styles.button} onPress={() => this.props.hideGuidePage()}><Text style={styles.buttonText}>立即体验</Text></TouchableOpacity>
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
   slide: {
     position: 'relative',
     flex: 1,
+    backgroundColor: '#ebebeb',
     alignItems: 'center'
   },
   button: {
