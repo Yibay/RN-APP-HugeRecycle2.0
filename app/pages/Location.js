@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import CommunitySelector from '../containers/Location/CommunitySelector/CommunitySelector';
 import SubmitBtn from '../components/Form/Btn/SubmitBtn';
 import NetworkVerify from "../components/NetworkVerify";
+import Header from "../components/Header/Header";
 
 
 class LocationPage extends Component{
@@ -19,27 +20,33 @@ class LocationPage extends Component{
   };
 
   render(){
-    return (<NetworkVerify>
-      <View style={styles.container}>
-        <Text style={styles.prompt}>为了更好的为您服务，虎哥需要知道您的位置，请选择您所在的小区</Text>
-        <CommunitySelector style={styles.communitySelector} selectedLocationCallBack={this.props.selectedLocationCallBack} />
-        {
-          this.props.authToken ?
-            undefined
-            :
-            <SubmitBtn style={styles.loginBtn} text='已回收过，手机号码直接登录' submit={() => {Actions.login({needPop: true});}}/>
-        }
+    return (<View style={styles.container}>
+      <Header title='选择小区' />
+      <NetworkVerify>
+        <View style={styles.content}>
+          <Text style={styles.prompt}>为了更好的为您服务，虎哥需要知道您的位置，请选择您所在的小区</Text>
+          <CommunitySelector style={styles.communitySelector} selectedLocationCallBack={this.props.selectedLocationCallBack} />
+          {
+            this.props.authToken ?
+              undefined
+              :
+              <SubmitBtn style={styles.loginBtn} text='已回收过，手机号码直接登录' submit={() => {Actions.login({needPop: true});}}/>
+          }
 
-        <View style={this.props.authToken ? [styles.serviceScope].concat(styles.serviceScopeOnly) : styles.serviceScope }>
-          <Text style={styles.serviceScopeText} onPress={() => Actions.coverageAreaPage()}>查看全部服务范围</Text>
+          <View style={this.props.authToken ? [styles.serviceScope].concat(styles.serviceScopeOnly) : styles.serviceScope }>
+            <Text style={styles.serviceScopeText} onPress={() => Actions.coverageAreaPage()}>查看全部服务范围</Text>
+          </View>
         </View>
-      </View>
-    </NetworkVerify>)
+      </NetworkVerify>
+    </View>)
   }
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1
+  },
+  content: {
     flex: 1,
     backgroundColor: '#f7f7f7',
     alignItems: 'center'
