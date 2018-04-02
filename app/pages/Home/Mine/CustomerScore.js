@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 
 import { verifyLogin } from '../../../HOC/verifyLogin';
-import {onEnter} from '../../../redux/actions/pages/CustomerScore'
+import {onEnter} from '../../../redux/actions/pagesLife/CustomerScoreLife'
 
 import Header from '../../../components/Header/Header';
 import ScoreLogItem from "../../../containers/CustomerScore/ScoreLogItem";

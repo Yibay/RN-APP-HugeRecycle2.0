@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet,View,FlatList} from 'react-native';
+import {StyleSheet, FlatList, RefreshControl} from 'react-native';
 
 import PropType from 'prop-types';
 
@@ -14,7 +14,9 @@ class MallOrderItemsList extends Component{
       PropType.shape({
         orderCode: PropType.string.isRequired
       })
-    )
+    ),
+    isFetching: PropType.bool.isRequired,
+    onRefresh: PropType.func.isRequired
   };
 
   static defaultProps = {
@@ -41,7 +43,8 @@ class MallOrderItemsList extends Component{
       data={this.state.renderedOrderList}
       renderItem={({item}) => <MallOrderItem {...item}/>}
       onEndReached={() => this.lazyLoadList()}
-      onEndReachedThreshold={0.5}/>
+      onEndReachedThreshold={0.5}
+      refreshControl={<RefreshControl refreshing={this.props.isFetching} onRefresh={this.props.onRefresh} />} />
   }
 
   // 懒加载列表

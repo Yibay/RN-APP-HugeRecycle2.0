@@ -18,7 +18,7 @@ import checkVersion from "../HOC/checkVersion";
 
 // Actions
 import { setShoppingCartThunk } from '../redux/actions/Mall';
-import { fetchPayPasswordFlagThunk } from '../redux/actions/user/payPasswordFlag';
+import * as ManageCustomerAccountsLife from '../redux/actions/pagesLife/ManageCustomerAccountsLife';
 
 // 页面路由 TabIcon
 import { RecycleIcon, MallIcon, MineIcon } from '../HOC/configTabIcon';
@@ -68,8 +68,8 @@ class AppRouter extends Component{
           {/* 回收分页: 回收首页 */}
           <Scene key='recycle' icon={RecycleIcon} component={Recycle} hideNavBar={true} />
           {/* 商城分页: 商城首页 key='mall' 不可用 */}
-          {/*<Scene key='shoppingMall' icon={MallIcon} component={Mall} hideNavBar={true} onEnter={() => {this.props.setShoppingCartThunk()}} />*/}
-          <Scene key='shoppingMall' icon={MallIcon} component={MallNotOpen} hideNavBar={true} onEnter={() => {this.props.setShoppingCartThunk()}} />
+          <Scene key='shoppingMall' icon={MallIcon} component={Mall} hideNavBar={true} onEnter={() => {this.props.dispatch(setShoppingCartThunk())}} />
+          {/*<Scene key='shoppingMall' icon={MallIcon} component={MallNotOpen} hideNavBar={true} onEnter={() => {this.props.dispatch(setShoppingCartThunk())}} />*/}
           {/* 我的分页 */}
           <Scene key='mine' icon={MineIcon} component={Mine} hideNavBar={true} />
         </Scene>
@@ -84,7 +84,7 @@ class AppRouter extends Component{
         {/* 商城 商品分类页 */}
         <Scene key='mallCategoryPage' component={MallCategory} hideNavBar={true} />
         {/* 商城 商品购物车页 */}
-        <Scene key='mallCart' component={MallCart} hideNavBar={true} onEnter={() => {this.props.setShoppingCartThunk()}} />
+        <Scene key='mallCart' component={MallCart} hideNavBar={true} onEnter={() => {this.props.dispatch(setShoppingCartThunk())}} />
         {/* 商城 商品搜索页 */}
         <Scene key='mallSearch' component={MallSearch} hideNavBar={true} />
         {/* 商城 便利店暂未开通页  */}
@@ -109,7 +109,7 @@ class AppRouter extends Component{
         <Scene key='coverageAreaPage' component={CoverageArea} hideNavBar={true} />
 
         {/* 3.2 安全中心 */}
-        <Scene key='manageCustomerAccounts' component={ManageCustomerAccounts} hideNavBar={true} onEnter={() => {this.props.fetchPayPasswordFlagThunk()}} />
+        <Scene key='manageCustomerAccounts' component={ManageCustomerAccounts} hideNavBar={true} onEnter={() => {this.props.dispatch(ManageCustomerAccountsLife.onEnter())}} />
         {/* 修改登录密码 */}
         <Scene key='manageLoginPassword' component={ManageLoginPassword} hideNavBar={true} />
         {/* 修改登录密码（忘记密码） */}
@@ -183,7 +183,4 @@ const tabsStyle = {
 };
 
 // 视图锁定纵向,屏宽适配, 检验版本 ,登录状态管理相关数据, 地址管理相关数据
-export default lockOrientation(adaptLayoutWidth(initIdentityToken(checkVersion(guidePage(connect(null,{
-  setShoppingCartThunk,
-  fetchPayPasswordFlagThunk
-})(AppRouter))))));
+export default lockOrientation(adaptLayoutWidth(initIdentityToken(checkVersion(guidePage(connect(null)(AppRouter))))));

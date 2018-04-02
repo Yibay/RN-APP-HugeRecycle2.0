@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 
 import Header from "../components/Header/Header";
 import {verifyLogin} from "../HOC/verifyLogin";
-import {fetchMallOrderRecord} from '../redux/actions/user/mallOrderRecord';
+import {onEnter} from '../redux/actions/pagesLife/MallOrderRecordLife';
 
 import MallOrderItemsList from "../containers/MallOrderRecord/MallOrderItemsList";
 
@@ -19,23 +19,18 @@ class MallOrderRecord extends Component {
       data: PropType.array.isRequired,
       isFetching: PropType.bool.isRequired
     }),
-    fetchMallOrderRecord: PropType.func.isRequired
+    onEnter: PropType.func.isRequired
   };
 
   render(){
     return <View style={styles.container}>
       <Header title='我的消费订单'/>
-      <MallOrderItemsList mallOrderList={this.props.mallOrderRecord.data} />
+      <MallOrderItemsList mallOrderList={this.props.mallOrderRecord.data} isFetching={this.props.mallOrderRecord.isFetching} onRefresh={this.props.onEnter} />
     </View>
   }
 
   componentDidMount(){
-    this.getMallOrderList();
-  }
-
-
-  getMallOrderList(){
-    this.props.fetchMallOrderRecord();
+    this.props.onEnter();
   }
 }
 
@@ -55,4 +50,4 @@ function mapStateToProps(state){
   }
 }
 
-export default verifyLogin(connect(mapStateToProps, {fetchMallOrderRecord})(MallOrderRecord));
+export default verifyLogin(connect(mapStateToProps, {onEnter})(MallOrderRecord));
