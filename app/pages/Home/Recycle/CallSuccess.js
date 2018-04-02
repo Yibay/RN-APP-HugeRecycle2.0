@@ -25,7 +25,7 @@ class CallSuccess extends Component {
       <View style={styles.content}>
         <Image source={require('../../../assets/iconImg/right-call2x.png')} resizeMode='contain' style={styles.logo} />
         <Text style={styles.message}>呼叫成功</Text>
-        <Text style={[styles.message, styles.messageSpacing]}>虎哥会尽快上门</Text>
+        <Text style={[styles.message, styles.messageSpacing]}>虎哥会在1小时内上门服务</Text>
         <Text style={[styles.message, styles.messageSpacing]}>请保持手机畅通</Text>
         {
           this.props.alreadyLogged ?
