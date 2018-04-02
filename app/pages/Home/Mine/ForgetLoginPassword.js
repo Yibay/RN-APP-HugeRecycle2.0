@@ -40,7 +40,7 @@ class ForgetLoginPassword extends Component {
       <InputSection style={styles.inputSection} value={this.state.code} onChangeText={val => this.setState({code: val})} label='验证码' rightButton={<RecordBtn style={styles.getCode} text='发送验证码' submit={() => this.getCode()}/>}/>
       <InputSection style={styles.inputSection} value={this.state.newPassword} onChangeText={val => this.setState({newPassword: val.trim()})} label='新密码' secureTextEntry={this.state.secureTextEntry} rightButton={<PasswordBtn secureTextEntry={this.state.secureTextEntry} setSecure={val => this.setSecure(val)}/>}/>
       <SubmitBtn text='确认修改' style={styles.submitBtn} submit={() => this.submit()} />
-      <Loading show={this.state.showLoading} />
+      {/*<Loading show={this.state.showLoading} />*/}
     </View>
   }
 
