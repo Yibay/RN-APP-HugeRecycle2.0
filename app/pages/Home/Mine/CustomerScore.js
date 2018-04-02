@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, ScrollView, RefreshControl, Dimensions, Animated } from 'react-native';
 
-import _ from 'lodash';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 
 import { verifyLogin } from '../../../HOC/verifyLogin';
-import request from '../../../util/request/request';
-import config from '../../../util/request/config';
+import {onEnter} from '../../../redux/actions/pages/CustomerScore'
 
 import Header from '../../../components/Header/Header';
 import ScoreLogItem from "../../../containers/CustomerScore/ScoreLogItem";
@@ -17,13 +17,22 @@ const winSizeHeight = 750 / width * height;
 
 class CustomerScore extends Component{
 
+  static propTypes = {
+    customerScore: PropTypes.shape({
+      data: PropTypes.number.isRequired,
+      isFetching: PropTypes.bool.isRequired
+    }),
+    customerScoreLog: PropTypes.shape({
+      data: PropTypes.array.isRequired,
+      isFetching: PropTypes.bool.isRequired
+    }),
+    onEnter: PropTypes.func.isRequired
+  };
+
   constructor(props){
     super(props);
 
     this.state = {
-      isRefreshing: false,
-      customerScore: 0,
-      customerScoreLog: [],
       customerScoreLogMaxHeight: new Animated.Value(0),
       listBtnText: '展开明细'
     };
@@ -32,13 +41,13 @@ class CustomerScore extends Component{
   render(){
     return (<View style={styles.container}>
       <Header title='环保金余额'/>
-      <ScrollView style={styles.content} refreshControl={<RefreshControl refreshing={this.state.isRefreshing} onRefresh={() => this.refreshCustomerScoreLog()}/>}>
+      <ScrollView style={styles.content} refreshControl={<RefreshControl refreshing={this.props.customerScoreLog.isFetching && this.props.customerScore.isFetching} onRefresh={() => this.props.onEnter()}/>}>
         <View style={styles.customerScoreSection}>
-          <Text style={styles.customerScore}>{`¥${this.state.customerScore.toFixed(2)}`}</Text>
+          <Text style={styles.customerScore}>{`¥${this.props.customerScore.data.toFixed(2)}`}</Text>
         </View>
         <Animated.ScrollView style={{maxHeight: this.state.customerScoreLogMaxHeight}}>
           {
-            this.state.customerScoreLog.map((item, index) => {
+            this.props.customerScoreLog.data.map((item, index) => {
 
               let income; // 收入or消费
 
@@ -69,22 +78,7 @@ class CustomerScore extends Component{
   }
 
   componentDidMount(){
-    this.refreshCustomerScoreLog();
-  }
-
-  async refreshCustomerScoreLog(){
-    this.setState({ isRefreshing: true });
-
-    const [customerScore, customerScoreLog] = await Promise.all([
-      request.get(config.api.getCustomerScore,null,{'X-AUTH-TOKEN': this.props.identityToken.authToken}),
-      request.get(config.api.getCustomerScoreLog, null, {'X-AUTH-TOKEN': this.props.identityToken.authToken})
-    ]);
-
-    this.setState(_.merge(
-      {isRefreshing: false},
-      (customerScore && !customerScore.status) ? {customerScore: customerScore.data} : {},
-      (customerScoreLog && !customerScoreLog.status) ? {customerScoreLog: customerScoreLog.data} : {}
-      ));
+    this.props.onEnter();
   }
 
   toggleCustomerScoreLog(){
@@ -149,4 +143,11 @@ const styles = StyleSheet.create({
   }
 });
 
-export default verifyLogin(CustomerScore);
+function mapStateToProps(state){
+  return {
+    customerScore: state.user.customerScore,
+    customerScoreLog: state.user.customerScoreLog,
+  }
+}
+
+export default verifyLogin(connect(mapStateToProps,{onEnter})(CustomerScore));

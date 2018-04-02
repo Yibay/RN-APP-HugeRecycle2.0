@@ -21,13 +21,6 @@ class HugeInformation extends Component{
     })
   };
 
-  constructor(props){
-    super(props);
-
-    this.state = {
-      informationList: []
-    };
-  }
 
   render(){
     return <View style={styles.container}>
