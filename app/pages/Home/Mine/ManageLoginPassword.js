@@ -32,7 +32,7 @@ class ManageLoginPassword extends Component{
   render(){
     return (<View style={styles.container}>
       <Header title='修改登录密码'/>
-      <InputSection style={styles.inputSection} value={this.state.oldPassword} onChangeText={val => this.setState({oldPassword: val.trim()})} label='旧密码' placeholder='如未设置过登录密码请留空'/>
+      <InputSection style={styles.inputSection} value={this.state.oldPassword} onChangeText={val => this.setState({oldPassword: val.trim()})} label='旧密码' placeholder='如未设置过登录密码请留空' secureTextEntry={true}/>
       <InputSection style={styles.inputSection} value={this.state.newPassword} onChangeText={val => this.setState({newPassword: val.trim()})} label='新密码' secureTextEntry={this.state.secureTextEntry} rightButton={<PasswordBtn secureTextEntry={this.state.secureTextEntry} setSecure={val => this.setSecure(val)}/>}/>
       <SubmitBtn style={styles.submitBtn} text='确认修改' submit={() => this.submit()}/>
       <Text style={styles.forgetBtn} onPress={() => Actions.forgetLoginPassword()}>忘记密码</Text>
