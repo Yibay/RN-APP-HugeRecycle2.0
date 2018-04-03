@@ -27,7 +27,7 @@ class CoverageArea extends Component {
       <FlatList style={styles.content}
                 data={this.props.coverageArea.data}
                 ListHeaderComponent={<Text style={styles.header}>服务站正在全面铺设当中，现有站点如下：</Text>}
-                renderItem={({item}) => <StreetItem street={item}/>}
+                renderItem={({item}) => <StreetItem street={item} style={styles.item}/>}
                 ListFooterComponent={<Text style={styles.footer}>更多小区，敬请期待！</Text>}
                 refreshControl={<RefreshControl refreshing={this.props.coverageArea.isFetching} onRefresh={() => this.props.onEnter()} />} />
     </View>
@@ -44,16 +44,20 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    paddingHorizontal: 36,
     backgroundColor: '#f7f7f7'
   },
   header: {
     marginVertical: 36,
+    paddingHorizontal: 36,
     fontSize: 26,
     color: '#000'
   },
+  item: {
+    paddingHorizontal: 36,
+  },
   footer: {
     marginVertical: 96,
+    paddingHorizontal: 36,
     fontSize: 28,
     textAlign: 'center',
     color: '#878787'

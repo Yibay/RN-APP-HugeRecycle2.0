@@ -16,7 +16,7 @@ import RecycleRecordItem from '../containers/RecycleRecord/RecycleRecordItem';
 class EnvironmentalRecord extends Component {
 
   static propTypes = {
-    fetchRecycleRecordThunk: PropTypes.func.isRequired,
+    onEnter: PropTypes.func.isRequired,
     recycleRecord: PropTypes.shape({
       data: PropTypes.array.isRequired,
       isFetching: PropTypes.bool.isRequired
@@ -37,7 +37,7 @@ class EnvironmentalRecord extends Component {
   // 单一入口页，数据采用本层管理
   componentDidMount(){
     // 更新 环保记录列表数据
-    this.onEnter();
+    this.props.onEnter();
   }
 
 }

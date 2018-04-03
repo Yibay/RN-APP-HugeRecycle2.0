@@ -99,6 +99,14 @@ class AppRouter extends Component{
         <Scene key='customerScorePage' component={CustomerScore} hideNavBar={true} />
         {/* 地址管理页 */}
         <Scene key='addressManagementPage' component={AddressManagement} hideNavBar={true} />
+        {/* 环保记录 */}
+        <Scene key='environmentalRecordPage' component={RecycleRecord} hideNavBar={true} />
+        {/* 评价虎哥 */}
+        <Scene key='recycleEvaluationPage' component={RecycleEvaluation} hideNavBar={true} />
+        {/* 消费记录 */}
+        <Scene key='mallOrderRecordPage' component={MallOrderRecord} hideNavBar={true} />
+        {/* 消费订单（详情） */}
+        <Scene key='mallOrderDetailPage' component={MallOrderDetail} hideNavBar={true} />
         {/* 虎哥资讯 */}
         <Scene key='hugeInformationPage' component={HugeInformation} hideNavBar={true} />
         {/* 虎哥资讯（详情） */}
@@ -128,14 +136,7 @@ class AppRouter extends Component{
         <Scene key='addressSelectionPage' component={AddressSelection} hideNavBar={true} />
         {/* 编辑地址 */}
         <Scene key='addressEditPage' component={AddressEdit} hideNavBar={true} />
-        {/* 环保记录 */}
-        <Scene key='environmentalRecordPage' component={RecycleRecord} hideNavBar={true} />
-        {/* 评价虎哥 */}
-        <Scene key='recycleEvaluationPage' component={RecycleEvaluation} hideNavBar={true} />
-        {/* 消费记录 */}
-        <Scene key='mallOrderRecordPage' component={MallOrderRecord} hideNavBar={true} />
-        {/* 消费订单详情 */}
-        <Scene key='mallOrderDetailPage' component={MallOrderDetail} hideNavBar={true} />
+
 
         {/* 5、HOC */}
         {/* 登录页 */}

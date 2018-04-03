@@ -16,7 +16,7 @@ class StreetItem extends Component {
   };
 
   render(){
-    return <View style={styles.container}>
+    return <View style={[styles.container].concat(this.props.style)}>
       <Text style={styles.street}>
         <Text style={styles.streetName}>{this.props.street.streetName}: </Text>
         {
