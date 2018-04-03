@@ -20,14 +20,54 @@
 	<string>3.0.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>alipay</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>alipay1078528907</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>17.test1</string>
+	<string>17.test2</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>alipay</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>alipay.com</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSTemporaryExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
+				<key>NSTemporaryExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+			<key>alipayobjects.com</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSTemporaryExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
+				<key>NSTemporaryExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+		</dict>
 	</dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>自动定位周围小区（虎哥服务已覆盖的小区）</string>

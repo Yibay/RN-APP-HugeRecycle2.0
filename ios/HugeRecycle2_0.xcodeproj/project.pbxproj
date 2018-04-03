@@ -13,6 +13,7 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* HugeRecycle2_0Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* HugeRecycle2_0Tests.m */; };
+		06F8E03FA78E4978A3A4ED38 /* libRCTAlipay.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8D06F3A62E4FB8824AE03B /* libRCTAlipay.a */; };
 		0BB6E8B708684F77B2C1A148 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEA8FEAFAD834381B7234108 /* Zocial.ttf */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
@@ -25,6 +26,19 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		15399FE202E7400B8DA12FB7 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 813AE78A3DC94BFA979CD266 /* Octicons.ttf */; };
 		167D2D40B51048D0A5B992C5 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8FBAF409A781472F950227F6 /* Ionicons.ttf */; };
+		1F734F732072244F00289C94 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734F722072244F00289C94 /* libc++.tbd */; };
+		1F734F752072246F00289C94 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734F742072246F00289C94 /* libz.tbd */; };
+		1F734F772072249400289C94 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734F762072249400289C94 /* SystemConfiguration.framework */; };
+		1F734F79207224C400289C94 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734F78207224C400289C94 /* CoreTelephony.framework */; };
+		1F734F7B207224DB00289C94 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734F7A207224DB00289C94 /* QuartzCore.framework */; };
+		1F734F7D207224EC00289C94 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734F7C207224EC00289C94 /* CoreText.framework */; };
+		1F734F7F2072251000289C94 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734F7E2072251000289C94 /* CoreGraphics.framework */; };
+		1F734F812072252800289C94 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734F802072252800289C94 /* UIKit.framework */; };
+		1F734F832072253C00289C94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734F822072253C00289C94 /* Foundation.framework */; };
+		1F734F852072255000289C94 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734F842072255000289C94 /* CFNetwork.framework */; };
+		1F734F872072256400289C94 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734F862072256400289C94 /* CoreMotion.framework */; };
+		1F734FC42072379F00289C94 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F734FC22072379F00289C94 /* AlipaySDK.bundle */; };
+		1F734FFC2073127200289C94 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734FC12072379E00289C94 /* AlipaySDK.framework */; };
 		1FF11A5B2002661D00034A38 /* libRCTBackgroundGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF11A422002642500034A38 /* libRCTBackgroundGeolocation.a */; };
 		1FF11AB3200319FE00034A38 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		1FF11AB620031C3100034A38 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF11AB520031C3100034A38 /* libsqlite3.tbd */; };
@@ -124,6 +138,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
+		};
+		1F734F7020721EC100289C94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 616FA2D8D3BF4912A79A9413 /* RCTAlipay.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 094B6CF81CC88F670025C6FB;
+			remoteInfo = RCTAlipay;
 		};
 		1FD1530920674D4C008C73C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -359,6 +380,19 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = HugeRecycle2_0/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		1A2A89BE866141F7AF59A689 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		1F734F722072244F00289C94 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		1F734F742072246F00289C94 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		1F734F762072249400289C94 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		1F734F78207224C400289C94 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		1F734F7A207224DB00289C94 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		1F734F7C207224EC00289C94 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		1F734F7E2072251000289C94 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1F734F802072252800289C94 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1F734F822072253C00289C94 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1F734F842072255000289C94 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		1F734F862072256400289C94 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		1F734FC12072379E00289C94 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlipaySDK.framework; path = "../node_modules/react-native-alipay/ios/SDK/AlipaySDK.framework"; sourceTree = "<group>"; };
+		1F734FC22072379F00289C94 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AlipaySDK.bundle; path = "../node_modules/react-native-alipay/ios/SDK/AlipaySDK.bundle"; sourceTree = "<group>"; };
 		1FF11A3A2002642500034A38 /* RCTBackgroundGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBackgroundGeolocation.xcodeproj; path = "../node_modules/react-native-mauron85-background-geolocation/ios/RCTBackgroundGeolocation.xcodeproj"; sourceTree = "<group>"; };
 		1FF11AB520031C3100034A38 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		2D02E47B1E0B4A5D006451C7 /* HugeRecycle2_0-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HugeRecycle2_0-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -367,6 +401,7 @@
 		462929960BC142E297269532 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		4A0E2E6FF36140E8869FB00F /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		616FA2D8D3BF4912A79A9413 /* RCTAlipay.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTAlipay.xcodeproj; path = "../node_modules/react-native-alipay/ios/RCTAlipay.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		813AE78A3DC94BFA979CD266 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -379,6 +414,7 @@
 		D618B0B611C64219801F0B75 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		D7098B230DDC4F49828F9E9B /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		D9C70673ED734FD0AAFF34D6 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		DC8D06F3A62E4FB8824AE03B /* libRCTAlipay.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTAlipay.a; sourceTree = "<group>"; };
 		E830CAA9F8D1409898B818DF /* libRCTOrientation.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTOrientation.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -395,6 +431,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F734FFC2073127200289C94 /* AlipaySDK.framework in Frameworks */,
+				1F734F872072256400289C94 /* CoreMotion.framework in Frameworks */,
+				1F734F852072255000289C94 /* CFNetwork.framework in Frameworks */,
+				1F734F832072253C00289C94 /* Foundation.framework in Frameworks */,
+				1F734F812072252800289C94 /* UIKit.framework in Frameworks */,
+				1F734F7F2072251000289C94 /* CoreGraphics.framework in Frameworks */,
+				1F734F7D207224EC00289C94 /* CoreText.framework in Frameworks */,
+				1F734F7B207224DB00289C94 /* QuartzCore.framework in Frameworks */,
+				1F734F79207224C400289C94 /* CoreTelephony.framework in Frameworks */,
+				1F734F772072249400289C94 /* SystemConfiguration.framework in Frameworks */,
+				1F734F752072246F00289C94 /* libz.tbd in Frameworks */,
+				1F734F732072244F00289C94 /* libc++.tbd in Frameworks */,
 				1FF11AB620031C3100034A38 /* libsqlite3.tbd in Frameworks */,
 				1FF11A5B2002661D00034A38 /* libRCTBackgroundGeolocation.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
@@ -411,6 +459,7 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				D4AE475833F849F98FA9F875 /* libRNVectorIcons.a in Frameworks */,
 				3B6FEFF94F7C4A37BA08644B /* libRCTOrientation.a in Frameworks */,
+				06F8E03FA78E4978A3A4ED38 /* libRCTAlipay.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -521,6 +570,7 @@
 		13B07FAE1A68108700A75B9A /* HugeRecycle2_0 */ = {
 			isa = PBXGroup;
 			children = (
+				1F734FC02072373600289C94 /* AlipaySDK */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -558,6 +608,7 @@
 			children = (
 				D357A2FAF40F425285A7F00E /* libRNVectorIcons.a */,
 				E830CAA9F8D1409898B818DF /* libRCTOrientation.a */,
+				DC8D06F3A62E4FB8824AE03B /* libRCTAlipay.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -568,6 +619,23 @@
 				1F5C6EEE201714B1006B6A7A /* libRNVectorIcons.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		1F734F6D20721EC100289C94 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1F734F7120721EC100289C94 /* libRCTAlipay.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1F734FC02072373600289C94 /* AlipaySDK */ = {
+			isa = PBXGroup;
+			children = (
+				1F734FC22072379F00289C94 /* AlipaySDK.bundle */,
+				1F734FC12072379E00289C94 /* AlipaySDK.framework */,
+			);
+			name = AlipaySDK;
 			sourceTree = "<group>";
 		};
 		1FD152F920674D4C008C73C5 /* Products */ = {
@@ -589,6 +657,17 @@
 		1FF11AB420031C3100034A38 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F734F862072256400289C94 /* CoreMotion.framework */,
+				1F734F842072255000289C94 /* CFNetwork.framework */,
+				1F734F822072253C00289C94 /* Foundation.framework */,
+				1F734F802072252800289C94 /* UIKit.framework */,
+				1F734F7E2072251000289C94 /* CoreGraphics.framework */,
+				1F734F7C207224EC00289C94 /* CoreText.framework */,
+				1F734F7A207224DB00289C94 /* QuartzCore.framework */,
+				1F734F78207224C400289C94 /* CoreTelephony.framework */,
+				1F734F762072249400289C94 /* SystemConfiguration.framework */,
+				1F734F742072246F00289C94 /* libz.tbd */,
+				1F734F722072244F00289C94 /* libc++.tbd */,
 				1FF11AB520031C3100034A38 /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
@@ -648,6 +727,7 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				A5AA5213A03F4A05889EDBAF /* RNVectorIcons.xcodeproj */,
 				97A592F379974197B4B7BC5F /* RCTOrientation.xcodeproj */,
+				616FA2D8D3BF4912A79A9413 /* RCTAlipay.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -821,6 +901,10 @@
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
 				},
 				{
+					ProductGroup = 1F734F6D20721EC100289C94 /* Products */;
+					ProjectRef = 616FA2D8D3BF4912A79A9413 /* RCTAlipay.xcodeproj */;
+				},
+				{
 					ProductGroup = 5E91572E1DD0AC6500FF2AA8 /* Products */;
 					ProjectRef = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
 				},
@@ -949,6 +1033,13 @@
 			fileType = archive.ar;
 			path = libRNVectorIcons.a;
 			remoteRef = 1F5C6EED201714B1006B6A7A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F734F7120721EC100289C94 /* libRCTAlipay.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTAlipay.a;
+			remoteRef = 1F734F7020721EC100289C94 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		1FD1530A20674D4C008C73C5 /* libRCTOrientation.a */ = {
@@ -1170,6 +1261,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				1F734FC42072379F00289C94 /* AlipaySDK.bundle in Resources */,
 				FF56E684F78F49C385F2655A /* Entypo.ttf in Resources */,
 				F28FF88461C2448AB434FC98 /* EvilIcons.ttf in Resources */,
 				95305C1C90A5471781049979 /* Feather.ttf in Resources */,
@@ -1309,11 +1401,15 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
+					"$(SRCROOT)/../node_modules/react-native-alipay/ios/RCTAlipay/**",
 				);
 				INFOPLIST_FILE = HugeRecycle2_0Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1335,11 +1431,15 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
+					"$(SRCROOT)/../node_modules/react-native-alipay/ios/RCTAlipay/**",
 				);
 				INFOPLIST_FILE = HugeRecycle2_0Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1359,13 +1459,17 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = BYAN84VV9K;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-alipay/ios/SDK";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
+					"$(SRCROOT)/../node_modules/react-native-alipay/ios/RCTAlipay/**",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS",
 				);
 				INFOPLIST_FILE = HugeRecycle2_0/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-alipay/ios/SDK";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1387,13 +1491,17 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BYAN84VV9K;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-alipay/ios/SDK";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
+					"$(SRCROOT)/../node_modules/react-native-alipay/ios/RCTAlipay/**",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS",
 				);
 				INFOPLIST_FILE = HugeRecycle2_0/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-alipay/ios/SDK";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1401,7 +1509,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hugehuge.HugeCollection;
 				PRODUCT_NAME = HugeRecycle2_0;
-				PROVISIONING_PROFILE = "f18ebe58-eab2-4b88-b9ee-e064c5933e96";
+				PROVISIONING_PROFILE = "09c0d26c-2bb5-4a76-91e8-6b3462b3bc13";
 				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionTest;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1423,10 +1531,14 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
+					"$(SRCROOT)/../node_modules/react-native-alipay/ios/RCTAlipay/**",
 				);
 				INFOPLIST_FILE = "HugeRecycle2_0-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1455,10 +1567,14 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
+					"$(SRCROOT)/../node_modules/react-native-alipay/ios/RCTAlipay/**",
 				);
 				INFOPLIST_FILE = "HugeRecycle2_0-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1484,7 +1600,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "HugeRecycle2_0-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.HugeRecycle2_0-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -1506,7 +1625,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "HugeRecycle2_0-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.HugeRecycle2_0-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -1540,6 +1662,7 @@
 				DEVELOPMENT_TEAM = BYAN84VV9K;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-alipay/ios/SDK";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1555,6 +1678,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1587,6 +1711,7 @@
 				DEVELOPMENT_TEAM = BYAN84VV9K;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-alipay/ios/SDK";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1595,6 +1720,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;

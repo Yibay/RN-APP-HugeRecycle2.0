@@ -9,6 +9,8 @@
 
 #import "AppDelegate.h"
 
+#import "RCTLinkingManager.h" // <-- Alipay 需要
+
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
@@ -34,6 +36,11 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+// Alipay 需要
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+  return [RCTLinkingManager application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {

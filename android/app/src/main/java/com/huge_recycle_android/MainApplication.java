@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.huge_recycle_android.android_upgrade.UpgradePackage;
 import com.facebook.react.ReactApplication;
+import cn.reactnative.alipay.AlipayPackage;
 import com.github.yamill.orientation.OrientationPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
@@ -26,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+          new AlipayPackage(),
           new OrientationPackage(),
           new VectorIconsPackage(),
           new UpgradePackage()
