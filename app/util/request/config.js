@@ -212,6 +212,11 @@ export default {
     //   orderSource:3  // 下单平台（3为 app下单）
     confirmMallOrder: `${api_base_mall}/online/mall/order/confirmOrder`,
 
+    // 获得支付宝交易APP支付响应 (GET)
+    // params
+    //   orderId: number
+    getAlipayTradeAppPayResponse: `${api_base_mall}/online/mall/order/getAlipayTradeAppPayResponse`,
+
     // 12, 确认订单 params orderId
     receiptMallOrderPay: `${api_base_mall}/online/mall/order/receiptPay`,
 
@@ -272,6 +277,6 @@ export default {
     // base: 'http://192.168.50.79:8080/web/'
   },
   // 版本号
-  version: 19,
-  versionIOS: '3.0.1'
+  version: 20,
+  versionIOS: '3.0.2'
 };

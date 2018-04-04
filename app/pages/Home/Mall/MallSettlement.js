@@ -5,6 +5,7 @@ import { StyleSheet, View, Text, Alert } from 'react-native';
 import {connect} from "react-redux";
 import PropType from 'prop-types';
 import {Actions} from 'react-native-router-flux';
+import {pay} from 'react-native-alipay';
 
 
 import request from '../../../util/request/request';
@@ -145,18 +146,55 @@ class MallSettlement extends Component {
 
   // 下单请求
   async submitReq(option){
-    // 1. 下单请求
+    // 1. 下单请求 (获取订单号)
     const res = await request.postFormData(config.api.confirmMallOrder, option, {'X-AUTH-TOKEN': this.props.identityToken.authToken});
     if(!res || res.status){Alert.alert(res.message);return;}
 
-    // 2. 支付请求
-    let resReceipt = await request.postFormData(config.api.receiptMallOrderPay,{orderId:res.data.orderId},{'X-AUTH-TOKEN': this.props.identityToken.authToken});
+    // 环保金 充足
+    if(res.data.code === 1){
+      // 环保金支付
+      this.scorePay(res.data.orderId);
+    }
+    else{
+      // 支付宝支付
+      this.aliPay(res.data.orderId)
+    }
+
+  }
+
+  // 环保金支付
+  async scorePay(orderId){
+    let resReceipt = await request.postFormData(config.api.receiptMallOrderPay,{orderId},{'X-AUTH-TOKEN': this.props.identityToken.authToken});
 
     (resReceipt && !resReceipt.status)
       ?
       (Actions.mallOrderSuccess()) // 跳转到下单成功页面
       :
       (resReceipt.message && Alert.alert(resReceipt.message));
+  }
+
+  // 支付宝付款
+  async aliPay(orderId){
+    // 向后端 请求支付宝 orderInfo
+    let orderInfo = await request.get(config.api.getAlipayTradeAppPayResponse,{orderId});
+    if(orderInfo && !orderInfo.status){
+      orderInfo = orderInfo.data;
+
+      // 调用 支付宝
+      const result = await pay(orderInfo, true);
+      if (result.resultStatus === '9000') {
+        Alert.alert('提示', '支付成功');
+        Actions.mallOrderSuccess();
+      } else if (result.resultStatus === '8000') {
+        Alert.alert('提示', '支付结果确认中,请稍后查看您的账户确认支付结果');
+      } else if (result.resultStatus !== '6001') {
+        // 如果用户不是主动取消
+        console.log('操作已取消')
+      }
+    }
+    else {
+      console.log(orderInfo);
+    }
   }
 }
 
@@ -206,4 +244,4 @@ function mapStateToProps(state){
 
 // 需验证登录
 // 需验证绑定便利店
-export default verifyLogin(verifyStoreInfo(connect(mapStateToProps)(MallSettlement)));
+export default  verifyLogin(verifyStoreInfo(connect(mapStateToProps)(MallSettlement)));
