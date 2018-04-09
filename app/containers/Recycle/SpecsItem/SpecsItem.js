@@ -36,8 +36,20 @@ class SpecsItem extends Component{
       <View style={styles.specsContent}>
         <Text style={styles.specsName}>{this.props.specs.name}</Text>
         <View style={styles.specsOtherMsg}>
-          <Text style={styles.otherGift}>{this.props.specs.otherGift}</Text>
-          <Text style={styles.price}>¥{this.props.specs.price}{this.props.specs.unit ? `/${this.props.specs.unit}` : ''}</Text>
+          {
+            this.props.specs.price ?
+              <Text style={styles.otherGift}>{this.props.specs.otherGift}</Text>
+              :
+              undefined
+          }
+          <Text style={styles.price}>
+            {
+              this.props.specs.price ?
+                '¥' + this.props.specs.price + (this.props.specs.unit ? `/${this.props.specs.unit}` : '')
+                :
+                '免费代为处理'
+            }
+          </Text>
         </View>
         {/* 多件 ＋ － 控制器 */}
         <View style={this.props.onlyOnePiece ? styles.hide : styles.controller}>
