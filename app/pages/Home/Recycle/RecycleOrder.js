@@ -102,6 +102,8 @@ class RecycleOrder extends Component{
     if(!createOrderValidator(orderParams)){
       return;
     }
+    console.log(orderParams);
+    return;
 
     // 下回收订单
     this.props.fetchRecycleOrderThunk(_.omit(orderParams, ['id']));

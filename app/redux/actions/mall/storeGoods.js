@@ -8,8 +8,8 @@ export const FETCH_StoreGoods_Failure = 'FETCH_StoreGoods_Failure';
 export function fetchStoreGoods(){
   return async(dispatch, getState) => {
     let state = getState();
-    let storeInfo = state.mall.store.storeInfo;
-    let storeIndex = state.mall.store.storeIndex;
+    let storeInfo = state.mall.store.data.storeInfo;
+    let storeIndex = state.mall.store.data.storeIndex;
 
     /** 发起请求 */
     dispatch({type: FETCH_StoreGoods_Request}); // <---- 发起请求

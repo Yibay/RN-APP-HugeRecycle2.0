@@ -236,8 +236,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
-    storeId: state.mall.store.storeInfo[state.mall.store.storeIndex].storeId,
-    storeIndex: state.mall.store.storeIndex,
+    storeId: state.mall.store.data.storeInfo[state.mall.store.data.storeIndex].storeId,
+    storeIndex: state.mall.store.data.storeIndex,
     currentLocation: state.location.currentLocation
   }
 }

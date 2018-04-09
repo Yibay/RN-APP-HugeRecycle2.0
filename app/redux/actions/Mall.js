@@ -108,7 +108,7 @@ export function setShoppingCartThunk(){
   return async function(dispatch, getState){
     let state = getState();
     // 未登录 或 当前地址无便利店
-    if(!state.identityToken.authToken || !state.mall.store.storeInfo.length){
+    if(!state.identityToken.authToken || !state.mall.store.data.storeInfo.length){
       dispatch(setShoppingCart(defaultShoppingCart));
       return;
     }
@@ -120,7 +120,7 @@ export function setShoppingCartThunk(){
     dispatch(setShoppingCart({isFetching: true}));
     const res = await request.get(
       config.api.getShoppingCartProductList,
-      {storeId: state.mall.store.storeInfo[state.mall.store.storeIndex].storeId},
+      {storeId: state.mall.store.data.storeInfo[state.mall.store.data.storeIndex].storeId},
       {'X-AUTH-TOKEN': state.identityToken.authToken});
 
     if(res && !res.status){

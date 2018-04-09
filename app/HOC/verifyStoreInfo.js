@@ -45,6 +45,6 @@ export const verifyStoreInfo = WrappedComponent => connect(mapStateToProps)(clas
 function mapStateToProps(state){
   return {
     // react组件上，不能随意绑定 store属性，所以此处改名storeObj，便于后续 使用...this.props 直接将 storeObj绑定到 react组件上
-    storeObj: state.mall.store
+    storeObj: state.mall.store.data
   }
 }

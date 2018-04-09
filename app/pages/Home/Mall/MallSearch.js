@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
-    storeId: state.mall.store.storeInfo[state.mall.store.storeIndex].storeId
+    storeId: state.mall.store.data.storeInfo[state.mall.store.data.storeIndex].storeId
   }
 }
 

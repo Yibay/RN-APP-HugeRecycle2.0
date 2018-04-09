@@ -74,7 +74,7 @@ function mapStateToProps(state){
       currentCommunityName: state.location.currentLocation.communityName,
     },
     // 若 便利店 数组不为空
-    state.mall.store.storeInfo.length ? { stationName: state.mall.store.storeInfo[state.mall.store.storeIndex].storeName } : {}
+    state.mall.store.data.storeInfo.length ? { stationName: state.mall.store.data.storeInfo[state.mall.store.data.storeIndex].storeName } : {}
   )
 }
 

@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
   // 计划，应该在 购物车按钮 处，点击事件，触发获取购物车数据。这样本页重跑生命周期，不会重复请求购物车数据（同时后续页面下订单成功，也发一次请求购物车数据）
   return {
-    storeName: state.mall.store.storeInfo[state.mall.store.storeIndex].storeName,
+    storeName: state.mall.store.data.storeInfo[state.mall.store.data.storeIndex].storeName,
     shoppingCart: state.mall.shoppingCart
   }
 }
