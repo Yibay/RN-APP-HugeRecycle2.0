@@ -128,7 +128,7 @@ class RecycleRecordItem extends Component{
 
   // 撤单
   cancelOrder(orderId){
-    Alert.alert('撤销回收单','撤单后虎哥将不再上门收件',[
+    Alert.alert('撤销回收单','撤单后虎哥将不再上门回收',[
       {
         text: '撤销回收',
         onPress: async () => {
