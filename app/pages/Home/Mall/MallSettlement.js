@@ -157,7 +157,7 @@ class MallSettlement extends Component {
     }
     else{
       // 支付宝支付
-      this.aliPay(res.data.orderId)
+      this.aliPay(res.data.orderId);
     }
 
   }
@@ -183,13 +183,13 @@ class MallSettlement extends Component {
       // 调用 支付宝
       const result = await pay(orderInfo, true);
       if (result.resultStatus === '9000') {
-        Alert.alert('提示', '支付成功');
+        // Alert.alert('提示', '支付成功');
         Actions.mallOrderSuccess();
       } else if (result.resultStatus === '8000') {
         Alert.alert('提示', '支付结果确认中,请稍后查看您的账户确认支付结果');
       } else if (result.resultStatus !== '6001') {
         // 如果用户不是主动取消
-        console.log('操作已取消')
+        Alert.alert('操作已取消');
       }
     }
     else {

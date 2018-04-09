@@ -3,9 +3,11 @@ import { StyleSheet, View, Text } from 'react-native';
 
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import PropTypes from 'prop-types';
 
 
 import { verifyStoreInfo } from '../../../HOC/verifyStoreInfo';
+import {fetchStoreGoods} from '../../../redux/actions/mall/storeGoods';
 
 import Header from '../../../components/Header/Header';
 import NavBarLocationButton from '../../../containers/Recycle/NavBarLocationButton/NavBarLocationButton';
@@ -17,6 +19,18 @@ import ProductList from '../../../containers/Mall/ProductList';
 
 class Mall extends Component{
 
+  static propTypes = {
+    storeGoods: PropTypes.shape({
+      data: PropTypes.shape({
+        bannerList: PropTypes.array.isRequired,
+        mainCategoryList: PropTypes.array.isRequired,
+        productList: PropTypes.array.isRequired
+      }),
+      isFetching: PropTypes.bool.isRequired
+    }),
+    fetchStoreGoods: PropTypes.func.isRequired
+  };
+
   constructor(props){
     super(props);
 
@@ -27,19 +41,18 @@ class Mall extends Component{
 
   render(){
 
-    // 1、过滤掉 无商品的分类
-    let mainCategoryList = [];
-    // 2、各类商品 合并后数组（商品列表）
+    let bannerList = this.props.storeGoods.data.bannerList;
+    let mainCategoryList = this.props.storeGoods.data.mainCategoryList;
+    let productList = this.props.storeGoods.data.productList;
+
+    // 1、各类商品 合并后数组（商品列表）
     let combineProductList = [];
 
-    for(let i=0;i<this.props.productList.length;i++){
-      if(this.props.productList[i].length && this.props.mallCategoryInfo.mainCategoryList){
-        mainCategoryList.push(this.props.mallCategoryInfo.mainCategoryList[i]);
-      }
-      combineProductList = combineProductList.concat(this.props.productList[i]);
+    for(let i=0;i<productList.length;i++){
+      combineProductList = combineProductList.concat(productList[i]);
     }
 
-    // 3、列表头部组件（轮播图、按类查询）
+    // 2、列表头部组件（轮播图、按类查询）
     let ListHeaderComponent = <View>
       {/* 搜索框 */}
       <SearchInput style={styles.searchInput} searchText={this.state.searchText} onChangeText={val => this.setState({searchText: val})} onSearch={() => this.searchProduct()} />
@@ -47,7 +60,7 @@ class Mall extends Component{
       <CategoryList mainCategoryList={mainCategoryList} />
       {/* 轮播图 */}
       <View style={styles.bannerSection}>
-        <Banner style={styles.banner} bannerWidth={686} bannerList={this.props.mallCategoryInfo.bannerList} />
+        <Banner style={styles.banner} bannerWidth={686} bannerList={bannerList} />
       </View>
     </View>;
 
@@ -56,6 +69,10 @@ class Mall extends Component{
       {/* 详细商品列表 */}
       <ProductList productList={combineProductList} ListHeaderComponent={ListHeaderComponent} />
     </View>);
+  }
+
+  componentDidMount(){
+    this.props.fetchStoreGoods();
   }
 
   searchProduct(){
@@ -99,11 +116,10 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
   return {
     authToken: state.identityToken.authToken,
-    mallCategoryInfo: state.mall.mallCategoryInfo,
-    productList: state.mall.productList
+    storeGoods: state.mall.storeGoods
   }
 }
 
 // 需验证便利店信息
-export default verifyStoreInfo(connect(mapStateToProps)(Mall));
+export default verifyStoreInfo(connect(mapStateToProps, {fetchStoreGoods})(Mall));
 // export default Mall;

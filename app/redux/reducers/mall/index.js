@@ -3,8 +3,10 @@ import { combineReducers } from 'redux';
 import _ from 'lodash';
 
 
-import { SET_StoreInfo, SET_ProductList, SET_StoreIndex, SET_ShowStoreSelector, SET_ShoppingCart, defaultShoppingCart } from '../actions/Mall';
-import { SET_Location } from '../actions/Location';
+import { SET_StoreInfo, SET_StoreIndex, SET_ShowStoreSelector, SET_ShoppingCart, defaultShoppingCart } from '../../actions/Mall';
+import { SET_Location } from '../../actions/Location';
+
+import storeGoods from './storeGoods';
 
 
 /**
@@ -58,40 +60,6 @@ function store(state={storeInfo:[],storeIndex:0,showStoreSelector:true}, actions
   }
 }
 
-// 注意 mallCategoryInfo、productList 必须在一个action中同时更改，否则切换 便利店时，就会因 2者不匹配，发生bug
-/**
- * 便利店 商品大类、banner信息
- * @param {{
- *  bannerList: arrayOf({id: number, imageSrc: string}),   便利店轮播图
- *  mainCategoryList: arrayOf({id: string, name: string}), 便利店商品大类
- *  mallStatus: number  便利店状态
- * }} state
- * @param actions
- * @returns {*}
- */
-function mallCategoryInfo(state={}, actions){
-  switch(actions.type){
-    case SET_ProductList:
-      return actions.mallCategoryInfo;
-    default:
-      return state;
-  }
-}
-
-/**
- * 便利店 商品列表
- * @param {array} state
- * @param actions
- * @returns {*}
- */
-function productList(state=[], actions){
-  switch(actions.type){
-    case SET_ProductList:
-      return actions.productList;
-    default:
-      return state;
-  }
-}
 
 /**
  * 用户购物车
@@ -118,4 +86,4 @@ function shoppingCart(state=defaultShoppingCart, actions){
 }
 
 
-export default combineReducers({ store, mallCategoryInfo, productList, shoppingCart });
+export default combineReducers({ store, shoppingCart, storeGoods });

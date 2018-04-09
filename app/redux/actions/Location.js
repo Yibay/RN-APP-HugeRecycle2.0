@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import request from "../../util/request/request";
 import config from "../../util/request/config";
-import {setProductList, setStoreInfo, setStoreInfoThunk } from "./Mall";
+import { setStoreInfo, setStoreInfoThunk } from "./Mall";
 
 // type 类型
 export const SET_Location = 'SET_Location';
@@ -48,7 +48,6 @@ export function setLocationThunk(location){
       // 若数据异常、立即结束（包含该小区无对应服务站）
       if(!storeInfo || storeInfo.status || !storeInfo.data || !storeInfo.data.length){  // {data: null, status: 0}
         dispatch(setStoreInfo([])); // 置空小区 对应的便利店
-        dispatch(setProductList({mallCategoryInfo: {}, productList:[]})); // 置空便利店产品列表
         return;
       }
       // 若成功
@@ -56,7 +55,6 @@ export function setLocationThunk(location){
     }
     else{
       dispatch(setStoreInfo([])); // 置空小区 对应的便利店
-      dispatch(setProductList({mallCategoryInfo: {}, productList:[]})); // 置空便利店产品列表
     }
   }
 }
