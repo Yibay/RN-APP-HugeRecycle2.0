@@ -130,7 +130,7 @@ class RecycleRecordItem extends Component{
   cancelOrder(orderId){
     Alert.alert('撤销回收单','撤单后虎哥将不再上门收件',[
       {
-        text: '撤销',
+        text: '撤销回收',
         onPress: async () => {
           console.log(orderId);
           const res = await request
@@ -146,7 +146,7 @@ class RecycleRecordItem extends Component{
         }
       },
       {
-        text: '不了'
+        text: '继续等待'
       }
     ]);
 

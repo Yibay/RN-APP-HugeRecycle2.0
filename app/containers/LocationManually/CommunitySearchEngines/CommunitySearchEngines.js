@@ -125,7 +125,10 @@ class CommunitySearchEngines extends PureComponent {
       Actions.pop();
     }
     else{
-      Alert.alert('抱歉，您输入的小区暂未开通服务');
+      Alert.alert('抱歉，您输入的小区暂未开通服务','',[
+        {text: '重新输入'},
+        {text: '查看全部范围', onPress: () => Actions.coverageAreaPage()}
+      ]);
     }
   }
 }
