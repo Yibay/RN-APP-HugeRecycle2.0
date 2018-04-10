@@ -3,15 +3,18 @@ import {StyleSheet,View,Text,Alert,Linking} from 'react-native';
 
 import PropType from 'prop-types';
 import {Actions} from 'react-native-router-flux';
+import {connect} from 'react-redux';
 
 
 import ProductItem from '../../containers/MallCart/ProductItem';
 import RecordBtn from "../../components/Form/Btn/RecordBtn";
+import {continueMallOrder} from "../../redux/actions/mall/settlement";
 
 
 class MallOrderItem extends Component{
 
   static propTypes = {
+    orderId: PropType.number.isRequired,
     orderCode: PropType.string.isRequired,
     orderStatus: PropType.number.isRequired,
     storePhone: PropType.string, // 商家电话，可能为空
@@ -44,26 +47,33 @@ class MallOrderItem extends Component{
     let ctrlModule;
 
     switch(this.props.orderStatus){
-      case 1:
-      case 2:
-      case 3:
-      case 4:
+      case 1: // 未支付
+        orderStatusText = '待付款';
+        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' submit={() => {Actions.mallOrderDetailPage({orderCode: this.props.orderCode});}}/><RecordBtn style={styles.btnSpacing} text='去付款' submit={() => {this.props.continueMallOrder(this.props.orderId)}}/></View>;
+        break;
+      case 2: // 已支付
+      case 3: // 已分配
+      case 4: // 已配货
         orderStatusText = '等待商家接单';
         ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' submit={() => {Actions.mallOrderDetailPage({orderCode: this.props.orderCode});}}/><RecordBtn style={styles.btnSpacing} text='联系商家' submit={() => {this.contactSeller()}}/></View>;
         break;
-      case 5:
+      case 5: // 已接单
         orderStatusText = '已接单，等待配送';
         ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' submit={() => {Actions.mallOrderDetailPage({orderCode: this.props.orderCode});}}/><RecordBtn style={styles.btnSpacing} text='联系商家' submit={() => {this.contactSeller()}}/></View>;
         break;
-      case 6:
+      case 6: // 已签收
         orderStatusText = '已完成';
         ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' submit={() => {Actions.mallOrderDetailPage({orderCode: this.props.orderCode});}}/></View>;
         orderStatusTextGloom = true;
         break;
-      case 8:
+      // case 7: // 退货中
+      //   break;
+      case 8: // 已退货
         orderStatusText = '已退单';
         orderStatusTextGloom = true;
         break;
+      // case 9: // 已删除
+      // case 10: // 被打回
       default:
     }
 
@@ -198,4 +208,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default MallOrderItem;
+export default connect(null,{continueMallOrder})(MallOrderItem);

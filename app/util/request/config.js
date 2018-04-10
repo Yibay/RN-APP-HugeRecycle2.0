@@ -214,13 +214,18 @@ export default {
     //   orderSource:3  // 下单平台（3为 app下单）
     confirmMallOrder: `${api_base_mall}/online/mall/order/confirmOrder`,
 
-    // 获得支付宝交易APP支付响应 (GET)
+    // 12-1, 获得支付宝交易APP支付响应 (GET)
     // params
     //   orderId: number
     getAlipayTradeAppPayResponse: `${api_base_mall}/online/mall/order/getAlipayTradeAppPayResponse`,
 
-    // 12, 确认订单 params orderId
+    // 12-2, 确认订单(环保金支付、现金支付) params orderId
     receiptMallOrderPay: `${api_base_mall}/online/mall/order/receiptPay`,
+
+    // 13，检验 未支付订单，可否支付
+    // params
+    //   orderId:
+    checkOrder: `${api_base_mall}/online/mall/order/checkOrder`,
 
     // 13, 获取商城订单列表 (GET)
     // params

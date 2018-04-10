@@ -69,7 +69,7 @@ function fetchPayMsg(){
 /** 支付actions */
 
 
-// 下单请求
+// 创建订单请求
 export function submitMallOrder(option){
   return async (dispatch, getState) => {
 
@@ -97,6 +97,22 @@ export function submitMallOrder(option){
     }
 
   }
+}
+
+// 支付 未支付订单
+export function continueMallOrder(orderId){
+  return async (dispatch, getState) => {
+
+    let authToken = getState().identityToken.authToken;
+
+    // 1. 检验未支付订单，可否支付状态
+    const res = await request.get(config.api.checkOrder,{orderId},{'X-AUTH-TOKEN': authToken});
+
+    if(res && !res.status){
+      console.log('可支付');
+      // 环保金支付 or 支付宝付款
+    }
+  };
 }
 
 
