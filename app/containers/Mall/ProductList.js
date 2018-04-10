@@ -6,9 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
 
-import request from '../../util/request/request';
-import config from '../../util/request/config';
-import {setShoppingCartThunk} from '../../redux/actions/Mall';
+import {addCart} from '../../redux/actions/mall/shoppingCart';
 
 import ProductItem from './ProductItem';
 import AddBtn from '../../components/Form/Btn/AddBtn';
@@ -29,6 +27,7 @@ class ProductList extends Component {
     ),
     // 列表头部组件
     // ListHeaderComponent: PropTypes.element.isRequired
+    addCart: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -53,7 +52,7 @@ class ProductList extends Component {
     return <View style={styles.container}>
       <FlatList
         data={this.state.productList}
-        renderItem={({item, index}) =>  <ProductItem style={index % 2 === 0 ? styles.firstItem : styles.item} product={item} addToCart={<AddBtn callBack={() => this.addCart(item)} />} />}
+        renderItem={({item, index}) =>  <ProductItem style={index % 2 === 0 ? styles.firstItem : styles.item} product={item} addToCart={<AddBtn callBack={() => this.props.addCart(item.storeProductId)} />} />}
         numColumns={2}
         onEndReached={() => {this.lazyLoadProducts()}}
         onEndReachedThreshold={0.5} // 外层不能为Scroll类组件，否则 此属性判定异常
@@ -72,16 +71,6 @@ class ProductList extends Component {
     }));
   }
 
-  // 添加到购物车
-  async addCart(item){
-    const res = await request.get(`${config.api.addCart}${item.storeProductId}`,{amount:1},{'X-AUTH-TOKEN': this.props.authToken});
-    if(res && !res.status){
-      this.props.setShoppingCartThunk();
-    }
-    else{
-      console.log(res);
-    }
-  }
 }
 
 const styles = StyleSheet.create({
@@ -113,9 +102,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
-    authToken: state.identityToken.authToken,
-    cartNum: state.mall.shoppingCart.num
+    cartNum: state.mall.shoppingCart.data.amount
   }
 }
 
-export default connect(mapStateToProps,{setShoppingCartThunk})(ProductList);
+export default connect(mapStateToProps,{addCart})(ProductList);

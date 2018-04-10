@@ -179,6 +179,11 @@ export default {
     // 6, 获取购物车列表 (GET) params: storeId 需要登录 header X-AUTH-TOKEN
     getShoppingCartProductList: `${api_base_mall}/online/mall/cart/getShoppingCartProductList`,
 
+    // 获取购物车数量（POST）multipart/form-data 需要登录 header X-AUTH-TOKEN
+    // params:
+    //  storeId
+    cartProductAmount: `${api_base_mall}/online/mall/cart/cartProductAmount`,
+
     // 7, 修改购买数量 (GET) params  shoppingCartId, amount, storeId, 需要登录 header X-AUTH-TOKEN
     updateShoppingCartAmount: `${api_base_mall}/online/mall/cart/updateShoppingCartAmount`,
 

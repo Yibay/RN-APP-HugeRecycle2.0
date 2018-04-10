@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 
 
 import { verifyStoreInfo } from '../../../HOC/verifyStoreInfo';
-import {fetchStoreGoods} from '../../../redux/actions/mall/storeGoods';
 
 import Header from '../../../components/Header/Header';
 import NavBarLocationButton from '../../../containers/Recycle/NavBarLocationButton/NavBarLocationButton';
@@ -27,8 +26,7 @@ class Mall extends Component{
         productList: PropTypes.array.isRequired
       }),
       isFetching: PropTypes.bool.isRequired
-    }),
-    fetchStoreGoods: PropTypes.func.isRequired
+    })
   };
 
   constructor(props){
@@ -69,10 +67,6 @@ class Mall extends Component{
       {/* 详细商品列表 */}
       <ProductList productList={combineProductList} ListHeaderComponent={ListHeaderComponent} />
     </View>);
-  }
-
-  componentDidMount(){
-    this.props.fetchStoreGoods();
   }
 
   searchProduct(){
@@ -121,5 +115,5 @@ function mapStateToProps(state){
 }
 
 // 需验证便利店信息
-export default verifyStoreInfo(connect(mapStateToProps, {fetchStoreGoods})(Mall));
+export default verifyStoreInfo(connect(mapStateToProps)(Mall));
 // export default Mall;

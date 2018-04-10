@@ -21,8 +21,7 @@ export function fetchStoreGoods(){
     /** 请求异常 */
     if(!mallCategoryInfo || mallCategoryInfo.status){
       // 置空 商品列表
-      dispatch({type: FETCH_StoreGoods_Failure}); // <---- 请求异常
-      return;
+      return dispatch({type: FETCH_StoreGoods_Failure}); // <---- 请求异常
     }
 
 
@@ -51,7 +50,7 @@ export function fetchStoreGoods(){
     productList = filter_productList;
 
     // 更新 商品大类、banner图、产品列表
-    dispatch({type: FETCH_StoreGoods_Success, data:{bannerList, mainCategoryList, productList}}); // <---- 请求成功
+    return dispatch({type: FETCH_StoreGoods_Success, data:{bannerList, mainCategoryList, productList}}); // <---- 请求成功
   };
 }
 
