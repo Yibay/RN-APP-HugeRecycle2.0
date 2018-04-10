@@ -33,7 +33,7 @@ class ProductList extends Component{
       })
     ),
     invalidProductListTitle: PropTypes.string.isRequired, //无效列表 title
-    updateCartProductList: PropTypes.func.isRequired, // 更新列表 回调函数
+    updateCartProductList: PropTypes.func, // 更新列表 回调函数
     ListFooterComponent: PropTypes.element.isRequired // 列表底部组件
   };
 
@@ -43,7 +43,8 @@ class ProductList extends Component{
     validProductListShowTotal: true,
     invalidProductList: [],
     invalidProductListTitle: '以下商品已失效',
-    ListFooterComponent: <View/>
+    ListFooterComponent: <View/>,
+    updateCartProductList: () => {}
   };
 
   render(){
