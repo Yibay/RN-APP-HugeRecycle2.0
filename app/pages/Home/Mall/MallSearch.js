@@ -5,9 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 
-import request from '../../../util/request/request';
-import config from '../../../util/request/config';
-import { verifyStoreInfo } from '../../../HOC/verifyStoreInfo';
+import {fetchSearchGoods} from '../../../redux/actions/mall/searchGoods';
 
 import Header from '../../../components/Header/Header';
 import SearchInput from '../../../containers/Mall/SearchInput';
@@ -17,7 +15,12 @@ import ProductList from '../../../containers/Mall/ProductList';
 class MallSearch extends Component {
 
   static propTypes = {
-    searchText: PropTypes.string.isRequired
+    searchText: PropTypes.string.isRequired,
+    searchGoods: PropTypes.shape({ // 搜索结果
+      data: PropTypes.array.isRequired,
+      isFetching: PropTypes.bool.isRequired
+    }),
+    fetchSearchGoods: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -29,12 +32,7 @@ class MallSearch extends Component {
 
     this.state = {
       searchText: props.searchText, // 搜索词
-      productList: [] // 搜索结果
     };
-  }
-
-  componentWillReceiveProps(nextProps){
-    this.setState({searchText: nextProps.searchText});
   }
 
   render(){
@@ -42,30 +40,17 @@ class MallSearch extends Component {
     return <View style={styles.container}>
       <Header title='搜索结果'/>
       <View style={styles.content}>
-        <SearchInput style={styles.searchInput} searchText={this.state.searchText} onChangeText={val => this.setState({searchText: val})} onSearch={() => this.searchProduct()}/>
+        <SearchInput style={styles.searchInput} searchText={this.state.searchText} onChangeText={val => this.setState({searchText: val})} onSearch={() => this.props.fetchSearchGoods(this.state.searchText)}/>
         <Text style={styles.msg}>找到下列与 <Text style={styles.goods}>{this.state.searchText}</Text> 相关的物品</Text>
-        <ProductList productList={this.state.productList}/>
+        <ProductList productList={this.props.searchGoods.data}/>
       </View>
     </View>
   }
 
   componentDidMount(){
-    this.searchProduct();
+    this.props.fetchSearchGoods(this.state.searchText);
   }
 
-  // 搜索商品
-  async searchProduct(){
-    const res = await request.get(config.api.searchProduct, {
-      storeId: this.props.storeId,
-      searchType: 'productName',
-      searchVal: this.state.searchText
-    });
-    console.log(res);
-
-    if(res && !res.status){
-      this.setState({productList: res.data});
-    }
-  }
 }
 
 const styles = StyleSheet.create({
@@ -101,9 +86,9 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
-    storeId: state.mall.store.data.storeInfo[state.mall.store.data.storeIndex].storeId
+    searchGoods: state.mall.searchGoods
   }
 }
 
 // 需验证绑定便利店
-export default verifyStoreInfo(connect(mapStateToProps)(MallSearch));
+export default connect(mapStateToProps, {fetchSearchGoods})(MallSearch);
