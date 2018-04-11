@@ -74,11 +74,17 @@ export function reduceRecycledItem (sort, categoryId, specsId, itemNum){
   }
 }
 
+// 清空 回收物品列表
+export function resetRecycledItem (){
+  return async (dispatch, getState) => {
 
-export function resetRecycledItem (AllProductsArray){
-  return {
-    type: RESET_RecycledItemsList,
-    AllProductsArray
+    const products = await request.get(config.api.getProducts);
+    if(products && !products.status){
+      dispatch({
+        type: RESET_RecycledItemsList,
+        AllProductsArray: products.data
+      })
+    }
   };
 }
 
@@ -114,10 +120,7 @@ export function fetchRecycleOrderThunk(params) {
       dispatch(fetchRecycleOrder('success'));
       Actions.callSuccessPage({alreadyLogged: !!authToken}); // 通知 呼叫成功页 已登录/未登录
       // 2-1、清空 回收物品列表
-      const products = await request.get(config.api.getProducts);
-      if(products && !products.status){
-        dispatch(resetRecycledItem(products.data));
-      }
+      dispatch(resetRecycledItem());
 
       if(authToken){
         // 2-2、将 一键呼叫 地址 添加到用户

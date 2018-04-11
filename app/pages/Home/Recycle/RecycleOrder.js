@@ -9,7 +9,7 @@ import { Switch } from 'react-native-switch';
 
 
 import { createOrderValidator } from '../../../util/form/recycleOrderValidator';
-import { resetRecycledItem, fetchRecycleOrderThunk } from '../../../redux/actions/Recycle';
+import { fetchRecycleOrderThunk } from '../../../redux/actions/Recycle';
 
 import { verifyLogin } from '../../../HOC/verifyLogin';
 import Header from '../../../components/Header/Header';
@@ -103,7 +103,6 @@ class RecycleOrder extends Component{
       return;
     }
     console.log(orderParams);
-    return;
 
     // 下回收订单
     this.props.fetchRecycleOrderThunk(_.omit(orderParams, ['id']));
@@ -175,4 +174,4 @@ function mapStateToProps(state){
   };
 }
 
-export default verifyLogin(connect(mapStateToProps, {resetRecycledItem, fetchRecycleOrderThunk})(RecycleOrder));
+export default verifyLogin(connect(mapStateToProps, {fetchRecycleOrderThunk})(RecycleOrder));

@@ -9,8 +9,8 @@ import { connect } from 'react-redux';
 import {lockOrientation} from '../HOC/lockOrientation';
 // HOC 屏宽适配
 import { adaptLayoutWidth } from '../HOC/adaptLayout';
-// HOC 中间件 登录状态
-import initIdentityToken from '../HOC/initIdentityToken';
+// HOC 中间件 初始化（登录状态，等）
+import initApp from '../HOC/initApp';
 // HOC 启动页、引导页轮播图
 import {guidePage} from '../HOC/guidePage';
 // HOC 检测 版本
@@ -185,4 +185,4 @@ const tabsStyle = {
 };
 
 // 视图锁定纵向,屏宽适配, 检验版本 ,登录状态管理相关数据, 地址管理相关数据
-export default lockOrientation(adaptLayoutWidth(initIdentityToken(checkVersion(guidePage(connect(null)(AppRouter))))));
+export default lockOrientation(adaptLayoutWidth(initApp(checkVersion(guidePage(connect(null)(AppRouter))))));

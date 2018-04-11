@@ -10,7 +10,7 @@ import { createOrderValidator } from '../../util/form/recycleOrderValidator';
 import request from '../../util/request/request';
 import config from '../../util/request/config';
 import validator from "../../util/form/validator";
-import {resetRecycledItem, fetchRecycleOrderThunk} from "../../redux/actions/Recycle";
+import {fetchRecycleOrderThunk} from "../../redux/actions/Recycle";
 
 import AdaptLayoutWidth from '../../components/AdaptLayoutWidth';
 import HouseNumberAddressSection from '../../components/Form/Module/HouseNumberAddressSection';
@@ -270,4 +270,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {resetRecycledItem, fetchRecycleOrderThunk})(CallModal);
+export default connect(mapStateToProps, {fetchRecycleOrderThunk})(CallModal);
