@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableWithoutFeedback, Image } from 'react-native';
+import { StyleSheet, View, TouchableWithoutFeedback, Image } from 'react-native';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -8,6 +8,7 @@ import { Actions } from 'react-native-router-flux';
 
 
 import AddressSection from '../../../components/Address/AddressSection';
+import TextAdaption from "../../../components/Text/TextAdaption";
 
 
 class OrderAddressSection extends Component {
@@ -37,7 +38,7 @@ class OrderAddressSection extends Component {
           <View>
             {/* 新增地址模块 */}
             <View style={[styles.container, styles.addNewAddress]}>
-              <Text style={styles.newAddressTitle}>请添加回收地址</Text>
+              <TextAdaption style={styles.newAddressTitle}>请添加回收地址</TextAdaption>
               <Icon name='md-add' size={50} color='#828282' />
             </View>
             <Image source={require('./img/address.png')} resizeMode='contain'/>

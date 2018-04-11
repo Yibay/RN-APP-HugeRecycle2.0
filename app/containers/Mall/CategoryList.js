@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableWithoutFeedback, Image } from 'react-native';
+import { StyleSheet, View, TouchableWithoutFeedback, Image } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
 
 
 import config from "../../util/request/config";
+
+import TextAdaption from "../../components/Text/TextAdaption";
 
 
 class CategoryList extends Component {
@@ -37,7 +39,7 @@ class CategoryList extends Component {
         mainCategoryList.map((item, index) => <TouchableWithoutFeedback key={item.id} onPress={() => Actions.mallCategoryPage({categoryId: item.id})}>
           <View style={[styles.categoryItem, index % 4 === 0 ? styles.firstItem : undefined]}>
             <Image style={styles.categoryImage} source={{uri: `${config.static.mallBase}${item.imgAddress}`}} resizeMode='contain' />
-            <Text style={styles.categoryName}>{item.name}</Text>
+            <TextAdaption style={styles.categoryName}>{item.name}</TextAdaption>
           </View>
         </TouchableWithoutFeedback>)
       }

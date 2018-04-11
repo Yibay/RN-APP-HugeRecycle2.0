@@ -15,6 +15,7 @@ import SubCategory from '../../../containers/Recycle/SubCategory';
 import CallModule from '../../../containers/Recycle/CallModule';
 import CallModal from '../../../containers/Recycle/CallModal';
 import request from "../../../util/request/request";
+import TextAdaption from "../../../components/Text/TextAdaption";
 
 
 // 展示图片 固定宽度
@@ -36,7 +37,7 @@ class Recycle extends Component{
 
     return (<View style={styles.container}>
       {/* 页头 */}
-      <Header title='我要回收' hideBack={true} leftButton={<NavBarLocationButton />} rightButton={!this.props.authToken ? <Text style={styles.loginBtn} onPress={() => Actions.login({needPop: true})}>登录</Text> : <View/>}/>
+      <Header title='我要回收' hideBack={true} leftButton={<NavBarLocationButton />} rightButton={!this.props.authToken ? <TextAdaption style={styles.loginBtn} onPress={() => Actions.login({needPop: true})}>登录</TextAdaption> : <View/>}/>
       {/* 导航条 */}
       <Navigator navigationItems={this.props.category}>
         {

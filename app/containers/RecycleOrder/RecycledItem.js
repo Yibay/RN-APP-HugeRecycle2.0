@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 
 import PropTypes from 'prop-types';
 
 
 import config from '../../util/request/config';
 
+import TextAdaption from "../../components/Text/TextAdaption";
+
 
 const RecycledItem = props => (<View style={styles.container}>
   <Image style={styles.specsImage} resizeMode='contain' source={{uri: config.static.base + props.specs.image}} />
   <View style={styles.specsContent}>
-    <Text style={styles.specsName}>{`${props.subCategoryName} ${props.specs.name}`}</Text>
-    <Text style={styles.specNum}>{'¥' + props.specs.price + ' *' + props.specs.number}</Text>
-    <Text style={styles.specTotalPrice}>{`¥${props.specs.price * props.specs.number}`}{props.specs.unit ? `/${props.specs.unit}` : ''}{' '}</Text>
+    <TextAdaption style={styles.specsName}>{`${props.subCategoryName} ${props.specs.name}`}</TextAdaption>
+    <TextAdaption style={styles.specNum}>{'¥' + props.specs.price + ' *' + props.specs.number}</TextAdaption>
+    <TextAdaption style={styles.specTotalPrice}>{`¥${props.specs.price * props.specs.number}`}{props.specs.unit ? `/${props.specs.unit}` : ''}{' '}</TextAdaption>
   </View>
 </View>);
 

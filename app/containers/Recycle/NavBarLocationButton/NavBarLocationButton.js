@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Image, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity, View } from 'react-native';
 
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux';
@@ -8,6 +8,8 @@ import _ from 'lodash';
 
 
 import { setAutoLocationFlag } from '../../../redux/actions/Location';
+
+import TextAdaption from "../../../components/Text/TextAdaption";
 
 
 /* 回收页 nav 右侧按钮组件 */
@@ -27,11 +29,11 @@ class NavBarLocationButton extends Component{
       {
         this.props.showStationName ?
           <View style={styles.text2lineBox}>
-            <Text style={styles.text2line}>{this.props.currentCommunityName}</Text>
-            <Text style={styles.text2line}>{`(${this.props.stationName ? this.props.stationName : '暂无服务站'})`}</Text>
+            <TextAdaption style={styles.text2line}>{this.props.currentCommunityName}</TextAdaption>
+            <TextAdaption style={styles.text2line}>{`(${this.props.stationName ? this.props.stationName : '暂无服务站'})`}</TextAdaption>
           </View>
           :
-          <Text style={styles.text}>{this.props.currentCommunityName}</Text>
+          <TextAdaption style={styles.text}>{this.props.currentCommunityName}</TextAdaption>
       }
     </TouchableOpacity>);
   }

@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 import PropTypes from 'prop-types';
+
+
+import TextAdaption from "../../components/Text/TextAdaption";
 
 
 class StreetItem extends Component {
@@ -17,12 +20,12 @@ class StreetItem extends Component {
 
   render(){
     return <View style={[styles.container].concat(this.props.style)}>
-      <Text style={styles.street}>
-        <Text style={styles.streetName}>{this.props.street.streetName}: </Text>
+      <TextAdaption style={styles.street}>
+        <TextAdaption style={styles.streetName}>{this.props.street.streetName}: </TextAdaption>
         {
           this.props.street.communities.join('、')
         }
-      </Text>
+      </TextAdaption>
     </View>
   }
 }

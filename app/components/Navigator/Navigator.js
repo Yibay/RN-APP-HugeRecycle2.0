@@ -4,6 +4,9 @@ import { StyleSheet, View, Text, TouchableWithoutFeedback, ScrollView, ViewPropT
 import PropTypes from 'prop-types';
 
 
+import TextAdaption from "../Text/TextAdaption";
+
+
 class Navigator extends Component {
 
   static propTypes = {
@@ -57,7 +60,7 @@ class Navigator extends Component {
               (<TouchableWithoutFeedback key={index} onPress={() => this.switchItemIndex(index)}>
                 <View style={styles.item}>
                   <View style={index === 0 ? styles.itemTextSection : [styles.itemTextSection, styles.splitLine]}>
-                    <Text style={this.state.selectPageIndex === index ? [styles.activeItemText].concat(this.props.activeItemTextStyle) : [styles.itemText].concat(this.props.itemTextStyle)}>{item.itemName}</Text>
+                    <TextAdaption style={this.state.selectPageIndex === index ? [styles.activeItemText].concat(this.props.activeItemTextStyle) : [styles.itemText].concat(this.props.itemTextStyle)}>{item.itemName}</TextAdaption>
                   </View>
                   <View style={this.state.selectPageIndex === index ? [styles.activeLine].concat(this.props.activeLineStyle) : [styles.unActiveLine].concat(this.props.unActiveLineStyle)} />
                 </View>
@@ -70,7 +73,7 @@ class Navigator extends Component {
                   (<TouchableWithoutFeedback key={index} onPress={() => this.switchItemIndex(index)}>
                     <View style={styles.itemFixed}>
                       <View style={index === 0 ? styles.itemTextSection : [styles.itemTextSection, styles.splitLine]}>
-                        <Text style={this.state.selectPageIndex === index ? [styles.activeItemText].concat(this.props.activeItemTextStyle) : [styles.itemText].concat(this.props.itemTextStyle)}>{item.itemName}</Text>
+                        <TextAdaption style={this.state.selectPageIndex === index ? [styles.activeItemText].concat(this.props.activeItemTextStyle) : [styles.itemText].concat(this.props.itemTextStyle)}>{item.itemName}</TextAdaption>
                       </View>
                       <View style={this.state.selectPageIndex === index ? [styles.activeLine].concat(this.props.activeLineStyle) : [styles.unActiveLine].concat(this.props.unActiveLineStyle)} />
                     </View>

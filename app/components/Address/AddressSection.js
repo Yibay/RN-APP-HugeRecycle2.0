@@ -9,6 +9,9 @@ import { StyleSheet, View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 
 
+import TextAdaption from "../Text/TextAdaption";
+
+
 class AddressSection extends Component {
 
   static propTypes = {
@@ -32,17 +35,17 @@ class AddressSection extends Component {
   render(){
     return (<View style={styles.container}>
       <View style={styles.nameSection}>
-        <Text style={[styles.text ,styles.name]}>{this.props.currentLocation.customerName}</Text>
-        <Text style={styles.text}>{this.props.currentLocation.telNo}</Text>
+        <TextAdaption style={[styles.text ,styles.name]}>{this.props.currentLocation.customerName}</TextAdaption>
+        <TextAdaption style={styles.text}>{this.props.currentLocation.telNo}</TextAdaption>
       </View>
-      <Text style={styles.text}>
+      <TextAdaption style={styles.text}>
         {
           `${this.props.currentLocation.city}${this.props.currentLocation.region}${this.props.currentLocation.street}${this.props.currentLocation.communityName}`
           + (this.props.currentLocation.haveHouseNumber ?
             `${this.props.currentLocation.building}幢${this.props.currentLocation.unit}单元${this.props.currentLocation.room}室` :
             `${this.props.currentLocation.address}`)
         }
-      </Text>
+      </TextAdaption>
       <View style={styles.icon}>
         {
           this.props.rightButton

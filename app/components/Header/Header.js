@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableWithoutFeedback, StatusBar } from 'react-native';
+import { StyleSheet, View, Image, TouchableWithoutFeedback, StatusBar } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
+
+
+import TextAdaption from "../Text/TextAdaption";
 
 
 class Header extends Component{
@@ -53,7 +56,7 @@ class Header extends Component{
         {
           leftButton
         }
-        <Text style={styles.headerText}>{this.props.title}</Text>
+        <TextAdaption style={styles.headerText}>{this.props.title}</TextAdaption>
         <View style={styles.rightButton}>
           {
             this.props.rightButton
