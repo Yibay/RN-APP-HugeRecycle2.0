@@ -91,7 +91,15 @@ export function fetchShoppingCartAmount(){
     let authToken = state.identityToken.authToken;
     if(!authToken){return;}
 
-    let storeId = state.mall.store.data.storeInfo[state.mall.store.data.storeIndex].storeId;
+    let storeInfo = state.mall.store.data.storeInfo;
+    let storeIndex = state.mall.store.data.storeIndex;
+
+    // 无匹配便利店 直接退出
+    if(!storeInfo.length){
+      return;
+    }
+
+    let storeId = storeInfo[storeIndex].storeId;
 
     dispatch({type: FETCH_ShoppingCartAmount_Request});
     const res = await request.postFormData(config.api.cartProductAmount, {storeId}, {'X-AUTH-TOKEN': authToken});

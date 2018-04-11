@@ -21,7 +21,7 @@ class StreetItem extends Component {
   render(){
     return <View style={[styles.container].concat(this.props.style)}>
       <TextAdaption style={styles.street}>
-        <TextAdaption style={styles.streetName}>{this.props.street.streetName}: </TextAdaption>
+        <TextAdaption style={styles.streetName}>{this.props.street.streetName}:</TextAdaption>
         {
           this.props.street.communities.join('、')
         }
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     textAlign: 'justify'
   },
   streetName: {
+    backgroundColor: '#ffd101',
     fontWeight: '700'
   }
 });

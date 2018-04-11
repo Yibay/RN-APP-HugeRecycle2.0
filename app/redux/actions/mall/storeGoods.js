@@ -11,6 +11,12 @@ export function fetchStoreGoods(){
     let storeInfo = state.mall.store.data.storeInfo;
     let storeIndex = state.mall.store.data.storeIndex;
 
+    // 无匹配便利店 直接退出
+    if(!storeInfo.length){
+      return;
+    }
+
+
     /** 发起请求 */
     dispatch({type: FETCH_StoreGoods_Request}); // <---- 发起请求
 
