@@ -47,11 +47,9 @@ const styles = StyleSheet.create({
   },
   // 第1内容区
   firstSection: {
-    minHeight: 126,
-    paddingVertical: 20,
+    minHeight: 126, // minHeight 与 paddingVertical 连用 FlatList 会出现不能到底部的 Bug
+    marginVertical: 20,
     paddingHorizontal: 30,
-    borderBottomWidth: 2,
-    borderBottomColor: '#e1e5e8',
     justifyContent: 'center'
   },
   orderAndTime: {
@@ -78,6 +76,8 @@ const styles = StyleSheet.create({
   secondSection: {
     minHeight: 82,
     paddingHorizontal: 30,
+    borderTopWidth: 2,
+    borderTopColor: '#e1e5e8',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'

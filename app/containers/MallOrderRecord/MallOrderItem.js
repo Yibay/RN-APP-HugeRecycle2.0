@@ -1,4 +1,4 @@
-import React,{Component} from 'react'
+import React,{PureComponent} from 'react'
 import {StyleSheet,View,Text,Alert,Linking} from 'react-native';
 
 import PropType from 'prop-types';
@@ -11,7 +11,7 @@ import RecordBtn from "../../components/Form/Btn/RecordBtn";
 import {continueMallOrder} from "../../redux/actions/mall/settlement";
 
 
-class MallOrderItem extends Component{
+class MallOrderItem extends PureComponent{
 
   static propTypes = {
     orderId: PropType.number.isRequired,

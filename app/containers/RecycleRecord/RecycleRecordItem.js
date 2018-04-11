@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {StyleSheet, View, Text, Alert, Linking} from 'react-native';
 
 import PropTypes from 'prop-types';
@@ -15,6 +15,7 @@ import DisableBtn from '../../components/Form/Btn/DisableBtn';
 
 const styles = StyleSheet.create({
   container: {
+    marginBottom: 26,
   },
   flexRow: {
     flexDirection: 'row'
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
   }
 });
 
-class RecycleRecordItem extends Component{
+class RecycleRecordItem extends PureComponent{
 
   static propTypes = {
     recordItem: PropTypes.shape({
