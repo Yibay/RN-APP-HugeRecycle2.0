@@ -34,9 +34,11 @@ const styles = StyleSheet.create({
   container: {
   },
   street: {
+    marginBottom: 45,
     fontSize: 28,
     color: '#000',
-    lineHeight: 45
+    lineHeight: 45,
+    textAlign: 'justify'
   },
   streetName: {
     fontWeight: '700'

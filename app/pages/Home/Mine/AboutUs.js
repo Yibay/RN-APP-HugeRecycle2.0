@@ -5,6 +5,7 @@ import {StyleSheet, View, Image, Text} from 'react-native';
 import config from '../../../util/request/config';
 
 import Header from "../../../components/Header/Header";
+import TextAdaption from "../../../components/Text/TextAdaption";
 
 
 class AboutUs extends Component{
@@ -15,12 +16,12 @@ class AboutUs extends Component{
         <View style={styles.logoSection}>
           <Image style={styles.logo} source={require('../../../assets/img/hugeLogo2x.png')} resizeMode='contain' />
         </View>
-        <Text style={styles.intro}>
-          虎哥回收回收是浙江九仓再生资源开发有限公司自主打造的废旧物资回收平台，通过线上平台和线下物流体系相结合，搭建再生资源"互联网＋回收"的立体服务平台，回收社会可再生资源。
-        </Text>
-        <Text style={styles.version}>
+        <TextAdaption style={styles.intro}>
+          “虎哥回收”是浙江九仓再生资源开发有限公司旗下的“互联网+生活垃圾分类回收”品牌特色项目，专注于城市居民生活垃圾分类和再生资源回收，通过互联网、物联网、大数据与信息管理公共平台等现代信息技术手段，打造了一条“家庭垃圾袋—小区服务站—清运车—分选总仓”的垃圾分类处置高速公路，开创了中国城市垃圾分类回收和再生资源综合利用的新模式，实现生活垃圾减量化、资源化、无害化处理，为城市生态文明建设和循环经济发展贡献力量。。
+        </TextAdaption>
+        <TextAdaption style={styles.version}>
           软件版本号：v{config.versionIOS}
-        </Text>
+        </TextAdaption>
       </View>
     </View>
   }
@@ -48,7 +49,8 @@ const styles = StyleSheet.create({
     width: 620,
     fontSize: 26,
     color: '#000',
-    lineHeight: 44
+    lineHeight: 44,
+    textAlign: 'justify'
   },
   version: {
     fontSize: 24,

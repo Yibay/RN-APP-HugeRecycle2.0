@@ -3,7 +3,7 @@
  * */
 
 import React, { Component } from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, Platform} from 'react-native';
 
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -18,10 +18,10 @@ import { setAllProducts, resetRecycledItem } from '../redux/actions/Recycle';
 const initApp = (WrappedComponent) => connect(null, { setAllProducts, setIdentityTokenThunk, resetRecycledItem })(class extends Component {
 
   async componentWillMount(){
-    // 2. 再次设为沉浸式（防止 应用假退Bug）
-    this.setTranslucentAgain();
-    // 3. 再次锁定垂直方向
+    // 2. 再次锁定垂直方向
     this.lockOrientationAgain();
+    // 3. 再次设为沉浸式（防止 应用假退Bug）
+    this.setTranslucentAgain();
     // 4. 清空待回收物品
     this.props.resetRecycledItem();
     // 1. 设置身份信息
@@ -52,8 +52,13 @@ const initApp = (WrappedComponent) => connect(null, { setAllProducts, setIdentit
 
   // 2. Android 重新设为 沉浸式
   setTranslucentAgain(){
-    StatusBar.setTranslucent(true);
-    StatusBar.setBackgroundColor('transparent')
+    Platform.select({
+      ios: () => {},
+      android: () => {
+        StatusBar.setTranslucent(true);
+        StatusBar.setBackgroundColor('transparent')
+      }
+    })();
   }
 
   // 3. 重新锁屏
