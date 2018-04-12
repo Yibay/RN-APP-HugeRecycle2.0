@@ -92,32 +92,3 @@ export function setAutoLocationFlag(flag){
     flag
   }
 }
-
-/**
- * 设置用户地址列表
- * @param addressList
- * @returns {{type: string, addressList: arrayOf({communityId: number, communityName: string, customerName: string, ...})}}
- */
-export function setUserAddressList(addressList){
-  return {
-    type: SET_UserAddressList,
-    addressList
-  }
-}
-/** Thunk: 获取、设置用户列表 */
-export function getUserAddressListThunk() {
-  return async (dispatch, getState) => {
-    let authToken = getState().identityToken.authToken;
-    // 若已登录
-    if(authToken){
-      // 请求更新 用户地址列表
-      let addressList = await request
-        .get(config.api.getAddressList, null, {'X-AUTH-TOKEN': authToken})
-        .catch(err => {console.log(err); return null;});
-      // 用户地址列表 数据正确
-      if(addressList && !addressList.status){
-        dispatch(setUserAddressList(addressList.data.addresses));
-      }
-    }
-  }
-}

@@ -14,7 +14,7 @@ import _ from 'lodash';
 import {editAddress} from '../util/form/locationValidator';
 import request from '../util/request/request';
 import config from '../util/request/config';
-import {getUserAddressListThunk} from '../redux/actions/Location';
+import {fetchUserAddressList} from '../redux/actions/user/userAddressList';
 
 import Header from '../components/Header/Header';
 import InputSection from '../components/Form/Input/InputSection';
@@ -45,7 +45,7 @@ class AddressEdit extends Component {
       unit: PropTypes.string,
       room: PropTypes.string
     }),
-    getUserAddressListThunk: PropTypes.func.isRequired, // 更新全局用户地址列表
+    fetchUserAddressList: PropTypes.func.isRequired, // 更新全局用户地址列表
     identityToken: PropTypes.shape({
       authToken: PropTypes.string.isRequired // 身份令牌
     })
@@ -119,7 +119,7 @@ class AddressEdit extends Component {
       // 刷新全局 userAddressList 数据
       if(res && !res.status){
         // 刷新全局 userAddressList 数据
-        await this.props.getUserAddressListThunk();
+        await this.props.fetchUserAddressList();
         Actions.pop();
       }
       else{
@@ -137,7 +137,7 @@ class AddressEdit extends Component {
 
           if(res && !res.status){
             // 刷新全局 userAddressList 数据
-            await this.props.getUserAddressListThunk();
+            await this.props.fetchUserAddressList();
             Actions.pop();
           }
         }},
@@ -183,4 +183,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default verifyLogin(connect(null,{getUserAddressListThunk})(AddressEdit));
+export default verifyLogin(connect(null,{fetchUserAddressList})(AddressEdit));

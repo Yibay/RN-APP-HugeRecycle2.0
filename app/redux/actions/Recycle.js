@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import {Actions} from "react-native-router-flux";
 
 
@@ -6,7 +5,7 @@ import config from "../../util/request/config";
 import request from "../../util/request/request";
 import {showRecycleOrderError} from "../../util/alertError";
 
-import {getUserAddressListThunk} from './Location';
+import {fetchUserAddressList} from './user/userAddressList';
 
 // type 类型
 export const SET_AllProducts = 'SET_AllProducts'; // 初始化 电器列表、家具列表 等
@@ -142,7 +141,7 @@ export function fetchRecycleOrderThunk(params) {
         // }
 
         // 2-3、更新用户列表
-        dispatch(getUserAddressListThunk());
+        dispatch(fetchUserAddressList());
       }
       return {status: 0};
     }

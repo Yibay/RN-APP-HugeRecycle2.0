@@ -175,7 +175,8 @@ const styles = StyleSheet.create({
   },
   // 页面内容
   page: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#f7f7f7',
   }
 });
 

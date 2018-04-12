@@ -10,7 +10,8 @@ import PropTypes from 'prop-types';
 import validator  from '../util/form/validator';
 import config from '../util/request/config';
 import request from '../util/request/request';
-import { setLocationThunk, getUserAddressListThunk } from '../redux/actions/Location';
+import { setLocationThunk } from '../redux/actions/Location';
+import {fetchUserAddressList} from '../redux/actions/user/userAddressList';
 
 import Header from '../components/Header/Header';
 import InputSection from '../components/Form/Input/InputSection';
@@ -124,7 +125,7 @@ class AddressAdd extends Component {
     }
 
     // 2. 请求更新 用户地址列表(异步)
-    this.props.getUserAddressListThunk();
+    this.props.fetchUserAddressList();
   }
 }
 
@@ -164,4 +165,4 @@ function mapStateToProps(state){
 }
 
 
-export default connect(mapStateToProps, { setLocationThunk, getUserAddressListThunk })(AddressAdd);
+export default connect(mapStateToProps, { setLocationThunk, fetchUserAddressList })(AddressAdd);

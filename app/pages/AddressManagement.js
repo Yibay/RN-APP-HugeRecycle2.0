@@ -6,9 +6,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 
+import {verifyLogin} from "../HOC/verifyLogin";
+import {fetchUserAddressList} from '../redux/actions/user/userAddressList';
+
 import Header from '../components/Header/Header';
 import AddressSection from '../components/Address/AddressSection';
-import {verifyLogin} from "../HOC/verifyLogin";
 import FlatListDefault from "../components/List/FlatListDefault";
 
 
@@ -18,28 +20,29 @@ class AddressManagement extends Component {
     identityToken: PropTypes.shape({
       authToken: PropTypes.string.isRequired
     }),
-    userAddressList: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        customerName: PropTypes.string.isRequired,
-        telNo: PropTypes.string.isRequired,
-        communityName: PropTypes.string.isRequired,
-        haveHouseNumber: PropTypes.bool.isRequired,
-        address: PropTypes.string,
-        building: PropTypes.string,
-        unit: PropTypes.string,
-        room: PropTypes.string
-      })
-    )
+    userAddressList: PropTypes.shape({
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          customerName: PropTypes.string.isRequired,
+          telNo: PropTypes.string.isRequired,
+          communityName: PropTypes.string.isRequired,
+          haveHouseNumber: PropTypes.bool.isRequired,
+          address: PropTypes.string,
+          building: PropTypes.string,
+          unit: PropTypes.string,
+          room: PropTypes.string
+        })
+      ),
+      isFetching: PropTypes.bool.isRequired
+    }),
   };
 
   render(){
-    // 构造 key
-    let userAddressList = this.props.userAddressList.map((item, index) => {item.key = index;return item});
     return (<View style={styles.container}>
       <Header title='地址管理' rightButton={<Text style={styles.rightButton} onPress={() => Actions.addressAddPage()}>新增地址</Text>} />
       <FlatListDefault style={styles.addressList}
-                       data={userAddressList}
+                       data={this.props.userAddressList.data}
                        renderItem={({item}) => <TouchableWithoutFeedback onPress={() => this.selectAddress(item)}>
                          <View style={styles.addressItem}>
                            <AddressSection currentLocation={item} rightButton={
@@ -51,8 +54,9 @@ class AddressManagement extends Component {
                            } />
                          </View>
                        </TouchableWithoutFeedback>}
-                       refreshControl={<RefreshControl refreshing={false} />}
+                       refreshControl={<RefreshControl refreshing={this.props.userAddressList.isFetching} onRefresh={this.props.fetchUserAddressList} />}
                        ListEmptyComponentText='尚未添加地址'
+                       isFetching={this.props.userAddressList.isFetching}
                        ListFooterComponentText=''
       />
     </View>);
@@ -101,8 +105,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
-    userAddressList: state.location.userAddressList
+    userAddressList: state.user.userAddressList
   };
 }
 
-export default verifyLogin(connect(mapStateToProps)(AddressManagement));
+export default verifyLogin(connect(mapStateToProps,{fetchUserAddressList})(AddressManagement));

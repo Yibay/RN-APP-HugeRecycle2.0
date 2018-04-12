@@ -45,25 +45,9 @@ function autoLocationFlag(state=true, action){
   }
 }
 
-/**
- * 用户地址列表
- * @param {array} state
- * @param action
- * @returns {Array}
- */
-function userAddressList(state=[], action){
-  switch (action.type){
-    case SET_UserAddressList:
-      return action.addressList;
-    default:
-      return state;
-  }
-}
-
 const location = combineReducers({
   currentLocation,
   autoLocationFlag,
-  userAddressList
 });
 
 export default location;

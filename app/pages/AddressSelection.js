@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView, Image, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableWithoutFeedback, RefreshControl } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -7,45 +7,53 @@ import PropTypes from 'prop-types';
 
 
 import {setLocationThunk} from "../redux/actions/Location";
+import {fetchUserAddressList} from '../redux/actions/user/userAddressList';
 
 import Header from '../components/Header/Header';
 import AddressSection from '../components/Address/AddressSection';
+import FlatListDefault from "../components/List/FlatListDefault";
 
 
 class AddressSelection extends Component {
 
   static propTypes = {
-    userAddressList: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        customerName: PropTypes.string.isRequired,
-        telNo: PropTypes.string.isRequired,
-        communityName: PropTypes.string.isRequired,
-        haveHouseNumber: PropTypes.bool.isRequired,
-        address: PropTypes.string,
-        building: PropTypes.string,
-        unit: PropTypes.string,
-        room: PropTypes.string
-      })
-    )
+    userAddressList: PropTypes.shape({
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          customerName: PropTypes.string.isRequired,
+          telNo: PropTypes.string.isRequired,
+          communityName: PropTypes.string.isRequired,
+          haveHouseNumber: PropTypes.bool.isRequired,
+          address: PropTypes.string,
+          building: PropTypes.string,
+          unit: PropTypes.string,
+          room: PropTypes.string
+        })
+      ),
+      isFetching: PropTypes.bool.isRequired
+    }),
   };
 
   render(){
     return (<View style={styles.container}>
       <Header title='选择地址' rightButton={<Text style={styles.rightButton} onPress={() => Actions.addressAddPage()}>新增地址</Text>} />
-      <ScrollView style={styles.addressList}>
-        {
-          this.props.userAddressList.map(item => <TouchableWithoutFeedback key={item.id} onPress={() => this.selectAddress(item)}>
-            <View style={styles.addressItem}>
-              <AddressSection currentLocation={item} rightButton={
-                <TouchableWithoutFeedback onPress={() => this.goToEditAddress(item)}>
-                  <Image source={require('../assets/iconImg/edit2x.png')} resizeMode='contain' style={styles.editButton} />
-                </TouchableWithoutFeedback>
-              } />
-            </View>
-          </TouchableWithoutFeedback>)
-        }
-      </ScrollView>
+      <FlatListDefault style={styles.addressList}
+                       data={this.props.userAddressList.data}
+                       renderItem={({item}) => <TouchableWithoutFeedback onPress={() => this.selectAddress(item)}>
+                         <View style={styles.addressItem}>
+                           <AddressSection currentLocation={item} rightButton={
+                             <TouchableWithoutFeedback onPress={() => this.goToEditAddress(item)}>
+                               <Image source={require('../assets/iconImg/edit2x.png')} resizeMode='contain' style={styles.editButton} />
+                             </TouchableWithoutFeedback>
+                           } />
+                         </View>
+                       </TouchableWithoutFeedback>}
+                       refreshControl={<RefreshControl refreshing={this.props.userAddressList.isFetching} onRefresh={this.props.fetchUserAddressList} />}
+                       ListEmptyComponentText='尚未添加地址'
+                       isFetching={this.props.userAddressList.isFetching}
+                       ListFooterComponentText=''
+      />
     </View>);
   }
 
@@ -87,8 +95,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
-    userAddressList: state.location.userAddressList
+    userAddressList: state.user.userAddressList
   };
 }
 
-export default connect(mapStateToProps, {setLocationThunk})(AddressSelection);
+export default connect(mapStateToProps, {setLocationThunk, fetchUserAddressList})(AddressSelection);

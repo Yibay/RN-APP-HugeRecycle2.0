@@ -1,7 +1,8 @@
 import _ from 'lodash';
 
 
-import {defaultCurrentLocation, setLocationThunk, setUserAddressList, getUserAddressListThunk, getDefaultAddressThunk} from "./Location";
+import {defaultCurrentLocation, setLocationThunk, getDefaultAddressThunk} from "./Location";
+import {fetchUserAddressList, resetUserAddressList} from "./user/userAddressList";
 
 
 // type 类型
@@ -50,7 +51,7 @@ export function setIdentityTokenThunk(identityToken){
         /** 2-1. 获取 默认地址 更新到 当前地址 (defaultAddress) */
         dispatch(getDefaultAddressThunk()),
         /** 2-2. 获取 用户地址列表 */
-        dispatch(getUserAddressListThunk())
+        dispatch(fetchUserAddressList()),
       ]);
 
     }
@@ -59,7 +60,7 @@ export function setIdentityTokenThunk(identityToken){
       // 3-1. 清空 当前地址
       dispatch(setLocationThunk(defaultCurrentLocation));
       // 3-2. 清空 用户回收地址列表
-      dispatch(setUserAddressList([]));
+      dispatch(resetUserAddressList());
     }
   }
 }

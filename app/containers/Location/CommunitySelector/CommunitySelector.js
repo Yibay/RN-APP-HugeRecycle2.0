@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
   return {
     communitySelected: state.location.currentLocation,
-    userAddressList: state.location.userAddressList
+    userAddressList: state.user.userAddressList.data
   }
 }
 
