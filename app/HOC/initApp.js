@@ -55,8 +55,10 @@ const initApp = (WrappedComponent) => connect(null, { setAllProducts, setIdentit
     Platform.select({
       ios: () => {},
       android: () => {
-        StatusBar.setTranslucent(true);
-        StatusBar.setBackgroundColor('transparent')
+        setTimeout(function(){
+          StatusBar.setTranslucent(true);
+          StatusBar.setBackgroundColor('transparent');
+        },0);
       }
     })();
   }

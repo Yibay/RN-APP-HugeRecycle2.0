@@ -30,7 +30,6 @@ class MallOrderDetail extends Component{
   }
 
   render(){
-    console.log(this.props.orderCode);
     let orderItem = this.state.orderItem; // 订单信息
     let orderPrice = orderItem.orderStatus === 8 ? orderItem.orderPrice : orderItem.leftOrderPrice;
     let orderScore = orderItem.orderStatus === 8 ? orderItem.orderScore : orderItem.leftOrderScore;
@@ -69,7 +68,6 @@ class MallOrderDetail extends Component{
 
   async getMallOrderDetail(){
     const res = await request.postFormData(config.api.getMallOrderDetail,{orderCode: this.props.orderCode},{'X-AUTH-TOKEN': this.props.identityToken.authToken});
-    console.log(res);
     if(res && !res.status){
       this.setState({orderItem: res.data});
     }
