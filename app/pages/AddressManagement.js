@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, FlatList, Image, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableWithoutFeedback, RefreshControl } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header/Header';
 import AddressSection from '../components/Address/AddressSection';
 import {verifyLogin} from "../HOC/verifyLogin";
+import FlatListDefault from "../components/List/FlatListDefault";
 
 
 class AddressManagement extends Component {
@@ -37,20 +38,23 @@ class AddressManagement extends Component {
     let userAddressList = this.props.userAddressList.map((item, index) => {item.key = index;return item});
     return (<View style={styles.container}>
       <Header title='地址管理' rightButton={<Text style={styles.rightButton} onPress={() => Actions.addressAddPage()}>新增地址</Text>} />
-      <FlatList style={styles.addressList} data={userAddressList}
-                renderItem={({item}) => <TouchableWithoutFeedback onPress={
-                  () => this.selectAddress(item)}>
-                  <View style={styles.addressItem}>
-                    <AddressSection currentLocation={item} rightButton={
-                      <TouchableWithoutFeedback onPress={() => this.goToEditAddress(item)}>
-                        <View style={styles.editButtonTouchable}>
-                          <Image source={require('../assets/iconImg/edit2x.png')} resizeMode='contain' style={styles.editButton} />
-                        </View>
-                      </TouchableWithoutFeedback>
-                    } />
-                  </View>
-                </TouchableWithoutFeedback>
-                } />
+      <FlatListDefault style={styles.addressList}
+                       data={userAddressList}
+                       renderItem={({item}) => <TouchableWithoutFeedback onPress={() => this.selectAddress(item)}>
+                         <View style={styles.addressItem}>
+                           <AddressSection currentLocation={item} rightButton={
+                             <TouchableWithoutFeedback onPress={() => this.goToEditAddress(item)}>
+                               <View style={styles.editButtonTouchable}>
+                                 <Image source={require('../assets/iconImg/edit2x.png')} resizeMode='contain' style={styles.editButton} />
+                               </View>
+                             </TouchableWithoutFeedback>
+                           } />
+                         </View>
+                       </TouchableWithoutFeedback>}
+                       refreshControl={<RefreshControl refreshing={false} />}
+                       ListEmptyComponentText='尚未添加地址'
+                       ListFooterComponentText=''
+      />
     </View>);
   }
 

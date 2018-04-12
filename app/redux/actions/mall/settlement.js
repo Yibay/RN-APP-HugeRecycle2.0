@@ -143,18 +143,10 @@ function aliPay(orderId){
 
       // 调用 支付宝
       const result = await pay(orderInfo, true);
-      if (result.resultStatus === '9000') {
-        // 支付成功（跳转到支付成功页）
+      if (result.resultStatus === '9000') { // 9000 支付成功；8000 支付结果确认中；6001 用户主动取消
+        // 跳转到支付成功页
         Actions.mallOrderSuccess();
       }
-      // else if (result.resultStatus === '8000') {
-      //   // 支付结果确认中（跳转到消费订单列表）
-      //   Actions.mallOrderRecordPage();
-      // }
-      // else if (result.resultStatus === '6001') {
-      //   // 用户主动取消（跳转到消费订单列表）
-      //   Actions.mallOrderRecordPage();
-      // }
       else{
         Actions.mallOrderRecordPage();
       }

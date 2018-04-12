@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet, FlatList, RefreshControl} from 'react-native';
+import {StyleSheet, RefreshControl} from 'react-native';
 
 import PropType from 'prop-types';
 
 
 import MallOrderItem from "./MallOrderItem";
+import FlatListDefault from "../../components/List/FlatListDefault";
 
 
 class MallOrderItemsList extends Component{
@@ -23,38 +24,17 @@ class MallOrderItemsList extends Component{
     mallOrderList: []
   };
 
-  constructor(props){
-    super(props);
-
-    this.state = {
-      renderedOrderList: this.props.mallOrderList.slice(0,10)
-    };
-  }
-
-  componentWillReceiveProps(nextProps){
-    this.setState({
-      renderedOrderList: nextProps.mallOrderList.slice(0,10)
-    })
-  }
-
   render(){
-    return <FlatList
+    return <FlatListDefault
       style={styles.container}
-      data={this.state.renderedOrderList}
+      data={this.props.mallOrderList}
       renderItem={({item}) => <MallOrderItem {...item}/>}
-      onEndReached={() => this.lazyLoadList()}
-      onEndReachedThreshold={0.5}
-      refreshControl={<RefreshControl refreshing={this.props.isFetching} onRefresh={this.props.onRefresh} />} />
+      refreshControl={<RefreshControl refreshing={this.props.isFetching} onRefresh={this.props.onRefresh} />}
+      ListEmptyComponentText='暂无消费记录'
+      isFetching={this.props.isFetching}
+    />
   }
 
-  // 懒加载列表
-  lazyLoadList(){
-    if(this.state.renderedOrderList.length < this.props.mallOrderList.length){
-      this.setState({
-        renderedOrderList: this.state.renderedOrderList.concat(this.props.mallOrderList.slice(this.state.renderedOrderList.length, this.state.renderedOrderList.length + 10))
-      })
-    }
-  }
 }
 
 const styles = StyleSheet.create({
