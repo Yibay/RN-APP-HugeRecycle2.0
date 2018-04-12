@@ -105,12 +105,23 @@ export function continueMallOrder(orderId){
 
     let authToken = getState().identityToken.authToken;
 
-    // 1. 检验未支付订单，可否支付状态
-    const res = await request.get(config.api.checkOrder,{orderId},{'X-AUTH-TOKEN': authToken});
+    // 1. 检验未支付订单，可否支付状态 ()
+    let orderSource = 3; // 下单平台标示码（3为 app下单）
+    const res = await request.get(config.api.checkOrder,{orderId, orderSource},{'X-AUTH-TOKEN': authToken});
 
+    // 可支付
     if(res && !res.status){
-      console.log('可支付');
-      // 环保金支付 or 支付宝付款
+      if(res.data.payType === 1){
+        // 支付宝支付
+        dispatch(aliPay(orderId));
+      }
+      else {
+        // 货到付款
+        dispatch(scorePay(orderId));
+      }
+    }
+    else{
+      console.log(res);
     }
   };
 }
@@ -124,11 +135,16 @@ function scorePay(orderId){
 
     let resReceipt = await request.postFormData(config.api.receiptMallOrderPay,{orderId},{'X-AUTH-TOKEN': authToken});
 
-    (resReceipt && !resReceipt.status)
-      ?
-      (Actions.mallOrderSuccess()) // 跳转到下单成功页面
-      :
-      (Actions.mallOrderRecordPage())
+    if(resReceipt && !resReceipt.status){
+      Actions.mallOrderSuccess(); // 跳转到 下单成功页面
+    }
+    else if(Actions.currentScene !== 'mallOrderRecordPage'){
+      Actions.mallOrderRecordPage(); // 跳转到 我的消费订单页面
+    }
+    else{
+      Alert.alert(resReceipt.message ? resReceipt.message : '支付失败');
+    }
+
   }
 }
 
@@ -147,8 +163,11 @@ function aliPay(orderId){
         // 跳转到支付成功页
         Actions.mallOrderSuccess();
       }
-      else{
+      else if(Actions.currentScene !== 'mallOrderRecordPage'){
         Actions.mallOrderRecordPage();
+      }
+      else {
+        // 啥也不做
       }
     }
     else {
