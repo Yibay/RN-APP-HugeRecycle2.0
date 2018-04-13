@@ -9,6 +9,15 @@ export const editAddress = location => {
     Alert.alert('请选择待编辑地址');
     return false;
   }
+  // 检验数据格式
+  if(validator.isEmpty(location.customerName)){
+    Alert.alert('请输入联系人姓名');
+    return;
+  }
+  if(!validator.isPhone(location.telNo)){
+    Alert.alert('请输入正确的手机号码');
+    return;
+  }
   if(!validator.isNumber(location.communityId)){
     Alert.alert('请选择小区');
     return false;
