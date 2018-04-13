@@ -9,6 +9,8 @@ import PropTypes from 'prop-types';
 import { setLocationThunk } from '../../../redux/actions/Location';
 import { locationCrossPlatform } from '../../../HOC/locationCrossPlatform';
 
+import ViewCompatible from "../../../components/View/ViewCompatible";
+
 
 class CommunitySelector extends Component{
 
@@ -50,9 +52,9 @@ class CommunitySelector extends Component{
                 {this.props.LocateCommunities.map(
                   (item, index) =>
                     <TouchableWithoutFeedback key={index} onPress={() => this.selectCommunity(item)}>
-                      <View style={[styles.community, this.state.communitySelected.communityName === item.communityName ? styles.communitySelected : undefined]}>
+                      <ViewCompatible style={[styles.community, this.state.communitySelected.communityName === item.communityName ? styles.communitySelected : undefined]}>
                         <Text style={this.state.communitySelected.communityName === item.communityName ? styles.communitySelectedName : styles.communityName }>{item.communityName}</Text>
-                      </View>
+                      </ViewCompatible>
                     </TouchableWithoutFeedback>
                 )}
               </View>

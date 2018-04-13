@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 
 
 import { setShowStoreSelector, setStoreIndexThunk } from '../../../redux/actions/Mall';
+import ViewCompatible from "../../../components/View/ViewCompatible";
 
 
 class StoreSelector extends Component {
@@ -36,9 +37,9 @@ class StoreSelector extends Component {
           <Text style={styles.title}>请选择便利店</Text>
           {
             this.props.storeInfo.map((item, index) => <TouchableWithoutFeedback key={index} onPress={() => this.selectStoreIndex(index)}>
-              <View style={this.state.storeIndex === index ? [styles.option, styles.optionActive] : styles.option }>
+              <ViewCompatible style={this.state.storeIndex === index ? [styles.option, styles.optionActive] : styles.option }>
                 <Text style={this.state.storeIndex === index ? [styles.optionText, styles.optionActiveText] : styles.optionText} >{item.storeName}</Text>
-              </View>
+              </ViewCompatible>
             </TouchableWithoutFeedback>)
           }
           <TouchableWithoutFeedback onPress={() => this.closeModel()}>
@@ -103,7 +104,6 @@ const styles = StyleSheet.create({
   optionActive: {
     borderWidth: 0,
     backgroundColor: '#ffd100',
-    overflow: 'hidden',
   },
   optionText: {
     fontSize: 28,
