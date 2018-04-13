@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
+import { StyleSheet, View, Image, Text, Platform } from 'react-native';
 
 import {connect} from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -63,7 +63,9 @@ class ManageCustomerAccounts extends Component {
                   backgroundActive='#fed309'
                   circleSize={40}
                   activeTextStyle={[styles.PayPasswordFlagText, styles.activeTextStyle]}
-                  inactiveTextStyle={styles.PayPasswordFlagText}/>
+                  inactiveTextStyle={styles.PayPasswordFlagText}
+                  circleBorderWidth={Platform.OS === 'android' && Platform.Version === 24 ? 0 : 1}
+          />
         }/>
       </View>
     </View>)
@@ -124,7 +126,7 @@ const styles = StyleSheet.create({
   },
   // 消费密码开关
   PayPasswordSwitch: {
-    overflow: 'hidden'
+    ...(Platform.OS === 'android' && Platform.Version === 24 ? {} :{overflow: 'hidden'})
   },
   PayPasswordFlagText: {
     fontSize: 25
