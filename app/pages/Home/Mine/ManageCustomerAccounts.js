@@ -65,6 +65,8 @@ class ManageCustomerAccounts extends Component {
                   activeTextStyle={[styles.PayPasswordFlagText, styles.activeTextStyle]}
                   inactiveTextStyle={styles.PayPasswordFlagText}
                   circleBorderWidth={Platform.OS === 'android' && Platform.Version === 24 ? 0 : 1}
+                  circleInActiveColor={Platform.OS === 'android' && Platform.Version === 24 ? '#ccc' : 'white'}
+                  circleActiveColor={Platform.OS === 'android' && Platform.Version === 24 ? '#ccc' : 'white'}
           />
         }/>
       </View>
