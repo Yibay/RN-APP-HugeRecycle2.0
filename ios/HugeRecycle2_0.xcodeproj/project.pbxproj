@@ -1477,8 +1477,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hugehuge.HugeCollection;
 				PRODUCT_NAME = HugeRecycle2_0;
-				PROVISIONING_PROFILE = "5fb245be-2838-4540-b047-885800be76b1";
-				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionPP;
+				PROVISIONING_PROFILE = "09c0d26c-2bb5-4a76-91e8-6b3462b3bc13";
+				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionTest;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1509,8 +1509,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hugehuge.HugeCollection;
 				PRODUCT_NAME = HugeRecycle2_0;
-				PROVISIONING_PROFILE = "5fb245be-2838-4540-b047-885800be76b1";
-				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionPP;
+				PROVISIONING_PROFILE = "09c0d26c-2bb5-4a76-91e8-6b3462b3bc13";
+				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionTest;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

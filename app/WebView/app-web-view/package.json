@@ -14,6 +14,12 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "react-app-rewired": "^1.5.0"
+    "autoprefixer": "^8.2.0",
+    "css-loader": "^0.28.11",
+    "node-sass": "^4.8.3",
+    "postcss-loader": "^2.1.3",
+    "react-app-rewired": "^1.5.0",
+    "sass-loader": "^7.0.1",
+    "style-loader": "^0.20.3"
   }
 }
