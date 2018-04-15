@@ -1,0 +1,10 @@
+/** mixin 通用模块 */
+
+// f 功能
+@mixin f-cb {
+  &::before,&::after{
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
