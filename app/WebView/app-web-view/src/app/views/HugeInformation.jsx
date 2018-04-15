@@ -1,8 +1,9 @@
 import React, {PureComponent} from 'react';
 
+import {connect} from 'react-redux';
 
-import request from "../utils/request";
-import config from "../utils/config";
+
+import {fetchHugeInformation} from "../redux/actions/official/hugeInformation";
 
 
 class HugeInformation extends PureComponent{
@@ -11,9 +12,8 @@ class HugeInformation extends PureComponent{
   }
 
   async componentDidMount(){
-    const res = await request.get(config.api.publish);
-    console.log(res);
+    this.props.fetchHugeInformation();
   }
 }
 
-export default HugeInformation;
+export default connect(null, {fetchHugeInformation})(HugeInformation);
