@@ -12,7 +12,7 @@ import Header from '../../../components/Header/Header';
 let {width, height} = Dimensions.get('window');
 let webViewHeight = height / width * 750 - 128; // Header 高度
 // webView 放大倍数，因img有自适应，所以 主影响 字体大小
-// 为防止 放大后，分辨率超过 设备分辨率，从而出现滚动条，这里仅 逆适配 设计稿750，
+// 为防止 放大前，调整宽度 小于 web限定最小宽度，从而出现滚动条，这里仅 逆适配 设计稿750
 let scale = 750 / width;
 
 class HugeInformation extends Component{

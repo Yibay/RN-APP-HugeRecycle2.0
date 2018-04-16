@@ -15,7 +15,7 @@ export function fetchHugeInformation(){
     
     const res = await request.get(config.api.publish);
     if(res && !res.status){
-      dispatch({type: FETCH_HugeInformation_Success,data: res.data});
+      dispatch({type: FETCH_HugeInformation_Success,list: res.data[1].concat(res.data[0]),carousel: res.data[2]});
     }
     else {
       dispatch({type: FETCH_HugeInformation_Failure});

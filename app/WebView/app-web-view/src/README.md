@@ -7,3 +7,4 @@
 </ul>
 
 <p>hugeRecycle 本地url为：<a href='http://localhost:8080/appWebView'>http://localhost:8080/appWebView</a></p>
+<p>虎哥资讯页 本地url为：<a href='http://localhost:8080/appWebView/hugeInformation'>http://localhost:8080/appWebView/hugeInformation</a></p>

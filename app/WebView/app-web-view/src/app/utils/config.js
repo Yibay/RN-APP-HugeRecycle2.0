@@ -24,7 +24,7 @@ module.exports = {
   // 请求 api接口
   api: {
     // 获取 发布信息列表 (GET)
-    publish: `${api_base_recycle}/mobile/artical/all`,
+    publish: `${api_base_recycle}/mobile/artical/getHugeNews`,
   },
   // 静态资源base路径
   static: {

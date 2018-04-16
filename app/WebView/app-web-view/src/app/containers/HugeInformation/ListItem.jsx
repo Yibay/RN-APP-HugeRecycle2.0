@@ -10,6 +10,7 @@ class ListItem extends PureComponent{
 
   static propTypes = {
     item: PropTypes.shape({
+      imageUrl: PropTypes.string,
       title: PropTypes.string,
       summary: PropTypes.string,
       createTime: PropTypes.string,
@@ -21,7 +22,7 @@ class ListItem extends PureComponent{
     console.log(this.props);
     return <a href={this.props.item.url}>
       <div className={styles["m-list-item"]}>
-        <img className={styles.img} />
+        <img className={styles.img} src={this.props.item.imageUrl} />
         <div className={styles.subject}>
           <div className={styles.title}>{this.props.item.title}</div>
           <div className={styles.content}>

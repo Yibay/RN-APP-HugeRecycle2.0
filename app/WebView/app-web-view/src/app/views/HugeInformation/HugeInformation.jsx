@@ -16,14 +16,17 @@ class HugeInformation extends PureComponent{
 
   static propTypes = {
     hugeInformation: PropTypes.shape({
-      data: PropTypes.array.isRequired,
+      data: PropTypes.shape({
+        carousel: PropTypes.array.isRequired,
+        list: PropTypes.array.isRequired,
+      }),
       isFetching: PropTypes.bool.isRequired
     })
   };
 
   render(){
     return <div className={styles["v-huge-information"]}>
-      <FlatList className={styles.list} data={this.props.hugeInformation.data} renderItem={(item, index) => <ListItem key={index} item={item} />}/>
+      <FlatList className={styles.list} data={this.props.hugeInformation.data.list} renderItem={(item, index) => <ListItem key={index} item={item} />}/>
     </div>;
   }
 
