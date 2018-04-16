@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {BrowserRouter, Route, Link} from 'react-router-dom';
+import {BrowserRouter, Route} from 'react-router-dom';
 
 
 import styles from './index.scss';

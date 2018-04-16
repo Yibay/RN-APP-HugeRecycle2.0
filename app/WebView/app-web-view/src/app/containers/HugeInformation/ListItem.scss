@@ -1,0 +1,44 @@
+.m-list-item{
+  display: flex;
+  border-top: 0.01rem solid #dce0e3;
+  padding: 0.1rem 0;
+
+  .img{
+    width: 2rem;
+    height: 1.2rem;
+    margin-right: 0.1rem;
+  }
+
+  .subject{
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+  }
+
+  .title{
+    font-size: 0.18rem;
+    color: #333;
+  }
+
+  .content{
+    color: #7b7b7b;
+  }
+
+  .summary{
+    width: 3.75rem;
+    font-size: 0.14rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+  }
+
+  .tag{
+    font-size: 0.12rem;
+  }
+
+  .createTime{
+    margin-right: 0.05rem;
+  }
+}

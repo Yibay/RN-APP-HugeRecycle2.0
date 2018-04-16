@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import {Provider} from 'react-redux';
 
 
-import AppRouter from './router';
 import store from "./redux/store";
+import './App.scss'; // 屏幕适配
+import AppRouter from './router';
 
 
 class App extends Component {

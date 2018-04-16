@@ -9,6 +9,7 @@ import styles from './HugeInformation.scss';
 import {fetchHugeInformation} from '../../redux/actions/official/hugeInformation';
 
 import FlatList from '../../components/List/FlatList';
+import ListItem from '../../containers/HugeInformation/ListItem';
 
 
 class HugeInformation extends PureComponent{
@@ -22,7 +23,7 @@ class HugeInformation extends PureComponent{
 
   render(){
     return <div className={styles["v-huge-information"]}>
-      <FlatList data={this.props.hugeInformation.data} renderItem={(item, index) => <div key={index}>{item.id}</div>}/>
+      <FlatList className={styles.list} data={this.props.hugeInformation.data} renderItem={(item, index) => <ListItem key={index} item={item} />}/>
     </div>;
   }
 
