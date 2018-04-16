@@ -1,39 +1,51 @@
 import React,{Component} from 'react';
-import {StyleSheet, View, FlatList, RefreshControl} from 'react-native';
+import {Dimensions, StyleSheet, View, WebView} from 'react-native';
 
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {Actions} from 'react-native-router-flux';
 
 
-import {onEnter} from "../../../redux/actions/pagesLife/HugeInformationLife";
+import config from '../../../util/request/config';
 
 import Header from '../../../components/Header/Header';
-import InformationItem from "../../../containers/HugeInformation/InformationItem";
 
+
+let {width, height} = Dimensions.get('window');
+let webViewHeight = height / width * 750 - 128; // Header 高度
+// webView 放大倍数，因img有自适应，所以 主影响 字体大小
+// 为防止 放大后，分辨率超过 设备分辨率，从而出现滚动条，这里仅 逆适配 设计稿750，
+let scale = 750 / width;
 
 class HugeInformation extends Component{
 
-  static propTypes = {
-    onEnter: PropTypes.func.isRequired,
-    hugeInformation: PropTypes.shape({
-      data: PropTypes.array.isRequired,
-      isFetching: PropTypes.bool.isRequired
-    })
-  };
+  constructor(props){
+    super(props);
 
+    this.state = {
+      canGoBack: false
+    };
+  }
 
   render(){
+    // 因为 全局适配 分辨率太高，网页字体显示小，此处 降低分辨率，放大字体。
     return <View style={styles.container}>
-      <Header title='虎哥资讯'/>
-      <FlatList style={styles.informationList}
-                data={this.props.hugeInformation.data}
-                renderItem={({item}) => <InformationItem item={item} />}
-                refreshControl={<RefreshControl refreshing={this.props.hugeInformation.isFetching} onRefresh={() => this.props.onEnter()} />} />
+      <Header title='虎哥资讯' back={() => this.goBack()}/>
+      <View style={styles.webView}>
+        <WebView ref='webView' source={{uri: config.api.hugeInformation}} onNavigationStateChange={e => this.setGoBack(e)}/>
+      </View>
     </View>
   }
 
-  async componentDidMount(){
-    this.props.onEnter();
+  goBack(){
+    if(this.state.canGoBack){
+      this.refs.webView.goBack();
+    }
+    else{
+      Actions.pop();
+    }
+  }
+
+  setGoBack(e){
+    this.setState({canGoBack: e.canGoBack});
   }
 }
 
@@ -41,16 +53,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  informationList: {
-    flex: 1,
-    backgroundColor: '#e7e7e7'
+  webView: {
+    width: 750 / scale,
+    height: webViewHeight / scale,
+    transform: [
+      {translateX: 750 / scale * -.5},
+      {translateY: webViewHeight / scale * -.5},
+      {scale},
+      {translateX: 750 / scale * .5},
+      {translateY: webViewHeight / scale * .5},
+    ]
   }
 });
 
-function mapStateToProps(state){
-  return {
-    hugeInformation: state.official.hugeInformation
-  }
-}
 
-export default connect(mapStateToProps, {onEnter})(HugeInformation);
+export default HugeInformation;

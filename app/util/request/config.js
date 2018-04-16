@@ -146,6 +146,8 @@ export default {
     shoppingMall: '/web/mobile/mall/index?code=',
     // 获取 发布信息列表 (GET)
     publish: `${api_base_recycle}/mobile/artical/all`,
+    // WebView 虎哥资讯 列表页
+    hugeInformation: `${'http://localhost:3000'}/appWebView/hugeInformation`,
     // 覆盖小区
     getCommunityCoverageArea: `${api_base_recycle}/api/mobile/normal/getCommunityCoverageArea`,
     // 是否开启消费密码 (POST 表单) 需要登录 header X-AUTH-TOKEN

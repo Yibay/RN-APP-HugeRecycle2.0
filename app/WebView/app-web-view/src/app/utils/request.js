@@ -3,7 +3,7 @@
  */
 
 // 工具, 用于字符串序列化
-import queryString from 'query-string';
+import queryString from './query-string';
 // 工具，用于混入属性
 import _ from 'lodash';
 

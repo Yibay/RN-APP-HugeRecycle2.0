@@ -1,9 +1,9 @@
-const config = require('../src/app/utils/config');
+const configContext = require('../src/app/utils/config');
 
 function rewirePublicPath(config, env){
 
   if(env === 'production'){
-    config.output.publicPath = `${config.publicPath}/`;
+    config.output.publicPath = `${configContext.publicPath}/`;
   }
   else if(env === 'development'){
     // do noting

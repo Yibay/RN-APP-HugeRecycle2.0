@@ -45,7 +45,14 @@ const sassRules = {
     {
       loader: 'postcss-loader',
       options: {
-        plugins: loader => [require('autoprefixer')()]
+        plugins: loader => [require('autoprefixer')({
+          browsers: [
+            '>1%',
+            'last 4 versions',
+            'Firefox ESR',
+            'not ie < 9', // React doesn't support IE8 anyway
+          ],
+        })]
       }
     },
     {
