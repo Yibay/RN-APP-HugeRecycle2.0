@@ -10,7 +10,7 @@ import {fetchHugeInformation} from '../../redux/actions/official/hugeInformation
 
 import FlatList from '../../components/List/FlatList';
 import ListItem from '../../containers/HugeInformation/ListItem';
-// import Banner from "../../components/Banner/Banner";
+import Banner from "../../components/Banner/Banner";
 
 
 class HugeInformation extends PureComponent{
@@ -27,7 +27,7 @@ class HugeInformation extends PureComponent{
 
   render(){
     return <div className={styles["v-huge-information"]}>
-      {/*<Banner/>*/}
+      <Banner className={styles.banner} data={this.props.hugeInformation.data.carousel} width='6rem' height='3.6rem' />
       <FlatList className={styles.list} data={this.props.hugeInformation.data.list} renderItem={(item, index) => <ListItem key={index} item={item} />}/>
     </div>;
   }

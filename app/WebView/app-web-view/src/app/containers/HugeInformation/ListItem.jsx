@@ -19,23 +19,25 @@ class ListItem extends PureComponent{
   };
 
   render(){
-    return <a href={this.props.item.url}>
-      <div className={styles["m-list-item"]}>
-        <img className={styles.img} src={this.props.item.imageUrl} />
-        <div className={styles.subject}>
-          <div className={styles.title}>{this.props.item.title}</div>
-          <div className={styles.content}>
-            <div className={styles.summary}>{this.props.summary}</div>
-            <div className={styles.tag}>
-              <span className={styles.createTime}>{this.props.item.createTime}</span>
-              {
-                '垃圾分类 虎哥回收'
-              }
+    return <div>
+      <a href={this.props.item.url}>
+        <div className={styles["m-list-item"]}>
+          <img className={styles.img} src={this.props.item.imageUrl} />
+          <div className={styles.subject}>
+            <div className={styles.title}>{this.props.item.title}</div>
+            <div className={styles.content}>
+              <div className={styles.summary} dangerouslySetInnerHTML={{__html: this.props.summary}} />
+              <div className={styles.tag}>
+                <span className={styles.createTime}>{this.props.item.createTime}</span>
+                {
+                  '垃圾分类 虎哥回收'
+                }
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </a>
+      </a>
+    </div>
   }
 }
 

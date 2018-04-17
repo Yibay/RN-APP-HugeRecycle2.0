@@ -3,7 +3,7 @@ import {Provider} from 'react-redux';
 
 
 import store from "./redux/store";
-import './App.scss'; // 屏幕适配
+import './App.scss'; // 屏幕适配, app 通用样式
 import AppRouter from './router';
 
 

@@ -17,3 +17,6 @@ body, #root{
 a{
   text-decoration: none;
 }
+div,a{
+  outline: none!important;
+}

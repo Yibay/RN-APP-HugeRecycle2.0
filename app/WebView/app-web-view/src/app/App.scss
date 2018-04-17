@@ -2,3 +2,11 @@
 html{
   font-size: calc(100vw / 7.5);
 }
+
+// iconfont图标 默认尺寸
+:global(.iconfont){
+  font-size: .2rem;
+}
+:global(.iconfont:before){
+  font-family:"iconfont" !important;
+}
