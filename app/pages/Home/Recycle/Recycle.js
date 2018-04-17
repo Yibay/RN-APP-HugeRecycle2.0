@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -96,7 +96,12 @@ class Recycle extends Component{
   }
 
   async componentDidMount(){
+    console.log('componentDidMount');
     await this.getProducts();
+  }
+
+  componentWillUnmount(){
+    console.log('componentWillUnmount');
   }
 
   // 获取回收品列表（无需登录）
