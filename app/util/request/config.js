@@ -149,7 +149,7 @@ export default {
     // WebView 虎哥资讯 列表页
     // hugeInformation: `${'http://localhost:3000'}/appWebView/hugeInformation`,
     // hugeInformation: `${'http://localhost:8080'}/appWebView/hugeInformation`,
-    hugeInformation: `${api_base_recycle}/AppWebView/hugeInformation`,
+    hugeInformation: `${api_base_recycle}/appWebView/hugeInformation`,
     // 覆盖小区
     getCommunityCoverageArea: `${api_base_recycle}/api/mobile/normal/getCommunityCoverageArea`,
     // 是否开启消费密码 (POST 表单) 需要登录 header X-AUTH-TOKEN

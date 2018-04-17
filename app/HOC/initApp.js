@@ -59,6 +59,18 @@ const initApp = (WrappedComponent) => connect(null, { setAllProducts, setIdentit
           StatusBar.setTranslucent(true);
           StatusBar.setBackgroundColor('transparent');
         },0);
+        setTimeout(function(){
+          StatusBar.setTranslucent(true);
+          StatusBar.setBackgroundColor('transparent');
+        },1000);
+        setTimeout(function(){
+          StatusBar.setTranslucent(true);
+          StatusBar.setBackgroundColor('transparent');
+        },5000);
+        setTimeout(function(){
+          StatusBar.setTranslucent(true);
+          StatusBar.setBackgroundColor('transparent');
+        },10000);
       }
     })();
   }
