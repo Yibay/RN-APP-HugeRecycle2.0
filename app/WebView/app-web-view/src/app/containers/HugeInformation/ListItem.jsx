@@ -19,7 +19,6 @@ class ListItem extends PureComponent{
   };
 
   render(){
-    console.log(this.props);
     return <a href={this.props.item.url}>
       <div className={styles["m-list-item"]}>
         <img className={styles.img} src={this.props.item.imageUrl} />

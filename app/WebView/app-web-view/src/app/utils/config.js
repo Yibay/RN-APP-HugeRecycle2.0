@@ -1,15 +1,12 @@
 
 // 线上
-// const api_base_recycle = 'https://www.hugehuge.cn';
-// const api_base_mall = 'https://mall.hugehuge.cn';
+const api_base_recycle = '';
 
 // 测试
 // const api_base_recycle = 'http://test.hugehuge.cn';
-// const api_base_mall = 'http://test.hugehuge.cn:8070';
 
 // 本机调试
-const api_base_recycle = 'http://localhost:8080';
-const api_base_mall = 'http://localhost:8070';
+// const api_base_recycle = 'http://localhost:8080';
 
 module.exports = {
   // 因为 config-overrides.js 的 rewirePublicPath 也引用 此文件，所以不用 ES6模块；
