@@ -35,7 +35,7 @@ export default {
   api: {
     /** ------ 引导页 相关api ------  */
     // 获取 节假日首屏页
-    getBaseImages: 'http://www.hugehuge.cn/api/mobile/normal/getBaseImages',
+    getBaseImages: 'https://www.hugehuge.cn/api/mobile/normal/getBaseImages',
 
     /** ------ 回收 相关api ------  */
     // 获取回收物品 列表 (GET)
@@ -148,7 +148,7 @@ export default {
     publish: `${api_base_recycle}/mobile/artical/all`,
     // WebView 虎哥资讯 列表页
     // hugeInformation: `${'http://localhost:3000'}/appWebView/hugeInformation`,
-    // hugeInformation: `${'http://localhost:8080'}/appWebView/hugeInformation`,
+    // hugeInformation: `${'http://192.168.11.124:3000'}/appWebView/hugeInformation`,
     hugeInformation: `${api_base_recycle}/appWebView/hugeInformation`,
     // 覆盖小区
     getCommunityCoverageArea: `${api_base_recycle}/api/mobile/normal/getCommunityCoverageArea`,
@@ -254,7 +254,7 @@ export default {
     // androidAPK: `${api_base_recycle}/web/static/huge.apk`,
     androidAPK: 'https://www.hugehuge.cn/web/static/huge.apk',
     // 获取 最新版本号(iOS)
-    versionIOS: 'http://itunes.apple.com/cn/lookup?id=1078528907',
+    versionIOS: 'https://itunes.apple.com/cn/lookup?id=1078528907',
     // 去appStore更新app
     appStore: 'itms-apps://itunes.apple.com/cn/app/id1078528907',
 

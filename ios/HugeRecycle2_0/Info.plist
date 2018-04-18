@@ -69,10 +69,6 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>自动定位周围小区（虎哥服务已覆盖的小区）</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>自动定位周围小区（虎哥服务已覆盖的小区）</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>自动定位周围小区（虎哥服务已覆盖的小区）</string>
 	<key>UIAppFonts</key>

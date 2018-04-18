@@ -1,11 +1,10 @@
 // 跨平台定位
 
 import React, { Component } from 'react';
-import { Platform, Alert } from 'react-native';
+import { Alert } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import BackgroundGeolocation from 'react-native-mauron85-background-geolocation'; // iOS定位
 import { wgs84togcj02, gcj02tobd09 } from 'coordtransform'; // 坐标转换
 import _ from 'lodash';
 

@@ -39,7 +39,6 @@
 		1F734F872072256400289C94 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734F862072256400289C94 /* CoreMotion.framework */; };
 		1F734FC42072379F00289C94 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F734FC22072379F00289C94 /* AlipaySDK.bundle */; };
 		1F734FFC2073127200289C94 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734FC12072379E00289C94 /* AlipaySDK.framework */; };
-		1FF11A5B2002661D00034A38 /* libRCTBackgroundGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF11A422002642500034A38 /* libRCTBackgroundGeolocation.a */; };
 		1FF11AB3200319FE00034A38 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		1FF11AB620031C3100034A38 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF11AB520031C3100034A38 /* libsqlite3.tbd */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -152,13 +151,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RCTOrientation;
-		};
-		1FF11A412002642500034A38 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1FF11A3A2002642500034A38 /* RCTBackgroundGeolocation.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 418F75461D02DC3D0045FEA0;
-			remoteInfo = RCTBackgroundGeolocation;
 		};
 		1FF11A452002642500034A38 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -393,7 +385,6 @@
 		1F734F862072256400289C94 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		1F734FC12072379E00289C94 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlipaySDK.framework; path = "../node_modules/react-native-alipay/ios/SDK/AlipaySDK.framework"; sourceTree = "<group>"; };
 		1F734FC22072379F00289C94 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AlipaySDK.bundle; path = "../node_modules/react-native-alipay/ios/SDK/AlipaySDK.bundle"; sourceTree = "<group>"; };
-		1FF11A3A2002642500034A38 /* RCTBackgroundGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBackgroundGeolocation.xcodeproj; path = "../node_modules/react-native-mauron85-background-geolocation/ios/RCTBackgroundGeolocation.xcodeproj"; sourceTree = "<group>"; };
 		1FF11AB520031C3100034A38 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		2D02E47B1E0B4A5D006451C7 /* HugeRecycle2_0-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HugeRecycle2_0-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* HugeRecycle2_0-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HugeRecycle2_0-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -444,7 +435,6 @@
 				1F734F752072246F00289C94 /* libz.tbd in Frameworks */,
 				1F734F732072244F00289C94 /* libc++.tbd in Frameworks */,
 				1FF11AB620031C3100034A38 /* libsqlite3.tbd in Frameworks */,
-				1FF11A5B2002661D00034A38 /* libRCTBackgroundGeolocation.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				1FF11AB3200319FE00034A38 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -646,14 +636,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1FF11A3B2002642500034A38 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				1FF11A422002642500034A38 /* libRCTBackgroundGeolocation.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		1FF11AB420031C3100034A38 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -712,7 +694,6 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				1FF11A3A2002642500034A38 /* RCTBackgroundGeolocation.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -909,10 +890,6 @@
 					ProjectRef = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
 				},
 				{
-					ProductGroup = 1FF11A3B2002642500034A38 /* Products */;
-					ProjectRef = 1FF11A3A2002642500034A38 /* RCTBackgroundGeolocation.xcodeproj */;
-				},
-				{
 					ProductGroup = ADBDB9201DFEBF0600ED6528 /* Products */;
 					ProjectRef = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
 				},
@@ -1047,13 +1024,6 @@
 			fileType = archive.ar;
 			path = libRCTOrientation.a;
 			remoteRef = 1FD1530920674D4C008C73C5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1FF11A422002642500034A38 /* libRCTBackgroundGeolocation.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTBackgroundGeolocation.a;
-			remoteRef = 1FF11A412002642500034A38 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		1FF11A462002642500034A38 /* libRCTBlob-tvOS.a */ = {
