@@ -48,7 +48,7 @@ class Banner extends PureComponent{
               <a href={item.url}>
               {
                 item.imageUrl ?
-                  <img src={item.imageUrl} className={[this.props.width,this.props.height].join(' ')} alt='' />
+                  <img src={`${item.imageUrl}?x-oss-process=image/resize,m_fixed,h_360,w_600`} className={[this.props.width,this.props.height].join(' ')} alt='' />
                   :
                   <div className={[this.props.width,this.props.height].join(' ')} />
               }

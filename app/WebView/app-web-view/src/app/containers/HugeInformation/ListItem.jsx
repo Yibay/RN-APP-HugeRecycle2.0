@@ -22,11 +22,11 @@ class ListItem extends PureComponent{
     return <div>
       <a href={this.props.item.url}>
         <div className={styles["m-list-item"]}>
-          <img className={styles.img} src={this.props.item.imageUrl} alt='' />
+          <img className={styles.img} src={`${this.props.item.imageUrl}?x-oss-process=image/resize,m_fixed,h_120,w_200`} alt='' />
           <div className={styles.subject}>
             <div className={styles.title}>{this.props.item.title}</div>
             <div className={styles.content}>
-              <div className={styles.summary} dangerouslySetInnerHTML={{__html: this.props.item.summary}} />
+              {/*<div className={styles.summary} dangerouslySetInnerHTML={{__html: this.props.item.summary}} />*/}
               <div className={styles.tag}>
                 <span className={styles.createTime}>{this.props.item.createTime}</span>
                 {
