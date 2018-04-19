@@ -27,7 +27,7 @@ class HugeInformation extends PureComponent{
 
   render(){
     return <div className={styles["v-huge-information"]}>
-      <Banner className={styles.banner} data={this.props.hugeInformation.data.carousel} width='6rem' height='3.6rem' />
+      <Banner className={styles.banner} data={this.props.hugeInformation.data.carousel} width={styles["banner-width"]} height={styles["banner-height"]} />
       <FlatList className={styles.list} data={this.props.hugeInformation.data.list} renderItem={(item, index) => <ListItem key={index} item={item} />}/>
     </div>;
   }

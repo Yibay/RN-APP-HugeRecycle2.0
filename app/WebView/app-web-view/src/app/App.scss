@@ -1,11 +1,13 @@
-// 全屏屏宽适配 7.5rem = 100vw
+// 适配单位
+@import "./assets/styles/adaptaion";
+
 html{
-  font-size: calc(100vw / 7.5);
+  font-size: 1*$rem;
 }
 
 // iconfont图标 默认尺寸
 :global(.iconfont){
-  font-size: .2rem;
+  font-size: .2*$rem;
 }
 :global(.iconfont:before){
   font-family:"iconfont" !important;

@@ -1,3 +1,5 @@
+@import "../../assets/styles/adaptaion";
+
 .m-banner{
 
   .slider{
@@ -13,26 +15,26 @@
     position: absolute;
     bottom: 0;
     margin: 0;
-    padding: .18rem .55rem;
+    padding: .18*$rem .55*$rem;
     width: 100%;
     box-sizing: border-box;
     background-color: rgba(0,0,0,0.4);
-    font-size: .18rem;
+    font-size: .18*$rem;
     color: #fff;
     text-align: center;
   }
 
   @mixin slick-box{
-    width: .4rem;
-    height: .4rem;
+    width: .4*$rem;
+    height: .4*$rem;
   }
   :global(.slick-prev){
     @include slick-box;
-    left: -.45rem;
+    left: -.45*$rem;
   }
   :global(.slick-next){
     @include slick-box;
-    right: -.45rem;
+    right: -.45*$rem;
   }
 
   @keyframes fade {
@@ -41,7 +43,7 @@
     100% {opacity: 0.5}
   }
   @mixin slick-icon{
-    font-size: .4rem;
+    font-size: .4*$rem;
     font-weight: 700;
     color: #ffd100;
     animation: fade 1s infinite;

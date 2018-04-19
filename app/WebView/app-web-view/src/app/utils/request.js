@@ -8,7 +8,7 @@ import queryString from './query-string';
 import _ from 'lodash';
 
 
-import config from './config';
+// import config from './config';
 
 
 // 用 export default 对外暴露整个模块
@@ -52,9 +52,9 @@ request.post = function(url, data, headers){
   // fetch options
   let options = _.merge(
     { method: 'POST' },
-    { headers: config.requestHeaders },
+    // { headers: config.requestHeaders },
     data ? { body: JSON.stringify(data) } : {},
-    headers ? { headers } : {}
+    // headers ? { headers } : {}
   );
 
   return fetch(url ,options)
@@ -77,7 +77,7 @@ request.postFormData = function(url ,data, headers){
     { method: 'POST' },
     { headers: {'Content-Type': 'multipart/form-data'} },
     data ? { body: constructFormData(data)} : {},
-    headers ? { headers } : {}
+    // headers ? { headers } : {}
   );
 
   return fetch(url, options)

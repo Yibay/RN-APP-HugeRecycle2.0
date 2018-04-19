@@ -24,8 +24,8 @@ class Banner extends PureComponent{
 
   static defaultProps = {
     className: '',
-    width: '100vw',
-    height: '40vw'
+    width: '',
+    height: ''
   };
 
   constructor(props){
@@ -41,16 +41,16 @@ class Banner extends PureComponent{
   }
 
   render(){
-    return <div className={[styles["m-banner"]].concat(this.props.className).join(' ')}>
+    return <div ref='banner' className={[styles["m-banner"],this.props.className,this.props.width,this.props.height].join(' ')}>
       <Slide {...this.state.settings}>
         {
           this.props.data.map((item, index) => <div key={index} className={styles.slider}>
               <a href={item.url}>
               {
                 item.imageUrl ?
-                  <img src={item.imageUrl} style={{width: this.props.width,height: this.props.height}} />
+                  <img src={item.imageUrl} className={[this.props.width,this.props.height].join(' ')} alt='' />
                   :
-                  <div style={{width: this.props.width,height: this.props.height}} />
+                  <div className={[this.props.width,this.props.height].join(' ')} />
               }
               </a>
               <div className={styles.title}>{item.title}</div>
@@ -60,15 +60,16 @@ class Banner extends PureComponent{
       </Slide>
     </div>
   }
+
 }
 
 function PrevArrow(props){
-  const {className, style, onClick} = props;
+  const {className, onClick} = props;
   return <div className={[className, 'iconfont icon-menuleft'].join(' ')} onClick={onClick} />
 }
 
 function NextArrow(props){
-  const {className, style, onClick} = props;
+  const {className, onClick} = props;
   return <div className={[className, 'iconfont icon-menuright'].join(' ')} onClick={onClick} />
 }
 

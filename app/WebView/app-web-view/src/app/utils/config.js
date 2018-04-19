@@ -6,7 +6,7 @@ const api_base_recycle = '';
 // const api_base_recycle = 'http://test.hugehuge.cn';
 
 // 本机调试
-// const api_base_recycle = 'http://localhost:8080';
+// const api_base_recycle = 'http://192.168.11.124:8080';
 
 module.exports = {
   // 因为 config-overrides.js 的 rewirePublicPath 也引用 此文件，所以不用 ES6模块；
@@ -26,13 +26,13 @@ module.exports = {
   // 静态资源base路径
   static: {
     // 线上
-    // base: 'https://www.hugehuge.cn/web/',
-    // // 商城图片资源 base路径
-    // mallBase: 'https://hugehuge.oss-cn-hangzhou.aliyuncs.com',
+    base: 'https://www.hugehuge.cn/web/',
+    // 商城图片资源 base路径
+    mallBase: 'https://hugehuge.oss-cn-hangzhou.aliyuncs.com',
 
     // 测试
-    base: 'http://test.hugehuge.cn/web/',
-    // 商城图片资源 base路径
-    mallBase: 'https://hugetest.oss-cn-hangzhou.aliyuncs.com',
+    // base: 'http://test.hugehuge.cn/web/',
+    // // 商城图片资源 base路径
+    // mallBase: 'https://hugetest.oss-cn-hangzhou.aliyuncs.com',
   }
 };

@@ -1,13 +1,15 @@
+@import '../../assets/styles/adaptaion';
+
 .m-list-item{
   display: flex;
-  border-top: 0.02rem solid #dce0e3;
-  padding: 0.1rem 0;
+  border-top: .02*$rem solid #dce0e3;
+  padding: .1*$rem 0;
 
   .img{
     display: block;
-    width: 2rem;
-    height: 1.2rem;
-    margin-right: 0.1rem;
+    width: 2*$rem;
+    height: 1.2*$rem;
+    margin-right: .1*$rem;
   }
 
   .subject{
@@ -18,7 +20,7 @@
   }
 
   .title{
-    font-size: 0.18rem;
+    font-size: .18*$rem;
     font-weight: 700;
     color: #333;
   }
@@ -28,8 +30,8 @@
   }
 
   .summary{
-    width: 3.75rem;
-    font-size: 0.14rem;
+    width: 3.75*$rem;
+    font-size: .14*$rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -37,10 +39,10 @@
   }
 
   .tag{
-    font-size: 0.12rem;
+    font-size: .12*$rem;
   }
 
   .createTime{
-    margin-right: 0.05rem;
+    margin-right: .05*$rem;
   }
 }

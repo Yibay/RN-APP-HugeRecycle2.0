@@ -1,14 +1,22 @@
+@import "../../assets/styles/adaptaion";
+
 // 页面 container
 .v-huge-information{
   flex: 1;
 
+  .banner-width{
+    width: 6*$rem;
+  }
+  .banner-height{
+    height: 3.6*$rem;
+  }
   .banner{
-    width: 6rem;
-    height: 3.6rem;
-    margin: 0.4rem auto;
+    @extend .banner-width;
+    @extend .banner-height;
+    margin: .4*$rem auto;
   }
 
   .list{
-    margin: 0 .4rem;
+    margin: 0 .4*$rem;
   }
 }
