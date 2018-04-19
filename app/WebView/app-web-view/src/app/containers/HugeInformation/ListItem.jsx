@@ -26,7 +26,7 @@ class ListItem extends PureComponent{
           <div className={styles.subject}>
             <div className={styles.title}>{this.props.item.title}</div>
             <div className={styles.content}>
-              <div className={styles.summary} dangerouslySetInnerHTML={{__html: this.props.summary}} />
+              <div className={styles.summary} dangerouslySetInnerHTML={{__html: this.props.item.summary}} />
               <div className={styles.tag}>
                 <span className={styles.createTime}>{this.props.item.createTime}</span>
                 {
