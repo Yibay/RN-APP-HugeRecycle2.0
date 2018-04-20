@@ -46,7 +46,7 @@ class ProductItem extends Component {
       <View style={styles.content}>
         <Text style={styles.title}>{this.props.productItem.productName}</Text>
         <Text style={styles.promotionStr}>
-          {this.props.productItem.coupon ? `已让利${this.props.productItem.coupon}` : ''}
+          {this.props.productItem.coupon ? `已让利 ¥${this.props.productItem.coupon}` : ''}
           {this.props.productItem.briefPromotionView ? this.props.productItem.briefPromotionView.promotionStr : ''}
         </Text>
         <Text style={styles.price}>{`¥${this.props.productItem.hugePrice}`}</Text>
@@ -82,9 +82,8 @@ const styles = StyleSheet.create({
   // 可编辑：选中按钮
   isNeedPay: {
     alignSelf: 'center',
-    width: 30,
-    height: 30,
-    padding: 0,
+    width: 60,
+    height: 60,
     marginLeft: 20,
     marginRight: 40,
     borderColor: '#000'

@@ -59,7 +59,7 @@ class CheckBox extends Component {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   }
 });
 

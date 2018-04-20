@@ -88,7 +88,7 @@ class ProductList extends Component{
       </View>
       <View style={validProductList.length && this.props.validProductListShowTotal ? styles.validProductListTotal : styles.none}>
         <Text style={styles.totalMsg}>{`共${validProductList.length}件商品 小计：`}</Text>
-        <Text style={styles.totalPrice}>{`¥${this.props.payMsg.needPayTotalPrice}`}</Text>
+        <Text style={styles.totalPrice}>{`¥${this.props.payMsg.totalPrice}`}</Text>
       </View>
       <Text style={(invalidProductList.length) ? styles.invalidProductList : styles.none}>{this.props.invalidProductListTitle}</Text>
       {

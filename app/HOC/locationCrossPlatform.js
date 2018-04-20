@@ -118,6 +118,9 @@ export const locationCrossPlatform = WrappedComponent => connect(mapStateToProps
                   let settingUrl = 'app-settings:';
                   const supported = await Linking.canOpenURL(settingUrl).catch(e => {console.log(e); return false});
                   supported && Linking.openURL(settingUrl);
+                },
+                android: () =>{
+                  console.log('跳转到设置-定位界面');
                 }
               })();
             }}
@@ -137,7 +140,10 @@ export const locationCrossPlatform = WrappedComponent => connect(mapStateToProps
                 let settingUrl = 'App-Prefs:root=Privacy&path=LOCATION';
                 let supported = await Linking.canOpenURL(settingUrl).catch(e => {console.log(e); return false});
                 supported && Linking.openURL(settingUrl);
-              }
+              },
+              android: () => {
+                console.log('跳转到设置-虎哥app定位界面');
+              },
             })();
           }}
         ]);
