@@ -24,7 +24,7 @@ class SettlementModule extends Component {
 
     this.props.validProductList.forEach(item => {
       if(item.isNeedPay){
-        amount += 1;
+        amount += item.buyAmount;
         total += item.hugePrice * item.buyAmount;
       }
     });
