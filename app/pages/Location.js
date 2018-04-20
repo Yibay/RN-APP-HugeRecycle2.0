@@ -10,13 +10,15 @@ import CommunitySelector from '../containers/Location/CommunitySelector/Communit
 import SubmitBtn from '../components/Form/Btn/SubmitBtn';
 import NetworkVerify from "../components/NetworkVerify";
 import Header from "../components/Header/Header";
+import {locationCrossPlatform} from "../HOC/locationCrossPlatform";
 
 
 class LocationPage extends Component{
 
   static propTypes = {
     authToken: PropTypes.string,
-    selectedLocationCallBack: PropTypes.func // 有此回调函数，则选中小区后，不更新给redux currentLocation
+    selectedLocationCallBack: PropTypes.func, // 有此回调函数，则选中小区后，不更新给redux currentLocation
+    LocateCommunities: PropTypes.array.isRequired, // 定位到的附近的小区 (HOC 提供)
   };
 
   render(){
@@ -25,7 +27,7 @@ class LocationPage extends Component{
       <NetworkVerify>
         <View style={styles.content}>
           <Text style={styles.prompt}>为了更好的为您服务，虎哥需要知道您的位置，请选择您所在的小区</Text>
-          <CommunitySelector style={styles.communitySelector} selectedLocationCallBack={this.props.selectedLocationCallBack} />
+          <CommunitySelector style={styles.communitySelector} selectedLocationCallBack={this.props.selectedLocationCallBack} LocateCommunities={this.props.LocateCommunities} />
           {
             this.props.authToken ?
               undefined
@@ -86,4 +88,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps)(LocationPage);
+export default locationCrossPlatform(connect(mapStateToProps)(LocationPage));

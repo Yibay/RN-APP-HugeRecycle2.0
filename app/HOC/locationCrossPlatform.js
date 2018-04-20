@@ -105,7 +105,18 @@ export const locationCrossPlatform = WrappedComponent => connect(mapStateToProps
   // 获取定位信息失败
   geo_error(e){
     console.log(e);
-    // 手机未开启定位功能
+    // 1. 用户拒绝App访问位置服务。
+    if(e.code === 1){
+      if (!this.openGeolocationListener){
+        Alert.alert('请去开启定位权限','',[
+          {text: '知道了', onPress: () => {
+              // 开启计时器 检查定位是否开启
+              this.openGeolocationListener = setInterval(() => this.getCurrentPosition(),1000);
+            }}
+        ]);
+      }
+    }
+    // 2. 手机设置内，定位服务未开启
     if(e.code === 2){
       if (!this.openGeolocationListener){
         Alert.alert('请去开启定位权限','',[
@@ -116,8 +127,13 @@ export const locationCrossPlatform = WrappedComponent => connect(mapStateToProps
         ]);
       }
     }
+    // 3. 定位超时
     else if(e.code === 3){
       Alert.alert('定位超时','请选择手动定位');
+      if (this.openGeolocationListener){
+        console.log('清除计时器');
+        clearInterval(this.openGeolocationListener);
+      }
     }
     // 关闭 定位Flag
     if(this.props.autoLocationFlag){

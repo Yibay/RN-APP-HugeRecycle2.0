@@ -23,7 +23,10 @@ class ProductItem extends Component {
       coupon: PropTypes.number.isRequired, // 让利金额
       buyAmount: PropTypes.number.isRequired,
       isNeedPay: PropTypes.number.isRequired,
-      // firstItem: PropTypes.bool.isRequired
+      // firstItem: PropTypes.bool.isRequired,
+      briefPromotionView: PropTypes.shape({
+        promotionStr: PropTypes.string
+      }),
     }),
     editable: PropTypes.bool.isRequired,
     updateCartProductList: PropTypes.func.isRequired
@@ -42,6 +45,7 @@ class ProductItem extends Component {
       <Image style={[styles.img].concat(this.props.imgStyle)} resizeMdoe='contain' source={{uri: `${config.static.mallBase}${this.props.productItem.productImgAddress}`}}/>
       <View style={styles.content}>
         <Text style={styles.title}>{this.props.productItem.productName}</Text>
+        <Text style={styles.promotionStr}>{this.props.productItem.briefPromotionView ? this.props.productItem.briefPromotionView.promotionStr : ''}</Text>
         <Text style={styles.price}>{`¥${this.props.productItem.hugePrice}`}</Text>
         {
           this.props.editable ?
@@ -98,6 +102,10 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: '#000',
     fontWeight: '700'
+  },
+  promotionStr: {
+    fontSize: 25,
+    color: '#888'
   },
   price: {
     fontSize: 30,

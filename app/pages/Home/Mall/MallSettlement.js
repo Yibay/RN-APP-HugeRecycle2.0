@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Alert } from 'react-native';
 
 
 import {connect} from "react-redux";
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 import {Actions} from 'react-native-router-flux';
 
 
@@ -24,23 +24,23 @@ import SubmitBtn from "../../../components/Form/Btn/SubmitBtn";
 class MallSettlement extends Component {
 
   static propTypes = {
-    storeId: PropType.number.isRequired,
+    storeId: PropTypes.number.isRequired,
     // 身份令牌
-    identityToken: PropType.shape({
-      authToken: PropType.string.isRequired
+    identityToken: PropTypes.shape({
+      authToken: PropTypes.string.isRequired
     }),
-    settlementData: PropType.shape({
-      data: PropType.shape({
-        validProductList: PropType.array.isRequired,
-        invalidProductList: PropType.array.isRequired,
-        payMsg: PropType.shape({
-          needPayScore: PropType.number,
-          needPayTotalPrice: PropType.number,
-          canSale: PropType.bool,
-          message: PropType.string
+    settlementData: PropTypes.shape({
+      data: PropTypes.shape({
+        validProductList: PropTypes.array.isRequired,
+        invalidProductList: PropTypes.array.isRequired,
+        payMsg: PropTypes.shape({
+          needPayScore: PropTypes.number,
+          needPayTotalPrice: PropTypes.number,
+          canSale: PropTypes.bool,
+          message: PropTypes.string
         })
       }),
-      isFetching: PropType.bool.isRequired
+      isFetching: PropTypes.bool.isRequired
     })
   };
 
@@ -66,6 +66,7 @@ class MallSettlement extends Component {
         invalidProductList={this.props.settlementData.data.invalidProductList}
         // updateCartProductList={() => this.props.onEnter()}
         validProductEditable={false}
+        payMsg={this.props.settlementData.data.payMsg}
         ListFooterComponent={<View style={styles.listFooterComponent}>
           {/* 备注模块 */}
           <Remark val={this.state.remark} onChangeText={val => this.setState({remark: val})}/>

@@ -222,4 +222,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {setLocationThunk})(locationCrossPlatform(CommunitySelector));
+export default connect(mapStateToProps, {setLocationThunk})(CommunitySelector);

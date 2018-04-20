@@ -34,7 +34,13 @@ class ProductList extends Component{
     ),
     invalidProductListTitle: PropTypes.string.isRequired, //无效列表 title
     updateCartProductList: PropTypes.func, // 更新列表 回调函数
-    ListFooterComponent: PropTypes.element.isRequired // 列表底部组件
+    ListFooterComponent: PropTypes.element.isRequired, // 列表底部组件
+    payMsg: PropTypes.shape({
+      needPayScore: PropTypes.number,
+      needPayTotalPrice: PropTypes.number,
+      canSale: PropTypes.bool,
+      message: PropTypes.string
+    })
   };
 
   static defaultProps = {
@@ -43,6 +49,7 @@ class ProductList extends Component{
     validProductListShowTotal: true,
     invalidProductList: [],
     invalidProductListTitle: '以下商品已失效',
+    payMsg: {},
     ListFooterComponent: <View/>,
     updateCartProductList: () => {}
   };
@@ -71,7 +78,7 @@ class ProductList extends Component{
       }
       <View style={validProductList.length && this.props.validProductListShowTotal ? styles.validProductListTotal : styles.none}>
         <Text style={styles.totalMsg}>{`共${validProductList.length}件商品 小计：`}</Text>
-        <Text style={styles.totalPrice}>{`¥${totalPrice.toFixed(2)}`}</Text>
+        <Text style={styles.totalPrice}>{`¥${this.props.payMsg.needPayTotalPrice}`}</Text>
       </View>
       <Text style={(invalidProductList.length) ? styles.invalidProductList : styles.none}>{this.props.invalidProductListTitle}</Text>
       {
