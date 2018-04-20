@@ -13,8 +13,22 @@ const RecycledItem = props => (<View style={styles.container}>
   <Image style={styles.specsImage} resizeMode='contain' source={{uri: config.static.base + props.specs.image}} />
   <View style={styles.specsContent}>
     <TextAdaption style={styles.specsName}>{`${props.subCategoryName} ${props.specs.name}`}</TextAdaption>
-    <TextAdaption style={styles.specNum}>{'¥' + props.specs.price + ' *' + props.specs.number}</TextAdaption>
-    <TextAdaption style={styles.specTotalPrice}>{`¥${props.specs.price * props.specs.number}`}{props.specs.unit ? `/${props.specs.unit}` : ''}{' '}</TextAdaption>
+    <TextAdaption style={styles.specNum}>
+      {
+        props.specs.price ?
+          '¥' + props.specs.price + ' *' + props.specs.number
+          :
+          '*' + props.specs.number
+      }
+    </TextAdaption>
+    <TextAdaption style={styles.specTotalPrice}>
+      {
+        props.specs.price ?
+          `¥${props.specs.price * props.specs.number}` + (props.specs.unit ? `/${props.specs.unit}` : '') + ' '
+          :
+          '免费代为处理'
+      }
+    </TextAdaption>
   </View>
 </View>);
 
