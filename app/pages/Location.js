@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   prompt: {
-    marginTop: 198,
+    marginTop: 70,
     marginHorizontal: 128,
     lineHeight: 35,
     fontSize: 24,

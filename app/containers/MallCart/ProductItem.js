@@ -45,7 +45,10 @@ class ProductItem extends Component {
       <Image style={[styles.img].concat(this.props.imgStyle)} resizeMdoe='contain' source={{uri: `${config.static.mallBase}${this.props.productItem.productImgAddress}`}}/>
       <View style={styles.content}>
         <Text style={styles.title}>{this.props.productItem.productName}</Text>
-        <Text style={styles.promotionStr}>{this.props.productItem.briefPromotionView ? this.props.productItem.briefPromotionView.promotionStr : ''}</Text>
+        <Text style={styles.promotionStr}>
+          {this.props.productItem.coupon ? `已让利${this.props.productItem.coupon}` : ''}
+          {this.props.productItem.briefPromotionView ? this.props.productItem.briefPromotionView.promotionStr : ''}
+        </Text>
         <Text style={styles.price}>{`¥${this.props.productItem.hugePrice}`}</Text>
         {
           this.props.editable ?

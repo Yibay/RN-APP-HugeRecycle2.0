@@ -9,7 +9,7 @@
 
 #import "AppDelegate.h"
 
-#import "RCTLinkingManager.h" // <-- Alipay 需要
+#import <React/RCTLinkingManager.h> // <-- Alipay 需要
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>

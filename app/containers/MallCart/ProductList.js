@@ -39,7 +39,9 @@ class ProductList extends Component{
       needPayScore: PropTypes.number,
       needPayTotalPrice: PropTypes.number,
       canSale: PropTypes.bool,
-      message: PropTypes.string
+      message: PropTypes.string,
+      distributionPrice: PropTypes.number, // 运费
+      coupon: PropTypes.number, // 已优惠金额
     })
   };
 
@@ -76,6 +78,14 @@ class ProductList extends Component{
       {
         validProductList.map(item => <ProductItem key={item.key} productItem={item} editable={item.valid} updateCartProductList={this.props.updateCartProductList} />)
       }
+      <View style={validProductList.length && this.props.validProductListShowTotal ? styles.coupon : styles.none}>
+        <Text style={styles.couponText}>已优惠</Text>
+        <Text style={styles.couponText}>¥{this.props.payMsg.coupon}</Text>
+      </View>
+      <View style={validProductList.length && this.props.validProductListShowTotal ? styles.distributionPrice : styles.none}>
+        <Text style={styles.distributionPriceText}>运费</Text>
+        <Text style={styles.distributionPriceText}>{this.props.payMsg.distributionPrice ? this.props.payMsg.distributionPrice : '免运费'}</Text>
+      </View>
       <View style={validProductList.length && this.props.validProductListShowTotal ? styles.validProductListTotal : styles.none}>
         <Text style={styles.totalMsg}>{`共${validProductList.length}件商品 小计：`}</Text>
         <Text style={styles.totalPrice}>{`¥${this.props.payMsg.needPayTotalPrice}`}</Text>
@@ -94,22 +104,45 @@ class ProductList extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f7f7f7'
+    backgroundColor: '#f7f7f7',
+  },
+  // 已优惠
+  coupon: {
+    paddingHorizontal: 30,
+    paddingVertical: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  couponText: {
+    fontSize: 28,
+    color: '#000',
+  },
+  // 运费
+  distributionPrice: {
+    paddingHorizontal: 30,
+    paddingVertical: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  distributionPriceText: {
+    fontSize: 28,
+    color: '#000',
   },
   // 有效商品 总计
   validProductListTotal: {
     paddingHorizontal: 30,
+    paddingVertical: 15,
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   totalMsg: {
     fontSize: 28,
-    color: '#000'
+    color: '#000',
   },
   totalPrice: {
     fontSize: 34,
-    color: '#ef3300'
+    color: '#ef3300',
   },
   // 失效商品title
   invalidProductList: {
@@ -117,11 +150,11 @@ const styles = StyleSheet.create({
     paddingLeft: 28,
     fontSize: 28,
     lineHeight: 90,
-    fontWeight: '700'
+    fontWeight: '700',
   },
   // 隐藏 失效商品title
   none: {
-    display: 'none'
+    display: 'none',
   },
 });
 

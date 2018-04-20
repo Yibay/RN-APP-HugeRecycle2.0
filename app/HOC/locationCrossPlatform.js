@@ -1,7 +1,7 @@
 // 跨平台定位
 
 import React, { Component } from 'react';
-import { Alert } from 'react-native';
+import { Alert, Platform, Linking } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -112,6 +112,14 @@ export const locationCrossPlatform = WrappedComponent => connect(mapStateToProps
           {text: '知道了', onPress: () => {
               // 开启计时器 检查定位是否开启
               this.openGeolocationListener = setInterval(() => this.getCurrentPosition(),1000);
+              // 跳转到设置-定位
+              Platform.select({
+                ios: async () => {
+                  let settingUrl = 'app-settings:';
+                  const supported = await Linking.canOpenURL(settingUrl).catch(e => {console.log(e); return false});
+                  supported && Linking.openURL(settingUrl);
+                }
+              })();
             }}
         ]);
       }
@@ -123,6 +131,14 @@ export const locationCrossPlatform = WrappedComponent => connect(mapStateToProps
           {text: '知道了', onPress: () => {
             // 开启计时器 检查定位是否开启
             this.openGeolocationListener = setInterval(() => this.getCurrentPosition(),1000);
+            // 跳转到设置-定位
+            Platform.select({
+              ios: async () => {
+                let settingUrl = 'App-Prefs:root=Privacy&path=LOCATION';
+                let supported = await Linking.canOpenURL(settingUrl).catch(e => {console.log(e); return false});
+                supported && Linking.openURL(settingUrl);
+              }
+            })();
           }}
         ]);
       }

@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 
 import {addCart} from '../../redux/actions/mall/shoppingCart';
 
-import ProductItem from './ProductItem';
+import ProductItem from './ProductItem/ProductItem';
 import AddBtn from '../../components/Form/Btn/AddBtn';
 import CartBtn from '../../components/Form/Btn/CartBtn/CartBtn';
 
