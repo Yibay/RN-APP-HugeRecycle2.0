@@ -29,7 +29,7 @@ class ProductList extends Component{
         productName: PropTypes.string.isRequired,
         productImgAddress: PropTypes.string.isRequired,
         buyAmount: PropTypes.number.isRequired,
-        hugePrice: PropTypes.number.isRequired
+        hugePrice: PropTypes.number.isRequired,
       })
     ),
     invalidProductListTitle: PropTypes.string.isRequired, //无效列表 title
@@ -42,7 +42,8 @@ class ProductList extends Component{
       message: PropTypes.string,
       distributionPrice: PropTypes.number, // 运费
       coupon: PropTypes.number, // 已优惠金额
-    })
+    }),
+    productDeletable: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -53,7 +54,8 @@ class ProductList extends Component{
     invalidProductListTitle: '以下商品已失效',
     payMsg: {},
     ListFooterComponent: <View/>,
-    updateCartProductList: () => {}
+    updateCartProductList: () => {},
+    productDeletable: false,
   };
 
   render(){
@@ -76,7 +78,7 @@ class ProductList extends Component{
     // 商品列表
     return <ScrollView style={[styles.container].concat(this.props.style)}>
       {
-        validProductList.map(item => <ProductItem key={item.key} productItem={item} editable={item.valid} updateCartProductList={this.props.updateCartProductList} />)
+        validProductList.map(item => <ProductItem key={item.key} productItem={item} editable={item.valid} deletable={this.props.productDeletable} updateCartProductList={this.props.updateCartProductList} />)
       }
       <View style={validProductList.length && this.props.validProductListShowTotal ? styles.coupon : styles.none}>
         <Text style={styles.couponText}>已优惠</Text>
@@ -92,7 +94,7 @@ class ProductList extends Component{
       </View>
       <Text style={(invalidProductList.length) ? styles.invalidProductList : styles.none}>{this.props.invalidProductListTitle}</Text>
       {
-        invalidProductList.map(item => <ProductItem key={item.key} productItem={item} editable={item.valid} updateCartProductList={this.props.updateCartProductList} />)
+        invalidProductList.map(item => <ProductItem key={item.key} productItem={item} editable={item.valid} deletable={this.props.productDeletable} updateCartProductList={this.props.updateCartProductList} />)
       }
       {
         this.props.ListFooterComponent

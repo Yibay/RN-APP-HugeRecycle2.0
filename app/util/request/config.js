@@ -1,3 +1,6 @@
+import {Dimensions} from 'react-native';
+const {width} = Dimensions.get('window');
+let adaptionScale = 750 / width; // 适配缩放倍数
 /**
  * 请求相关配置
  */
@@ -26,6 +29,7 @@ const api_base_mall = 'http://test.hugehuge.cn:8070';
 // const api_base_mall = 'http://114.215.172.207:8070';
 
 export default {
+  adaptionScale,
   // 封装 fetch请求头
   requestHeaders: {
     'Accept': 'application/json',

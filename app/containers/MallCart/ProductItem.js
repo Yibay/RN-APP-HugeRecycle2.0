@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, Animated, TouchableOpacity } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -11,6 +11,8 @@ import request from '../../util/request/request';
 import CheckBox from '../../components/Form/CheckBox/CheckBox';
 import ControllerBtn from './ControllerBtn';
 
+
+let adaptionScale = config.adaptionScale;
 
 class ProductItem extends Component {
 
@@ -29,35 +31,59 @@ class ProductItem extends Component {
       }),
     }),
     editable: PropTypes.bool.isRequired,
-    updateCartProductList: PropTypes.func.isRequired
+
+    updateCartProductList: PropTypes.func.isRequired,
+    deletable: PropTypes.bool,
   };
 
   static defaultProps = {
     editable: true,
-    updateCartProductList: () => {}
+    updateCartProductList: () => {},
+    deletable: false
   };
 
+  constructor(props){
+    super(props);
+
+    this.state = {
+      containerMarginLeft: new Animated.Value(0),
+    };
+
+    this.touchX = 0; // touch参考坐标
+    this.startX = 0; // 计算容器偏移 参考起始点
+  }
+
   render(){
-    return <View style={[styles.container].concat(this.props.style)}>
-      {
-        this.props.editable ? <CheckBox style={styles.isNeedPay} value={!!this.props.productItem.isNeedPay} onValueChange={this.changeNeedPay.bind(this)} /> : undefined
-      }
-      <Image style={[styles.img].concat(this.props.imgStyle)} resizeMdoe='contain' source={{uri: `${config.static.mallBase}${this.props.productItem.productImgAddress}`}}/>
-      <View style={styles.content}>
-        <Text style={styles.title}>{this.props.productItem.productName}</Text>
-        <Text style={styles.promotionStr}>
-          {this.props.productItem.coupon ? `已让利 ¥${this.props.productItem.coupon}` : ''}
-          {this.props.productItem.briefPromotionView ? this.props.productItem.briefPromotionView.promotionStr : ''}
-        </Text>
-        <Text style={styles.price}>{`¥${this.props.productItem.hugePrice}`}</Text>
+    return<Animated.View style={this.props.deletable ? [styles.containerDeletable, {marginLeft: this.state.containerMarginLeft}] : null}
+                onStartShouldSetResponder={e => this.props.deletable}
+                onResponderGrant={e => {this.moveStart(e.nativeEvent.pageX);}}
+                onResponderMove={e => {this.move(e.nativeEvent.pageX);}}
+                onResponderRelease={e => {this.moveEnd(e.nativeEvent.pageX);}}
+    >
+      <View style={[styles.container].concat(this.props.style)}>
         {
-          this.props.editable ?
-            <ControllerBtn style={styles.ctrlBtn} buyAmount={this.props.productItem.buyAmount} storageAmount={this.props.productItem.storageAmount} shoppingCartId={this.props.productItem.shoppingCartId} updateCartProductList={this.props.updateCartProductList} />
-            :
-            <Text style={styles.buyAmount}>{`x ${this.props.productItem.buyAmount}`}</Text>
+          this.props.editable ? <CheckBox style={styles.isNeedPay} value={!!this.props.productItem.isNeedPay} onValueChange={this.changeNeedPay.bind(this)} /> : undefined
         }
+        <Image style={[styles.img].concat(this.props.imgStyle)} resizeMdoe='contain' source={{uri: `${config.static.mallBase}${this.props.productItem.productImgAddress}`}}/>
+        <View style={styles.content}>
+          <Text style={styles.title}>{this.props.productItem.productName}</Text>
+          <Text style={styles.promotionStr}>
+            {this.props.productItem.coupon ? `已让利 ¥${this.props.productItem.coupon}` : ''}
+            {this.props.productItem.briefPromotionView ? this.props.productItem.briefPromotionView.promotionStr : ''}
+          </Text>
+          <Text style={styles.price}>{`¥${this.props.productItem.hugePrice}`}</Text>
+          {
+            this.props.editable ?
+              <ControllerBtn style={styles.ctrlBtn} buyAmount={this.props.productItem.buyAmount} storageAmount={this.props.productItem.storageAmount} shoppingCartId={this.props.productItem.shoppingCartId} updateCartProductList={this.props.updateCartProductList} />
+              :
+              <Text style={styles.buyAmount}>{`x ${this.props.productItem.buyAmount}`}</Text>
+          }
+        </View>
       </View>
-    </View>
+      {
+        this.props.deletable ? <TouchableOpacity style={styles.deleteBtn}><Text style={styles.deleteBtnText}>删除</Text></TouchableOpacity> : undefined
+      }
+    </Animated.View>
   }
 
   // 修改购物车商品选中状态
@@ -69,15 +95,51 @@ class ProductItem extends Component {
       return false;
     }
   }
+
+  // 左右划动，显示/隐藏 删除按钮
+  moveStart(touchX){
+    this.startX = this.state.containerMarginLeft._value;
+    this.touchX = touchX;
+  }
+  move(touchX){
+    let displacement = touchX - this.touchX;
+    let destination = this.startX + displacement * adaptionScale;
+
+    if(destination < -158){
+      destination = -158;
+    }
+    else if(destination > 0){
+      destination = 0;
+    }
+    Animated.timing(this.state.containerMarginLeft,{toValue:(destination), duration:0}).start();
+  }
+  moveEnd(touchX){
+    let displacement = touchX - this.touchX;
+    let destination = this.startX + displacement * adaptionScale;
+
+    if(destination < -79){
+      // 弹出删除选项按钮
+      Animated.timing(this.state.containerMarginLeft,{toValue: -158,duration: 100}).start();
+    }
+    else{
+      // 收回删除选项按钮
+      Animated.timing(this.state.containerMarginLeft,{toValue: 0,duration: 100}).start();
+    }
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
+    width: 750,
     height: 226,
     marginBottom: 10,
     flexDirection: 'row',
     backgroundColor: '#fff'
+  },
+  containerDeletable: {
+    width: 908,
+    flexDirection: 'row',
   },
   // 可编辑：选中按钮
   isNeedPay: {
@@ -126,7 +188,17 @@ const styles = StyleSheet.create({
     right: 30,
     bottom: 26,
     fontSize: 30,
-    fontWeight: '700'
+    fontWeight: '700',
+  },
+  deleteBtn: {
+    width: 158,
+    backgroundColor: '#ef3401',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  deleteBtnText: {
+    fontSize: 30,
+    color: '#fff',
   }
 });
 
