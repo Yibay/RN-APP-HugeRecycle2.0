@@ -92,10 +92,12 @@ class RecycleRecordItem extends PureComponent{
         }
 
         // 评价页，此模块不可评价，显示内容有所差异
+        let phone = this.props.recordItem.tServiceOrder.phone;
+        let orderScore = this.props.recordItem.tServiceOrder.orderScore;
         this.props.evaluable ?
-          statusDesc = <Text style={styles.statusFinish}>{`已完成（${this.props.recordItem.tServiceOrder.phone} 获得${this.props.recordItem.tServiceOrder.orderScore}元环保金）`}</Text>
+          statusDesc = <Text style={styles.statusFinish}>{`已完成（${phone.slice(0,phone.length - 4).replace(/\d/g,'*') + phone.slice(phone.length - 4)} 获得${orderScore}元环保金）`}</Text>
           :
-          statusDesc = <Text style={styles.statusFinish}>{`获得${this.props.recordItem.tServiceOrder.orderScore}元环保金`}</Text>
+          statusDesc = <Text style={styles.statusFinish}>{`获得${orderScore}元环保金`}</Text>;
         break;
       case 3: // 撤单
       case 8: // 打回
