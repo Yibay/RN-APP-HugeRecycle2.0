@@ -14,7 +14,6 @@ class ControllerBtn extends Component{
     buyAmount: PropTypes.number.isRequired,
     storageAmount: PropTypes.number.isRequired,
     shoppingCartId: PropTypes.number.isRequired,
-    updateCartProductList: PropTypes.func.isRequired
   };
 
   constructor(props){

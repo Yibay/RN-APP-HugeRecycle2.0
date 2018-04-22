@@ -31,15 +31,12 @@ class ProductItem extends Component {
       }),
     }),
     editable: PropTypes.bool.isRequired,
-
-    updateCartProductList: PropTypes.func.isRequired,
     deletable: PropTypes.bool,
     deleteFormCart: PropTypes.func.isRequired, // 删除 购物车中商品 Actions
   };
 
   static defaultProps = {
     editable: true,
-    updateCartProductList: () => {},
     deletable: false
   };
 
@@ -75,7 +72,7 @@ class ProductItem extends Component {
           <Text style={styles.price}>{`¥${this.props.productItem.hugePrice}`}</Text>
           {
             this.props.editable ?
-              <ControllerBtn style={styles.ctrlBtn} buyAmount={this.props.productItem.buyAmount} storageAmount={this.props.productItem.storageAmount} shoppingCartId={this.props.productItem.shoppingCartId} updateCartProductList={this.props.updateCartProductList} />
+              <ControllerBtn style={styles.ctrlBtn} buyAmount={this.props.productItem.buyAmount} storageAmount={this.props.productItem.storageAmount} shoppingCartId={this.props.productItem.shoppingCartId} />
               :
               <Text style={styles.buyAmount}>{`x ${this.props.productItem.buyAmount}`}</Text>
           }

@@ -64,7 +64,6 @@ class MallSettlement extends Component {
         style={styles.productList}
         validProductList={this.props.settlementData.data.validProductList}
         invalidProductList={this.props.settlementData.data.invalidProductList}
-        // updateCartProductList={() => this.props.onEnter()}
         validProductEditable={false}
         payMsg={this.props.settlementData.data.payMsg}
         ListFooterComponent={<View style={styles.listFooterComponent}>

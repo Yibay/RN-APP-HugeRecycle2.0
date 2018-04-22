@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 
 import { verifyLogin } from '../../../HOC/verifyLogin';
 import { verifyStoreInfo } from '../../../HOC/verifyStoreInfo';
-import {fetchShoppingCart} from '../../../redux/actions/mall/shoppingCart';
 
 import Header from '../../../components/Header/Header';
 import ProductList from '../../../containers/MallCart/ProductList';
@@ -26,15 +25,14 @@ class MallCart extends Component {
         amount: PropTypes.number.isRequired
       }),
       isFetching: PropTypes.bool.isRequired
-    }),
-    fetchShoppingCart: PropTypes.func.isRequired
+    })
   };
 
   render(){
     return <View style={styles.container}>
       <Header title={`购物车（${this.props.storeName}）`}/>
-      <ProductList validProductList={this.props.shoppingCart.data.validProductList} invalidProductList={this.props.shoppingCart.data.invalidProductList} updateCartProductList={() => this.props.fetchShoppingCart()} validProductListShowTotal={false} productDeletable={true}/>
-      <SettlementModule validProductList={this.props.shoppingCart.data.validProductList} onPress={() => Actions.mallSettlement({updateCartProductList: this.props.fetchShoppingCart})} />
+      <ProductList validProductList={this.props.shoppingCart.data.validProductList} invalidProductList={this.props.shoppingCart.data.invalidProductList} validProductListShowTotal={false} productDeletable={true}/>
+      <SettlementModule validProductList={this.props.shoppingCart.data.validProductList} onPress={() => Actions.mallSettlement()} />
     </View>
   }
 
@@ -56,4 +54,4 @@ function mapStateToProps(state){
 
 // 需验证登录
 // 需验证绑定便利店
-export default verifyLogin(verifyStoreInfo(connect(mapStateToProps,{fetchShoppingCart})(MallCart)));
+export default verifyLogin(verifyStoreInfo(connect(mapStateToProps)(MallCart)));

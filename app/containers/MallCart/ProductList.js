@@ -33,7 +33,6 @@ class ProductList extends Component{
       })
     ),
     invalidProductListTitle: PropTypes.string.isRequired, //无效列表 title
-    updateCartProductList: PropTypes.func, // 更新列表 回调函数
     ListFooterComponent: PropTypes.element.isRequired, // 列表底部组件
     payMsg: PropTypes.shape({
       needPayScore: PropTypes.number,
@@ -54,7 +53,6 @@ class ProductList extends Component{
     invalidProductListTitle: '以下商品已失效',
     payMsg: {},
     ListFooterComponent: <View/>,
-    updateCartProductList: () => {},
     productDeletable: false,
   };
 
@@ -78,7 +76,7 @@ class ProductList extends Component{
     // 商品列表
     return <ScrollView style={[styles.container].concat(this.props.style)}>
       {
-        validProductList.map(item => <ProductItem key={item.key} productItem={item} editable={item.valid} deletable={this.props.productDeletable} updateCartProductList={this.props.updateCartProductList} />)
+        validProductList.map(item => <ProductItem key={item.key} productItem={item} editable={item.valid} deletable={this.props.productDeletable} />)
       }
       <View style={validProductList.length && this.props.validProductListShowTotal ? styles.coupon : styles.none}>
         <Text style={styles.couponText}>已优惠</Text>
@@ -94,7 +92,7 @@ class ProductList extends Component{
       </View>
       <Text style={(invalidProductList.length) ? styles.invalidProductList : styles.none}>{this.props.invalidProductListTitle}</Text>
       {
-        invalidProductList.map(item => <ProductItem key={item.key} productItem={item} editable={item.valid} deletable={this.props.productDeletable} updateCartProductList={this.props.updateCartProductList} />)
+        invalidProductList.map(item => <ProductItem key={item.key} productItem={item} editable={item.valid} deletable={this.props.productDeletable} />)
       }
       {
         this.props.ListFooterComponent
