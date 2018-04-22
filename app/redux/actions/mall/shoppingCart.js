@@ -16,7 +16,7 @@ export function fetchShoppingCart(){
     let state = getState();
     // 未登录 或 当前地址无便利店
     if(!state.identityToken.authToken || !state.mall.store.data.storeInfo.length){
-      return;
+      return null;
     }
     // 之前请求未结束
     // if(state.mall.shoppingCart.isFetching){
@@ -44,7 +44,7 @@ export function fetchShoppingCart(){
           });
         }
       }
-      dispatch({
+      return dispatch({
         type: FETCH_ShoppingCart_Success,
         validProductList: res.data.validProductList || [],
         invalidProductList: res.data.invalidProductList || [],
@@ -52,7 +52,7 @@ export function fetchShoppingCart(){
       })
     }
     else{
-      dispatch({
+      return dispatch({
         type: FETCH_ShoppingCart_Failure
       })
     }
@@ -77,6 +77,25 @@ export function addCart(storeProductId){
     }
     else{
       console.log(res);
+    }
+  }
+}
+
+// 修改购物车商品选中状态
+export function changeNeedPay(shoppingCartId, isNeedPay) {
+  return async (dispatch, getState) => {
+    let state = getState();
+    let authToken = state.identityToken.authToken;
+    if(!authToken){return null;}
+
+    const res = await request.get(`${config.api.changeNeedPay}${shoppingCartId}`,{isNeedPay:Number(isNeedPay)},{'X-AUTH-TOKEN':authToken});
+    if(res && !res.status){
+      // 刷新购物车
+      return dispatch(fetchShoppingCart());
+    }
+    else {
+      console.log(res);
+      return null;
     }
   }
 }

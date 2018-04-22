@@ -9,12 +9,11 @@ class CheckBox extends Component {
 
   static propTypes = {
     value: PropTypes.bool.isRequired,
-    // onValueChange: PropTypes.func.isRequired // Promise
+    onValueChange: PropTypes.func, // Promise
   };
 
   static defaultProps = {
     value: false,
-    // onValueChange: () => {}
   };
 
   constructor(props){
@@ -46,11 +45,11 @@ class CheckBox extends Component {
       this.props.onValueChange(!this.state.value)
         .then(val => {
           // 若成功（val为true）
-          val && (this.setState({value: !this.state.value}));
+          val && (this.setState(state => ({value: !state.value})));
         });
     }
     else{
-      this.setState({value: !this.state.value});
+      this.setState(state => ({value: !state.value}));
     }
   }
 

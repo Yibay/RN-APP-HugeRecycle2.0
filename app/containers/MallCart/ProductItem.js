@@ -6,8 +6,7 @@ import { connect } from 'react-redux';
 
 
 import config from '../../util/request/config';
-import request from '../../util/request/request';
-import {deleteFormCart} from '../../redux/actions/mall/shoppingCart';
+import {deleteFormCart,changeNeedPay} from '../../redux/actions/mall/shoppingCart';
 
 import CheckBox from '../../components/Form/CheckBox/CheckBox';
 import ControllerBtn from './ControllerBtn';
@@ -89,11 +88,10 @@ class ProductItem extends Component {
   }
 
   // 修改购物车商品选中状态
-  async changeNeedPay(value){
-    const res = await request.get(`${config.api.changeNeedPay}${this.props.productItem.shoppingCartId}`,{isNeedPay: Number(value)}, {'X-AUTH-TOKEN': this.props.authToken});
+  async changeNeedPay(isNeedPay){
+    const res = await this.props.changeNeedPay(this.props.productItem.shoppingCartId, isNeedPay);
     // 若请求成功
-    if(res && !res.status){
-      await this.props.updateCartProductList();
+    if(res){
       return false;
     }
   }
@@ -218,4 +216,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps,{deleteFormCart})(ProductItem);
+export default connect(mapStateToProps,{deleteFormCart,changeNeedPay})(ProductItem);
