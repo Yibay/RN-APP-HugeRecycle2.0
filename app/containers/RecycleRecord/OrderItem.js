@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, ViewPropTypes } from 'react-native';
 
 import PropTypes from 'prop-types';
 
@@ -11,11 +11,9 @@ class OrderItem extends Component {
     createOrderTime: PropTypes.string.isRequired,
     recycledItems: PropTypes.string.isRequired,
     statusDesc: PropTypes.element.isRequired,
-    rightButton: PropTypes.element.isRequired
-  };
-
-  static defaultProps = {
-    firstSectionStyle: undefined
+    rightButton: PropTypes.element.isRequired,
+    firstSectionStyle: ViewPropTypes.style,
+    secondSectionStyle: ViewPropTypes.style,
   };
 
   render(){
@@ -31,7 +29,7 @@ class OrderItem extends Component {
         </View>
         <Text style={styles.recycledItems}>{this.props.recycledItems}</Text>
       </View>
-      <View style={styles.secondSection}>
+      <View style={[styles.secondSection].concat(this.props.secondSectionStyle)}>
         { this.props.statusDesc }
         <View style={styles.rightButton}>{this.props.rightButton}</View>
       </View>

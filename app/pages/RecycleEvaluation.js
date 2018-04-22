@@ -53,12 +53,16 @@ const styles = StyleSheet.create({
     marginTop: 50,
     borderTopWidth: 2,
     borderTopColor: '#e1e5e8',
-    paddingTop: 20,
     backgroundColor: '#f7f7f7'
   },
   firstSectionStyle: {
-    marginBottom: -28,
-    borderBottomWidth: 0
+    marginVertical: 0,
+    marginTop: 20,
+    marginBottom: 0,
+  },
+  secondSectionStyle: {
+    borderTopWidth: 0,
+    minHeight: 'auto',
   },
   // 提交评价按钮
   submitBtn: {
@@ -96,7 +100,7 @@ class RecycleEvaluation extends Component {
         <GradeEvaluation label='服务态度' onChangeScore={score => this.setState({rateService: score})}/>
         <GradeEvaluation style={styles.rateConvenience} label='回收便捷度' onChangeScore={score => this.setState({rateConvenience: score})}/>
         {/* 回收订单信息 */}
-        <RecycleRecordItem style={styles.recycleRecordItem} firstSectionStyle={styles.firstSectionStyle} recordItem={this.props.recordItem} authToken={this.props.identityToken.authToken} evaluable={false}/>
+        <RecycleRecordItem style={styles.recycleRecordItem} firstSectionStyle={styles.firstSectionStyle} secondSectionStyle={styles.secondSectionStyle} recordItem={this.props.recordItem} authToken={this.props.identityToken.authToken} evaluable={false}/>
         <SubmitBtn style={styles.submitBtn} text='完成评价' submit={() => this.submit()}/>
       </View>
     </View>)

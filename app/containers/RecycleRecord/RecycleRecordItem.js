@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import {StyleSheet, View, Text, Alert, Linking} from 'react-native';
+import {StyleSheet, View, Text, Alert, Linking, ViewPropTypes} from 'react-native';
 
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
@@ -51,7 +51,9 @@ class RecycleRecordItem extends PureComponent{
     }),
     authToken: PropTypes.string.isRequired,
     updateOrderList: PropTypes.func.isRequired,
-    evaluable: PropTypes.bool.isRequired
+    evaluable: PropTypes.bool.isRequired,
+    firstSectionStyle: ViewPropTypes.style,
+    secondSectionStyle: ViewPropTypes.style,
   };
 
   static defaultProps = {
@@ -126,7 +128,7 @@ class RecycleRecordItem extends PureComponent{
       recycledItems = this.props.recordItem.recycleCategoryDesc;
     }
 
-    return <OrderItem style={[styles.container].concat(this.props.style)} firstSectionStyle={this.props.firstSectionStyle} createdTs={this.props.recordItem.id} createOrderTime={this.props.recordItem.createOrderTime} recycledItems={recycledItems} statusDesc={statusDesc} rightButton={recordBtn}/>
+    return <OrderItem style={[styles.container].concat(this.props.style)} firstSectionStyle={this.props.firstSectionStyle} secondSectionStyle={this.props.secondSectionStyle} createdTs={this.props.recordItem.id} createOrderTime={this.props.recordItem.createOrderTime} recycledItems={recycledItems} statusDesc={statusDesc} rightButton={recordBtn}/>
   }
 
   // 撤单
