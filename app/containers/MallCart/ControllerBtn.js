@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 
-import request from '../../util/request/request';
-import config from '../../util/request/config';
+import {updateShoppingCartAmount} from '../../redux/actions/mall/shoppingCart';
 
 
 class ControllerBtn extends Component{
@@ -54,7 +53,7 @@ class ControllerBtn extends Component{
 
     // 库存充足
     if(this.props.storageAmount >= this.state.buyAmount + 1){
-      await this.updateShoppingCartAmount(this.state.buyAmount + 1);
+      await this.props.updateShoppingCartAmount(this.props.shoppingCartId, this.state.buyAmount + 1);
     }
     // 库存不足
     else{
@@ -73,32 +72,14 @@ class ControllerBtn extends Component{
 
     // 库存充足
     if(this.state.buyAmount > 1 && this.props.storageAmount >= this.state.buyAmount){
-      await this.updateShoppingCartAmount(this.state.buyAmount - 1);
+      await this.props.updateShoppingCartAmount(this.props.shoppingCartId, this.state.buyAmount - 1);
     }
     // 库存不足
     else if(this.state.buyAmount > 1 && this.props.storageAmount < this.state.buyAmount){
-      await this.updateShoppingCartAmount(this.props.storageAmount);
+      await this.props.updateShoppingCartAmount(this.props.shoppingCartId, this.props.storageAmount);
     }
   }
 
-  // 修改购买数量
-  async updateShoppingCartAmount(amount){
-    const res = await request.get(config.api.updateShoppingCartAmount,
-      {
-        storeId: this.props.storeId,
-        shoppingCartId: this.props.shoppingCartId,
-        amount
-      },
-      {'X-AUTH-TOKEN': this.props.authToken});
-
-    if(res && !res.status){
-      // 更新购物车列表
-      this.props.updateCartProductList();
-    }
-    else if(res && res.status){
-      Alert.alert(res.message)
-    }
-  }
 }
 
 const styles = StyleSheet.create({
@@ -118,11 +99,4 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(state){
-  return {
-    authToken: state.identityToken.authToken,
-    storeId: state.mall.store.data.storeInfo[state.mall.store.data.storeIndex].storeId
-  }
-}
-
-export default connect(mapStateToProps)(ControllerBtn);
+export default connect(null,{updateShoppingCartAmount})(ControllerBtn);

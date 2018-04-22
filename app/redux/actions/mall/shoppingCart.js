@@ -1,5 +1,6 @@
 import config from "../../../util/request/config";
 import request from "../../../util/request/request";
+import {Alert} from "react-native";
 
 
 export const FETCH_ShoppingCart_Request = 'FETCH_ShoppingCart_Request';
@@ -79,6 +80,38 @@ export function addCart(storeProductId){
       console.log(res);
     }
   }
+}
+
+// 修改购买数量
+export function updateShoppingCartAmount(shoppingCartId, amount){
+  return async (dispatch, getState) => {
+
+    let state = getState();
+
+    let authToken = state.identityToken.authToken;
+    if(!authToken){return null;} // 无权限
+
+    let storeInfo = state.mall.store.data.storeInfo;
+    if(!storeInfo.length){return null;} // 无便利店信息
+
+    let storeIndex = state.mall.store.data.storeIndex;
+    let storeId = storeInfo[storeIndex].storeId;
+
+    const res = await request.get(config.api.updateShoppingCartAmount,{
+        storeId,
+        shoppingCartId,
+        amount
+      },
+      {'X-AUTH-TOKEN': authToken});
+
+    if(res && !res.status){
+      // 刷新购物车
+      return dispatch(fetchShoppingCart());
+    }
+    else {
+      Alert.alert(res.message);
+    }
+  };
 }
 
 // 修改购物车商品选中状态
