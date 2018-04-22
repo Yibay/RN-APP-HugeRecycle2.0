@@ -45,13 +45,13 @@ class CallModal extends Component{
     this.setState(
       _.assign(
         {},
-        nextProps.currentLocation.customerName ? { accountName: nextProps.currentLocation.customerName } : {},
-        nextProps.currentLocation.telNo ? { phone: nextProps.currentLocation.telNo } : {},
-        typeof nextProps.currentLocation.haveHouseNumber !== 'undefined' ? { haveHouseNumber: nextProps.currentLocation.haveHouseNumber } : {},
-        nextProps.currentLocation.address ? { address: nextProps.currentLocation.address } : {},
-        nextProps.currentLocation.building ? { building: nextProps.currentLocation.building } : {},
-        nextProps.currentLocation.unit ? { unit: nextProps.currentLocation.unit } : {},
-        nextProps.currentLocation.room ? { room: nextProps.currentLocation.room } : {},
+        nextProps.currentLocation.customerName ? {accountName: nextProps.currentLocation.customerName} : {accountName: ''},
+        nextProps.currentLocation.telNo ? {phone: nextProps.currentLocation.telNo} : {phone: ''},
+        typeof nextProps.currentLocation.haveHouseNumber !== 'undefined' ? {haveHouseNumber: nextProps.currentLocation.haveHouseNumber} : {haveHouseNumber: true},
+        nextProps.currentLocation.address ? {address: nextProps.currentLocation.address} : {address: ''},
+        nextProps.currentLocation.building ? {building: nextProps.currentLocation.building} : {building: ''},
+        nextProps.currentLocation.unit ? {unit: nextProps.currentLocation.unit} : {unit:''},
+        nextProps.currentLocation.room ? {room: nextProps.currentLocation.room} : {room:''},
       )
     );
   }
@@ -122,6 +122,8 @@ class CallModal extends Component{
       + ' ' + this.props.recyclableGoods.AllProductsObj[`sort${item.sort}`].subCategoryObj[`id${item.categoryId}`].specsObj[`id${item.specsId}`].name,
       num: item.itemNum
     }));
+    console.log(params);
+    console.log(this.props.currentLocation);
 
     // 检验数据
     if(!createOrderValidator(params)){
