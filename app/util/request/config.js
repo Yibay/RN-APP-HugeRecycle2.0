@@ -178,16 +178,16 @@ export default {
     // 3, 通过便利店id 大类id 获取 商品列表 (GET) online/mall/product/getStoreProductListByCategoryOneId?storeId=&categoryId=
     getProductListByCategory: `${api_base_mall}/online/mall/product/getStoreProductListByCategoryOneId`,
 
-    // 4, 添加购物车 /online/mall/cart/add/id?amount
-    addCart: `${api_base_mall}/online/mall/cart/add/`,
-
-    // 5, 商品查询 (GET) params: storeId {number}, searchType=productName, searchVal {string}
+    // 4, 商品查询 (GET) params: storeId {number}, searchType=productName, searchVal {string}
     searchProduct: `${api_base_mall}/online/mall/product/searchProduct`,
+
+    // 5, 添加购物车 (GET) /online/mall/cart/add/{storeProductId}?amount
+    addCart: `${api_base_mall}/online/mall/cart/add/`,
 
     // 6, 获取购物车列表 (GET) params: storeId 需要登录 header X-AUTH-TOKEN
     getShoppingCartProductList: `${api_base_mall}/online/mall/cart/getShoppingCartProductList`,
 
-    // 获取购物车数量（POST）multipart/form-data 需要登录 header X-AUTH-TOKEN
+    // 6-2, 获取购物车数量（POST）multipart/form-data 需要登录 header X-AUTH-TOKEN
     // params:
     //  storeId
     cartProductAmount: `${api_base_mall}/online/mall/cart/cartProductAmount`,
@@ -198,13 +198,16 @@ export default {
     // 8, 修改购物车商品状态 (GET) online/mall/cart/changeNeedPay/{shoppingCartId}   params  isNeedPay (1购买，0不买) 需要登录 header X-AUTH-TOKEN
     changeNeedPay: `${api_base_mall}/online/mall/cart/changeNeedPay/`,
 
-    // 9, 获取结算页面商品列表（GET）params  storeId    需要登录 header X-AUTH-TOKEN
+    // 9, 删除购物车商品 (GET) online/mall/cart/delete/{shoppingCartId}
+    deleteFormCart: `${api_base_mall}/online/mall/cart/delete/`,
+
+    // 10, 获取结算页面商品列表（GET）params  storeId    需要登录 header X-AUTH-TOKEN
     settlementProductList: `${api_base_mall}/online/mall/cart/getNeedPayShoppingCartProductList`,
 
-    // 10, 获取需要支付的信息（GET）params  storeId   需要登录 header X-AUTH-TOKEN
+    // 11, 获取需要支付的信息（GET）params  storeId   需要登录 header X-AUTH-TOKEN
     getNeedPayResult: `${api_base_mall}/online/mall/order/getNeedPayResult`,
 
-    // 11, 生成结算订单 (POST) multipart/form-data 需要登录 header X-AUTH-TOKEN
+    // 12, 生成结算订单 (POST) multipart/form-data 需要登录 header X-AUTH-TOKEN
     // params
     //   storeId: app.globalData.stationId,
     //   customerName: selectedLocation.customerName,
@@ -222,20 +225,20 @@ export default {
     //   orderSource:3  // 下单平台（3为 app下单）
     confirmMallOrder: `${api_base_mall}/online/mall/order/confirmOrder`,
 
-    // 12-1, 获得支付宝交易APP支付响应 (GET)
+    // 13-1, 获得支付宝交易APP支付响应 (GET)
     // params
     //   orderId: number
     getAlipayTradeAppPayResponse: `${api_base_mall}/online/mall/order/getAlipayTradeAppPayResponse`,
 
-    // 12-2, 确认订单(环保金支付、现金支付) params orderId
+    // 13-2, 确认订单(环保金支付、现金支付) params orderId
     receiptMallOrderPay: `${api_base_mall}/online/mall/order/receiptPay`,
 
-    // 13，检验 未支付订单，可否支付
+    // 14，检验 未支付订单，可否支付
     // params
     //   orderId:
     checkOrder: `${api_base_mall}/online/mall/order/checkOrder`,
 
-    // 13, 获取商城订单列表 (GET)
+    // 15, 获取商城订单列表 (GET)
     // params
     //   orderType: oneOf([
     //     'unPayCount', //未支付
@@ -245,7 +248,7 @@ export default {
     //   ])
     getMallOrderList: `${api_base_mall}/online/mall/order/getOrderList`,
 
-    // 14, 获取商城订单详情 (POST)  需要登录 header X-AUTH-TOKEN
+    // 16, 获取商城订单详情 (POST)  需要登录 header X-AUTH-TOKEN
     // params
     //   orderCode
     getMallOrderDetail: `${api_base_mall}/online/mall/order/getOrderDetail`,

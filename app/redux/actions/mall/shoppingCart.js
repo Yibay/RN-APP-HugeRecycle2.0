@@ -81,6 +81,25 @@ export function addCart(storeProductId){
   }
 }
 
+// 从购物车中删除
+export function deleteFormCart(shoppingCartId){
+  return async(dispatch, getState) => {
+    let state = getState();
+
+    let authToken = state.identityToken.authToken;
+    if(!authToken){return;}
+
+    const res = await request.get(`${config.api.deleteFormCart}${shoppingCartId}`,null,{'X-AUTH-TOKEN': authToken});
+    if(res && !res.status){
+      // 刷新 购物车
+      return dispatch(fetchShoppingCart());
+    }
+    else{
+      console.log(res);
+    }
+  }
+}
+
 // 请求购物车 角标（里面商品数量）
 export function fetchShoppingCartAmount(){
   return async (dispatch, getState) => {

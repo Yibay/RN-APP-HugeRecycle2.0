@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, Animated, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Image, Animated, TouchableOpacity, Alert } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 
 import config from '../../util/request/config';
 import request from '../../util/request/request';
+import {deleteFormCart} from '../../redux/actions/mall/shoppingCart';
 
 import CheckBox from '../../components/Form/CheckBox/CheckBox';
 import ControllerBtn from './ControllerBtn';
@@ -34,6 +35,7 @@ class ProductItem extends Component {
 
     updateCartProductList: PropTypes.func.isRequired,
     deletable: PropTypes.bool,
+    deleteFormCart: PropTypes.func.isRequired, // 删除 购物车中商品 Actions
   };
 
   static defaultProps = {
@@ -81,7 +83,7 @@ class ProductItem extends Component {
         </View>
       </View>
       {
-        this.props.deletable ? <TouchableOpacity style={styles.deleteBtn}><Text style={styles.deleteBtnText}>删除</Text></TouchableOpacity> : undefined
+        this.props.deletable ? <TouchableOpacity style={styles.deleteBtn} onPress={() => this.deleteProduct(this.props.productItem.shoppingCartId)}><Text style={styles.deleteBtnText}>删除</Text></TouchableOpacity> : undefined
       }
     </Animated.View>
   }
@@ -125,6 +127,14 @@ class ProductItem extends Component {
       // 收回删除选项按钮
       Animated.timing(this.state.containerMarginLeft,{toValue: 0,duration: 100}).start();
     }
+  }
+
+  // 删除 购物车中商品
+  deleteProduct(shoppingCartId){
+    Alert.alert('删除此商品','',[
+      {text: '确定', onPress: () => {this.props.deleteFormCart(shoppingCartId);}},
+      {text: '取消'}
+    ]);
   }
 }
 
@@ -208,4 +218,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps)(ProductItem);
+export default connect(mapStateToProps,{deleteFormCart})(ProductItem);
