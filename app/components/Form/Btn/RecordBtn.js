@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ViewPropTypes } from 'react-native';
 
 import PropTypes from 'prop-types';
 
@@ -8,7 +8,9 @@ class RecordBtn extends Component {
 
   static propTypes = {
     text: PropTypes.string.isRequired,
-    submit: PropTypes.func.isRequired
+    submit: PropTypes.func,
+    style: ViewPropTypes.style,
+    textStyle: Text.propTypes.style,
   };
 
   static defaultProps = {
@@ -18,7 +20,7 @@ class RecordBtn extends Component {
   render(){
     return (<TouchableOpacity onPress={() => this.props.submit()}>
       <View style={[styles.container].concat(this.props.style)}>
-        <Text style={styles.text}>{this.props.text}</Text>
+        <Text style={[styles.text].concat(this.props.textStyle)}>{this.props.text}</Text>
       </View>
     </TouchableOpacity>)
   }
