@@ -1,7 +1,7 @@
 // 跨平台定位
 
 import React, { Component } from 'react';
-import { Alert, Platform, Linking } from 'react-native';
+import { Alert, Platform, Linking, NativeModules, PermissionsAndroid } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -58,7 +58,35 @@ export const locationCrossPlatform = WrappedComponent => connect(mapStateToProps
 
   // 获取一次本地定位
   getCurrentPosition(){
-    navigator.geolocation.getCurrentPosition((position) => this.geo_success(position),(e) => this.geo_error(e),{timeout: 5000})
+    Platform.select({
+      ios: () => {
+        navigator.geolocation.getCurrentPosition((position) => this.geo_success(position),(e) => this.geo_error(e),{timeout: 5000});
+      },
+      android: async () => {
+        // 检验 app 是否被用户授权 定位
+        let accessLocation = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+        if(accessLocation){
+          // 去请求
+          navigator.geolocation.getCurrentPosition((position) => this.geo_success(position),(e) => this.geo_error(e),{timeout: 5000});
+        }
+        else{
+          // 去定位授权界面
+          Alert.alert('去开启定位权限','',[
+            {
+              text: '去设置', onPress: () => {
+                NativeModules.OpenSettings.openAppSettings(e => {});
+                // 开启计时器 检查定位是否开启
+                this.openGeolocationListener = setInterval(() => this.getCurrentPosition(),1000);
+              }
+            },
+            {
+              text: '取消'
+            }
+          ]);
+
+        }
+      }
+    })();
   }
 
   // 获取定位信息成功
@@ -109,7 +137,8 @@ export const locationCrossPlatform = WrappedComponent => connect(mapStateToProps
     if(e.code === 1){
       if (!this.openGeolocationListener){
         Alert.alert('请去开启定位权限','',[
-          {text: '知道了', onPress: () => {
+          {
+            text: '去设置', onPress: () => {
               // 开启计时器 检查定位是否开启
               this.openGeolocationListener = setInterval(() => this.getCurrentPosition(),1000);
               // 跳转到设置-定位
@@ -120,10 +149,14 @@ export const locationCrossPlatform = WrappedComponent => connect(mapStateToProps
                   supported && Linking.openURL(settingUrl);
                 },
                 android: () =>{
-                  console.log('跳转到设置-定位界面');
+                  NativeModules.OpenSettings.openAppSettings(e => {});
                 }
               })();
-            }}
+            },
+          },
+          {
+            text: '取消'
+          }
         ]);
       }
     }
@@ -131,27 +164,34 @@ export const locationCrossPlatform = WrappedComponent => connect(mapStateToProps
     if(e.code === 2){
       if (!this.openGeolocationListener){
         Alert.alert('请去开启定位权限','',[
-          {text: '知道了', onPress: () => {
-            // 开启计时器 检查定位是否开启
-            this.openGeolocationListener = setInterval(() => this.getCurrentPosition(),1000);
-            // 跳转到设置-定位
-            Platform.select({
-              ios: async () => {
-                let settingUrl = 'App-Prefs:root=Privacy&path=LOCATION';
-                let supported = await Linking.canOpenURL(settingUrl).catch(e => {console.log(e); return false});
-                supported && Linking.openURL(settingUrl);
-              },
-              android: () => {
-                console.log('跳转到设置-虎哥app定位界面');
-              },
-            })();
-          }}
+          {
+            text: '去设置', onPress: () => {
+              // 开启计时器 检查定位是否开启
+              this.openGeolocationListener = setInterval(() => this.getCurrentPosition(),1000);
+              // 跳转到设置-定位
+              Platform.select({
+                ios: async () => {
+                  let settingUrl = 'App-Prefs:root=Privacy&path=LOCATION';
+                  let supported = await Linking.canOpenURL(settingUrl).catch(e => {console.log(e); return false});
+                  supported && Linking.openURL(settingUrl);
+                },
+                android: () => {
+                  NativeModules.OpenSettings.openLocationSettings(data => console.log('call back data',data));
+                },
+              })();
+            }
+          },
+          {
+            text: '取消'
+          }
         ]);
       }
     }
     // 3. 定位超时
     else if(e.code === 3){
-      Alert.alert('定位超时','请选择手动定位');
+      if(!this.openGeolocationListener){
+        Alert.alert('定位超时','请选择手动定位');
+      }
       if (this.openGeolocationListener){
         console.log('清除计时器');
         clearInterval(this.openGeolocationListener);

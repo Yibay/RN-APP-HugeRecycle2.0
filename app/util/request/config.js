@@ -13,12 +13,12 @@ const __dirname = __dirname || '/Users/zhouquan/workspace/nodeProgram/rn-hugeRec
 // const api_base_mall = 'https://mall.hugehuge.cn';
 
 // 测试
-// const api_base_recycle = 'http://test.hugehuge.cn';
-// const api_base_mall = 'http://test.hugehuge.cn:8070';
+const api_base_recycle = 'http://test.hugehuge.cn';
+const api_base_mall = 'http://test.hugehuge.cn:8070';
 
 // 本机调试（小武）
-const api_base_recycle = 'http://192.168.11.122:8090';
-const api_base_mall = 'http://192.168.11.122:8070';
+// const api_base_recycle = 'http://192.168.11.122:8090';
+// const api_base_mall = 'http://192.168.11.122:8070';
 // 本机调试（秦龙）
 // const api_base_recycle = 'http://192.168.50.145:8080';
 // 本机调试 (双全)

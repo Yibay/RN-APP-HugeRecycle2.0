@@ -2,6 +2,7 @@ package com.huge_recycle_android;
 
 import android.app.Application;
 
+import com.huge_recycle_android.android_open_settings.OpenSettingsPackage;
 import com.huge_recycle_android.android_upgrade.UpgradePackage;
 import com.facebook.react.ReactApplication;
 import cn.reactnative.alipay.AlipayPackage;
@@ -30,7 +31,8 @@ public class MainApplication extends Application implements ReactApplication {
           new AlipayPackage(),
           new OrientationPackage(),
           new VectorIconsPackage(),
-          new UpgradePackage()
+          new UpgradePackage(),
+          new OpenSettingsPackage()
       );
     }
 
