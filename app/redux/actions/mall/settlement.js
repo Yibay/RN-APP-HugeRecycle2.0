@@ -92,7 +92,7 @@ export function submitMallOrder(option){
       }
       else {
         // 货到付款
-        dispatch(scorePay(res.data.orderId));
+        dispatch(receiptMallOrderPay(res.data.orderId));
       }
     }
 
@@ -117,7 +117,7 @@ export function continueMallOrder(orderId){
       }
       else {
         // 货到付款
-        dispatch(scorePay(orderId));
+        dispatch(receiptMallOrderPay(orderId));
       }
     }
     else{
@@ -133,7 +133,7 @@ function scorePay(orderId){
 
     let authToken = getState().identityToken.authToken;
 
-    let resReceipt = await request.postFormData(config.api.receiptMallOrderPay,{orderId},{'X-AUTH-TOKEN': authToken});
+    let resReceipt = await request.postFormData(config.api.scorePay,{orderId},{'X-AUTH-TOKEN': authToken});
 
     if(resReceipt && !resReceipt.status){
       Actions.mallOrderSuccess(); // 跳转到 下单成功页面
@@ -174,5 +174,26 @@ function aliPay(orderId){
       // 调用支付宝失败
       Actions.mallOrderRecordPage();
     }
+  }
+}
+
+// 货到付款
+function receiptMallOrderPay(orderId){
+  return async (dispatch, getState) => {
+
+    let authToken = getState().identityToken.authToken;
+
+    let resReceipt = await request.postFormData(config.api.receiptMallOrderPay,{orderId},{'X-AUTH-TOKEN': authToken});
+
+    if(resReceipt && !resReceipt.status){
+      Actions.mallOrderSuccess(); // 跳转到 下单成功页面
+    }
+    else if(Actions.currentScene !== 'mallOrderRecordPage'){
+      Actions.mallOrderRecordPage(); // 跳转到 我的消费订单页面
+    }
+    else{
+      Alert.alert(resReceipt.message ? resReceipt.message : '支付失败');
+    }
+
   }
 }

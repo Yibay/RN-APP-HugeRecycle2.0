@@ -13,12 +13,12 @@ const __dirname = __dirname || '/Users/zhouquan/workspace/nodeProgram/rn-hugeRec
 // const api_base_mall = 'https://mall.hugehuge.cn';
 
 // 测试
-const api_base_recycle = 'http://test.hugehuge.cn';
-const api_base_mall = 'http://test.hugehuge.cn:8070';
+// const api_base_recycle = 'http://test.hugehuge.cn';
+// const api_base_mall = 'http://test.hugehuge.cn:8070';
 
 // 本机调试（小武）
-// const api_base_recycle = 'http://192.168.50.123:8090';
-// const api_base_mall = 'http://192.168.50.123:8070';
+const api_base_recycle = 'http://192.168.11.122:8090';
+const api_base_mall = 'http://192.168.11.122:8070';
 // 本机调试（秦龙）
 // const api_base_recycle = 'http://192.168.50.145:8080';
 // 本机调试 (双全)
@@ -230,8 +230,11 @@ export default {
     //   orderId: number
     getAlipayTradeAppPayResponse: `${api_base_mall}/online/mall/order/getAlipayTradeAppPayResponse`,
 
-    // 13-2, 确认订单(环保金支付、现金支付) params orderId
+    // 13-2, 货到付款(环保金支付、现金支付) params orderId
     receiptMallOrderPay: `${api_base_mall}/online/mall/order/receiptPay`,
+
+    // 13-3, 环保金支付(环保金支付、现金支付) params orderId
+    scorePay: `${api_base_mall}/online/mall/order/scorePay`,
 
     // 14，检验 未支付订单，可否支付
     // params
