@@ -49,21 +49,21 @@ class MallOrderItem extends PureComponent{
     switch(this.props.orderStatus){
       case 1: // 未支付
         orderStatusText = '待付款';
-        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' submit={() => {Actions.mallOrderDetailPage({orderCode: this.props.orderCode});}}/><RecordBtn style={styles.btnSpacing} text='去付款' submit={() => {this.props.continueMallOrder(this.props.orderId)}}/></View>;
+        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' onPress={() => {Actions.mallOrderDetailPage({orderCode: this.props.orderCode});}}/><RecordBtn style={styles.btnSpacing} text='去付款' onPress={() => {this.props.continueMallOrder(this.props.orderId)}}/></View>;
         break;
       case 2: // 已支付
       case 3: // 已分配
-      case 4: // 已配货
         orderStatusText = '等待商家接单';
-        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' submit={() => {Actions.mallOrderDetailPage({orderCode: this.props.orderCode});}}/><RecordBtn style={styles.btnSpacing} text='联系商家' submit={() => {this.contactSeller()}}/></View>;
+        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' onPress={() => {Actions.mallOrderDetailPage({orderCode: this.props.orderCode});}}/><RecordBtn style={styles.btnSpacing} text='联系商家' onPress={() => {this.contactSeller()}}/></View>;
         break;
+      case 4: // 已配货
       case 5: // 已接单
         orderStatusText = '已接单，等待配送';
-        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' submit={() => {Actions.mallOrderDetailPage({orderCode: this.props.orderCode});}}/><RecordBtn style={styles.btnSpacing} text='联系商家' submit={() => {this.contactSeller()}}/></View>;
+        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' onPress={() => {Actions.mallOrderDetailPage({orderCode: this.props.orderCode});}}/><RecordBtn style={styles.btnSpacing} text='联系商家' onPress={() => {this.contactSeller()}}/></View>;
         break;
       case 6: // 已签收
         orderStatusText = '已完成';
-        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' submit={() => {Actions.mallOrderDetailPage({orderCode: this.props.orderCode});}}/></View>;
+        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' onPress={() => {Actions.mallOrderDetailPage({orderCode: this.props.orderCode});}}/></View>;
         orderStatusTextGloom = true;
         break;
       // case 7: // 退货中

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Alert } from 'react-native';
+import { StyleSheet, View, Alert } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -10,19 +10,28 @@ import validator from '../util/form/validator';
 import request from '../util/request/request';
 import config from '../util/request/config';
 import { setIdentityTokenThunk } from '../redux/actions/IdentityToken';
+import {getCode, clearData} from '../redux/actions/verificationCode/login';
 
 import Header from '../components/Header/Header';
 import Navigator from '../components/Navigator/Navigator';
 import PasswordBtn from '../components/Form/Btn/PasswordBtn/PasswordBtn';
 import SubmitBtn from '../components/Form/Btn/SubmitBtn';
 import InputSection from '../components/Form/Input/InputSection';
+import CountDownBtn from '../components/Form/Btn/CountDownBtn';
+import Loading from "../components/Alert/Loading";
 
 
 class Login extends Component{
 
   static propTypes = {
     needPop: PropTypes.bool,
-    setIdentityTokenThunk: PropTypes.func.isRequired
+    setIdentityTokenThunk: PropTypes.func.isRequired,
+    verificationCode: PropTypes.shape({ // 短信验证码
+      data: PropTypes.string.isRequired,
+      isFetching: PropTypes.bool.isRequired,
+    }),
+    getCode: PropTypes.func.isRequired,
+    clearData: PropTypes.func.isRequired,
   };
 
   constructor(props){
@@ -51,7 +60,7 @@ class Login extends Component{
             [
               /* 输入框: 手机验证码登录 */
               <View key={0} style={ styles.form }>
-                <InputSection label='手机号码' value={this.state.phone} onChangeText={text => this.changePhone(text)} rightButton={<Text style={styles.getCode} onPress={() => this.getCode()}>发送验证码</Text>} keyboardType='numeric' />
+                <InputSection label='手机号码' value={this.state.phone} onChangeText={text => this.changePhone(text)} rightButton={<CountDownBtn style={styles.getCode} text='发送验证码' onPress={() => this.getCode()} textStyle={styles.getCodeTextStyle} />} keyboardType='numeric' />
                 <InputSection label='短信验证码' value={this.state.code} onChangeText={text => this.changeCode(text)} keyboardType='numeric'/>
               </View>,
               /* 输入框: 手机密码登录 */
@@ -65,7 +74,16 @@ class Login extends Component{
         {/* 登录按钮 */}
         <SubmitBtn text='登录' submit={() => this.login()} style={styles.btnSection} />
       </View>
+      <Loading show={this.props.verificationCode.isFetching} />
     </View>)
+  }
+
+  componentDidUpdate(){
+    // 获取验证码 成功后，弹出对应消息
+    if(!this.props.verificationCode.isFetching && this.props.verificationCode.data){
+      Alert.alert(this.props.verificationCode.data);
+      this.props.clearData();
+    }
   }
 
   // 切换Tab 回调
@@ -97,21 +115,17 @@ class Login extends Component{
 
   // 修改短信验证码
   changeCode(code){
-    this.setState({ code })
+    this.setState({ code });
   }
 
   // 获取短信验证码
-  getCode(){
+  async getCode(){
     if(!validator.isPhone(this.state.phone)){
       Alert.alert('手机号码错误');
-      return;
+      return false;
     }
-    request
-      .post(config.api.getCode, {phone: this.state.phone})
-      .then(res => {
-        // 发送成功 status 为 0，弹出 返回的data信息
-        res.status || Alert.alert(res.data);
-      });
+    const res = await this.props.getCode(this.state.phone);
+    return res;
   }
 
   // 登录
@@ -248,8 +262,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#fed309',
     overflow: 'hidden',
+  },
+  getCodeTextStyle: {
     fontSize: 22,
-    color: '#fff'
+    color: '#fff',
   },
   // 提交按钮区
   btnSection: {
@@ -260,4 +276,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, {setIdentityTokenThunk})(Login);
+function mapStateToProps(state){
+  return {
+    verificationCode: state.verificationCode.login,
+  }
+}
+
+export default connect(mapStateToProps, {setIdentityTokenThunk, getCode, clearData})(Login);

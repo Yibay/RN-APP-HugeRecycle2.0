@@ -69,23 +69,23 @@ class RecycleRecordItem extends PureComponent{
     switch(this.props.recordItem.orderStatusId){
       case 0: // 未审
       case 1: // 待确认
-        recordBtn = <RecordBtn style={styles.btnMargin} text='撤单' submit={() => this.cancelOrder(this.props.recordItem.id)} />;
+        recordBtn = <RecordBtn style={styles.btnMargin} text='撤单' onPress={() => this.cancelOrder(this.props.recordItem.id)} />;
         statusDesc = <Text style={styles.statusFinish}>订单待审核</Text>;
         break;
       case 2: // 已审／未派
       case 4: // 已派／未接
-        recordBtn = <View style={styles.flexRow}><CountDownBtn text='催单' submit={() => this.urgeOrder(this.props.recordItem.id)} /><RecordBtn style={styles.btnMargin} text='撤单' submit={() => this.cancelOrder(this.props.recordItem.id)} /></View>;
+        recordBtn = <View style={styles.flexRow}><CountDownBtn text='催单' onPress={() => this.urgeOrder(this.props.recordItem.id)} /><RecordBtn style={styles.btnMargin} text='撤单' onPress={() => this.cancelOrder(this.props.recordItem.id)} /></View>;
         statusDesc = <Text style={styles.status}>等待虎哥接单</Text>;
       break;
       case 5: // 已接
       case 6: // 到达
-        recordBtn = <View style={styles.flexRow}><CountDownBtn text='催单' submit={() => this.urgeOrder(this.props.recordItem.id)} /><RecordBtn style={styles.btnMargin} text='联系虎哥' submit={() => this.contactHuge(this.props.recordItem.id)} /></View>;
+        recordBtn = <View style={styles.flexRow}><CountDownBtn text='催单' onPress={() => this.urgeOrder(this.props.recordItem.id)} /><RecordBtn style={styles.btnMargin} text='联系虎哥' onPress={() => this.contactHuge(this.props.recordItem.id)} /></View>;
         statusDesc = <Text style={styles.status}>等待虎哥上门回收</Text>;
       break;
       case 7: // 完成
         // gradeStatus 5 未回访
         if(this.props.recordItem.gradeStatus === 5 ){
-          recordBtn = <RecordBtn text='评价' submit={() => this.goToRecycleEvaluationPage(this.props.recordItem)} />;
+          recordBtn = <RecordBtn text='评价' onPress={() => this.goToRecycleEvaluationPage(this.props.recordItem)} />;
           // 若不可评价，则显示已完成
           this.props.evaluable || (recordBtn = <DisableBtn text='已完成'/>);
         }

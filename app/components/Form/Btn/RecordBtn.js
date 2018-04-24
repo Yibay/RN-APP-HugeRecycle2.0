@@ -8,17 +8,17 @@ class RecordBtn extends Component {
 
   static propTypes = {
     text: PropTypes.string.isRequired,
-    submit: PropTypes.func,
+    onPress: PropTypes.func,
     style: ViewPropTypes.style,
     textStyle: Text.propTypes.style,
   };
 
   static defaultProps = {
-    submit: () => {console.log('未绑定 回调')}
+    onPress: () => {console.log('未绑定 回调')}
   };
 
   render(){
-    return (<TouchableOpacity onPress={() => this.props.submit()}>
+    return (<TouchableOpacity onPress={() => this.props.onPress()}>
       <View style={[styles.container].concat(this.props.style)}>
         <Text style={[styles.text].concat(this.props.textStyle)}>{this.props.text}</Text>
       </View>

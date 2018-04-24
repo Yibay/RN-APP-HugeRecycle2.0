@@ -7,15 +7,15 @@ import _ from 'lodash';
 
 
 import { createOrderValidator } from '../../util/form/recycleOrderValidator';
-import request from '../../util/request/request';
-import config from '../../util/request/config';
 import validator from "../../util/form/validator";
 import {fetchRecycleOrderThunk} from "../../redux/actions/Recycle";
+import {getCode,clearData} from '../../redux/actions/verificationCode/createRecycleOrder';
 
 import AdaptLayoutWidth from '../../components/AdaptLayoutWidth';
 import HouseNumberAddressSection from '../../components/Form/Module/HouseNumberAddressSection';
 import InputSection from '../../components/Form/Input/InputSection';
-import RecordBtn from '../../components/Form/Btn/RecordBtn';
+import CountDownBtn from '../../components/Form/Btn/CountDownBtn';
+import Loading from "../../components/Alert/Loading";
 
 
 class CallModal extends Component{
@@ -23,7 +23,14 @@ class CallModal extends Component{
   static propTypes = {
     visible: PropTypes.bool.isRequired,
     hideCallModal: PropTypes.func.isRequired,
-    createOrderFetching: PropTypes.bool.isRequired
+    createOrderFetching: PropTypes.bool.isRequired,
+    verificationCode: PropTypes.shape({
+      data: PropTypes.string.isRequired,
+      isFetching: PropTypes.bool.isRequired,
+    }),
+    fetchRecycleOrderThunk: PropTypes.func.isRequired,
+    getCode: PropTypes.func.isRequired,
+    clearData: PropTypes.func.isRequired,
   };
 
   constructor(props){
@@ -67,7 +74,7 @@ class CallModal extends Component{
             <InputSection style={styles.lineSection} value={this.state.phone} onChangeText={val => this.setState({phone: val.trim()})} label='电话' placeholder='请输入联系人电话' keyboardType='phone-pad'/>
             {
               !this.props.authToken ?
-                <InputSection style={styles.lineSection} value={this.state.code} onChangeText={val => this.setState({code: val.trim()})} label='短信验证码' placeholder='请输入验证码' rightButton={<RecordBtn text='获取验证码' submit={() => {this.getCode()}}/>}/>
+                <InputSection style={styles.lineSection} value={this.state.code} onChangeText={val => this.setState({code: val.trim()})} label='短信验证码' placeholder='请输入验证码' rightButton={<CountDownBtn text='获取验证码' onPress={() => this.getCode()}/>}/>
                 :
                 null
             }
@@ -86,8 +93,17 @@ class CallModal extends Component{
             </View>
           </View>
         </KeyboardAvoidingView>
+        <Loading show={this.props.verificationCode.isFetching}/>
       </AdaptLayoutWidth>
     </Modal>);
+  }
+
+  componentDidUpdate(){
+    // 请求验证码 结果显示
+    if(!this.props.verificationCode.isFetching && this.props.verificationCode.data){
+      Alert.alert(this.props.verificationCode.data);
+      this.props.clearData();
+    }
   }
 
   dismissKeyboard(){
@@ -164,13 +180,10 @@ class CallModal extends Component{
   async getCode(){
     if(!validator.isPhone(this.state.phone)){
       Alert.alert('请填写正确的手机号码');
-      return;
+      return false;
     }
-    const res = await request.post(config.api.getCode, {phone:this.state.phone});
-    // 发送成功 status 为 0，弹出 返回的data信息
-    if(res && !res.status){
-      Alert.alert(res.data);
-    }
+    const res = await this.props.getCode(this.state.phone);
+    return res;
   }
 
   // Android Modal 必须属性
@@ -268,8 +281,9 @@ function mapStateToProps(state){
     authToken: state.identityToken.authToken,
     recycledItemsList: state.recycle.recycledItemsList,
     recyclableGoods: state.recycle.recyclableGoods,
-    createOrderFetching: state.recycle.recycleOrder.isFetching
+    createOrderFetching: state.recycle.recycleOrder.isFetching,
+    verificationCode: state.verificationCode.createRecycleOrder,
   }
 }
 
-export default connect(mapStateToProps, {fetchRecycleOrderThunk})(CallModal);
+export default connect(mapStateToProps, {fetchRecycleOrderThunk, getCode, clearData})(CallModal);

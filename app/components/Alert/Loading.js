@@ -1,23 +1,17 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Modal, ActivityIndicator}from 'react-native';
+import {StyleSheet, View, Text, ActivityIndicator}from 'react-native';
 
 import PropTypes from 'prop-types';
 
 
-import AdaptLayoutWidth from "../AdaptLayoutWidth";
-
-
 const Loading = (props) => {
-  return <Modal visible={props.show} transparent={true} onRequestClose={() => {}}>
-  <AdaptLayoutWidth>
-    <View style={[styles.container].concat(props.styles)}>
+  return <View style={[styles.container].concat(props.styles, props.show ? null : styles.hidden)}>
       <View style={styles.box}>
         <ActivityIndicator size='large' color='#fff' style={styles.activityIndicator} />
         <Text style={styles.title}>{props.title}</Text>
       </View>
     </View>
-  </AdaptLayoutWidth>
-</Modal>};
+};
 
 Loading.propsType = {
   show: PropTypes.bool.isRequired,
@@ -30,9 +24,17 @@ Loading.defaultProps = {
 
 const styles = StyleSheet.create({
   container:{
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  hidden: {
+    display: 'none',
   },
   box:{
     position: 'relative',
