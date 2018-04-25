@@ -13,7 +13,7 @@ import config from '../../../util/request/config';
 import { verifyLogin } from '../../../HOC/verifyLogin';
 
 import Header from '../../../components/Header/Header';
-import LineSection from '../../../components/LineSection/LineSection';
+import LineSection from '../../../components/Section/LineSection';
 
 
 class ManageCustomerAccounts extends Component {

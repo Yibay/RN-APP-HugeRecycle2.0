@@ -12,8 +12,9 @@ import {fetchCustomerScoreThunk} from '../../../redux/actions/user/customerScore
 
 import Header from '../../../components/Header/Header';
 import MsgBtn from '../../../containers/Mine/MessageBtn/MessageBtn';
-import LineSection from '../../../components/LineSection/LineSection';
+import LineSection from '../../../components/Section/LineSection';
 import SubmitBtn from '../../../components/Form/Btn/SubmitBtn';
+import PersonnelInformation from "../../../components/Section/PersonnelInformation";
 
 
 class Mine extends Component {
@@ -48,20 +49,13 @@ class Mine extends Component {
         title='下拉刷新'
       />}>
         {/* 基本信息 */}
-        <View style={styles.basicFacts}>
-          <Image style={styles.personalImage} source={require('../../../assets/img/personalImage2x.png')} resizeMode='contain' />
-          <View style={styles.message}>
-            <Text style={styles.name}>{this.props.identityToken.user.name}</Text>
-            <Text style={styles.phone}>{encryptedPhones}</Text>
-            <View style={styles.rightModule}>
-              <TouchableWithoutFeedback onPress={() => {Actions.manageCustomerAccounts()}}>
-                <View style={styles.securityCenter}>
-                  <Text style={styles.securityCenterText}>安全中心</Text>
-                </View>
-              </TouchableWithoutFeedback>
+        <PersonnelInformation name={this.props.identityToken.user.name} phone={encryptedPhones} rightModule={
+          <TouchableWithoutFeedback onPress={() => {Actions.manageCustomerAccounts()}}>
+            <View style={styles.securityCenter}>
+              <Text style={styles.securityCenterText}>安全中心</Text>
             </View>
-          </View>
-        </View>
+          </TouchableWithoutFeedback>
+        } />
         {/* 各模块 */}
         <LineSection title='环保金' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/customerScore.png')} resizeMode='contain'/>} onPress={() => {Actions.customerScorePage()}} rightModule={<Text style={styles.customerScore}>{`¥${this.props.customerScore.data}`}</Text>}/>
         <LineSection title='地址管理' icon={<Image style={styles.icon} source={require('../../../assets/iconImg/location.png')} resizeMode='contain'/>} onPress={() => {Actions.addressManagementPage()}} />
@@ -116,46 +110,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f7f7f7'
   },
-  // 基本信息
-  basicFacts: {
-    marginBottom: 12,
-    flexDirection: 'row',
-    backgroundColor: '#fff'
-  },
-  // 个人头像
-  personalImage: {
-    alignSelf: 'center',
-    width: 157,
-    height: 157,
-    marginHorizontal: 24
-  },
-  // 个人信息
-  message: {
-    position: 'relative',
-    flex: 1,
-    height: 188,
-    justifyContent: 'center',
-    backgroundColor: '#fff'
-  },
-  // 个人名称
-  name: {
-    marginBottom: 24,
-    fontSize: 32,
-    fontWeight: '900',
-    color: '#000'
-  },
-  phone: {
-    fontSize: 24,
-    fontWeight: '500',
-    color: '#000'
-  },
-  rightModule: {
-    position: 'absolute',
-    right: 20,
-    top: 0,
-    bottom: 0,
-    justifyContent: 'center'
-  },
+  // 安全中心按钮
   securityCenter: {
     width: 128,
     height: 46,

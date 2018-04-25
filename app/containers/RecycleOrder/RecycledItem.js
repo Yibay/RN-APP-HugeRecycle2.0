@@ -37,7 +37,8 @@ RecycledItem.propTypes = {
     name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    number: PropTypes.number.isRequired
+    number: PropTypes.number.isRequired,
+    unit: PropTypes.string,
   }),
   subCategoryName: PropTypes.string.isRequired
 };

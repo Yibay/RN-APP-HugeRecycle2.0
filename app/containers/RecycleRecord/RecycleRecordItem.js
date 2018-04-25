@@ -52,7 +52,7 @@ class RecycleRecordItem extends PureComponent{
     }),
     authToken: PropTypes.string.isRequired,
     updateOrderList: PropTypes.func.isRequired,
-    evaluable: PropTypes.bool.isRequired,
+    evaluable: PropTypes.bool.isRequired, //  控制 是否可评价
     firstSectionStyle: ViewPropTypes.style,
     secondSectionStyle: ViewPropTypes.style,
   };
@@ -79,13 +79,13 @@ class RecycleRecordItem extends PureComponent{
       break;
       case 5: // 已接
       case 6: // 到达
-        recordBtn = <View style={styles.flexRow}><CountDownBtn text='催单' onPress={() => this.urgeOrder(this.props.recordItem.id)} /><RecordBtn style={styles.btnMargin} text='联系虎哥' onPress={() => this.contactHuge(this.props.recordItem.id)} /></View>;
+        recordBtn = <View style={styles.flexRow}><CountDownBtn text='催单' onPress={() => this.urgeOrder(this.props.recordItem.id)} /><RecordBtn style={styles.btnMargin} text='联系虎哥' onPress={() => this.contactHuge(this.props.recordItem.id)} /><RecordBtn style={styles.btnMargin} text='查看详情' onPress={() => Actions.recycleDetailPage(this.props.recordItem)} /></View>;
         statusDesc = <Text style={styles.status}>等待虎哥上门回收</Text>;
       break;
       case 7: // 完成
         // gradeStatus 5 未回访
         if(this.props.recordItem.gradeStatus === 5 ){
-          recordBtn = <RecordBtn text='评价' onPress={() => this.goToRecycleEvaluationPage(this.props.recordItem)} />;
+          recordBtn = <View style={styles.flexRow}><RecordBtn text='评价' onPress={() => this.goToRecycleEvaluationPage(this.props.recordItem)} /><RecordBtn style={styles.btnMargin} text='查看详情' onPress={() => Actions.recycleDetailPage(this.props.recordItem)} /></View>;
           // 若不可评价，则显示已完成
           this.props.evaluable || (recordBtn = <DisableBtn text='已完成'/>);
         }
