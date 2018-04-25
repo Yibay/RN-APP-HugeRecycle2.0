@@ -14,13 +14,14 @@ const styles = StyleSheet.create({
   },
   label: {
     width: 144,
-    marginRight: 40,
     fontSize: 28,
     color: '#888',
     fontWeight: '700'
   },
   scoringBar: {
-    flexDirection: 'row'
+    minWidth: 316,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
   scoringBarIcon: {
     width: 53,
@@ -43,7 +44,7 @@ class GradeEvaluation extends Component {
   static defaultProps = {
     label: '被选项标题',
     level: 3,
-    activityIcon: <Image style={styles.scoringBarIcon} source={require('./img/star23x.png')} resizeMode='contain' />,
+    activityIcon: <Image style={styles.scoringBarIcon} source={require('./img/star33x.png')} resizeMode='contain' />,
     inactivityIcon: <Image style={styles.scoringBarIcon} source={require('./img/star13x.png')} resizeMode='contain' />,
     onChangeScore: score => {console.log('未绑定获取score的回调')}
   };

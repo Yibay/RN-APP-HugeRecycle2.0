@@ -22,6 +22,8 @@ const checkVersion = (WrappedComponent) => class extends Component {
   // 检测 iOS版本
   async checkVersionIOS(){
     const version = await request.get(config.api.versionIOS);
+    // 数据异常
+    if(!version){return;}
     // 检验 是否上架 app Store
     if(!version.results.length){
       console.log('此appID为未上架的APP 或者 查询不到');

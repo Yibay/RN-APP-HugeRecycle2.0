@@ -16,7 +16,7 @@ import Header from '../../../components/Header/Header';
 import OrderAddressSection from '../../../containers/RecycleOrder/AddressSection/OrderAddressSection';
 import RecycledItemsList from '../../../containers/RecycleOrder/RecycledItemsList';
 import SubmitBtn from '../../../components/Form/Btn/SubmitBtn';
-import Remark from "../../../components/Form/Module/Remark";
+import Remark from "../../../components/Form/Input/Remark";
 
 
 class RecycleOrder extends Component{
@@ -67,7 +67,7 @@ class RecycleOrder extends Component{
             undefined
         }
         {/* 备注模块 */}
-        <Remark title='如有特殊需求，请备注' val={this.state.remarks} onChangeText={val => this.setState({remarks: val})}/>
+        <Remark title='如有特殊需求，请备注' value={this.state.remarks} onChangeText={val => this.setState({remarks: val})}/>
         {/* 服务时间 */}
         <View style={styles.serviceTimeSection}>
           <Icon name='ios-time-outline' size={40} color='#828282' />

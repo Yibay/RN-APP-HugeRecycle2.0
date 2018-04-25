@@ -17,7 +17,7 @@ import Header from "../../../components/Header/Header";
 import Notice from "../../../containers/MallSettlement/Notice";
 import OrderAddressSection from '../../../containers/RecycleOrder/AddressSection/OrderAddressSection';
 import ProductList from "../../../containers/MallCart/ProductList";
-import Remark from "../../../components/Form/Module/Remark";
+import Remark from "../../../components/Form/Input/Remark";
 import SubmitBtn from "../../../components/Form/Btn/SubmitBtn";
 
 
@@ -68,7 +68,7 @@ class MallSettlement extends Component {
         payMsg={this.props.settlementData.data.payMsg}
         ListFooterComponent={<View style={styles.listFooterComponent}>
           {/* 备注模块 */}
-          <Remark val={this.state.remark} onChangeText={val => this.setState({remark: val})}/>
+          <Remark value={this.state.remark} onChangeText={val => this.setState({remark: val})}/>
           {/* 支付信息 */}
           <View style={styles.payMsg}>
             <Text style={styles.payMsgText1}>环保金抵扣¥{this.props.settlementData.data.payMsg.needPayScore}，还需支付¥{this.props.settlementData.data.payMsg.needPayTotalPrice}</Text>

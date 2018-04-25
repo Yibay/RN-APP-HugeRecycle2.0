@@ -8,8 +8,9 @@ class Remark extends Component {
 
   static propTypes = {
     title: PropTypes.string.isRequired,
-    val: PropTypes.string.isRequired,
-    onChangeText: PropTypes.func.isRequired
+    value: PropTypes.string.isRequired,
+    onChangeText: PropTypes.func.isRequired,
+    inputStyle: TextInput.propTypes.style,
   };
 
   static defaultProps = {
@@ -19,9 +20,9 @@ class Remark extends Component {
   render(){
     return <View style={styles.remarkSection}>
       <Text style={styles.remarksTitle}>{this.props.title}</Text>
-      <TextInput style={styles.remarks}
+      <TextInput style={[styles.remarks].concat(this.props.inputStyle)}
                  multiline={true}
-                 onChangeText={val => this.props.onChangeText(val)}
+                 onChangeText={value => this.props.onChangeText(value)}
                  value={this.props.value}
                  underlineColorAndroid="transparent" />
     </View>
