@@ -3,6 +3,7 @@ import {StyleSheet, View, Text, Alert, Linking, ViewPropTypes} from 'react-nativ
 
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
+import {connect} from 'react-redux';
 
 
 import config from "../../util/request/config";
@@ -168,15 +169,17 @@ class RecycleRecordItem extends PureComponent{
 
   // 催单
   async urgeOrder(orderId){
-    const res = await request.post(config.api.urgeOrder,{orderId},{'X-AUTH-TOKEN': this.props.authToken})
+    const res = await request.post(config.api.urgeOrder,{orderId},{'X-AUTH-TOKEN': this.props.authToken});
     if(res){
       // 若请求正常、且数据正常
       if(!res.status){
         Alert.alert(res.data);
+        return true;
       }
       else{
         console.log(res);
         Alert.alert(res.data);
+        return false;
       }
     }
   }
@@ -202,4 +205,10 @@ class RecycleRecordItem extends PureComponent{
   }
 }
 
-export default RecycleRecordItem;
+function mapStateToProps(state){
+  return {
+    authToken: state.identityToken.authToken,
+  };
+}
+
+export default connect(mapStateToProps)(RecycleRecordItem);

@@ -31,7 +31,7 @@ class EnvironmentalRecord extends Component {
       <FlatListDefault style={styles.content}
                        refreshControl={<RefreshControl refreshing={this.props.recycleRecord.isFetching} onRefresh={() => this.props.onEnter()} />}
                        data={this.props.recycleRecord.data}
-                       renderItem={({item}) => <RecycleRecordItem style={styles.OrderItem} recordItem={item} authToken={this.props.identityToken.authToken} updateOrderList={() => this.props.onEnter()} />}
+                       renderItem={({item}) => <RecycleRecordItem style={styles.OrderItem} recordItem={item} updateOrderList={() => this.props.onEnter()} />}
                        onEndReachedThreshold={1}
                        isFetching={this.props.recycleRecord.isFetching}
                        ListEmptyComponentText='暂无环保记录'

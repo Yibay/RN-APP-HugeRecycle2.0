@@ -1,12 +1,12 @@
 import React, {PureComponent} from 'react';
-import {StyleSheet, View, ScrollView, TouchableOpacity, Alert, Linking} from 'react-native';
+import {StyleSheet, View, ScrollView, Alert, Linking} from 'react-native';
 
 import PropTypes from 'prop-types';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 
 
-import {onEnter} from "../redux/actions/pagesLife/recycleRecordDetailLife";
+import {onEnter} from "../redux/actions/pagesLife/RecycleRecordDetailLife";
 
 import Header from "../components/Header/Header";
 import OrderStatusBar from "../containers/RecycleRecordDetail/OrderStatusBar";
@@ -17,7 +17,7 @@ import RecycledItemsList from "../containers/RecycleRecordDetail/RecycledItemsLi
 import TextAdaption from "../components/Text/TextAdaption";
 import config from "../util/request/config";
 import request from "../util/request/request";
-import DisableBtn from "../components/Form/Btn/DisableBtn";
+import {formatDate} from "../util/format";
 
 
 class RecycleRecordDetail extends PureComponent{
@@ -91,17 +91,17 @@ class RecycleRecordDetail extends PureComponent{
         statusDesc = '已完成';
         // gradeStatus 5 未回访
         if(this.props.recordItem.data.gradeStatus === 5){
-          recordBtn = <RecordBtn text='评价' onPress={() => {Actions.recycleEvaluationPage({recordItem: this.props.recordItem.dataSource})}} />;
+          recordBtn = <RecordBtn text='评价' onPress={() => {Actions.recycleEvaluationPage({orderId: this.props.orderId})}} />;
         }
         else{
-          recordBtn = <DisableBtn text='已评价'/>;
+          recordBtn = <View/>;
         }
         break;
       case 3: // 撤单
       case 8: // 打回
       case 9: // 退回
         statusDesc = '已取消';
-        recordBtn = <DisableBtn text='已取消'/>;
+        recordBtn = <View/>;
         break;
       default:
         statusDesc = '';
@@ -162,7 +162,7 @@ class RecycleRecordDetail extends PureComponent{
           {
             this.props.recordItem.data.orderTime ?
               this.props.recordItem.data.orderTime.map((item, index) => {
-                return <TextAdaption key={index} style={styles.sectionText}>{item.status}: {item.time}</TextAdaption>
+                return <TextAdaption key={index} style={styles.sectionText}>{item.status}: {formatDate(item.time)}</TextAdaption>
               })
               :
               null

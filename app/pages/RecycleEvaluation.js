@@ -13,6 +13,7 @@ import { verifyLogin } from '../HOC/verifyLogin';
 import request from '../util/request/request';
 import config from '../util/request/config';
 import {fetchRecycleRecordThunk} from '../redux/actions/user/recycleRecord';
+import {onEnter} from '../redux/actions/pagesLife/RecycleEvaluationLife';
 
 import Header from '../components/Header/Header';
 import GradeEvaluation from '../components/Form/Module/GradeEvaluation/GradeEvaluation';
@@ -89,8 +90,48 @@ const styles = StyleSheet.create({
 class RecycleEvaluation extends Component {
 
   static propTypes = {
+    // 订单号
+    orderId: PropTypes.number,
+    onEnter: PropTypes.func.isRequired,
+    // 回收订单详情
     recordItem: PropTypes.shape({
-      id: PropTypes.number.isRequired // 订单号
+      isFetching: PropTypes.bool.isRequired,
+      dataSource: PropTypes.object.isRequired,
+      data: PropTypes.shape({
+        // 订单状态
+        orderStatusId: PropTypes.number,
+        gradeStatus: PropTypes.number,
+        // 回收地址
+        accountName: PropTypes.string,
+        phone: PropTypes.string,
+        addr: PropTypes.string,
+        // 回收人员信息
+        recyclerHeadPic: PropTypes.string,
+        recyclerName: PropTypes.string,
+        recyclerPhone: PropTypes.string,
+        // 待回收物品
+        recycleCategoryDesc: PropTypes.string,
+        // 实际回收物品
+        orderItems: PropTypes.arrayOf(
+          PropTypes.shape({
+            category: PropTypes.string,
+            spec: PropTypes.string,
+            quantity: PropTypes.number, // 回收物品数量
+            integral: PropTypes.number, // 环保金单价
+            amount: PropTypes.number, // 获得现金
+          })
+        ),
+        // 环保金信息
+        phoneScore: PropTypes.string, // 获得环保金 电话
+        orderScore: PropTypes.number, // 获得环保金金额
+        payAmount: PropTypes.number, // 获得现金金额
+        orderTime: PropTypes.arrayOf(
+          PropTypes.shape({
+            status: PropTypes.string,
+            time: PropTypes.number,
+          })
+        )
+      }),
     }),
   };
 
@@ -110,10 +151,10 @@ class RecycleEvaluation extends Component {
       <Header title='评价虎哥'/>
       <ScrollView style={styles.content}>
         {/* 回收订单信息 */}
-        <RecycleRecordItem style={styles.recycleRecordItem} firstSectionStyle={styles.firstSectionStyle} secondSectionStyle={styles.secondSectionStyle} recordItem={this.props.recordItem} authToken={this.props.identityToken.authToken} evaluable={false}/>
+        <RecycleRecordItem style={styles.recycleRecordItem} firstSectionStyle={styles.firstSectionStyle} secondSectionStyle={styles.secondSectionStyle} recordItem={this.props.recordItem.dataSource} evaluable={false}/>
         {/* 虎哥信息 */}
-        <Image style={styles.hugePhoto} source={{uri: this.props.recordItem.tServiceOrder.recyclerHeadPic}} resizeMode='contain'/>
-        <Text style={styles.hugeName}>{`虎哥：${this.props.recordItem.tServiceOrder.recyclerName}`}</Text>
+        <Image style={styles.hugePhoto} source={{uri: this.props.recordItem.data.recyclerHeadPic}} resizeMode='contain'/>
+        <Text style={styles.hugeName}>{`虎哥：${this.props.recordItem.data.recyclerName}`}</Text>
         {/* 评价 */}
         <View style={styles.grade}>
           <GradeTitle titleArray={['不满意','一般','满意']}/>
@@ -128,6 +169,10 @@ class RecycleEvaluation extends Component {
     </View>)
   }
 
+  componentDidMount(){
+    this.props.onEnter(this.props.orderId);
+  }
+
   changeReviews(reviews){
     if(reviews.length <= 50){
       this.setState({reviews});
@@ -138,7 +183,7 @@ class RecycleEvaluation extends Component {
     if(!this.state.rateSpeed){ Alert.alert('请为上门时间打分'); return; }
     if(!this.state.rateService){ Alert.alert('请为服务态度打分'); return; }
     if(!this.state.rateConvenience){ Alert.alert('请为回收便捷度打分'); return; }
-    const res = await request.post(`${config.api.rateOrder}/${this.props.recordItem.id}`,this.state,{'X-AUTH-TOKEN': this.props.identityToken.authToken});
+    const res = await request.post(`${config.api.rateOrder}/${this.props.orderId}`,this.state,{'X-AUTH-TOKEN': this.props.identityToken.authToken});
     if(res){
       if(!res.status){
         Alert.alert('评价成功','感谢您的评价，虎哥会更加努力为您带来更好的服务',[
@@ -157,4 +202,11 @@ class RecycleEvaluation extends Component {
   }
 }
 
-export default verifyLogin(connect(null,{fetchRecycleRecordThunk})(RecycleEvaluation));
+function mapStateToProps(state){
+  return {
+    recordItem: state.user.recycleRecordDetail,
+    authToken: state.identityToken.authToken,
+  };
+}
+
+export default verifyLogin(connect(mapStateToProps,{fetchRecycleRecordThunk, onEnter})(RecycleEvaluation));
