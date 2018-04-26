@@ -9,7 +9,7 @@ import config from '../../util/request/config';
 import TextAdaption from "../../components/Text/TextAdaption";
 
 
-const RecycledItem = props => (<View style={styles.container}>
+const RecycledItem = props => (<View style={[styles.container].concat(props.style)}>
   <Image style={styles.specsImage} resizeMode='contain' source={{uri: config.static.base + props.specs.image}} />
   <View style={styles.specsContent}>
     <TextAdaption style={styles.specsName}>{`${props.subCategoryName} ${props.specs.name}`}</TextAdaption>

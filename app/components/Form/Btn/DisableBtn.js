@@ -11,15 +11,24 @@ class DisableBtn extends Component {
   };
 
   render(){
-    return (<Text style={styles.container}>{this.props.text}</Text>);
+    return (<View style={styles.container}>
+      <Text style={styles.text}>{this.props.text}</Text>
+    </View>);
   }
 }
 
 const styles = StyleSheet.create({
   container: {
+    minWidth: 139,
+    height: 57,
+    paddingHorizontal: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
     fontSize: 28,
-    color: '#888'
-  }
+    color: '#888',
+  },
 });
 
 export default DisableBtn;

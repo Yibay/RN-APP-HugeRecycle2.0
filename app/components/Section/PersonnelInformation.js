@@ -11,8 +11,8 @@ class PersonnelInformation extends PureComponent{
       PropTypes.number,
       PropTypes.object
     ]),
-    name: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    phone: PropTypes.string,
     rightModule: PropTypes.element,
     imgStyle: ViewPropTypes.style,
   };

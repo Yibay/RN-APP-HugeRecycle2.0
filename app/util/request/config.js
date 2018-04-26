@@ -130,7 +130,10 @@ export default {
     // 客户评价（POST） 需要登录 header X-AUTH-TOKEN /api/mobile/deal/rateOrder/{orderId}
     rateOrder: `${api_base_recycle}/api/mobile/deal/rateOrder/`,
     // 查看 订单详情 (GET) (根据path {id} 查询)需要登录 header X-AUTH-TOKEN
-    order: `${api_base_recycle}/api/mobile/deal/order/`,
+    // params:
+    //   orderId (必填)
+    recycleRecordDetail: `${api_base_recycle}/api/customer/app/auth/deal/getByOrderId`,
+    // recycleRecordDetail: `${api_base_recycle}/api/customer/app/auth/deal/getByOrderId`,
 
     /** ------ 我的 相关api ------  */
     // 忘记密码 (POST) 需要登录 header X-AUTH-TOKEN

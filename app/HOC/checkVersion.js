@@ -23,10 +23,14 @@ const checkVersion = (WrappedComponent) => class extends Component {
   async checkVersionIOS(){
     const version = await request.get(config.api.versionIOS);
     // 数据异常
-    if(!version){return;}
+    if(!version){
+      console.log('网络异常');
+      return;
+    }
     // 检验 是否上架 app Store
     if(!version.results.length){
       console.log('此appID为未上架的APP 或者 查询不到');
+      return;
     }
     // 检验 app Store 是否有新版本
     if(checkVersionIOS(version.results[0].version)){

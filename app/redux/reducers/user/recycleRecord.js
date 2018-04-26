@@ -8,7 +8,7 @@ import {FETCH_RecycleRecord_Request, FETCH_RecycleRecord_Success, FETCH_RecycleR
 function data(state=[], actions){
   switch(actions.type){
     case FETCH_RecycleRecord_Success:
-      return actions.data
+      return actions.data;
     default:
       return state;
   }

@@ -6,11 +6,13 @@ import { StyleSheet, View, Text, Image, Alert, ScrollView } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
+import {connect} from 'react-redux';
 
 
 import { verifyLogin } from '../HOC/verifyLogin';
 import request from '../util/request/request';
 import config from '../util/request/config';
+import {fetchRecycleRecordThunk} from '../redux/actions/user/recycleRecord';
 
 import Header from '../components/Header/Header';
 import GradeEvaluation from '../components/Form/Module/GradeEvaluation/GradeEvaluation';
@@ -90,7 +92,6 @@ class RecycleEvaluation extends Component {
     recordItem: PropTypes.shape({
       id: PropTypes.number.isRequired // 订单号
     }),
-    updateOrderList: PropTypes.func.isRequired // 更新回收记录列表
   };
 
   constructor(props){
@@ -120,14 +121,14 @@ class RecycleEvaluation extends Component {
           <GradeEvaluation label='服务态度' onChangeScore={score => this.setState({rateService: score})}/>
         </View>
         {/* 备注 */}
-        <Remark style={styles.remark} inputStyle={styles.remarkInput} title='如有特殊说明，请备注 (50字以内)' value={this.state.reviews} onChangeText={reviews => {this.changeReivews(reviews)}}/>
+        <Remark style={styles.remark} inputStyle={styles.remarkInput} title='如有特殊说明，请备注 (50字以内)' value={this.state.reviews} onChangeText={reviews => {this.changeReviews(reviews)}}/>
         {/* 提交按钮 */}
         <SubmitBtn style={styles.submitBtn} text='完成评价' submit={() => this.submit()}/>
       </ScrollView>
     </View>)
   }
 
-  changeReivews(reviews){
+  changeReviews(reviews){
     if(reviews.length <= 50){
       this.setState({reviews});
     }
@@ -137,14 +138,13 @@ class RecycleEvaluation extends Component {
     if(!this.state.rateSpeed){ Alert.alert('请为上门时间打分'); return; }
     if(!this.state.rateService){ Alert.alert('请为服务态度打分'); return; }
     if(!this.state.rateConvenience){ Alert.alert('请为回收便捷度打分'); return; }
-    console.log(this.state);
     const res = await request.post(`${config.api.rateOrder}/${this.props.recordItem.id}`,this.state,{'X-AUTH-TOKEN': this.props.identityToken.authToken});
     if(res){
       if(!res.status){
         Alert.alert('评价成功','感谢您的评价，虎哥会更加努力为您带来更好的服务',[
           {text: '返回', onPress: () => {
               // 刷新回收记录列表(上一页)
-              this.props.updateOrderList();
+              this.props.fetchRecycleRecordThunk();
               // 返回上一页
               Actions.pop();
             }}
@@ -157,4 +157,4 @@ class RecycleEvaluation extends Component {
   }
 }
 
-export default verifyLogin(RecycleEvaluation);
+export default verifyLogin(connect(null,{fetchRecycleRecordThunk})(RecycleEvaluation));

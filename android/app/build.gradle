@@ -109,16 +109,8 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file("../hugehuge.jks")//keystore的路径
-            storePassword "hugehuge123"
-            keyAlias "hugehuge"
-            keyPassword "hugehuge123"
         }
         debug {
-            storeFile file("../hugehuge.jks")//keystore的路径
-            storePassword "hugehuge123"
-            keyAlias "hugehuge"
-            keyPassword "hugehuge123"
         }
     }
     buildTypes {
