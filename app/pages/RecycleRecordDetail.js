@@ -136,7 +136,7 @@ class RecycleRecordDetail extends PureComponent{
         </Section>
         {/* 回收人员信息 */}
         <Section title='回收人员信息'>
-          <PersonnelInformation style={styles.personnelInformation} imgStyle={styles.personalImage} name={this.props.recordItem.data.recyclerName} phone={this.props.recordItem.data.recyclerPhone} rightModule={
+          <PersonnelInformation style={styles.personnelInformation} imgStyle={styles.personalImage} hugeImg={true} imgURL={{uri: this.props.recordItem.data.recyclerHeadPic}} name={this.props.recordItem.data.recyclerName} phone={this.props.recordItem.data.recyclerPhone} rightModule={
             recordBtn
           } />
           {/* 评价详情 */}

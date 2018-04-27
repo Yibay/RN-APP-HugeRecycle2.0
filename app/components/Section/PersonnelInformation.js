@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 class PersonnelInformation extends PureComponent{
 
   static propTypes = {
+    hugeImg: PropTypes.bool,
     imgURL: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.object
@@ -18,12 +19,22 @@ class PersonnelInformation extends PureComponent{
   };
 
   static defaultProps = {
-    imgURL: require('../../assets/img/personalImage2x.png'),
+    hugeImg: false, // 是否是虎哥的头像
   };
 
   render(){
+
+    let imgURL = this.props.imgURL;
+
+    if(!imgURL){
+      this.props.hugeImg ? (imgURL= require('../../assets/img/hugeHeadDefault.png')) : (imgURL = require('../../assets/img/personalImage2x.png'));
+    }
+    else if(typeof imgURL === 'object' && !imgURL.uri){
+      this.props.hugeImg ? (imgURL= require('../../assets/img/hugeHeadDefault.png')) : (imgURL = require('../../assets/img/personalImage2x.png'));
+    }
+
     return <View style={[styles.basicFacts].concat(this.props.style)}>
-      <Image style={[styles.personalImage].concat(this.props.imgStyle)} source={this.props.imgURL} resizeMode='contain' />
+      <Image style={[styles.personalImage].concat(this.props.imgStyle)} source={imgURL} resizeMode='contain' />
       <View style={styles.message}>
         <Text style={styles.name}>{this.props.name}</Text>
         <Text style={styles.phone}>{this.props.phone}</Text>

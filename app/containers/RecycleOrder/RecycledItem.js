@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 
 import config from '../../util/request/config';
@@ -16,7 +17,7 @@ const RecycledItem = props => (<View style={[styles.container].concat(props.styl
     <TextAdaption style={styles.specNum}>
       {
         props.specs.price ?
-          '¥' + props.specs.price + ' *' + props.specs.number
+          '¥' + _.round(props.specs.price,2) + ' *' + props.specs.number
           :
           '*' + props.specs.number
       }
@@ -24,7 +25,7 @@ const RecycledItem = props => (<View style={[styles.container].concat(props.styl
     <TextAdaption style={styles.specTotalPrice}>
       {
         props.specs.price ?
-          `¥${props.specs.price * props.specs.number}` + (props.specs.unit ? `/${props.specs.unit}` : '') + ' '
+          `¥${_.round(props.specs.price * props.specs.number,2)}` + (props.specs.unit ? `/${props.specs.unit}` : '') + ' '
           :
           '免费代为处理'
       }

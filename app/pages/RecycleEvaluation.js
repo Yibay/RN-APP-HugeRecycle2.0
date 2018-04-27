@@ -50,8 +50,6 @@ const styles = StyleSheet.create({
     width: 176,
     height: 176,
     marginTop: 26,
-    borderRadius: 88,
-    backgroundColor: '#ccc'
   },
   hugeName: {
     alignSelf: 'center',
