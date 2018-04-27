@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, Animated, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, View, Text, Image, Animated, TouchableOpacity, Alert, ViewPropTypes } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -33,6 +33,7 @@ class ProductItem extends Component {
     editable: PropTypes.bool.isRequired,
     deletable: PropTypes.bool,
     deleteFormCart: PropTypes.func.isRequired, // 删除 购物车中商品 Actions
+    imgStyle: ViewPropTypes.style,
   };
 
   static defaultProps = {
@@ -151,8 +152,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: 60,
     height: 60,
-    marginLeft: 20,
-    marginRight: 40,
+    marginHorizontal: 8,
     borderColor: '#000'
   },
   // 单种商品

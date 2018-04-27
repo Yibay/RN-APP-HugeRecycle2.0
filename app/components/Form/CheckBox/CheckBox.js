@@ -34,7 +34,7 @@ class CheckBox extends Component {
     return <TouchableWithoutFeedback onPress={() => this._onValueChange()}>
       <View style={[styles.container].concat(this.props.style)}>
         {
-          this.state.value ? <Icon name='checkbox-marked' size={30} /> : <Icon name='checkbox-blank-outline' size={30} />
+          this.state.value ? <Icon name='checkbox-marked' size={50} /> : <Icon name='checkbox-blank-outline' size={50} />
         }
       </View>
     </TouchableWithoutFeedback>;
