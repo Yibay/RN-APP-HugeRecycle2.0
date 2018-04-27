@@ -19,9 +19,7 @@ class DisableBtn extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    minWidth: 139,
     height: 57,
-    paddingHorizontal: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },

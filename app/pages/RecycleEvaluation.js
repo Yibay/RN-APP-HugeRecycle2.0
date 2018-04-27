@@ -2,7 +2,7 @@
  * 回收评价（评价虎哥）
  */
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, Alert, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, Image, Alert, ScrollView, KeyboardAvoidingView, Keyboard } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
@@ -147,26 +147,30 @@ class RecycleEvaluation extends Component {
   }
 
   render(){
-    return (<View style={styles.container}>
+    return (
+      <View style={styles.container}>
       <Header title='评价虎哥'/>
       <ScrollView style={styles.content}>
-        {/* 回收订单信息 */}
-        <RecycleRecordItem style={styles.recycleRecordItem} firstSectionStyle={styles.firstSectionStyle} secondSectionStyle={styles.secondSectionStyle} recordItem={this.props.recordItem.dataSource} evaluable={false}/>
-        {/* 虎哥信息 */}
-        <Image style={styles.hugePhoto} source={{uri: this.props.recordItem.data.recyclerHeadPic}} resizeMode='contain'/>
-        <Text style={styles.hugeName}>{`虎哥：${this.props.recordItem.data.recyclerName}`}</Text>
-        {/* 评价 */}
-        <View style={styles.grade}>
-          <GradeTitle titleArray={['不满意','一般','满意']}/>
-          <GradeEvaluation style={styles.rateSpeed} label='上门时间' onChangeScore={score => this.setState({rateSpeed: score})}/>
-          <GradeEvaluation label='服务态度' onChangeScore={score => this.setState({rateService: score})}/>
-        </View>
-        {/* 备注 */}
-        <Remark style={styles.remark} inputStyle={styles.remarkInput} title='如有特殊说明，请备注 (50字以内)' value={this.state.reviews} onChangeText={reviews => {this.changeReviews(reviews)}}/>
-        {/* 提交按钮 */}
-        <SubmitBtn style={styles.submitBtn} text='完成评价' submit={() => this.submit()}/>
+        <KeyboardAvoidingView style={styles.content} behavior='padding' onStartShouldSetResponder={(evt) => true} onResponderRelease={() => Keyboard.dismiss()}>
+          {/* 回收订单信息 */}
+          <RecycleRecordItem style={styles.recycleRecordItem} firstSectionStyle={styles.firstSectionStyle} secondSectionStyle={styles.secondSectionStyle} recordItem={this.props.recordItem.dataSource} evaluable={false}/>
+          {/* 虎哥信息 */}
+          <Image style={styles.hugePhoto} source={{uri: this.props.recordItem.data.recyclerHeadPic}} resizeMode='contain'/>
+          <Text style={styles.hugeName}>{`虎哥：${this.props.recordItem.data.recyclerName}`}</Text>
+          {/* 评价 */}
+          <View style={styles.grade}>
+            <GradeTitle titleArray={['不满意','一般','满意']}/>
+            <GradeEvaluation style={styles.rateSpeed} label='上门时间' onChangeScore={score => this.setState({rateSpeed: score})}/>
+            <GradeEvaluation label='服务态度' onChangeScore={score => this.setState({rateService: score})}/>
+          </View>
+          {/* 备注 */}
+          <Remark style={styles.remark} inputStyle={styles.remarkInput} title='如有特殊说明，请备注 (50字以内)' value={this.state.reviews} onChangeText={reviews => {this.changeReviews(reviews)}}/>
+          {/* 提交按钮 */}
+          <SubmitBtn style={styles.submitBtn} text='完成评价' submit={() => this.submit()}/>
+        </KeyboardAvoidingView>
       </ScrollView>
-    </View>)
+    </View>
+  )
   }
 
   componentDidMount(){

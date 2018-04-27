@@ -46,10 +46,11 @@ class RecycleRecordItem extends PureComponent{
       id: PropTypes.number.isRequired,
       orderStatusId: PropTypes.number.isRequired,
       tServiceOrder: PropTypes.shape({
-        orderScore: PropTypes.number.isRequired
+        orderItems: PropTypes.array.isRequired,
+        orderScore: PropTypes.number.isRequired,
       }),
       createOrderTime: PropTypes.string.isRequired,
-      recycleCategoryDesc: PropTypes.string.isRequired
+      recycleCategoryDesc: PropTypes.string.isRequired,
     }),
     authToken: PropTypes.string.isRequired,
     updateOrderList: PropTypes.func.isRequired,
@@ -90,14 +91,17 @@ class RecycleRecordItem extends PureComponent{
         // gradeStatus 5 未回访
         if(this.props.recordItem.gradeStatus === 5 ){
           this.props.evaluable ?
-            recordBtn = <View style={styles.flexRow}><RecordBtn text='评价' onPress={() => Actions.recycleEvaluationPage({recordItem: this.props.recordItem})} /><RecordBtn style={styles.btnMargin} text='查看详情' onPress={() => Actions.recycleRecordDetailPage({orderId:this.props.recordItem.id})} /></View>
+            recordBtn = <View style={styles.flexRow}><RecordBtn text='评价' onPress={() => Actions.recycleEvaluationPage({orderId: this.props.recordItem.id})} /><RecordBtn style={styles.btnMargin} text='查看详情' onPress={() => Actions.recycleRecordDetailPage({orderId:this.props.recordItem.id})} /></View>
             :
             // 若不可评价，则显示已完成
             recordBtn = <DisableBtn text='已完成'/>;
         }
         else {
           // gradeStatus 其他状态，已回访
-          recordBtn = <DisableBtn text='已评价' />;
+          this.props.evaluable ?
+            recordBtn = <RecordBtn style={styles.btnMargin} text='查看详情' onPress={() => Actions.recycleRecordDetailPage({orderId:this.props.recordItem.id})} />
+            :
+            recordBtn = <DisableBtn text='已评价' />;
         }
 
         // 评价页，此模块不可评价，显示内容有所差异
@@ -112,9 +116,9 @@ class RecycleRecordItem extends PureComponent{
       case 8: // 打回
       case 9: // 退回
         this.props.evaluable ?
-          recordBtn = <View style={styles.flexRow}><DisableBtn text='已取消' /><RecordBtn style={styles.btnMargin} text='查看详情' onPress={() => Actions.recycleRecordDetailPage({orderId:this.props.recordItem.id})} /></View>
+          recordBtn = <DisableBtn text='已取消' />
           :
-          recordBtn = <DisableBtn text='已取消' />;
+          recordBtn = <View />;
         statusDesc = <Text/>;
         break;
       default:

@@ -63,14 +63,26 @@ class RecycleRecordDetail extends PureComponent{
             status: PropTypes.string,
             time: PropTypes.number,
           })
-        )
+        ),
+        orderGrade: PropTypes.arrayOf(
+          PropTypes.shape({
+            title: PropTypes.string,
+            evaluate: PropTypes.string,
+          })
+        ),
       }),
     }),
   };
 
+  constructor(props){
+    super(props);
+
+    this.state = {
+      showOrderGrade: false,
+    };
+  }
+
   render(){
-    console.log(this.props.orderId);
-    console.log(this.props.recordItem.data);
 
     let recordBtn;
     let statusDesc;
@@ -94,7 +106,7 @@ class RecycleRecordDetail extends PureComponent{
           recordBtn = <RecordBtn text='评价' onPress={() => {Actions.recycleEvaluationPage({orderId: this.props.orderId})}} />;
         }
         else{
-          recordBtn = <View/>;
+          recordBtn = <RecordBtn text='查看评价' onPress={() => {this.setState({showOrderGrade: true})}} />;
         }
         break;
       case 3: // 撤单
@@ -111,6 +123,7 @@ class RecycleRecordDetail extends PureComponent{
     let phoneScore = this.props.recordItem.data.phoneScore;
     let orderScore = this.props.recordItem.data.orderScore;
     let payAmount = this.props.recordItem.data.payAmount;
+    console.log(this.props.recordItem.data);
 
     return <View style={styles.container}>
       <Header title='回收单详情'/>
@@ -126,6 +139,15 @@ class RecycleRecordDetail extends PureComponent{
           <PersonnelInformation style={styles.personnelInformation} imgStyle={styles.personalImage} name={this.props.recordItem.data.recyclerName} phone={this.props.recordItem.data.recyclerPhone} rightModule={
             recordBtn
           } />
+          {/* 评价详情 */}
+          <View style={this.state.showOrderGrade ? styles.orderGrade : styles.hidden}>
+            {
+              this.props.recordItem.data.orderGrade ?
+                this.props.recordItem.data.orderGrade.map((item, index) => <View key={index} style={styles.orderGradeItem}><TextAdaption style={styles.orderGradeText}>{item.title}: {item.evaluate}</TextAdaption></View>)
+                :
+                null
+            }
+          </View>
         </Section>
         {
           this.props.recordItem.data.orderItems && this.props.recordItem.data.orderItems.length ?
@@ -139,7 +161,6 @@ class RecycleRecordDetail extends PureComponent{
               <TextAdaption style={styles.sectionText}>{this.props.recordItem.data.recycleCategoryDesc}</TextAdaption>
             </Section>
         }
-
         {/* 环保金消息 */}
         <Section title='环保金消息'>
           <TextAdaption style={styles.sectionText}>
@@ -218,6 +239,26 @@ const styles = StyleSheet.create({
   },
   personalImage: {
     marginLeft: 0,
+  },
+  // 评价详情
+  orderGrade: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  orderGradeItem:{
+    padding: 10,
+    marginRight: 10,
+    marginTop: 10,
+    backgroundColor: '#eee',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  orderGradeText: {
+    fontSize: 28,
+  },
+  // 隐藏
+  hidden: {
+    display: 'none',
   },
   // 实际回收物品
   recycledItemsList: {

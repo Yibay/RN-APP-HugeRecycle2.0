@@ -15,10 +15,21 @@ function data(state={}, actions){
   }
 }
 
-function dataSource(state={}, actions){
+let dataSourceInit = {
+  id: 0,
+  orderStatusId: 0,
+  tServiceOrder: {
+    orderItems: [],
+    orderScore: 0,
+  },
+  createOrderTime: '',
+  recycleCategoryDesc: '',
+};
+
+function dataSource(state=dataSourceInit, actions){
   switch (actions.type){
     case FETCH_RecycleOrderDetail_Request:
-      return {};
+      return dataSourceInit;
     case FETCH_RecycleOrderDetail_Success:
       return actions.dataSource;
     default:

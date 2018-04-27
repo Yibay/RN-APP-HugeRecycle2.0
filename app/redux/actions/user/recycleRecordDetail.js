@@ -51,6 +51,11 @@ export function fetchRecycleOrderDetail(orderId){
             res.data.tServiceOrder.cancelledTs ? {status:'取消时间', time: res.data.tServiceOrder.cancelledTs} : null,
             // res.data.tServiceOrder.remarkedTs ? {status:'评论时间', time: res.data.tServiceOrder.remarkedTs} : null,
           ].filter(item => item),
+          orderGrade: [
+            res.data.orderGradeView.rateSpeed ? {title: '上门时间', rate: res.data.orderGradeView.rateSpeed, evaluate: rateText(res.data.orderGradeView.rateSpeed)} : null,
+            res.data.orderGradeView.rateService ? {title: '服务态度', rate: res.data.orderGradeView.rateService, evaluate: rateText(res.data.orderGradeView.rateService)} : null,
+            res.data.orderGradeView.reviews ? {title: '评语', evaluate: res.data.orderGradeView.reviews} : null,
+          ].filter(item => item),
         },
         dataSource: res.data,
       });
@@ -59,4 +64,17 @@ export function fetchRecycleOrderDetail(orderId){
       dispatch({type: FETCH_RecycleOrderDetail_Request});
     }
   };
+}
+
+function rateText(rate){
+  switch (rate){
+    case 3:
+      return '满意';
+    case 2:
+      return '一般';
+    case 1:
+      return '不满意';
+    default:
+      return '满意';
+  }
 }
