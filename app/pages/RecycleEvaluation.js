@@ -2,7 +2,7 @@
  * 回收评价（评价虎哥）
  */
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, Alert, ScrollView, KeyboardAvoidingView, Keyboard } from 'react-native';
+import { StyleSheet, View, Text, Image, Alert, ScrollView, Keyboard } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
@@ -21,6 +21,7 @@ import RecycleRecordItem from '../containers/RecycleRecord/RecycleRecordItem';
 import SubmitBtn from '../components/Form/Btn/SubmitBtn';
 import GradeTitle from "../components/Form/Module/GradeEvaluation/GradeTitle";
 import Remark from "../components/Form/Input/Remark";
+import KeyboardAvoidingViewAdapt from '../components/KeyboardAvoidingViewAdapt';
 
 
 const styles = StyleSheet.create({
@@ -148,8 +149,8 @@ class RecycleEvaluation extends Component {
     return (
       <View style={styles.container}>
       <Header title='评价虎哥'/>
-      <ScrollView style={styles.content}>
-        <KeyboardAvoidingView style={styles.content} behavior='padding' onStartShouldSetResponder={(evt) => true} onResponderRelease={() => Keyboard.dismiss()}>
+      <KeyboardAvoidingViewAdapt style={styles.content} behavior='padding' onStartShouldSetResponder={(evt) => true} onResponderRelease={() => Keyboard.dismiss()}>
+        <ScrollView style={styles.content}>
           {/* 回收订单信息 */}
           <RecycleRecordItem style={styles.recycleRecordItem} firstSectionStyle={styles.firstSectionStyle} secondSectionStyle={styles.secondSectionStyle} recordItem={this.props.recordItem.dataSource} evaluable={false}/>
           {/* 虎哥信息 */}
@@ -165,8 +166,8 @@ class RecycleEvaluation extends Component {
           <Remark style={styles.remark} inputStyle={styles.remarkInput} title='如有特殊说明，请备注 (50字以内)' value={this.state.reviews} onChangeText={reviews => {this.changeReviews(reviews)}}/>
           {/* 提交按钮 */}
           <SubmitBtn style={styles.submitBtn} text='完成评价' submit={() => this.submit()}/>
-        </KeyboardAvoidingView>
-      </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingViewAdapt>
     </View>
   )
   }

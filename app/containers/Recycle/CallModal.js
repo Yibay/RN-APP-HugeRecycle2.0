@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Modal, TouchableOpacity, Platform, Alert, KeyboardAvoidingView, Keyboard } from 'react-native';
+import { StyleSheet, View, Text, Modal, TouchableOpacity, Platform, Alert, Keyboard } from 'react-native';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -16,6 +16,7 @@ import HouseNumberAddressSection from '../../components/Form/Module/HouseNumberA
 import InputSection from '../../components/Form/Input/InputSection';
 import CountDownBtn from '../../components/Form/Btn/CountDownBtn';
 import Loading from "../../components/Alert/Loading";
+import KeyboardAvoidingViewAdapt from '../../components/KeyboardAvoidingViewAdapt';
 
 
 class CallModal extends Component{
@@ -67,7 +68,7 @@ class CallModal extends Component{
     return (<Modal transparent={true} visible={this.props.visible} onRequestClose={() => this.onRequestClose()}>
       <AdaptLayoutWidth>
         {/* 关闭软键盘，触发input失焦 */}
-        <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={-150} onStartShouldSetResponder={evt => true} onResponderRelease={evt => this.dismissKeyboard()} style={styles.container}>
+        <KeyboardAvoidingViewAdapt style={styles.container} behavior='padding' onStartShouldSetResponder={evt => true} onResponderRelease={evt => Keyboard.dismiss()}>
           <View style={styles.msgBox}>
             <Text style={styles.title}>确认您的联系方式，呼叫虎哥</Text>
             <InputSection style={styles.lineSection} value={this.state.accountName} onChangeText={val => this.setState({accountName: val.trim()})} label='联系人' placeholder='请输入联系人姓名'/>
@@ -92,7 +93,7 @@ class CallModal extends Component{
               </TouchableOpacity>
             </View>
           </View>
-        </KeyboardAvoidingView>
+        </KeyboardAvoidingViewAdapt>
         <Loading show={this.props.verificationCode.isFetching}/>
       </AdaptLayoutWidth>
     </Modal>);
@@ -104,10 +105,6 @@ class CallModal extends Component{
       Alert.alert(this.props.verificationCode.data);
       this.props.clearData();
     }
-  }
-
-  dismissKeyboard(){
-    Keyboard.dismiss();
   }
 
   // 取消呼叫
