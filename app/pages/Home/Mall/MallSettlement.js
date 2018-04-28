@@ -19,6 +19,7 @@ import OrderAddressSection from '../../../containers/RecycleOrder/AddressSection
 import ProductList from "../../../containers/MallCart/ProductList";
 import Remark from "../../../components/Form/Input/Remark";
 import SubmitBtn from "../../../components/Form/Btn/SubmitBtn";
+import KeyboardAvoidingViewAdapt from '../../../components/KeyboardAvoidingViewAdapt';
 
 
 class MallSettlement extends Component {
@@ -59,28 +60,30 @@ class MallSettlement extends Component {
       <Notice/>
       {/* 地址模块 */}
       <OrderAddressSection/>
-      {/* 商品列表 */}
-      <ProductList
-        style={styles.productList}
-        validProductList={this.props.settlementData.data.validProductList}
-        invalidProductList={this.props.settlementData.data.invalidProductList}
-        validProductEditable={false}
-        payMsg={this.props.settlementData.data.payMsg}
-        ListFooterComponent={<View style={styles.listFooterComponent}>
-          {/* 备注模块 */}
-          <Remark value={this.state.remark} onChangeText={val => this.setState({remark: val})}/>
-          {/* 支付信息 */}
-          <View style={styles.payMsg}>
-            <Text style={styles.payMsgText1}>环保金抵扣¥{this.props.settlementData.data.payMsg.needPayScore}，还需支付¥{this.props.settlementData.data.payMsg.needPayTotalPrice}</Text>
-            <Text style={styles.payMsgText2}>剩余金额请在收货时直接付给送货员</Text>
-          </View>
-          {/* 下单按钮 */}
-          <SubmitBtn
-            style={this.props.settlementData.data.payMsg.canSale ? undefined : styles.cannotSale}
-            text={this.props.settlementData.data.payMsg.canSale ? '立即下单' : this.props.settlementData.data.payMsg.message}
-            submit={() => this.submit()}/>
-        </View>}
-      />
+      <KeyboardAvoidingViewAdapt style={styles.content} behavior='padding'>
+        {/* 商品列表 */}
+        <ProductList
+          style={styles.productList}
+          validProductList={this.props.settlementData.data.validProductList}
+          invalidProductList={this.props.settlementData.data.invalidProductList}
+          validProductEditable={false}
+          payMsg={this.props.settlementData.data.payMsg}
+          ListFooterComponent={<View style={styles.listFooterComponent}>
+            {/* 备注模块 */}
+            <Remark value={this.state.remark} onChangeText={val => this.setState({remark: val})}/>
+            {/* 支付信息 */}
+            <View style={styles.payMsg}>
+              <Text style={styles.payMsgText1}>环保金抵扣¥{this.props.settlementData.data.payMsg.needPayScore}，还需支付¥{this.props.settlementData.data.payMsg.needPayTotalPrice}</Text>
+              <Text style={styles.payMsgText2}>剩余金额请在收货时直接付给送货员</Text>
+            </View>
+            {/* 下单按钮 */}
+            <SubmitBtn
+              style={this.props.settlementData.data.payMsg.canSale ? undefined : styles.cannotSale}
+              text={this.props.settlementData.data.payMsg.canSale ? '立即下单' : this.props.settlementData.data.payMsg.message}
+              submit={() => this.submit()}/>
+          </View>}
+        />
+      </KeyboardAvoidingViewAdapt>
     </View>
   }
 
@@ -127,6 +130,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f7f7f7'
+  },
+  content: {
+    flex: 1,
   },
   // 商品列表
   productList: {

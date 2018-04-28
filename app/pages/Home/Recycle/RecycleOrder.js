@@ -17,6 +17,7 @@ import OrderAddressSection from '../../../containers/RecycleOrder/AddressSection
 import RecycledItemsList from '../../../containers/RecycleOrder/RecycledItemsList';
 import SubmitBtn from '../../../components/Form/Btn/SubmitBtn';
 import Remark from "../../../components/Form/Input/Remark";
+import KeyboardAvoidingViewAdapt from '../../../components/KeyboardAvoidingViewAdapt';
 
 
 class RecycleOrder extends Component{
@@ -46,36 +47,38 @@ class RecycleOrder extends Component{
       <Header title='待回收物品'/>
       {/* 地址模块 */}
       <OrderAddressSection />
-      <ScrollView style={styles.content}>
-        {/* 回收物模块 */}
-        <RecycledItemsList />
-        {/* 拆卸空调模块 */}
-        {
-          hasAirConditioner ?
-            <View style={styles.AerialWorkSection}>
-              <Text style={styles.AerialWorkMsg}>是否需要拆卸空调<Text style={styles.AerialWorkPrice}>（拆卸费 50元）</Text></Text>
-              <Switch containerStyle={styles.AerialWorkSwitch}
-                  value={this.state.isAerialWork}
-                  onValueChange={val => this.setState({isAerialWork: val})}
-                  activeText='是' inActiveText='否'
-                  backgroundActive='#fed309'
-                  circleSize={40}
-                  activeTextStyle={[styles.AerialWorkSwitchText, styles.activeTextStyle]}
-                  inactiveTextStyle={styles.AerialWorkSwitchText}/>
-            </View>
-            :
-            undefined
-        }
-        {/* 备注模块 */}
-        <Remark title='如有特殊需求，请备注' value={this.state.remarks} onChangeText={val => this.setState({remarks: val})}/>
-        {/* 服务时间 */}
-        <View style={styles.serviceTimeSection}>
-          <Icon name='ios-time-outline' size={40} color='#828282' />
-          <Text style={styles.serviceTime}>服务时间：08:00 - 17:00</Text>
-        </View>
-        {/* 呼叫按钮 */}
-        <SubmitBtn text={this.props.createOrderFetching ? '呼叫中' : '确认呼叫'} submit={() => this.createOrder()} style={styles.submitBtn} disable={this.props.createOrderFetching} />
-      </ScrollView>
+      <KeyboardAvoidingViewAdapt behavior='padding' style={styles.content}>
+        <ScrollView style={styles.content}>
+          {/* 回收物模块 */}
+          <RecycledItemsList />
+          {/* 拆卸空调模块 */}
+          {
+            hasAirConditioner ?
+              <View style={styles.AerialWorkSection}>
+                <Text style={styles.AerialWorkMsg}>是否需要拆卸空调<Text style={styles.AerialWorkPrice}>（拆卸费 50元）</Text></Text>
+                <Switch containerStyle={styles.AerialWorkSwitch}
+                    value={this.state.isAerialWork}
+                    onValueChange={val => this.setState({isAerialWork: val})}
+                    activeText='是' inActiveText='否'
+                    backgroundActive='#fed309'
+                    circleSize={40}
+                    activeTextStyle={[styles.AerialWorkSwitchText, styles.activeTextStyle]}
+                    inactiveTextStyle={styles.AerialWorkSwitchText}/>
+              </View>
+              :
+              undefined
+          }
+          {/* 备注模块 */}
+          <Remark title='如有特殊需求，请备注' value={this.state.remarks} onChangeText={val => this.setState({remarks: val})}/>
+          {/* 服务时间 */}
+          <View style={styles.serviceTimeSection}>
+            <Icon name='ios-time-outline' size={40} color='#828282' />
+            <Text style={styles.serviceTime}>服务时间：08:00 - 17:00</Text>
+          </View>
+          {/* 呼叫按钮 */}
+          <SubmitBtn text={this.props.createOrderFetching ? '呼叫中' : '确认呼叫'} submit={() => this.createOrder()} style={styles.submitBtn} disable={this.props.createOrderFetching} />
+        </ScrollView>
+      </KeyboardAvoidingViewAdapt>
     </View>);
   }
 
