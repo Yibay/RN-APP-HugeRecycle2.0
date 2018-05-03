@@ -50,18 +50,21 @@ class CallModal extends Component{
   }
 
   componentWillReceiveProps(nextProps){
-    this.setState(
-      _.assign(
-        {},
-        nextProps.currentLocation.customerName ? {accountName: nextProps.currentLocation.customerName} : {accountName: ''},
-        nextProps.currentLocation.telNo ? {phone: nextProps.currentLocation.telNo} : {phone: ''},
-        typeof nextProps.currentLocation.haveHouseNumber !== 'undefined' ? {haveHouseNumber: nextProps.currentLocation.haveHouseNumber} : {haveHouseNumber: true},
-        nextProps.currentLocation.address ? {address: nextProps.currentLocation.address} : {address: ''},
-        nextProps.currentLocation.building ? {building: nextProps.currentLocation.building} : {building: ''},
-        nextProps.currentLocation.unit ? {unit: nextProps.currentLocation.unit} : {unit:''},
-        nextProps.currentLocation.room ? {room: nextProps.currentLocation.room} : {room:''},
-      )
-    );
+    // 更新过地址
+    if(nextProps.currentLocation.communityId !== this.props.currentLocation.communityId){
+      this.setState(
+        _.assign(
+          {},
+          nextProps.currentLocation.customerName ? {accountName: nextProps.currentLocation.customerName} : {accountName: ''},
+          nextProps.currentLocation.telNo ? {phone: nextProps.currentLocation.telNo} : {phone: ''},
+          typeof nextProps.currentLocation.haveHouseNumber !== 'undefined' ? {haveHouseNumber: nextProps.currentLocation.haveHouseNumber} : {haveHouseNumber: true},
+          nextProps.currentLocation.address ? {address: nextProps.currentLocation.address} : {address: ''},
+          nextProps.currentLocation.building ? {building: nextProps.currentLocation.building} : {building: ''},
+          nextProps.currentLocation.unit ? {unit: nextProps.currentLocation.unit} : {unit:''},
+          nextProps.currentLocation.room ? {room: nextProps.currentLocation.room} : {room:''},
+        )
+      );
+    }
   }
 
   render(){

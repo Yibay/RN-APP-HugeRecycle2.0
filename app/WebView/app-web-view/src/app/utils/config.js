@@ -1,10 +1,10 @@
 
 // 线上
-// const api_base_recycle = '';
+const api_base_recycle = '';
 // const api_base_recycle = 'http://hugehuge.cn';
 
 // 测试
-const api_base_recycle = 'http://test.hugehuge.cn';
+// const api_base_recycle = 'http://test.hugehuge.cn';
 
 // 本机调试
 // const api_base_recycle = 'http://192.168.11.124:8080';
