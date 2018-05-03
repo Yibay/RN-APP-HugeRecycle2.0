@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import ProductItem from '../../containers/MallCart/ProductItem';
 import RecordBtn from "../../components/Form/Btn/RecordBtn";
 import {continueMallOrder} from "../../redux/actions/mall/settlement";
+import {deleteMallOrder} from '../../redux/actions/mall/mallOrder/deleteMallOrder';
 
 
 class MallOrderItem extends PureComponent{
@@ -49,7 +50,7 @@ class MallOrderItem extends PureComponent{
     switch(this.props.orderStatus){
       case 1: // 未支付
         orderStatusText = '待付款';
-        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' onPress={() => {Actions.mallOrderDetailPage({orderCode: this.props.orderCode});}}/><RecordBtn style={styles.btnSpacing} text='去付款' onPress={() => {this.props.continueMallOrder(this.props.orderId)}}/></View>;
+        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' onPress={() => {Actions.mallOrderDetailPage({orderCode: this.props.orderCode});}}/><RecordBtn style={styles.btnSpacing} text='去付款' onPress={() => {this.props.continueMallOrder(this.props.orderId)}}/><RecordBtn style={styles.btnSpacing} text='取消订单' onPress={() => {this.deleteMallOrder(this.props.orderId)}}/></View>;
         break;
       case 2: // 已支付
       case 3: // 已分配
@@ -126,6 +127,16 @@ class MallOrderItem extends PureComponent{
     }
     else{
       Alert.alert('无商家电话');
+    }
+  }
+
+  // 取消订单
+  async deleteMallOrder(orderId){
+    const res = await this.props.deleteMallOrder(orderId);
+    if(Actions.currentScene === 'mallOrderRecordPage' && res){
+      if(res.message){
+        Alert.alert(res.message);
+      }
     }
   }
 }
@@ -208,4 +219,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null,{continueMallOrder})(MallOrderItem);
+export default connect(null,{continueMallOrder, deleteMallOrder})(MallOrderItem);

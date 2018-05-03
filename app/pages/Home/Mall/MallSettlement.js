@@ -74,7 +74,7 @@ class MallSettlement extends Component {
             {/* 支付信息 */}
             <View style={styles.payMsg}>
               <Text style={styles.payMsgText1}>环保金抵扣¥{this.props.settlementData.data.payMsg.needPayScore}，还需支付¥{this.props.settlementData.data.payMsg.needPayTotalPrice}</Text>
-              <Text style={styles.payMsgText2}>剩余金额请在收货时直接付给送货员</Text>
+              {/*<Text style={styles.payMsgText2}>剩余金额请在收货时直接付给送货员</Text>*/}
             </View>
             {/* 下单按钮 */}
             <SubmitBtn

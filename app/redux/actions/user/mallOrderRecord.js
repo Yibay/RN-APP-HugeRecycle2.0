@@ -6,6 +6,7 @@ export const FETCH_MallOrderRecord_Request = 'FETCH_MallOrderRecord_Request';
 export const FETCH_MallOrderRecord_Success = 'FETCH_MallOrderRecord_Success';
 export const FETCH_MallOrderRecord_Failure = 'FETCH_MallOrderRecord_Failure';
 
+// 更新 消费订单列表
 export function fetchMallOrderRecord() {
   return async (dispatch, getState) => {
     let state = getState();
@@ -19,7 +20,7 @@ export function fetchMallOrderRecord() {
     dispatch({type: FETCH_MallOrderRecord_Request});
     // 获取商城订单列表（1，未支付；2，已支付待配送；3，配送中；4，已完成）
     let res = await Promise.all([
-      // request.get(config.api.getMallOrderList, {orderType: 'unPayCount'}, {'X-AUTH-TOKEN': authToken}),
+      request.get(config.api.getMallOrderList, {orderType: 'unPayCount'}, {'X-AUTH-TOKEN': authToken}),
       request.get(config.api.getMallOrderList, {orderType: 'payedCount'}, {'X-AUTH-TOKEN': authToken}),
       request.get(config.api.getMallOrderList, {orderType: 'deliveringCount'}, {'X-AUTH-TOKEN': authToken}),
       request.get(config.api.getMallOrderList, {orderType: 'completedCount'}, {'X-AUTH-TOKEN': authToken})
@@ -33,3 +34,4 @@ export function fetchMallOrderRecord() {
     dispatch({type: FETCH_MallOrderRecord_Success, data: mallOrderList});
   }
 }
+

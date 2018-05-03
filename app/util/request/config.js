@@ -244,7 +244,12 @@ export default {
     //   orderId:
     checkOrder: `${api_base_mall}/online/mall/order/checkOrder`,
 
-    // 15, 获取商城订单列表 (GET)
+    // 15, 取消订单(未支付，可取消) (POST表单) 需要登录 header X-AUTH-TOKEN
+    // params
+    //   orderId: number
+    deleteMallOrder: `${api_base_mall}/online/mall/order/deleteOrder`,
+
+    // 16, 获取商城订单列表 (GET)
     // params
     //   orderType: oneOf([
     //     'unPayCount', //未支付
@@ -254,7 +259,7 @@ export default {
     //   ])
     getMallOrderList: `${api_base_mall}/online/mall/order/getOrderList`,
 
-    // 16, 获取商城订单详情 (POST)  需要登录 header X-AUTH-TOKEN
+    // 17, 获取商城订单详情 (POST)  需要登录 header X-AUTH-TOKEN
     // params
     //   orderCode
     getMallOrderDetail: `${api_base_mall}/online/mall/order/getOrderDetail`,

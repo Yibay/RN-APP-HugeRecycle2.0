@@ -10,6 +10,7 @@ import {verifyLogin} from "../HOC/verifyLogin";
 import {onEnter} from '../redux/actions/pagesLife/MallOrderRecordLife';
 
 import MallOrderItemsList from "../containers/MallOrderRecord/MallOrderItemsList";
+import Loading from "../components/Alert/Loading";
 
 
 class MallOrderRecord extends Component {
@@ -17,15 +18,19 @@ class MallOrderRecord extends Component {
   static propTypes = {
     mallOrderRecord: PropType.shape({
       data: PropType.array.isRequired,
-      isFetching: PropType.bool.isRequired
+      isFetching: PropType.bool.isRequired,
     }),
-    onEnter: PropType.func.isRequired
+    onEnter: PropType.func.isRequired,
+    deleteMallOrder: PropType.shape({
+      isFetching: PropType.bool.isRequired,
+    }),
   };
 
   render(){
     return <View style={styles.container}>
       <Header title='我的消费订单'/>
       <MallOrderItemsList mallOrderList={this.props.mallOrderRecord.data} isFetching={this.props.mallOrderRecord.isFetching} onRefresh={this.props.onEnter} />
+      <Loading show={this.props.deleteMallOrder.isFetching}/>
     </View>
   }
 
@@ -43,7 +48,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
-    mallOrderRecord: state.user.mallOrderRecord
+    mallOrderRecord: state.user.mallOrderRecord,
+    deleteMallOrder: state.mall.mallOrder.deleteMallOrder,
   }
 }
 
