@@ -111,7 +111,12 @@ export function continueMallOrder(orderId){
 
     // 可支付
     if(res && !res.status){
-      if(res.data.payType === 1){
+      // 环保金 充足
+      if(res.data.code === 1){
+        // 环保金支付
+        dispatch(scorePay(res.data.orderId));
+      }
+      else if(res.data.payType === 1){
         // 支付宝支付
         dispatch(aliPay(orderId));
       }
@@ -121,7 +126,7 @@ export function continueMallOrder(orderId){
       }
     }
     else{
-      console.log(res);
+      Alert.alert(res.message || '支付失败');
     }
   };
 }
