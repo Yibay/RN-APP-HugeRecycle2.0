@@ -14,6 +14,10 @@ export const createOrderValidator = recycleOrder => {
     Alert.alert('请选择小区');
     return false;
   }
+  if(recycleOrder.communityName === '其他'){
+    Alert.alert('小区名不能为其他');
+    return false;
+  }
   if(!validator.isBoolean(recycleOrder.isAerialWork)){
     Alert.alert(('请确认，是否需要拆卸空调'));
     return false;

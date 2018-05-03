@@ -21,7 +21,7 @@ export function fetchUserAddressList(){
       .catch(err => {console.log(err); return null;});
     // 用户地址列表 数据正确
     if(addressList && !addressList.status){
-      dispatch({type: FETCH_UserAddressList_Success, data: addressList.data.addresses.map(item => {item.key = item.id; return item;})});
+      dispatch({type: FETCH_UserAddressList_Success, data: addressList.data.addresses.filter(item => item.communityName !== '其他').map(item => {item.key = item.id; return item;})});
     }
     else {
       dispatch({type: FETCH_UserAddressList_Failure});

@@ -74,7 +74,7 @@ export function getDefaultAddressThunk(){
         .catch(err => {console.log(err); return null;}); // 若请求报错，则log对应信息
       // 默认地址 数据正确
       // 默认地址data 可能为null, 如：当删光用户地址列表时
-      if(defaultAddress && !defaultAddress.status && defaultAddress.data) {
+      if(defaultAddress && !defaultAddress.status && defaultAddress.data && defaultAddress.data.communityName !== '其他') {
         dispatch(setLocationThunk(defaultAddress.data));
       }
     }

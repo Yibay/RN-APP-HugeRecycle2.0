@@ -113,7 +113,7 @@ export default {
     // code -- 验证码(X-AUTH-TOKEN为空时必填)
     // orderSource -- 订单来源(必填) 4 android 5 ios
     // address -- 详细地址(必填)
-    // haveHouseNumber -- 有无户号(必填) ture,false
+    // haveHouseNumber -- 有无户号(必填) true,false
     // building
     // unit
     // room
