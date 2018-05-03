@@ -173,7 +173,7 @@ function mapStateToProps(state){
     recyclableGoods: state.recycle.recyclableGoods,
     currentLocation: state.location.currentLocation,
     recycledItemsList: state.recycle.recycledItemsList,
-    createOrderFetching: state.recycle.recycleOrder.isFetching
+    createOrderFetching: state.recycle.recycleOrder.createOrder.isFetching
   };
 }
 

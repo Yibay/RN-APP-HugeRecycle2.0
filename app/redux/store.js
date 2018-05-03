@@ -4,7 +4,7 @@ import { createLogger } from 'redux-logger';
 
 
 import location from './reducers/Location';
-import recycle from './reducers/Recycle';
+import recycle from './reducers/recycle';
 import identityToken from './reducers/IdentityToken';
 import mall from './reducers/mall';
 import user from './reducers/user';

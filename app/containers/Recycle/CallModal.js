@@ -281,7 +281,7 @@ function mapStateToProps(state){
     authToken: state.identityToken.authToken,
     recycledItemsList: state.recycle.recycledItemsList,
     recyclableGoods: state.recycle.recyclableGoods,
-    createOrderFetching: state.recycle.recycleOrder.isFetching,
+    createOrderFetching: state.recycle.recycleOrder.createOrder.isFetching,
     verificationCode: state.verificationCode.createRecycleOrder,
   }
 }

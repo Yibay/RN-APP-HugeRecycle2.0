@@ -6,7 +6,7 @@ export const FETCH_RecycleOrderDetail_Request = 'FETCH_RecycleOrderDetail_Reques
 export const FETCH_RecycleOrderDetail_Success = 'FETCH_RecycleOrderDetail_Success';
 export const FETCH_RecycleOrderDetail_Failure = 'FETCH_RecycleOrderDetail_Failure';
 
-
+// 请求 订单详情
 export function fetchRecycleOrderDetail(orderId){
   return async (dispatch, getState) => {
 
