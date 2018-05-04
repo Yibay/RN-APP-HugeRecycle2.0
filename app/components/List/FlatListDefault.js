@@ -26,7 +26,7 @@ class FlatListDefault extends PureComponent{
     renderItemAmount: 10,
     onEndReachedThreshold: 0.5,
     isFetching: false,
-    ListFooterComponentText: '--- 我也是有底线的 ---'
+    ListFooterComponentText: '--- 已经到底了 ---'
   };
 
   constructor(props){

@@ -20,6 +20,7 @@ import checkVersion from "../HOC/checkVersion";
 import * as ManageCustomerAccountsLife from '../redux/actions/pagesLife/ManageCustomerAccountsLife';
 import * as MallLife from '../redux/actions/pagesLife/MallLife';
 import * as MallCartLife from '../redux/actions/pagesLife/MallCartLife';
+import * as MallSettlementLife from '../redux/actions/pagesLife/MallSettlementLife';
 
 // 页面路由 TabIcon
 import { RecycleIcon, MallIcon, MineIcon } from '../HOC/configTabIcon';
@@ -92,7 +93,7 @@ class AppRouter extends Component{
         {/* 商城 便利店暂未开通页  */}
         <Scene key='mallNotOpen' component={MallNotOpen} hideNavBar={true} />
         {/* 商城 订单结算页 */}
-        <Scene key='mallSettlement' component={MallSettlement} hideNavBar={true} />
+        <Scene key='mallSettlement' component={MallSettlement} hideNavBar={true} onEnter={() => {this.props.dispatch(MallSettlementLife.onEnter())}} />
         {/* 商城 下单成功页 */}
         <Scene key='mallOrderSuccess' component={MallOrderSuccess} hideNavBar={true} />
 

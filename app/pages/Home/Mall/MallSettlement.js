@@ -8,7 +8,6 @@ import {Actions} from 'react-native-router-flux';
 
 
 import {createMallOrderValidator} from '../../../util/form/mallOrderValidator';
-import {onEnter} from "../../../redux/actions/pagesLife/MallSettlementLife";
 import {submitMallOrder} from "../../../redux/actions/mall/settlement";
 
 import {verifyStoreInfo} from "../../../HOC/verifyStoreInfo";
@@ -73,7 +72,7 @@ class MallSettlement extends Component {
             <Remark value={this.state.remark} onChangeText={val => this.setState({remark: val})}/>
             {/* 支付信息 */}
             <View style={styles.payMsg}>
-              <Text style={styles.payMsgText1}>环保金抵扣¥{this.props.settlementData.data.payMsg.needPayScore}，还需支付¥{this.props.settlementData.data.payMsg.needPayTotalPrice}</Text>
+              <Text style={styles.payMsgText1}>环保金抵扣¥{this.props.settlementData.data.payMsg.needPayScore || 0}，还需支付¥{this.props.settlementData.data.payMsg.needPayTotalPrice || 0}</Text>
               {/*<Text style={styles.payMsgText2}>剩余金额请在收货时直接付给送货员</Text>*/}
             </View>
             {/* 下单按钮 */}
@@ -85,10 +84,6 @@ class MallSettlement extends Component {
         />
       </KeyboardAvoidingViewAdapt>
     </View>
-  }
-
-  async componentDidMount(){
-    this.props.onEnter();
   }
 
 
@@ -175,4 +170,4 @@ function mapStateToProps(state){
 
 // 需验证登录
 // 需验证绑定便利店
-export default  verifyLogin(verifyStoreInfo(connect(mapStateToProps, {onEnter, submitMallOrder})(MallSettlement)));
+export default  verifyLogin(verifyStoreInfo(connect(mapStateToProps, {submitMallOrder})(MallSettlement)));

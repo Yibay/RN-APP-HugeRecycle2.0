@@ -8,6 +8,7 @@ import request from "../../../util/request/request";
 export const FETCH_SettlementData_Request = 'FETCH_SettlementData_Request';
 export const FETCH_SettlementProductList_Success = 'FETCH_SettlementProductList_Success';
 export const FETCH_SettlementPayMsg_Success = 'FETCH_SettlementPayMsg_Success';
+export const FETCH_SettlementPayMsg_Failure = 'FETCH_SettlementPayMsg_Failure';
 export const FETCH_SettlementData_Finish = 'FETCH_SettlementData_Finish';
 
 // 获取结算页信息
@@ -60,6 +61,11 @@ function fetchPayMsg(){
         type: FETCH_SettlementPayMsg_Success,
         payMsg: res.data
       });
+    }
+    else if(res && res.status){
+      return dispatch({
+        type: FETCH_SettlementPayMsg_Failure,
+      })
     }
   };
 }

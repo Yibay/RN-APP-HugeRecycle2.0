@@ -1,6 +1,12 @@
 import {combineReducers} from 'redux';
 
-import {FETCH_SettlementData_Request, FETCH_SettlementProductList_Success, FETCH_SettlementPayMsg_Success, FETCH_SettlementData_Finish} from '../../actions/mall/settlement';
+import {
+  FETCH_SettlementData_Request,
+  FETCH_SettlementProductList_Success,
+  FETCH_SettlementPayMsg_Success,
+  FETCH_SettlementPayMsg_Failure,
+  FETCH_SettlementData_Finish
+} from '../../actions/mall/settlement';
 
 
 function validProductList(state=[], actions){
@@ -27,6 +33,8 @@ function payMsg(state={}, actions){
   switch (actions.type){
     case FETCH_SettlementPayMsg_Success:
       return actions.payMsg;
+    case FETCH_SettlementPayMsg_Failure:
+      return {};
     default:
       return state;
   }

@@ -12,6 +12,7 @@ import {fetchUserAddressList} from '../redux/actions/user/userAddressList';
 import Header from '../components/Header/Header';
 import AddressSection from '../components/Address/AddressSection';
 import FlatListDefault from "../components/List/FlatListDefault";
+import Loading from "../components/Alert/Loading";
 
 
 class AddressSelection extends Component {
@@ -31,8 +32,9 @@ class AddressSelection extends Component {
           room: PropTypes.string
         })
       ),
-      isFetching: PropTypes.bool.isRequired
+      isFetching: PropTypes.bool.isRequired,
     }),
+    setLocationFetching: PropTypes.bool.isRequired,
   };
 
   render(){
@@ -54,13 +56,14 @@ class AddressSelection extends Component {
                        isFetching={this.props.userAddressList.isFetching}
                        ListFooterComponentText=''
       />
+      <Loading show={this.props.setLocationFetching} />
     </View>);
   }
 
   // 选择地址
-  selectAddress(location){
+  async selectAddress(location){
     // 设置为选中地址
-    this.props.setLocationThunk(location);
+    await this.props.setLocationThunk(location);
     // 返回上一页
     Actions.pop();
   }
@@ -95,7 +98,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
-    userAddressList: state.user.userAddressList
+    userAddressList: state.user.userAddressList,
+    setLocationFetching: state.location.isFetching,
   };
 }
 

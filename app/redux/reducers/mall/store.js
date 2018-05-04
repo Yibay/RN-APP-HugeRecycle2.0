@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import {SET_Location} from "../../actions/Location";
-import {SET_ShowStoreSelector, SET_StoreIndex, SET_StoreInfo} from "../../actions/Mall";
+import {SET_ShowStoreSelector, SET_StoreIndex, SET_StoreInfo} from "../../actions/mall/store";
 
 /**
  * 服务站信息

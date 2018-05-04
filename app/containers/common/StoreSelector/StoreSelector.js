@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 
-import { setShowStoreSelector, setStoreIndexThunk } from '../../../redux/actions/Mall';
+import { setShowStoreSelector, setStoreIndexThunk } from '../../../redux/actions/mall/store';
 import ViewCompatible from "../../../components/View/ViewCompatible";
 
 

@@ -5,7 +5,7 @@ import _ from 'lodash';
 /* ------ type 类型 ------ */
 import {
   // type 类型
-  SET_Location, SET_AutoLocationFlag, SET_UserAddressList,
+  SET_Location, SET_AutoLocationFlag, SET_Location_Finish,
   // 地址常量
   defaultCurrentLocation
 } from '../actions/Location';
@@ -45,9 +45,22 @@ function autoLocationFlag(state=true, action){
   }
 }
 
+
+function isFetching(state=false, action){
+  switch (action.type){
+    case SET_Location:
+      return true;
+    case SET_Location_Finish:
+      return false;
+    default:
+      return state;
+  }
+}
+
 const location = combineReducers({
   currentLocation,
   autoLocationFlag,
+  isFetching,
 });
 
 export default location;

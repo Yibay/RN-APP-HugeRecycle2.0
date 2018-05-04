@@ -3,10 +3,11 @@ import _ from 'lodash';
 
 import request from "../../util/request/request";
 import config from "../../util/request/config";
-import { setStoreInfo, setStoreInfoThunk } from "./Mall";
+import { setStoreInfo, setStoreInfoThunk } from "./mall/store";
 
 // type 类型
 export const SET_Location = 'SET_Location';
+export const SET_Location_Finish = 'SET_Location_Finish';
 export const SET_AutoLocationFlag = 'SET_AutoLocationFlag';
 export const SET_UserAddressList = 'SET_UserAddressList';
 
@@ -47,14 +48,14 @@ export function setLocationThunk(location){
       let storeInfo = await loadInitStoreInfoByCommunityId(communityId);
       // 若数据异常、立即结束（包含该小区无对应服务站）
       if(!storeInfo || storeInfo.status || !storeInfo.data || !storeInfo.data.length){  // {data: null, status: 0}
-        dispatch(setStoreInfo([])); // 置空小区 对应的便利店
-        return;
+        return dispatch(setStoreInfo([])); // 置空小区 对应的便利店
       }
       // 若成功
-      dispatch(setStoreInfoThunk(storeInfo.data));
+      await dispatch(setStoreInfoThunk(storeInfo.data));
+      return dispatch({type:SET_Location_Finish});
     }
     else{
-      dispatch(setStoreInfo([])); // 置空小区 对应的便利店
+      return dispatch(setStoreInfo([])); // 置空小区 对应的便利店
     }
   }
 }

@@ -1,6 +1,8 @@
+import {Actions} from 'react-native-router-flux';
 
-import {fetchStoreGoods} from './mall/storeGoods';
-import {fetchShoppingCartAmount} from './mall/shoppingCart';
+import {fetchStoreGoods} from './storeGoods';
+import {fetchShoppingCartAmount} from './shoppingCart';
+import {fetchSettlementData} from "./settlement";
 
 // type 类型
 export const SET_StoreInfo = 'SET_StoreInfo';
@@ -30,11 +32,13 @@ export function setStoreInfoThunk(storeInfo){
     dispatch(setStoreInfo(storeInfo)); // 此处storeIndex 会被重置为0
 
     // 后续这里考虑优化
-    /** 2、根据 便利店id，获取便利店 categoryId 数组、头部banner图片 */
-    dispatch(fetchStoreGoods());
+    return Promise.all([
+      /** 2、根据 便利店id，获取便利店 categoryId 数组、头部banner图片 */
+      dispatch(fetchStoreGoods()),
+      /** 3、根据便利店id，获取 更新购物车 */
+      dispatch(fetchShoppingCartAmount())
+    ]);
 
-    /** 3、根据便利店id，获取 更新购物车 */
-    dispatch(fetchShoppingCartAmount());
 
   }
 }
@@ -64,7 +68,14 @@ export function setStoreIndexThunk(storeIndex){
     dispatch(fetchStoreGoods());
 
     /** 3、根据便利店id，获取 更新购物车 */
-    dispatch(fetchShoppingCartAmount());
+    if(Actions.currentScene === '_shoppingMall'){
+      dispatch(fetchShoppingCartAmount());
+    }
+
+    /** 4、更新订单结算页 */
+    if(Actions.currentScene === 'mallSettlement'){
+      dispatch(fetchSettlementData());
+    }
   }
 }
 
