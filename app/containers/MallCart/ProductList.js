@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, FlatList, ScrollView, Text } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, Image } from 'react-native';
 
 import PropTypes from 'prop-types';
 
 
 import ProductItem from './ProductItem';
+import TextAdaption from "../../components/Text/TextAdaption";
 
 
 class ProductList extends Component{
 
   static propTypes = {
+    isFetching: PropTypes.bool,
     // 有效商品 列表
     validProductList: PropTypes.arrayOf(
       PropTypes.shape({
@@ -46,6 +48,7 @@ class ProductList extends Component{
   };
 
   static defaultProps = {
+    isFetching: false,
     validProductList: [],
     validProductEditable: true,
     validProductListShowTotal: true,
@@ -93,6 +96,16 @@ class ProductList extends Component{
       <Text style={(invalidProductList.length) ? styles.invalidProductList : styles.none}>{this.props.invalidProductListTitle}</Text>
       {
         invalidProductList.map(item => <ProductItem key={item.key} productItem={item} isInvalidProduct={true} editable={item.valid} deletable={this.props.productDeletable} />)
+      }
+      {
+        // 购物车为空时，提示
+        !this.props.isFetching && !validProductList.length && !invalidProductList.length ?
+          <View style={styles.ListEmptyComponentDefault}>
+            <Image source={require('../../assets/img/none.png')} style={styles.ListEmptyComponentIcon} resizeMode='contain' />
+            <TextAdaption style={styles.ListEmptyComponentText}>还未挑选商品</TextAdaption>
+          </View>
+          :
+          null
       }
       {
         this.props.ListFooterComponent
@@ -156,6 +169,20 @@ const styles = StyleSheet.create({
   none: {
     display: 'none',
   },
+  // 购物车为空时，提示
+  ListEmptyComponentDefault: {
+    paddingTop: 200,
+    alignItems: 'center'
+  },
+  ListEmptyComponentIcon: {
+    width: 200,
+    height: 200,
+    marginBottom: 100,
+  },
+  ListEmptyComponentText: {
+    fontSize: 30,
+    color: '#aaa',
+  }
 });
 
 

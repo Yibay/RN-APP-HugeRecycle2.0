@@ -31,7 +31,7 @@ class MallCart extends Component {
   render(){
     return <View style={styles.container}>
       <Header title={`购物车（${this.props.storeName}）`}/>
-      <ProductList validProductList={this.props.shoppingCart.data.validProductList} invalidProductList={this.props.shoppingCart.data.invalidProductList} validProductListShowTotal={false} productDeletable={true}/>
+      <ProductList isFetching={this.props.shoppingCart.isFetching} validProductList={this.props.shoppingCart.data.validProductList} invalidProductList={this.props.shoppingCart.data.invalidProductList} validProductListShowTotal={false} productDeletable={true}/>
       <SettlementModule validProductList={this.props.shoppingCart.data.validProductList} onPress={() => Actions.mallSettlement()} />
     </View>
   }
