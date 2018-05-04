@@ -54,10 +54,11 @@ class ProductItem extends Component {
 
   render(){
     return<Animated.View style={this.props.deletable ? [styles.containerDeletable, {marginLeft: this.state.containerMarginLeft}] : null}
-                onStartShouldSetResponder={e => this.props.deletable}
-                onResponderGrant={e => {this.moveStart(e.nativeEvent.pageX);}}
-                onResponderMove={e => {this.move(e.nativeEvent.pageX);}}
-                onResponderRelease={e => {this.moveEnd(e.nativeEvent.pageX);}}
+                         onStartShouldSetResponder={e => this.props.deletable}
+                         onResponderGrant={e => {this.moveStart(e.nativeEvent.pageX);}}
+                         onResponderMove={e => {this.move(e.nativeEvent.pageX);}}
+                         onResponderRelease={e => {this.moveEnd(e.nativeEvent.pageX);}}
+                         onResponderTerminationRequest={e => false}
     >
       <View style={[styles.container].concat(this.props.style)}>
         {
@@ -195,8 +196,10 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '700',
   },
+  // 删除按钮
   deleteBtn: {
     width: 158,
+    marginBottom: 10,
     backgroundColor: '#ef3401',
     justifyContent: 'center',
     alignItems: 'center',
