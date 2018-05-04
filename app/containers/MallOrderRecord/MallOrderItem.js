@@ -19,6 +19,7 @@ class MallOrderItem extends PureComponent{
     orderCode: PropType.string.isRequired,
     orderStatus: PropType.number.isRequired,
     storePhone: PropType.string, // 商家电话，可能为空
+    distributionPrice: PropType.number,
     productViewList: PropType.arrayOf(
       PropType.shape({
         orderProductId: PropType.number.isRequired,
@@ -99,6 +100,12 @@ class MallOrderItem extends PureComponent{
       <View style={[styles.productListFooter].concat(this.props.productListFooterStyle)}>
         <Text style={styles.productNum}>{`共${this.props.productViewList.length}件商品 小计：`}</Text>
         <Text style={styles.totalPrice}>{`¥${this.props.orderStatus === 8 ? (this.props.orderPrice + this.props.orderScore).toFixed(2) : (this.props.leftOrderPrice + this.props.leftOrderScore).toFixed(2)}`}</Text>
+        {
+          this.props.distributionPrice ?
+            <Text style={styles.productNum}> (含配送费 ¥{this.props.distributionPrice})</Text>
+            :
+            null
+        }
       </View>
       {
         this.props.showFooter ?
