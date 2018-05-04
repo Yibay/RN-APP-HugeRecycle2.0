@@ -5,12 +5,12 @@ import PropType from 'prop-types';
 import {connect} from 'react-redux';
 
 
-import Header from "../components/Header/Header";
 import {verifyLogin} from "../HOC/verifyLogin";
 import {onEnter} from '../redux/actions/pagesLife/MallOrderRecordLife';
 
-import MallOrderItemsList from "../containers/MallOrderRecord/MallOrderItemsList";
+import Header from "../components/Header/Header";
 import Loading from "../components/Alert/Loading";
+import MallOrderItemsList from "../containers/MallOrderRecord/MallOrderItemsList";
 
 
 class MallOrderRecord extends Component {
@@ -27,6 +27,7 @@ class MallOrderRecord extends Component {
   };
 
   render(){
+
     return <View style={styles.container}>
       <Header title='我的消费订单'/>
       <MallOrderItemsList mallOrderList={this.props.mallOrderRecord.data} isFetching={this.props.mallOrderRecord.isFetching} onRefresh={this.props.onEnter} />

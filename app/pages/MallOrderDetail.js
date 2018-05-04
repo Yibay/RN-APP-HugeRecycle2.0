@@ -1,15 +1,20 @@
 import React,{Component} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Linking, Alert} from 'react-native';
 
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {Actions} from "react-native-router-flux";
 
 
-import request from "../util/request/request";
-import config from '../util/request/config';
 import {verifyLogin} from "../HOC/verifyLogin";
+import {onEnter} from "../redux/actions/pagesLife/MallOrderDetailLife";
+import {deleteMallOrder} from '../redux/actions/mall/mallOrder/deleteMallOrder';
+import {continueMallOrder} from '../redux/actions/mall/settlement';
 
 import Header from "../components/Header/Header";
 import MallOrderItem from "../containers/MallOrderRecord/MallOrderItem";
+import OrderStatusBar from "../containers/RecycleRecordDetail/OrderStatusBar";
+import RecordBtn from "../components/Form/Btn/RecordBtn";
 
 
 class MallOrderDetail extends Component{
@@ -18,27 +23,63 @@ class MallOrderDetail extends Component{
     orderCode: PropTypes.string.isRequired,
     identityToken: PropTypes.shape({
       authToken: PropTypes.string
-    })
+    }),
+    orderItem: PropTypes.object.isRequired,
+    onEnter: PropTypes.func.isRequired,
+    continueMallOrder: PropTypes.func.isRequired,
+    deleteMallOrder: PropTypes.func.isRequired,
   };
 
-  constructor(props){
-    super(props);
-
-    this.state = {
-      orderItem: {}
-    };
-  }
+  static defaultProps = {
+    orderItem: {},
+  };
 
   render(){
-    let orderItem = this.state.orderItem; // 订单信息
+    let orderItem = this.props.orderItem; // 订单信息
     let orderPrice = orderItem.orderStatus === 8 ? orderItem.orderPrice : orderItem.leftOrderPrice;
     let orderScore = orderItem.orderStatus === 8 ? orderItem.orderScore : orderItem.leftOrderScore;
+
+    let orderStatusText =''; // 订单状态 信息
+    let ctrlModule;
+
+    switch(orderItem.orderStatus){
+      case 1: // 未支付
+        orderStatusText = '待付款';
+        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnSpacing} text='去付款' onPress={() => {this.props.continueMallOrder(orderItem.orderId)}}/><RecordBtn style={styles.btnSpacing} text='取消订单' onPress={() => {this.deleteMallOrder(orderItem.orderId)}}/></View>;
+        break;
+      case 2: // 已支付
+      case 3: // 已分配
+        orderStatusText = '等待商家接单';
+        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnSpacing} text='联系商家' onPress={() => {this.contactSeller()}}/></View>;
+        break;
+      case 4: // 已配货
+      case 5: // 已接单
+        orderStatusText = '已接单，等待配送';
+        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnSpacing} text='联系商家' onPress={() => {this.contactSeller()}}/></View>;
+        break;
+      case 6: // 已签收
+        orderStatusText = '已完成';
+        ctrlModule = <View style={styles.ctrlModule} />;
+        break;
+      // case 7: // 退货中
+      //   break;
+      case 8: // 已退货
+        orderStatusText = '已退单';
+        ctrlModule = <View style={styles.ctrlModule} />;
+        break;
+      // case 9: // 已删除
+      // case 10: // 被打回
+      default:
+    }
+
     return <View style={styles.container}>
       <Header title='我的消费订单'/>
       {
-        this.state.orderItem.orderCode ?
+        this.props.orderItem.orderCode ?
           <View style={styles.content}>
-            <MallOrderItem {...this.state.orderItem} showFooter={false} productListFooterStyle={styles.productListFooterStyle}/>
+            {/* 订单状态 */}
+            <OrderStatusBar statusText={orderStatusText}/>
+            <MallOrderItem {...this.props.orderItem} showFooter={false} productListFooterStyle={styles.productListFooterStyle}/>
             <View style={styles.lineSection}>
               <Text style={styles.title}>收件信息</Text>
               <Text style={styles.detail}>
@@ -55,6 +96,9 @@ class MallOrderDetail extends Component{
               <Text style={styles.title}>支付信息</Text>
               <Text style={styles.detail}>环保金支付 ¥{orderScore.toFixed(2)} ，现金支付 ¥{orderPrice.toFixed(2)}</Text>
             </View>
+            {
+              ctrlModule
+            }
           </View>
           :
           undefined
@@ -63,13 +107,35 @@ class MallOrderDetail extends Component{
   }
 
   async componentDidMount(){
-    await this.getMallOrderDetail()
+    this.props.onEnter(this.props.orderCode);
   }
 
-  async getMallOrderDetail(){
-    const res = await request.postFormData(config.api.getMallOrderDetail,{orderCode: this.props.orderCode},{'X-AUTH-TOKEN': this.props.identityToken.authToken});
-    if(res && !res.status){
-      this.setState({orderItem: res.data});
+  // 联系商家
+  async contactSeller(){
+    if(this.props.orderItem.storePhone){
+      const supported = await Linking.canOpenURL(`tel:${this.props.orderItem.storePhone}`).catch(e => {console.log(e);return false});
+      if(supported){
+        Linking.openURL(`tel:${this.props.orderItem.storePhone}`);
+      }
+      else{
+        Alert.alert('此设备不支持 拨打电话',`请手动拨打${this.props.orderItem.storePhone}`);
+      }
+    }
+    else{
+      Alert.alert('无商家电话');
+    }
+  }
+
+  // 取消订单
+  async deleteMallOrder(orderId){
+    const res = await this.props.deleteMallOrder(orderId);
+    if(Actions.currentScene === 'mallOrderDetailPage' && res){
+      if(res && !res.status){
+        Actions.pop();
+      }
+      else if(res.status && res.message){
+        Alert.alert(res.message);
+      }
     }
   }
 }
@@ -100,7 +166,22 @@ const styles = StyleSheet.create({
   detail: {
     fontSize: 28,
     color: '#000',
-  }
+  },
+  // 控制按钮
+  ctrlModule: {
+    paddingHorizontal: 36,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  btnSpacing: {
+    marginLeft: 32,
+  },
 });
 
-export default verifyLogin(MallOrderDetail);
+function mapStateToProps(state){
+  return {
+    orderItem: state.user.mallOrderDetail.data,
+  };
+}
+
+export default verifyLogin(connect(mapStateToProps, {onEnter, deleteMallOrder, continueMallOrder})(MallOrderDetail));

@@ -72,6 +72,7 @@ class MallOrderItem extends PureComponent{
       //   break;
       case 8: // 已退货
         orderStatusText = '已退单';
+        ctrlModule = <View style={styles.ctrlModule}><RecordBtn style={styles.btnDetail} text='查看详情' onPress={() => {Actions.mallOrderDetailPage({orderCode: this.props.orderCode});}}/></View>;
         orderStatusTextGloom = true;
         break;
       // case 9: // 已删除
@@ -81,8 +82,8 @@ class MallOrderItem extends PureComponent{
 
     return <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.orderCode}>{`订单号：${this.props.orderCode}`}{this.props.orderStatus === 8 ? '（已退货）' : undefined}</Text>
-        <Text style={styles.time}>{this.props.time}</Text>
+        <Text style={styles.orderCode}>{`订单号：${this.props.orderCode}`}</Text>
+        <Text style={styles.time}>{this.props.createTimeStr}</Text>
       </View>
       {
         this.props.productViewList
@@ -154,11 +155,12 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 90,
-    paddingLeft: 36,
+    paddingHorizontal: 36,
     borderBottomWidth: 2,
     borderBottomColor: '#e5e5e5',
     backgroundColor: '#fff',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center'
   },
   orderCode: {
@@ -166,7 +168,10 @@ const styles = StyleSheet.create({
     color: '#000',
     fontWeight: '400'
   },
-  time: {},
+  time: {
+    fontSize: 26,
+    color: '#888',
+  },
   // 商品项
   productItem: {
     height: 214,

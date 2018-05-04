@@ -31,7 +31,7 @@ export function fetchMallOrderRecord() {
       .map(item => {item.key = item.orderId; return item;});
 
     // 请求成功
-    dispatch({type: FETCH_MallOrderRecord_Success, data: mallOrderList});
+    return dispatch({type: FETCH_MallOrderRecord_Success, data: mallOrderList});
   }
 }
 

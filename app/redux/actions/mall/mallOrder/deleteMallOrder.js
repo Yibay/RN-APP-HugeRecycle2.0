@@ -27,10 +27,11 @@ export function deleteMallOrder(orderId) {
     if(res && !res.status){
       dispatch({type: DELETE_MallOrder_Success});
       dispatch(fetchMallOrderRecord());
+      return {status: 0}
     }
     else{
       dispatch({type: DELETE_MallOrder_Failure, message: res.message || ''});
-      return {message: res.message || ''};
+      return {status: 1,message: res.message || ''};
     }
 
   };
