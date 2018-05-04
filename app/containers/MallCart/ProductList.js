@@ -92,7 +92,7 @@ class ProductList extends Component{
       </View>
       <Text style={(invalidProductList.length) ? styles.invalidProductList : styles.none}>{this.props.invalidProductListTitle}</Text>
       {
-        invalidProductList.map(item => <ProductItem key={item.key} productItem={item} editable={item.valid} deletable={this.props.productDeletable} />)
+        invalidProductList.map(item => <ProductItem key={item.key} productItem={item} isInvalidProduct={true} editable={item.valid} deletable={this.props.productDeletable} />)
       }
       {
         this.props.ListFooterComponent

@@ -34,11 +34,13 @@ class ProductItem extends Component {
     deletable: PropTypes.bool,
     deleteFormCart: PropTypes.func.isRequired, // 删除 购物车中商品 Actions
     imgStyle: ViewPropTypes.style,
+    isInvalidProduct: PropTypes.bool,
   };
 
   static defaultProps = {
     editable: true,
-    deletable: false
+    deletable: false,
+    isInvalidProduct: false,
   };
 
   constructor(props){
@@ -79,6 +81,12 @@ class ProductItem extends Component {
               <Text style={styles.buyAmount}>{`x ${this.props.productItem.buyAmount}`}</Text>
           }
         </View>
+        {
+          this.props.isInvalidProduct ?
+            <View style={styles.invalidProductStyle} />
+            :
+            null
+        }
       </View>
       {
         this.props.deletable ? <TouchableOpacity style={styles.deleteBtn} onPress={() => this.deleteProduct(this.props.productItem.shoppingCartId)}><Text style={styles.deleteBtnText}>删除</Text></TouchableOpacity> : undefined
@@ -142,7 +150,7 @@ const styles = StyleSheet.create({
     height: 226,
     marginBottom: 10,
     flexDirection: 'row',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   containerDeletable: {
     width: 908,
@@ -207,6 +215,16 @@ const styles = StyleSheet.create({
   deleteBtnText: {
     fontSize: 30,
     color: '#fff',
+  },
+  // 失效商品样式
+  invalidProductStyle: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    backgroundColor: '#888',
+    opacity: 0.5,
   }
 });
 
