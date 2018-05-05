@@ -12,7 +12,7 @@ class MallOrderSuccess extends Component {
 
   render(){
     return (<View style={styles.container}>
-      <Header title='下单成功' back={Actions.popTo('_shoppingMall')} />
+      <Header title='下单成功' back={() => Actions.popTo('_shoppingMall')} />
       <View style={styles.content}>
         <Image source={require('../../../assets/iconImg/right-call2x.png')} resizeMode='contain' style={styles.logo} />
         <Text style={styles.message}>下单成功</Text>
