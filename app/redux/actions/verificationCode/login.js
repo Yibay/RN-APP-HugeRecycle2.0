@@ -11,8 +11,10 @@ export function getCode(phone){
   return async (dispatch, getState) => {
     dispatch({type: FETCH_Login_VerificationCode_Request});
 
-    const res = await request.post(config.api.getCode, {phone});
-    console.log(res);
+    const res = await Promise.race([
+      request.post(config.api.getCode, {phone}),
+      new Promise(function(resolve, reject){setTimeout(() => resolve({status: 1, message: '网络请求超时'}), 10000)})
+    ]);
     if(res && !res.status){
       dispatch({type: FETCH_Login_VerificationCode_Success, data: res.data || ''});
       return true;
