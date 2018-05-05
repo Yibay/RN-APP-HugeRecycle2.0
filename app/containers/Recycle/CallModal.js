@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Modal, TouchableOpacity, Platform, Alert, Keyboard } from 'react-native';
+import { StyleSheet, View, Text, Modal, TouchableOpacity, Platform, Alert, Keyboard, ScrollView } from 'react-native';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -72,30 +72,32 @@ class CallModal extends Component{
       <AdaptLayoutWidth>
         {/* 关闭软键盘，触发input失焦 */}
         <KeyboardAvoidingViewAdapt style={styles.container} behavior='padding' onStartShouldSetResponder={evt => true} onResponderRelease={evt => Keyboard.dismiss()}>
-          <View style={styles.msgBox}>
-            <Text style={styles.title}>确认您的联系方式，呼叫虎哥</Text>
-            <InputSection style={styles.lineSection} value={this.state.accountName} onChangeText={val => this.setState({accountName: val.trim()})} label='联系人' placeholder='请输入联系人姓名'/>
-            <InputSection style={styles.lineSection} value={this.state.phone} onChangeText={val => this.setState({phone: val.trim()})} label='电话' placeholder='请输入联系人电话' keyboardType='phone-pad'/>
-            {
-              !this.props.authToken ?
-                <InputSection style={styles.lineSection} value={this.state.code} onChangeText={val => this.setState({code: val.trim()})} label='短信验证码' placeholder='请输入验证码' rightButton={<CountDownBtn text='获取验证码' onPress={() => this.getCode()}/>}/>
-                :
-                null
-            }
-            <InputSection style={styles.lineSection} value={this.props.currentLocation.communityName} label='小区名称' editable={false}/>
-            <View style={styles.lineSection}>
-              {/* 有无户号 选择器 */}
-              <HouseNumberAddressSection onChangeText={valObj => this.setState(valObj)} currentLocation={this.props.currentLocation} />
+          <ScrollView style={styles.scroll} contentContainerStyle={styles.center}>
+            <View style={styles.msgBox}>
+              <Text style={styles.title}>确认您的联系方式，呼叫虎哥</Text>
+              <InputSection style={styles.lineSection} value={this.state.accountName} onChangeText={val => this.setState({accountName: val.trim()})} label='联系人' placeholder='请输入联系人姓名'/>
+              <InputSection style={styles.lineSection} value={this.state.phone} onChangeText={val => this.setState({phone: val.trim()})} label='电话' placeholder='请输入联系人电话' keyboardType='phone-pad'/>
+              {
+                !this.props.authToken ?
+                  <InputSection style={styles.lineSection} value={this.state.code} onChangeText={val => this.setState({code: val.trim()})} label='短信验证码' placeholder='请输入验证码' rightButton={<CountDownBtn text='获取验证码' onPress={() => this.getCode()}/>}/>
+                  :
+                  null
+              }
+              <InputSection style={styles.lineSection} value={this.props.currentLocation.communityName} label='小区名称' editable={false}/>
+              <View style={styles.lineSection}>
+                {/* 有无户号 选择器 */}
+                <HouseNumberAddressSection onChangeText={valObj => this.setState(valObj)} currentLocation={this.props.currentLocation} />
+              </View>
+              <View style={styles.btnSection}>
+                <TouchableOpacity style={[styles.btn, styles.btnConfirm, this.props.createOrderFetching ? styles.disable : undefined]} onPress={() => this.confirmCall()}>
+                  <Text style={[styles.msgText, styles.btnConfirmText]}>{this.props.createOrderFetching ? '呼叫中' : '确认呼叫'}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.btn, styles.btnCancel]} onPress={() => this.cancelCall()}>
+                  <Text style={styles.msgText}>取消</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={styles.btnSection}>
-              <TouchableOpacity style={[styles.btn, styles.btnConfirm, this.props.createOrderFetching ? styles.disable : undefined]} onPress={() => this.confirmCall()}>
-                <Text style={[styles.msgText, styles.btnConfirmText]}>{this.props.createOrderFetching ? '呼叫中' : '确认呼叫'}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.btn, styles.btnCancel]} onPress={() => this.cancelCall()}>
-                <Text style={styles.msgText}>取消</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+          </ScrollView>
         </KeyboardAvoidingViewAdapt>
         <Loading show={this.props.verificationCode.isFetching}/>
       </AdaptLayoutWidth>
@@ -193,9 +195,15 @@ class CallModal extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'rgba(215, 215, 215, 0.8)',
+  },
+  scroll: {
+    flex: 1,
+  },
+  center: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(215, 215, 215, 0.8)',
   },
   msgBox: {
     width: 700,
