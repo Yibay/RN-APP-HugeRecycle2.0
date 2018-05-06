@@ -155,7 +155,7 @@ class RecycleEvaluation extends Component {
             {/* 回收订单信息 */}
             <RecycleRecordItem style={styles.recycleRecordItem} firstSectionStyle={styles.firstSectionStyle} secondSectionStyle={styles.secondSectionStyle} recordItem={this.props.recordItem.dataSource} evaluable={false}/>
             {/* 虎哥信息 */}
-            <Image style={styles.hugePhoto} source={{uri: this.props.recordItem.data.recyclerHeadPic}} resizeMode='contain'/>
+            <Image style={styles.hugePhoto} source={this.props.recordItem.data.recyclerHeadPic ? {uri: this.props.recordItem.data.recyclerHeadPic} : require('../assets/img/hugeHeadDefault.png')} resizeMode='contain'/>
             <Text style={styles.hugeName}>{`虎哥：${this.props.recordItem.data.recyclerName}`}</Text>
             {/* 评价 */}
             <View style={styles.grade}>
