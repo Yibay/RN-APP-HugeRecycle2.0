@@ -73,5 +73,5 @@ async function getProductListByCategory(storeId, mainCategoryList){
     storeId,
     categoryId: item.id
   })));
-  return productList.map(item => item.data);
+  return productList.map(item => item.data.map(item => {item.key = item.storeProductId;return item;}));
 }

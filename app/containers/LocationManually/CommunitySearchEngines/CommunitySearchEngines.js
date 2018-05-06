@@ -61,7 +61,7 @@ class CommunitySearchEngines extends PureComponent {
     // 若返回数据正常
     if(res && !res.status){
       this.setState(state => {
-        let allCommunities = res.data;
+        let allCommunities = res.data.map(item => {item.key=item.communityId;return item;});
         let relatedCommunities = allCommunities.filter(item => item.communityName.indexOf(state.communityName) !== -1 );
         return {
           allCommunities,

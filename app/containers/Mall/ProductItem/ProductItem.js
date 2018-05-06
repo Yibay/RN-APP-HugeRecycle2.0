@@ -43,6 +43,7 @@ class ProductItem extends Component {
       {
         this.props.product.briefPromotionView && this.props.product.briefPromotionView.promotionStr ?
           <View style={styles.costDown}>
+            <Image style={styles.costDownBg} source={require('./img/costdown.png')} resizeMode='stretch'/>
             <Text style={styles.costDownText}>{this.props.product.briefPromotionView.promotionStr}</Text>
           </View>
           :
