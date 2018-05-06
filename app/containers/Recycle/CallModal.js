@@ -86,7 +86,7 @@ class CallModal extends Component{
               <InputSection style={styles.lineSection} value={this.props.currentLocation.communityName} label='小区名称' editable={false}/>
               <View style={styles.lineSection}>
                 {/* 有无户号 选择器 */}
-                <HouseNumberAddressSection onChangeText={valObj => this.setState(valObj)} currentLocation={this.props.currentLocation} />
+                <HouseNumberAddressSection onChangeText={valObj => this.setState(valObj)} currentLocation={_.assign({}, this.props.currentLocation,{haveHouseNumber: this.state.haveHouseNumber,address: this.state.address,building: this.state.building,unit: this.state.unit,room: this.state.room})} />
               </View>
               <View style={styles.btnSection}>
                 <TouchableOpacity style={[styles.btn, styles.btnConfirm, this.props.createOrderFetching ? styles.disable : undefined]} onPress={() => this.confirmCall()}>
