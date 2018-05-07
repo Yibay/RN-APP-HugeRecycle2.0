@@ -30,8 +30,8 @@ export function deleteMallOrder(orderId) {
       return {status: 0}
     }
     else{
-      dispatch({type: DELETE_MallOrder_Failure, message: res.message || ''});
-      return {status: 1,message: res.message || ''};
+      dispatch({type: DELETE_MallOrder_Failure, message: res ? (res.message || '删除失败') : '网络请求失败'});
+      return {status: 1,message: res ? (res.message || '删除失败') : '网络请求失败'};
     }
 
   };

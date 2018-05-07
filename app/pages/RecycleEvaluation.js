@@ -198,7 +198,7 @@ class RecycleEvaluation extends Component {
             }}
         ])
       }
-      else if(res.message){
+      else{
         Alert.alert(res.message);
       }
     }

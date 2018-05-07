@@ -31,9 +31,9 @@ export function evaluationRecycleOrder(orderId, evaluation){
       dispatch(fetchRecycleOrderDetail(orderId));
       return {status:0};
     }
-    else if(res && res.message){
+    else{
       dispatch({type: FETCH_EvaluationRecycleOrder_Failure});
-      return {status: 1,message: res.message};
+      return {status: 1,message: res ? (res.message || '评价失败') : '网络请求失败'};
     }
   };
 }

@@ -20,7 +20,7 @@ export function getCode(phone){
       return true;
     }
     else {
-      dispatch({type: FETCH_LoginPassword_VerificationCode_Failure, data: res.message || '获取验证码失败'});
+      dispatch({type: FETCH_LoginPassword_VerificationCode_Failure, data: res ? (res.message || '获取验证码失败') : '网络请求失败'});
       return false;
     }
   };
