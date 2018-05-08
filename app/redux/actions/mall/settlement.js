@@ -179,11 +179,15 @@ function aliPay(orderId){
       }
       else {
         // 啥也不做
+        Alert.alert((result && result.message) ? result.message : '支付失败');
       }
     }
-    else {
+    else if(Actions.currentScene !== 'mallOrderRecordPage'){
       // 调用支付宝失败
       Actions.mallOrderRecordPage();
+    }
+    else {
+      Alert.alert('支付失败');
     }
   }
 }
@@ -203,7 +207,7 @@ function receiptMallOrderPay(orderId){
       Actions.mallOrderRecordPage(); // 跳转到 我的消费订单页面
     }
     else{
-      Alert.alert(resReceipt.message ? resReceipt.message : '支付失败');
+      Alert.alert((resReceipt && resReceipt.message) ? resReceipt.message : '支付失败');
     }
 
   }
