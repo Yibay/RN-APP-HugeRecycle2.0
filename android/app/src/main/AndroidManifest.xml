@@ -22,6 +22,10 @@
         android:icon="@drawable/huge_logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+
+        <meta-data android:name="MIPUSH_APPID" android:value=":2882303761517450005"/>
+        <meta-data android:name="MIPUSH_APPKEY" android:value=":5711745052005"/>
+
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"

@@ -96,7 +96,6 @@ class Recycle extends Component{
   }
 
   async componentDidMount(){
-    console.log('componentDidMount');
     await this.getProducts();
   }
 

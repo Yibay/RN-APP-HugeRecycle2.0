@@ -5,6 +5,7 @@ import android.app.Application;
 import com.huge_recycle_android.android_open_settings.OpenSettingsPackage;
 import com.huge_recycle_android.android_upgrade.UpgradePackage;
 import com.facebook.react.ReactApplication;
+import com.ichong.zzy.mipush.MIPushPackage;
 import cn.reactnative.alipay.AlipayPackage;
 import com.github.yamill.orientation.OrientationPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new MIPushPackage(),
           new AlipayPackage(),
           new OrientationPackage(),
           new VectorIconsPackage(),

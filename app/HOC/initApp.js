@@ -10,6 +10,9 @@ import _ from 'lodash';
 import Orientation from 'react-native-orientation';
 
 
+// 管理推送
+import MiPushManager from '../util/MiPushManager';
+
 // Action
 import { setIdentityTokenThunk } from '../redux/actions/IdentityToken';
 import { setAllProducts, resetRecycledItem } from '../redux/actions/Recycle';
@@ -32,8 +35,15 @@ const initApp = (WrappedComponent) => connect(null, { setAllProducts, setIdentit
     return (<WrappedComponent {..._.omit(this.props, ['setIdentityTokenThunk'])} />);
   }
 
+  componentDidMount(){
+    // 监听推送
+    MiPushManager.init();
+  }
+
   componentWillUnmount(){
     console.log('应用销毁');
+    // 取消监听推送
+    MiPushManager.uninstall();
   }
 
   // 1. 设置身份信息

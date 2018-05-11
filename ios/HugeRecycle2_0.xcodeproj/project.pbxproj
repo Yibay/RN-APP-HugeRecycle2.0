@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -25,6 +26,12 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		15399FE202E7400B8DA12FB7 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 813AE78A3DC94BFA979CD266 /* Octicons.ttf */; };
 		167D2D40B51048D0A5B992C5 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8FBAF409A781472F950227F6 /* Ionicons.ttf */; };
+		1DDE272C28484A21B22D2BC6 /* libRCTMIPushModule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 668D5D5737FD43D5BC40A1F6 /* libRCTMIPushModule.a */; };
+		1F1FB97920A4353600D398AA /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1FB97820A4353600D398AA /* UserNotifications.framework */; };
+		1F1FB97B20A4357700D398AA /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1FB97A20A4357700D398AA /* libresolv.tbd */; };
+		1F1FB97D20A4358E00D398AA /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1FB97C20A4358E00D398AA /* libxml2.tbd */; };
+		1F1FB97F20A435C600D398AA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1FB97E20A435C600D398AA /* MobileCoreServices.framework */; };
+		1F1FB98120A43A0000D398AA /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1FB95D20A4347100D398AA /* libRCTPushNotification.a */; };
 		1F734F732072244F00289C94 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734F722072244F00289C94 /* libc++.tbd */; };
 		1F734F752072246F00289C94 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734F742072246F00289C94 /* libz.tbd */; };
 		1F734F772072249400289C94 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734F762072249400289C94 /* SystemConfiguration.framework */; };
@@ -129,6 +136,27 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
+		};
+		1F1FB92420A3E0F600D398AA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C71BE1B9AB294982818F37BD /* RCTMIPushModule.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2BC4EEFB1DBDFDDD00715730;
+			remoteInfo = RCTMIPushModule;
+		};
+		1F1FB95C20A4347100D398AA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F1FB94820A4347100D398AA /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RCTPushNotification;
+		};
+		1F1FB95E20A4347100D398AA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F1FB94820A4347100D398AA /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D05745F1DE6004600184BB4;
+			remoteInfo = "RCTPushNotification-tvOS";
 		};
 		1F5C6EED201714B1006B6A7A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -371,6 +399,12 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = HugeRecycle2_0/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		1A2A89BE866141F7AF59A689 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		1F1FB94820A4347100D398AA /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
+		1F1FB97820A4353600D398AA /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		1F1FB97A20A4357700D398AA /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		1F1FB97C20A4358E00D398AA /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		1F1FB97E20A435C600D398AA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		1F1FB98020A4390500D398AA /* HugeRecycle2_0.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = HugeRecycle2_0.entitlements; path = HugeRecycle2_0/HugeRecycle2_0.entitlements; sourceTree = "<group>"; };
 		1F734F722072244F00289C94 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		1F734F742072246F00289C94 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		1F734F762072249400289C94 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -392,6 +426,7 @@
 		4A0E2E6FF36140E8869FB00F /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		616FA2D8D3BF4912A79A9413 /* RCTAlipay.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTAlipay.xcodeproj; path = "../node_modules/react-native-alipay/ios/RCTAlipay.xcodeproj"; sourceTree = "<group>"; };
+		668D5D5737FD43D5BC40A1F6 /* libRCTMIPushModule.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTMIPushModule.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		813AE78A3DC94BFA979CD266 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -399,6 +434,7 @@
 		97A592F379974197B4B7BC5F /* RCTOrientation.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTOrientation.xcodeproj; path = "../node_modules/react-native-orientation/iOS/RCTOrientation.xcodeproj"; sourceTree = "<group>"; };
 		A5AA5213A03F4A05889EDBAF /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		C71BE1B9AB294982818F37BD /* RCTMIPushModule.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTMIPushModule.xcodeproj; path = "../node_modules/react-native-xmpush/ios/RCTMIPushModule/RCTMIPushModule.xcodeproj"; sourceTree = "<group>"; };
 		CEA8FEAFAD834381B7234108 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		D357A2FAF40F425285A7F00E /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		D618B0B611C64219801F0B75 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -421,17 +457,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F1FB98120A43A0000D398AA /* libRCTPushNotification.a in Frameworks */,
+				1F734F79207224C400289C94 /* CoreTelephony.framework in Frameworks */,
+				1F734F852072255000289C94 /* CFNetwork.framework in Frameworks */,
+				1F1FB97F20A435C600D398AA /* MobileCoreServices.framework in Frameworks */,
+				1F734F772072249400289C94 /* SystemConfiguration.framework in Frameworks */,
+				1F734F752072246F00289C94 /* libz.tbd in Frameworks */,
+				1F1FB97D20A4358E00D398AA /* libxml2.tbd in Frameworks */,
+				1F1FB97B20A4357700D398AA /* libresolv.tbd in Frameworks */,
+				1F1FB97920A4353600D398AA /* UserNotifications.framework in Frameworks */,
 				1F734FFC2073127200289C94 /* AlipaySDK.framework in Frameworks */,
 				1F734F872072256400289C94 /* CoreMotion.framework in Frameworks */,
-				1F734F852072255000289C94 /* CFNetwork.framework in Frameworks */,
 				1F734F832072253C00289C94 /* Foundation.framework in Frameworks */,
 				1F734F812072252800289C94 /* UIKit.framework in Frameworks */,
 				1F734F7F2072251000289C94 /* CoreGraphics.framework in Frameworks */,
 				1F734F7D207224EC00289C94 /* CoreText.framework in Frameworks */,
 				1F734F7B207224DB00289C94 /* QuartzCore.framework in Frameworks */,
-				1F734F79207224C400289C94 /* CoreTelephony.framework in Frameworks */,
-				1F734F772072249400289C94 /* SystemConfiguration.framework in Frameworks */,
-				1F734F752072246F00289C94 /* libz.tbd in Frameworks */,
 				1F734F732072244F00289C94 /* libc++.tbd in Frameworks */,
 				1FF11AB620031C3100034A38 /* libsqlite3.tbd in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
@@ -449,6 +490,7 @@
 				D4AE475833F849F98FA9F875 /* libRNVectorIcons.a in Frameworks */,
 				3B6FEFF94F7C4A37BA08644B /* libRCTOrientation.a in Frameworks */,
 				06F8E03FA78E4978A3A4ED38 /* libRCTAlipay.a in Frameworks */,
+				1DDE272C28484A21B22D2BC6 /* libRCTMIPushModule.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,6 +601,7 @@
 		13B07FAE1A68108700A75B9A /* HugeRecycle2_0 */ = {
 			isa = PBXGroup;
 			children = (
+				1F1FB98020A4390500D398AA /* HugeRecycle2_0.entitlements */,
 				1F734FC02072373600289C94 /* AlipaySDK */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -598,8 +641,26 @@
 				D357A2FAF40F425285A7F00E /* libRNVectorIcons.a */,
 				E830CAA9F8D1409898B818DF /* libRCTOrientation.a */,
 				DC8D06F3A62E4FB8824AE03B /* libRCTAlipay.a */,
+				668D5D5737FD43D5BC40A1F6 /* libRCTMIPushModule.a */,
 			);
 			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		1F1FB92120A3E0F600D398AA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1F1FB92520A3E0F600D398AA /* libRCTMIPushModule.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1F1FB94920A4347100D398AA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1F1FB95D20A4347100D398AA /* libRCTPushNotification.a */,
+				1F1FB95F20A4347100D398AA /* libRCTPushNotification-tvOS.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		1F5C6EC6201714B1006B6A7A /* Products */ = {
@@ -638,6 +699,10 @@
 		1FF11AB420031C3100034A38 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F1FB97E20A435C600D398AA /* MobileCoreServices.framework */,
+				1F1FB97C20A4358E00D398AA /* libxml2.tbd */,
+				1F1FB97A20A4357700D398AA /* libresolv.tbd */,
+				1F1FB97820A4353600D398AA /* UserNotifications.framework */,
 				1F734F862072256400289C94 /* CoreMotion.framework */,
 				1F734F842072255000289C94 /* CFNetwork.framework */,
 				1F734F822072253C00289C94 /* Foundation.framework */,
@@ -693,6 +758,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				1F1FB94820A4347100D398AA /* RCTPushNotification.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -708,6 +774,7 @@
 				A5AA5213A03F4A05889EDBAF /* RNVectorIcons.xcodeproj */,
 				97A592F379974197B4B7BC5F /* RCTOrientation.xcodeproj */,
 				616FA2D8D3BF4912A79A9413 /* RCTAlipay.xcodeproj */,
+				C71BE1B9AB294982818F37BD /* RCTMIPushModule.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -850,6 +917,11 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = BYAN84VV9K;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -905,12 +977,20 @@
 					ProjectRef = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
 				},
 				{
+					ProductGroup = 1F1FB92120A3E0F600D398AA /* Products */;
+					ProjectRef = C71BE1B9AB294982818F37BD /* RCTMIPushModule.xcodeproj */;
+				},
+				{
 					ProductGroup = 00C302D41ABCB9D200DB3ED1 /* Products */;
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
 				},
 				{
 					ProductGroup = 1FD152F920674D4C008C73C5 /* Products */;
 					ProjectRef = 97A592F379974197B4B7BC5F /* RCTOrientation.xcodeproj */;
+				},
+				{
+					ProductGroup = 1F1FB94920A4347100D398AA /* Products */;
+					ProjectRef = 1F1FB94820A4347100D398AA /* RCTPushNotification.xcodeproj */;
 				},
 				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
@@ -1002,6 +1082,27 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F1FB92520A3E0F600D398AA /* libRCTMIPushModule.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTMIPushModule.a;
+			remoteRef = 1F1FB92420A3E0F600D398AA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F1FB95D20A4347100D398AA /* libRCTPushNotification.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTPushNotification.a;
+			remoteRef = 1F1FB95C20A4347100D398AA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F1FB95F20A4347100D398AA /* libRCTPushNotification-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRCTPushNotification-tvOS.a";
+			remoteRef = 1F1FB95E20A4347100D398AA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		1F5C6EEE201714B1006B6A7A /* libRNVectorIcons.a */ = {
@@ -1371,12 +1472,14 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
 					"$(SRCROOT)/../node_modules/react-native-alipay/ios/RCTAlipay/**",
+					"$(SRCROOT)/../node_modules/react-native-xmpush/ios/RCTMIPushModule/RCTMIPushModule",
 				);
 				INFOPLIST_FILE = HugeRecycle2_0Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1400,12 +1503,14 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
 					"$(SRCROOT)/../node_modules/react-native-alipay/ios/RCTAlipay/**",
+					"$(SRCROOT)/../node_modules/react-native-xmpush/ios/RCTMIPushModule/RCTMIPushModule",
 				);
 				INFOPLIST_FILE = HugeRecycle2_0Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1421,6 +1526,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HugeRecycle2_0/HugeRecycle2_0.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1433,6 +1539,9 @@
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
 					"$(SRCROOT)/../node_modules/react-native-alipay/ios/RCTAlipay/**",
 					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS",
+					"$(SRCROOT)/../node_modules/react-native-xmpush/ios/RCTMIPushModule/RCTMIPushModule",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
+					"$(SRCROOT)/../node_modules/react-native-xmpush/ios/RCTMIPushModule/**",
 				);
 				INFOPLIST_FILE = HugeRecycle2_0/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1444,8 +1553,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hugehuge.HugeCollection;
 				PRODUCT_NAME = HugeRecycle2_0;
-				PROVISIONING_PROFILE = "5fb245be-2838-4540-b047-885800be76b1";
-				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionPP;
+				PROVISIONING_PROFILE = "8f356d3b-536f-421a-a486-da9914c3ec98";
+				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionTest;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1454,6 +1563,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HugeRecycle2_0/HugeRecycle2_0.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1465,6 +1575,9 @@
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
 					"$(SRCROOT)/../node_modules/react-native-alipay/ios/RCTAlipay/**",
 					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS",
+					"$(SRCROOT)/../node_modules/react-native-xmpush/ios/RCTMIPushModule/RCTMIPushModule",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
+					"$(SRCROOT)/../node_modules/react-native-xmpush/ios/RCTMIPushModule/**",
 				);
 				INFOPLIST_FILE = HugeRecycle2_0/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1476,8 +1589,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hugehuge.HugeCollection;
 				PRODUCT_NAME = HugeRecycle2_0;
-				PROVISIONING_PROFILE = "5fb245be-2838-4540-b047-885800be76b1";
-				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionPP;
+				PROVISIONING_PROFILE = "977818cd-c5bb-4989-83fb-dffe3d25d68f";
+				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionTest;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1499,11 +1612,13 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
 					"$(SRCROOT)/../node_modules/react-native-alipay/ios/RCTAlipay/**",
+					"$(SRCROOT)/../node_modules/react-native-xmpush/ios/RCTMIPushModule/RCTMIPushModule",
 				);
 				INFOPLIST_FILE = "HugeRecycle2_0-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1534,11 +1649,13 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
 					"$(SRCROOT)/../node_modules/react-native-alipay/ios/RCTAlipay/**",
+					"$(SRCROOT)/../node_modules/react-native-xmpush/ios/RCTMIPushModule/RCTMIPushModule",
 				);
 				INFOPLIST_FILE = "HugeRecycle2_0-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1567,6 +1684,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.HugeRecycle2_0-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1591,6 +1709,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.HugeRecycle2_0-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
