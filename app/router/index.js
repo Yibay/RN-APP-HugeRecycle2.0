@@ -13,8 +13,6 @@ import { adaptLayoutWidth } from '../HOC/adaptLayout';
 import initApp from '../HOC/initApp';
 // HOC 启动页、引导页轮播图
 import {guidePage} from '../HOC/guidePage';
-// HOC 检测 版本
-import checkVersion from "../HOC/checkVersion";
 
 // Actions
 import * as ManageCustomerAccountsLife from '../redux/actions/pagesLife/ManageCustomerAccountsLife';
@@ -189,4 +187,4 @@ const tabsStyle = {
 };
 
 // 视图锁定纵向,屏宽适配, 检验版本 ,登录状态管理相关数据, 地址管理相关数据
-export default lockOrientation(adaptLayoutWidth(initApp(checkVersion(guidePage(connect(null)(AppRouter))))));
+export default lockOrientation(adaptLayoutWidth(initApp(guidePage(connect(null)(AppRouter)))));

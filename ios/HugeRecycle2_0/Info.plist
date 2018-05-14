@@ -39,6 +39,12 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MiSDKAppID</key>
+	<string>2882303761517787040</string>
+	<key>MiSDKAppKey</key>
+	<string>5671778790040</string>
+	<key>MiSDKRun</key>
+	<string>Online</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -103,11 +109,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-  <key>MiSDKAppID</key>
-  <string>2882303761517787040</string>
-  <key>MiSDKAppKey</key>
-  <string>5671778790040</string>
-  <key>MiSDKRun</key>
-  <string>Online</string>
 </dict>
 </plist>

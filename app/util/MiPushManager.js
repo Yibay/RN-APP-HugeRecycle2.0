@@ -4,7 +4,7 @@ import MIPush from 'react-native-xmpush';
 
 let MiPushManager = {
   init(){
-    MIPush.setAlias("oooooo"); // 实际 应在 用户登录时，设置别名
+    // MIPush.setAlias("oooooo"); // 实际 应在 用户登录时，设置别名
 
     Platform.select({
       ios: () => {
@@ -32,7 +32,7 @@ let MiPushManager = {
     });
   },
   uninstall(){
-    MIPush.unsetAlias("oooooo"); // 实际 应在 用户退出时，卸载别名
+    // MIPush.unsetAlias("oooooo"); // 实际 应在 用户退出时，卸载别名
 
     Platform.select({
       ios: () => {

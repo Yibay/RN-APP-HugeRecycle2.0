@@ -4,6 +4,8 @@ export const checkVersionIOS = (appStoreVersion, currentVersion) => {
   if(!currentVersion && config && config.versionIOS){
     currentVersion = config.versionIOS;
   }
+  console.log(appStoreVersion);
+  console.log(currentVersion);
   let currentVersionArray = currentVersion.split('.').map(item => Number(item));
   let appStoreVersionArray = appStoreVersion.split('.').map(item => Number(item));
   // app store版本 高于 本地版本

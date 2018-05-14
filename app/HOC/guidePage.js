@@ -1,15 +1,18 @@
 import React,{Component} from 'react';
 import {StyleSheet, View, Modal} from 'react-native';
 
+import {connect} from 'react-redux';
+
 
 import request from '../util/request/request';
 import config from '../util/request/config';
+import {checkVersion} from '../redux/actions/checkVersion';
 
 import Guide from '../pages/Guide/Guide';
 import Holiday from '../pages/Guide/Holiday';
 
 
-export const guidePage = WrappedComponent => class extends Component{
+export const guidePage = WrappedComponent => connect(null, {checkVersion})(class extends Component{
 
   constructor(props){
     super(props);
@@ -66,6 +69,12 @@ export const guidePage = WrappedComponent => class extends Component{
     </View>
   }
 
+  componentDidUpdate(){
+    if(!(this.state.showGuidePage || this.state.showHolidayPage || this.state.waiting)){
+      this.props.checkVersion();
+    }
+  }
+
   // 关闭节假日图
   hideHolidayPage(){
     this.setState({showHolidayPage: false});
@@ -83,7 +92,7 @@ export const guidePage = WrappedComponent => class extends Component{
 
   // Android Modal 必须属性
   onRequestClose(){}
-};
+});
 
 const styles = StyleSheet.create({
   container: {
