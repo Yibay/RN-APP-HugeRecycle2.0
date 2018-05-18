@@ -161,7 +161,7 @@ export const locationCrossPlatform = WrappedComponent => connect(mapStateToProps
       }
     }
     // 2. 手机设置内，定位服务未开启
-    if(e.code === 2){
+    else if(e.code === 2){
       if (!this.openGeolocationListener){
         Alert.alert('请去开启定位权限','',[
           {
