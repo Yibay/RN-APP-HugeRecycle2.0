@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 import {defaultCurrentLocation, setLocationThunk, getDefaultAddressThunk} from "./Location";
 import {fetchUserAddressList, resetUserAddressList} from "./user/userAddressList";
+import {clearUserAccount, setUserAccount} from "./user/userAccount";
 
 
 // type 类型
@@ -52,6 +53,8 @@ export function setIdentityTokenThunk(identityToken){
         dispatch(getDefaultAddressThunk()),
         /** 2-2. 获取 用户地址列表 */
         dispatch(fetchUserAddressList()),
+        /** 2-3. 设置推送别名（推送使用） */
+        dispatch(setUserAccount()),
       ]);
 
     }
@@ -61,6 +64,8 @@ export function setIdentityTokenThunk(identityToken){
       dispatch(setLocationThunk(defaultCurrentLocation));
       // 3-2. 清空 用户回收地址列表
       dispatch(resetUserAddressList());
+      // 3-3. 清空 用户推送别名（取消推送）
+      dispatch(clearUserAccount());
     }
   }
 }

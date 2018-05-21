@@ -8,7 +8,8 @@ import recycleRecordDetail from './recycleRecordDetail';
 import mallOrderRecord from './mallOrderRecord';
 import mallOrderDetail from './mallOrderDetail';
 import userAddressList from './userAddressList';
+import userAccount from './userAccount';
 
-let user = combineReducers({customerScore, customerScoreLog, payPasswordFlag, recycleRecord, recycleRecordDetail, mallOrderRecord, mallOrderDetail, userAddressList});
+let user = combineReducers({customerScore, customerScoreLog, payPasswordFlag, recycleRecord, recycleRecordDetail, mallOrderRecord, mallOrderDetail, userAddressList, userAccount});
 
 export default user;

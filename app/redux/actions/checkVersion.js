@@ -18,7 +18,6 @@ export function checkVersion(){
 // 检测 iOS版本
 async function _checkVersionIOS(){
   const version = await request.get(config.api.versionIOS + '&t=' + new Date().getTime());
-  console.log('version',config.api.versionIOS + '&t=' + new Date().getTime(),version);
   // 数据异常
   if(!version){
     console.log('网络异常');
