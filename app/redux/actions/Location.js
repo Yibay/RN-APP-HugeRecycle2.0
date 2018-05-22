@@ -48,6 +48,7 @@ export function setLocationThunk(location){
       let storeInfo = await loadInitStoreInfoByCommunityId(communityId);
       // 若数据异常、立即结束（包含该小区无对应服务站）
       if(!storeInfo || storeInfo.status || !storeInfo.data || !storeInfo.data.length){  // {data: null, status: 0}
+        dispatch({type:SET_Location_Finish});
         return dispatch(setStoreInfo([])); // 置空小区 对应的便利店
       }
       // 若成功
@@ -55,6 +56,7 @@ export function setLocationThunk(location){
       return dispatch({type:SET_Location_Finish});
     }
     else{
+      dispatch({type:SET_Location_Finish});
       return dispatch(setStoreInfo([])); // 置空小区 对应的便利店
     }
   }
