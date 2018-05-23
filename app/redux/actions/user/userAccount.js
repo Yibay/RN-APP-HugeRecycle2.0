@@ -23,7 +23,7 @@ export function setUserAccount(){
 
     // 向后端请求推送的userAccount
     const res = await request
-      .get(config.api.getUserAccount,null,{'X-AUTH-TOKEN':authToken})
+      .get(config.api.getUserAccount,null,{'X-AUTH-TOKEN':authToken});
 
     if(res && !res.status){
       // 指定 推送的 userAccount

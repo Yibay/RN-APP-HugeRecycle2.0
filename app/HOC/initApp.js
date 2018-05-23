@@ -11,14 +11,14 @@ import Orientation from 'react-native-orientation';
 
 
 // 管理推送
-import MiPushManager from '../util/MiPushManager';
+import {miPushInit, miPushUninstall} from '../redux/actions/miPush/MiPushManager';
 
 // Action
 import { setIdentityTokenThunk } from '../redux/actions/IdentityToken';
 import { setAllProducts, resetRecycledItem } from '../redux/actions/Recycle';
 
 
-const initApp = (WrappedComponent) => connect(null, { setAllProducts, setIdentityTokenThunk, resetRecycledItem })(class extends Component {
+const initApp = (WrappedComponent) => connect(null, { setAllProducts, setIdentityTokenThunk, resetRecycledItem, miPushInit, miPushUninstall })(class extends Component {
 
   async componentWillMount(){
     // 2. 再次锁定垂直方向
@@ -37,13 +37,13 @@ const initApp = (WrappedComponent) => connect(null, { setAllProducts, setIdentit
 
   componentDidMount(){
     // 监听推送
-    MiPushManager.init();
+    this.props.miPushInit();
   }
 
   componentWillUnmount(){
     console.log('应用销毁');
     // 取消监听推送
-    MiPushManager.uninstall();
+    this.props.miPushUninstall();
   }
 
   // 1. 设置身份信息
@@ -53,6 +53,7 @@ const initApp = (WrappedComponent) => connect(null, { setAllProducts, setIdentit
     let ret = await storage
       .load({ key: 'identityToken' })
       .catch(err => {console.warn(err); return null}); // 若未找到，则log对应信息
+    console.log('重启应用');
 
     // 若找到 则更新到数据流中
     if(ret){

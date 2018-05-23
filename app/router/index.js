@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Router, Scene, Stack } from 'react-native-router-flux';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 
 
@@ -19,6 +19,7 @@ import * as ManageCustomerAccountsLife from '../redux/actions/pagesLife/ManageCu
 import * as MallLife from '../redux/actions/pagesLife/MallLife';
 import * as MallCartLife from '../redux/actions/pagesLife/MallCartLife';
 import * as MallSettlementLife from '../redux/actions/pagesLife/MallSettlementLife';
+import {unJumpRecycleRecord} from '../redux/actions/miPush/jumpRecycleRecord';
 
 // 页面路由 TabIcon
 import { RecycleIcon, MallIcon, MineIcon } from '../HOC/configTabIcon';
@@ -56,7 +57,7 @@ import ManageConsumePassword from "../pages/Home/Mine/ManageConsumePassword";
 import CoverageArea from "../pages/Home/Mine/CoverageArea";
 import MallOrderDetail from "../pages/MallOrderDetail";
 import RecycleRecordDetail from "../pages/RecycleRecordDetail";
-
+import {Actions} from "react-native-router-flux";
 
 
 class AppRouter extends Component{
@@ -140,7 +141,6 @@ class AppRouter extends Component{
         {/* 编辑地址 */}
         <Scene key='addressEditPage' component={AddressEdit} hideNavBar={true} />
 
-
         {/* 5、HOC */}
         {/* 登录页 */}
         <Scene key='login' component={Login} hideNavBar={true} />
@@ -148,6 +148,28 @@ class AppRouter extends Component{
         <Scene key='intro' component={Intro} hideNavBar={true} />
       </Stack>
     </Router>
+  }
+
+  componentDidMount(){
+    // 若点击通知栏 进入 app
+    // 1、跳转到回收记录页
+    // Alert.alert('componentDidMount',this.props.jumpRecycleRecord);
+    if(this.props.jumpRecycleRecord){
+      Actions._mine();
+      Actions.environmentalRecordPage();
+      this.props.dispatch(unJumpRecycleRecord());
+    }
+  }
+
+  componentDidUpdate(){
+    // 若点击通知栏 进入 app
+    // 1、跳转到回收记录页
+    // Alert.alert('componentDidUpdate',this.props.jumpRecycleRecord);
+    if(this.props.jumpRecycleRecord){
+      Actions._mine();
+      Actions.environmentalRecordPage();
+      this.props.dispatch(unJumpRecycleRecord());
+    }
   }
 
 }
@@ -186,6 +208,12 @@ const tabsStyle = {
   }
 };
 
+function mapStateToProps(state){
+  return {
+    jumpRecycleRecord: state.miPush.jumpRecycleRecord
+  }
+}
+
 // 视图锁定纵向,屏宽适配, 检验版本 ,登录状态管理相关数据, 地址管理相关数据
-export default lockOrientation(adaptLayoutWidth(initApp(guidePage(connect(null)(AppRouter)))));
+export default lockOrientation(adaptLayoutWidth(initApp(guidePage(connect(mapStateToProps)(AppRouter)))));
 // export default lockOrientation(adaptLayoutWidth(initApp(connect(null)(AppRouter))));

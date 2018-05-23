@@ -153,6 +153,11 @@ class CallModal extends Component{
       params.unit = Number(params.unit);
       params.room = Number(params.room);
     }
+    else{
+      params.building = null;
+      params.unit = null;
+      params.room = null;
+    }
 
 
     // 若已登录

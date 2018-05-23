@@ -106,6 +106,9 @@ class AddressAdd extends Component {
         Alert.alert('请填写详细地址');
         return;
       }
+      addAddress.building = null;
+      addAddress.unit = null;
+      addAddress.room = null;
     }
 
     // 1. 添加新地址 请求

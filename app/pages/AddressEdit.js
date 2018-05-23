@@ -112,6 +112,8 @@ class AddressEdit extends Component {
 
   // 确认更新到数据库
   async commitUpdate(){
+    console.log(this.state);
+
     // 检验数据
     if(editAddress(this.state)){
       // 更新到数据库

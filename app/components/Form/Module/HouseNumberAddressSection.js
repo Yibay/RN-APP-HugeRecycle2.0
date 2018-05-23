@@ -54,13 +54,14 @@ class HouseNumberAddressSection extends Component {
         <Text style={styles.msgText}>室</Text>
       </View>
       {/* 无户号 地址模块 */}
-      <TextInput underlineColorAndroid="transparent" value={this.state.address} onChangeText={val => this.setState({address: val.trim(), stateUpdateFlag: true})}  style={[this.state.haveHouseNumber ? styles.hide : styles.msgText, styles.msgTextInput, styles.address]}/>
+      <TextInput underlineColorAndroid="transparent" value={this.state.address} onChangeText={val => this.setState({address: val.trim(),building:'',unit:'',room:'', stateUpdateFlag: true})}  style={[this.state.haveHouseNumber ? styles.hide : styles.msgText, styles.msgTextInput, styles.address]}/>
     </View>)
   }
 
   componentDidUpdate(){
     // state数据更新后，同步给外部 (stateUpdateFlag 防止死循环： 父组件state更新会触发子组件update)
     if(this.state.stateUpdateFlag){
+      console.log(this.state);
       this.props.onChangeText(_.omit(this.state, ['options', 'stateUpdateFlag']));
       this.setState({stateUpdateFlag: false});
     }
@@ -68,10 +69,12 @@ class HouseNumberAddressSection extends Component {
 
   // 切换 有无户号
   selectHouseNumberType(val){
-    this.setState({
-      haveHouseNumber: val,
-      stateUpdateFlag: true // flag标记 内部手动更新 state了
-    });
+    this.setState(
+      {
+        haveHouseNumber: val,
+        stateUpdateFlag: true // flag标记 内部手动更新 state了
+      }
+    );
   }
 
   // 只能输入数字和字母
