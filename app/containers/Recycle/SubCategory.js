@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 
 import PropTypes from 'prop-types';
@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import CategoryItem from './CategoryItem';
 
 
-class SubCategory extends Component{
+class SubCategory extends PureComponent{
 
   static propTypes = {
     show: PropTypes.bool.isRequired,

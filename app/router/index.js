@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import { Router, Scene, Stack } from 'react-native-router-flux';
 import { StyleSheet, Alert } from 'react-native';
@@ -150,7 +150,12 @@ class AppRouter extends Component{
     </Router>
   }
 
+  componentWillMount(){
+    console.log('路由器 componentWillMount');
+  }
+
   componentDidMount(){
+    console.log('路由器 componentDidMount');
     // 若点击通知栏 进入 app
     // 1、跳转到回收记录页
     // Alert.alert('componentDidMount',this.props.jumpRecycleRecord);
@@ -161,7 +166,12 @@ class AppRouter extends Component{
     }
   }
 
+  componentWillUpdate(){
+    console.log('路由器 componentWillUpdate');
+  }
+
   componentDidUpdate(){
+    console.log('路由器 componentDidUpdate');
     // 若点击通知栏 进入 app
     // 1、跳转到回收记录页
     // Alert.alert('componentDidUpdate',this.props.jumpRecycleRecord);

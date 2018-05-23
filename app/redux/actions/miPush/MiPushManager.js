@@ -5,6 +5,7 @@ import MIPush from 'react-native-xmpush';
 
 import {ignoreGuidePage} from './ignoreGuide';
 import {jumpRecycleRecord} from './jumpRecycleRecord';
+import {Actions} from "react-native-router-flux";
 
 
 /** 订阅推送 */
@@ -36,7 +37,7 @@ export function miPushInit(){
     MIPush.addEventListener("xmpush_click", (notification) => {
       console.log("app运行过程中点击通知:", notification);
       //  点击回调
-      dispatch(clickNoticeCB(notification));
+      dispatch(clickForeNoticeCB(notification));
     });
 
     /** 3、app关闭时，点击通知 */
@@ -48,15 +49,33 @@ export function miPushInit(){
           dispatch(clickIOSBackNoticeCB(notification));
         },
         android: () => {
-          dispatch(clickNoticeCB(notification));
+          dispatch(clickAndroidBackNoticeCB(notification));
         }
       })();
     });
   };
 }
 
-// 点击通知栏消息 回调（Android、及iOS app运行中）
-function clickNoticeCB(notification){
+
+// 点击通知栏消息 回调（iOS、Android 运行中）
+function clickForeNoticeCB(notification){
+  return (dispatch, getState) => {
+
+    if(notification){
+      // dispatch(ignoreGuidePage()); // 跳过导航页 ignoreGuidePage
+
+      if(notification.content){
+        // content 为 Android 传输数据默认属性；iOS 要自定义一个键值对 content：...
+        // content 以JSON形式传递数据，解析后，做跳转等动作。
+        let content = JSON.parse(notification.content);
+        dispatch(clickNoticeActions(content,true));
+      }
+    }
+  };
+}
+
+// 点击通知栏消息 回调（Android 已关闭）
+function clickAndroidBackNoticeCB(notification){
   return (dispatch, getState) => {
 
     if(notification){
@@ -66,14 +85,13 @@ function clickNoticeCB(notification){
         // content 为 Android 传输数据默认属性；iOS 要自定义一个键值对 content：...
         // content 以JSON形式传递数据，解析后，做跳转等动作。
         let content = JSON.parse(notification.content);
-
-        dispatch(clickNoticeActions(content));
+        dispatch(clickNoticeActions(content,true));
       }
     }
   };
 }
 
-// 点击通知栏消息 回调（iOS app 关闭清空）
+// 点击通知栏消息 回调（iOS app 已关闭）
 function clickIOSBackNoticeCB(notification){
   return (dispatch, getState) => {
 
@@ -81,25 +99,34 @@ function clickIOSBackNoticeCB(notification){
       dispatch(ignoreGuidePage()); // 跳过导航页 ignoreGuidePage
 
       if(notification._data.content){
-        // content 为 Android 传输数据默认属性；iOS 要自定义一个键值对 content：...
-        // content 以JSON形式传递数据，解析后，做跳转等动作。
         let content = JSON.parse(notification._data.content);
-
-        dispatch(clickNoticeActions(content));
+        dispatch(clickNoticeActions(content,false));
       }
     }
   };
 }
 
 // 根据 传来的自定义数据，做相关操作（页面跳转等）
-function clickNoticeActions(content){
+/**
+ *
+ * @param content
+ * @param status bool true:运行中actions，false:重启actions
+ * @returns {function(*, *)}
+ */
+function clickNoticeActions(content,isFore=true){
   return (dispatch, getState) => {
     switch (content.action){
       // 回收消息，跳转到 我的环保记录页
       case 'receiptOrder': // 接单
       case 'completeOrder': // 完成
       case 'cancelOrder': // 撤单
-        dispatch(jumpRecycleRecord());
+        if(isFore){
+          Actions._mine();
+          Actions.environmentalRecordPage();
+        }
+        else{
+          dispatch(jumpRecycleRecord());
+        }
         break;
       default:
     }

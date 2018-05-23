@@ -57,9 +57,9 @@ class Mall extends Component{
       {/* 按类查询 */}
       <CategoryList mainCategoryList={mainCategoryList} />
       {/* 轮播图 */}
-      <View style={styles.bannerSection}>
-        <Banner style={styles.banner} bannerWidth={686} bannerList={bannerList} />
-      </View>
+      {/*<View style={styles.bannerSection}>*/}
+        {/*<Banner style={styles.banner} bannerWidth={686} bannerList={bannerList} />*/}
+      {/*</View>*/}
     </View>;
 
     return (<View style={styles.container}>

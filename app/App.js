@@ -21,4 +21,16 @@ export default class App extends Component<{}> {
       </Provider>
     );
   }
+  componentWillMount(){
+    console.log('App入口 componentWillMount');
+  }
+  componentDidMount(){
+    console.log('App入口 componentDidMount');
+  }
+  componentWillUpdate(){
+    console.log('App入口 componentWillUpdate');
+  }
+  componentDidUpdate(){
+    console.log('App入口 componentDidUpdate');
+  }
 }

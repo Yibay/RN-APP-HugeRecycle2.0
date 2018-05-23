@@ -20,7 +20,7 @@ import { setAllProducts, resetRecycledItem } from '../redux/actions/Recycle';
 
 const initApp = (WrappedComponent) => connect(null, { setAllProducts, setIdentityTokenThunk, resetRecycledItem, miPushInit, miPushUninstall })(class extends Component {
 
-  async componentWillMount(){
+  componentWillMount(){
     // 2. 再次锁定垂直方向
     this.lockOrientationAgain();
     // 3. 再次设为沉浸式（防止 应用假退Bug）
@@ -28,7 +28,7 @@ const initApp = (WrappedComponent) => connect(null, { setAllProducts, setIdentit
     // 4. 清空待回收物品
     this.props.resetRecycledItem();
     // 1. 设置身份信息
-    await this.setIdentityToken();
+    this.setIdentityToken();
   }
 
   render(){
