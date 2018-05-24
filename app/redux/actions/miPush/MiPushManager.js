@@ -79,7 +79,7 @@ function clickAndroidBackNoticeCB(notification){
   return (dispatch, getState) => {
 
     if(notification){
-      dispatch(ignoreGuidePage()); // 跳过导航页 ignoreGuidePage
+      // dispatch(ignoreGuidePage()); // 跳过导航页 ignoreGuidePage
 
       if(notification.content){
         // content 为 Android 传输数据默认属性；iOS 要自定义一个键值对 content：...
@@ -96,7 +96,7 @@ function clickIOSBackNoticeCB(notification){
   return (dispatch, getState) => {
 
     if(notification){
-      dispatch(ignoreGuidePage()); // 跳过导航页 ignoreGuidePage
+      // dispatch(ignoreGuidePage()); // 跳过导航页 ignoreGuidePage
 
       if(notification._data.content){
         let content = JSON.parse(notification._data.content);

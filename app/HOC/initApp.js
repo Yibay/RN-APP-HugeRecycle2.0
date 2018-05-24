@@ -27,8 +27,6 @@ const initApp = (WrappedComponent) => connect(null, { setAllProducts, setIdentit
     this.setTranslucentAgain();
     // 4. 清空待回收物品
     this.props.resetRecycledItem();
-    // 1. 设置身份信息
-    this.setIdentityToken();
   }
 
   render(){
@@ -36,6 +34,8 @@ const initApp = (WrappedComponent) => connect(null, { setAllProducts, setIdentit
   }
 
   componentDidMount(){
+    // 1. 设置身份信息
+    this.setIdentityToken();
     // 监听推送
     this.props.miPushInit();
   }

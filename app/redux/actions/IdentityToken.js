@@ -48,14 +48,14 @@ export function setIdentityTokenThunk(identityToken){
     if(authToken){
 
       // 更新app需要的用户信息
-      // Promise.all([ // 并发
-      //   /** 2-1. 获取 默认地址 更新到 当前地址 (defaultAddress) */
-      //   dispatch(getDefaultAddressThunk()),
-      //   /** 2-2. 获取 用户地址列表 */
-      //   dispatch(fetchUserAddressList()),
-      //   /** 2-3. 设置推送别名（推送使用） */
+      Promise.all([ // 并发
+        /** 2-1. 获取 默认地址 更新到 当前地址 (defaultAddress) */
+        dispatch(getDefaultAddressThunk()),
+        /** 2-2. 获取 用户地址列表 */
+        dispatch(fetchUserAddressList()),
+        /** 2-3. 设置推送别名（推送使用） */
         dispatch(setUserAccount())
-      // ]);
+      ]);
 
     }
     // 3、若是 登出状态
