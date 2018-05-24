@@ -3,9 +3,12 @@ import {Actions} from 'react-native-router-flux';
 import {fetchStoreGoods} from './storeGoods';
 import {fetchShoppingCartAmount} from './shoppingCart';
 import {fetchSettlementData} from "./settlement";
+import config from "../../../util/request/config";
+import request from "../../../util/request/request";
 
 // type 类型
 export const SET_StoreInfo = 'SET_StoreInfo';
+export const CLEAR_StoreInfo = 'CLEAR_StoreInfo';
 export const SET_StoreIndex = 'SET_StoreIndex';
 export const SET_ShowStoreSelector = 'SET_ShowStoreSelector';
 
@@ -18,29 +21,33 @@ export const defaultShoppingCart = {validProductList:[],invalidProductList:[],is
  * @param storeInfo
  * @returns {*}
  */
-export function setStoreInfo(storeInfo){
-  return {
-    type: SET_StoreInfo,
-    storeInfo
-  }
+export function fetchStoreInfo(){
+
+  return async(dispatch, getState) => {
+
+    /** 1、根据小区id, 获取便利店信息 */
+    let state = getState();
+    let communityId = state.location.currentLocation.communityId;
+
+    if(communityId !== undefined){
+      let storeInfo = await loadInitStoreInfoByCommunityId(communityId);
+      // 若数据异常、立即结束（包含该小区无对应服务站）
+      if(!storeInfo || storeInfo.status || !storeInfo.data || !storeInfo.data.length){  // {data: null, status: 0}
+        return dispatch({type:CLEAR_StoreInfo}); // 置空小区 对应的便利店
+      }
+      // 若成功
+      return dispatch({type:SET_StoreInfo,storeInfo:storeInfo.data});
+    }
+    else{
+      return dispatch({type:CLEAR_StoreInfo}); // 置空小区 对应的便利店
+    }
+
+  };
 }
-/** Thunk: 小区对应的便利店数组 关联数据 */
-export function setStoreInfoThunk(storeInfo){
-  return async (dispatch, getState) => {
 
-    /** 1、设置便利店信息 */
-    dispatch(setStoreInfo(storeInfo)); // 此处storeIndex 会被重置为0
-
-    // 后续这里考虑优化
-    return Promise.all([
-      /** 2、根据 便利店id，获取便利店 categoryId 数组、头部banner图片 */
-      dispatch(fetchStoreGoods()),
-      /** 3、根据便利店id，获取 更新购物车 */
-      dispatch(fetchShoppingCartAmount())
-    ]);
-
-
-  }
+/** 1、根据小区名字, 获取便利店信息 */
+async function loadInitStoreInfoByCommunityId(communityId){
+  return await request.get(config.api.loadInitStoreInfoByCommunityId, {communityId});
 }
 
 
@@ -64,11 +71,10 @@ export function setStoreIndexThunk(storeIndex){
     dispatch(setStoreIndex(storeIndex));
 
     // 后续这里考虑优化
-    /** 2、根据 便利店id，获取便利店 categoryId 数组、头部banner图片 */
-    dispatch(fetchStoreGoods());
-
-    /** 3、根据便利店id，获取 更新购物车 */
     if(Actions.currentScene === '_shoppingMall'){
+      /** 2、根据 便利店id，获取便利店 categoryId 数组、头部banner图片 */
+      dispatch(fetchStoreGoods());
+      /** 3、根据便利店id，获取 更新购物车 */
       dispatch(fetchShoppingCartAmount());
     }
 

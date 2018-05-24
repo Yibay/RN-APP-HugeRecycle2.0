@@ -48,10 +48,10 @@ function autoLocationFlag(state=true, action){
 
 function isFetching(state=false, action){
   switch (action.type){
-    case SET_Location:
-      return true;
-    case SET_Location_Finish:
-      return false;
+    // case SET_Location:
+    //   return true;
+    // case SET_Location_Finish:
+    //   return false;
     default:
       return state;
   }

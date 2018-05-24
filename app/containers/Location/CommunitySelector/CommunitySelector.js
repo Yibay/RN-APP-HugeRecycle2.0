@@ -6,7 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 
 
-import { setLocationThunk } from '../../../redux/actions/Location';
+import { setLocation } from '../../../redux/actions/Location';
 import { locationCrossPlatform } from '../../../HOC/locationCrossPlatform';
 
 import ViewCompatible from "../../../components/View/ViewCompatible";
@@ -105,11 +105,11 @@ class CommunitySelector extends Component{
       let matchingAddress = this.props.userAddressList.filter(item => item.communityId === this.state.communitySelected.communityId);
       // 有,则取那个地址
       if(matchingAddress.length){
-        this.props.setLocationThunk(matchingAddress[0]);
+        this.props.setLocation(matchingAddress[0]);
       }
       // 没有,则仅取定位小区
       else{
-        this.props.setLocationThunk(this.state.communitySelected);
+        this.props.setLocation(this.state.communitySelected);
       }
     }
     // 返回回收页
@@ -222,4 +222,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {setLocationThunk})(CommunitySelector);
+export default connect(mapStateToProps, {setLocation})(CommunitySelector);

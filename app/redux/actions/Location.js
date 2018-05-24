@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import request from "../../util/request/request";
 import config from "../../util/request/config";
-import { setStoreInfo, setStoreInfoThunk } from "./mall/store";
+import { setStoreInfo } from "./mall/store";
 
 // type 类型
 export const SET_Location = 'SET_Location';
@@ -34,37 +34,7 @@ export function setLocation(location){
     location
   )
 }
-/** 当前地址 相关数据 */
-export function setLocationThunk(location){
-  return async (dispatch, getState) => {
 
-    /** 1、设置当前地址 */
-    dispatch(setLocation(location));
-
-    /** 2、联动其他数据 */
-    let communityId = location.communityId;
-    if(communityId !== undefined){
-      /** 1、根据小区id, 获取便利店信息 */
-      let storeInfo = await loadInitStoreInfoByCommunityId(communityId);
-      // 若数据异常、立即结束（包含该小区无对应服务站）
-      if(!storeInfo || storeInfo.status || !storeInfo.data || !storeInfo.data.length){  // {data: null, status: 0}
-        dispatch({type:SET_Location_Finish});
-        return dispatch(setStoreInfo([])); // 置空小区 对应的便利店
-      }
-      // 若成功
-      await dispatch(setStoreInfoThunk(storeInfo.data));
-      return dispatch({type:SET_Location_Finish});
-    }
-    else{
-      dispatch({type:SET_Location_Finish});
-      return dispatch(setStoreInfo([])); // 置空小区 对应的便利店
-    }
-  }
-}
-/** 1、根据小区名字, 获取便利店信息 */
-async function loadInitStoreInfoByCommunityId(communityId){
-  return await request.get(config.api.loadInitStoreInfoByCommunityId, {communityId});
-}
 /** Thunk: 获取 默认地址 更新到 当前地址 */
 export function getDefaultAddressThunk(){
   return async (dispatch, getState) => {
@@ -78,7 +48,7 @@ export function getDefaultAddressThunk(){
       // 默认地址 数据正确
       // 默认地址data 可能为null, 如：当删光用户地址列表时
       if(defaultAddress && !defaultAddress.status && defaultAddress.data && defaultAddress.data.communityName !== '其他') {
-        dispatch(setLocationThunk(defaultAddress.data));
+        dispatch(setLocation(defaultAddress.data));
       }
     }
   };

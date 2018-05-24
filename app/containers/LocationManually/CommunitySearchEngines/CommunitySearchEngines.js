@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 
 import request from '../../../util/request/request';
 import config from '../../../util/request/config';
-import { setLocationThunk } from '../../../redux/actions/Location';
+import { setLocation } from '../../../redux/actions/Location';
 
 import InputSection from '../../../components/Form/Input/InputSection';
 import CommunitySearched from '../CommunitySearched';
@@ -114,11 +114,11 @@ class CommunitySearchEngines extends PureComponent {
         let matchingAddress = this.props.userAddressList.filter(item => item.communityId === communitySelected.communityId);
         // 有,则取那个地址
         if(matchingAddress.length){
-          this.props.setLocationThunk(matchingAddress[0]);
+          this.props.setLocation(matchingAddress[0]);
         }
         // 没有,则仅取定位小区
         else{
-          this.props.setLocationThunk(communitySelected);
+          this.props.setLocation(communitySelected);
         }
       }
       Actions.pop();
@@ -165,4 +165,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {setLocationThunk})(CommunitySearchEngines);
+export default connect(mapStateToProps, {setLocation})(CommunitySearchEngines);

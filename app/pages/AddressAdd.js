@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import validator  from '../util/form/validator';
 import config from '../util/request/config';
 import request from '../util/request/request';
-import { setLocationThunk } from '../redux/actions/Location';
+import { setLocation } from '../redux/actions/Location';
 import {fetchUserAddressList} from '../redux/actions/user/userAddressList';
 
 import Header from '../components/Header/Header';
@@ -118,7 +118,7 @@ class AddressAdd extends Component {
 
     // 若请求成功 数据正确
     if(newAddress && !newAddress.status && newAddress.data){
-      await this.props.setLocationThunk(newAddress.data); // 更新到 数据流
+      await this.props.setLocation(newAddress.data); // 更新到 数据流
       Actions.pop(); // 返回上一页
     }
     else {
@@ -168,4 +168,4 @@ function mapStateToProps(state){
 }
 
 
-export default connect(mapStateToProps, { setLocationThunk, fetchUserAddressList })(AddressAdd);
+export default connect(mapStateToProps, { setLocation, fetchUserAddressList })(AddressAdd);

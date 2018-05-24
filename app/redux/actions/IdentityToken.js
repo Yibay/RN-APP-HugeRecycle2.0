@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 
-import {defaultCurrentLocation, setLocationThunk, getDefaultAddressThunk} from "./Location";
+import {defaultCurrentLocation, setLocation, getDefaultAddressThunk} from "./Location";
 import {fetchUserAddressList, resetUserAddressList} from "./user/userAddressList";
 import {clearUserAccount, setUserAccount} from "./user/userAccount";
 
@@ -61,7 +61,7 @@ export function setIdentityTokenThunk(identityToken){
     // 3、若是 登出状态
     else{
       // 3-1. 清空 当前地址
-      dispatch(setLocationThunk(defaultCurrentLocation));
+      dispatch(setLocation(defaultCurrentLocation));
       // 3-2. 清空 用户回收地址列表
       dispatch(resetUserAddressList());
       // 3-3. 清空 用户推送别名（取消推送）

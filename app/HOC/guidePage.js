@@ -37,35 +37,37 @@ export const guidePage = WrappedComponent => connect(mapStateToProps, {checkVers
         storage.load({key:'version'})
           .then(ret => {
             // 更新版本，显示引导页
-            ret === config.version && this.setState({showGuidePage: false});
+            return ret !== config.version;
           })
           .catch(e => {
             console.warn(e);
+            // 异常，不限时引导页
+            return false;
           }),
         new Promise((resolve, reject) => {
           setTimeout(() => {
-            this.setState({showGuidePage: false});
-            resolve();
+            // 超时，不限时引导页
+            resolve(false);
           },5000);
         })
-      ]),
+      ])
+        .then(showGuidePage => {
+          this.setState({showGuidePage})
+        })
+      ,
       // 是否展示 节假日（首屏图）
       request.get(config.api.getBaseImages)
         .then(res => {
           res && !res.status && this.setState({holidayData: res.data, showHolidayPage: !!res.data.filter(item => item.showed).length});
         })
         .catch(e => console.warn(e))
-      ])
+    ])
       .then(() => {
         this.setState({waiting: false});
       })
   }
 
   render(){
-    console.log('ignoreGuide',this.props.ignoreGuide);
-    console.log('showGuidePage',this.state.showGuidePage);
-    console.log('showHolidayPage',this.state.showHolidayPage);
-    console.log('waiting',this.state.waiting);
     return <View style={styles.container}>
       <WrappedComponent {...this.props} />
       {/* 引导页：轮播 */}

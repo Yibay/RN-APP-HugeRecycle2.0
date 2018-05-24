@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import {SET_Location} from "../../actions/Location";
-import {SET_ShowStoreSelector, SET_StoreIndex, SET_StoreInfo} from "../../actions/mall/store";
+import {SET_ShowStoreSelector, SET_StoreIndex, SET_StoreInfo, CLEAR_StoreInfo} from "../../actions/mall/store";
 
 /**
  * 服务站信息
@@ -19,6 +19,8 @@ function storeInfo(state=[], actions){
     // 设置 便利店信息
     case SET_StoreInfo:
       return actions.storeInfo;
+    case CLEAR_StoreInfo:
+      return [];
     default:
       return state;
   }
@@ -29,6 +31,7 @@ function storeIndex(state=0, actions){
   switch (actions.type){
     // 设置 便利店信息
     case SET_StoreInfo:
+    case CLEAR_StoreInfo:
       return 0;
     case SET_StoreIndex:
       return actions.storeIndex;
