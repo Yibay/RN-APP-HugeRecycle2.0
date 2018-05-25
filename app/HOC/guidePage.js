@@ -13,11 +13,7 @@ import Guide from '../pages/Guide/Guide';
 import Holiday from '../pages/Guide/Holiday';
 
 
-export const guidePage = WrappedComponent => connect(mapStateToProps, {checkVersion})(class extends Component{
-
-  static propTypes = {
-    ignoreGuide: PropTypes.bool
-  };
+export const guidePage = WrappedComponent => connect(null, {checkVersion})(class extends Component{
 
   constructor(props){
     super(props);
@@ -26,7 +22,7 @@ export const guidePage = WrappedComponent => connect(mapStateToProps, {checkVers
       waiting: true,
       showHolidayPage: false,
       holidayData: null,
-      showGuidePage: true
+      showGuidePage: true,
     };
   }
 
@@ -71,7 +67,7 @@ export const guidePage = WrappedComponent => connect(mapStateToProps, {checkVers
     return <View style={styles.container}>
       <WrappedComponent {...this.props} />
       {/* 引导页：轮播 */}
-      <Modal visible={!this.props.ignoreGuide && (this.state.showGuidePage || this.state.showHolidayPage || this.state.waiting)} onRequestClose={() => this.onRequestClose()}>
+      <Modal visible={this.state.showGuidePage || this.state.showHolidayPage || this.state.waiting} onRequestClose={() => this.onRequestClose()}>
         {
           this.state.waiting ?
             undefined
@@ -118,9 +114,3 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
-
-function mapStateToProps(state){
-  return {
-    ignoreGuide: state.miPush.ignoreGuide
-  }
-}

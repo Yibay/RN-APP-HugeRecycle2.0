@@ -26,7 +26,7 @@ class EnvironmentalRecord extends Component {
   
   render(){
     return (<View style={styles.container}>
-      <Header title='我的环保记录' back={() => Actions.popTo('_mine')} />
+      <Header title='我的环保记录' back={() => {Actions.pop();}} />
       {/* 环保记录列表 */}
       <FlatListDefault style={styles.content}
                        refreshControl={<RefreshControl refreshing={this.props.recycleRecord.isFetching} onRefresh={() => this.props.onEnter()} />}

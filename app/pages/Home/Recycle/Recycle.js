@@ -99,10 +99,6 @@ class Recycle extends Component{
     await this.getProducts();
   }
 
-  componentWillUnmount(){
-    console.log('componentWillUnmount');
-  }
-
   // 获取回收品列表（无需登录）
   async getProducts(){
     // 请求 回收类别相应数据

@@ -1,11 +1,11 @@
 import {Platform} from 'react-native';
 
 import MIPush from 'react-native-xmpush';
-
-
-import {ignoreGuidePage} from './ignoreGuide';
-import {jumpRecycleRecord} from './jumpRecycleRecord';
 import {Actions} from "react-native-router-flux";
+
+
+import {jumpRecycleRecord} from './jumpRecycleRecord';
+import * as RecycleRecordLife from "../pagesLife/RecycleRecordLife";
 
 
 /** 订阅推送 */
@@ -62,13 +62,17 @@ function clickForeNoticeCB(notification){
   return (dispatch, getState) => {
 
     if(notification){
-      // dispatch(ignoreGuidePage()); // 跳过导航页 ignoreGuidePage
 
       if(notification.content){
         // content 为 Android 传输数据默认属性；iOS 要自定义一个键值对 content：...
         // content 以JSON形式传递数据，解析后，做跳转等动作。
-        let content = JSON.parse(notification.content);
-        dispatch(clickNoticeActions(content,true));
+        try{
+          let content = JSON.parse(notification.content);
+          dispatch(clickNoticeActions(content));
+        }
+        catch (e){
+          console.log(e);
+        }
       }
     }
   };
@@ -79,13 +83,17 @@ function clickAndroidBackNoticeCB(notification){
   return (dispatch, getState) => {
 
     if(notification){
-      // dispatch(ignoreGuidePage()); // 跳过导航页 ignoreGuidePage
 
       if(notification.content){
         // content 为 Android 传输数据默认属性；iOS 要自定义一个键值对 content：...
         // content 以JSON形式传递数据，解析后，做跳转等动作。
-        let content = JSON.parse(notification.content);
-        dispatch(clickNoticeActions(content,true));
+        try{
+          let content = JSON.parse(notification.content);
+          dispatch(clickNoticeActions(content));
+        }
+        catch(e){
+          console.log(e);
+        }
       }
     }
   };
@@ -96,11 +104,15 @@ function clickIOSBackNoticeCB(notification){
   return (dispatch, getState) => {
 
     if(notification){
-      // dispatch(ignoreGuidePage()); // 跳过导航页 ignoreGuidePage
 
       if(notification._data.content){
-        let content = JSON.parse(notification._data.content);
-        dispatch(clickNoticeActions(content,false));
+        try{
+          let content = JSON.parse(notification._data.content);
+          dispatch(clickNoticeActions(content));
+        }
+        catch(e){
+          console.log(e);
+        }
       }
     }
   };
@@ -113,19 +125,18 @@ function clickIOSBackNoticeCB(notification){
  * @param status bool true:运行中actions，false:重启actions
  * @returns {function(*, *)}
  */
-function clickNoticeActions(content,isFore=true){
+function clickNoticeActions(content){
   return (dispatch, getState) => {
     switch (content.action){
       // 回收消息，跳转到 我的环保记录页
       case 'receiptOrder': // 接单
       case 'completeOrder': // 完成
       case 'cancelOrder': // 撤单
-        if(isFore){
-          Actions._mine();
-          Actions.environmentalRecordPage();
+        if(Actions.currentScene === 'environmentalRecordPage'){
+          dispatch(RecycleRecordLife.onEnter());
         }
-        else{
-          dispatch(jumpRecycleRecord());
+        else {
+          Actions.environmentalRecordPage();
         }
         break;
       default:

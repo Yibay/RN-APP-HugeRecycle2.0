@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
 
 
-import ignoreGuide from './ignoreGuide';
 import jumpRecycleRecord from './jumpRecycleRecord';
+import quickStart from './quickStart';
 
 
-let miPush = combineReducers({ignoreGuide, jumpRecycleRecord});
+let miPush = combineReducers({jumpRecycleRecord, quickStart});
 
 export default miPush;
