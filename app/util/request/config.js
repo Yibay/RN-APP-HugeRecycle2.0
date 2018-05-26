@@ -9,12 +9,12 @@ const __dirname = __dirname || '/Users/zhouquan/workspace/nodeProgram/rn-hugeRec
 
 
 // 线上
-// const api_base_recycle = 'https://www.hugehuge.cn';
-// const api_base_mall = 'https://mall.hugehuge.cn';
+const api_base_recycle = 'https://www.hugehuge.cn';
+const api_base_mall = 'https://mall.hugehuge.cn';
 
 // 测试
-const api_base_recycle = 'http://test.hugehuge.cn';
-const api_base_mall = 'http://test.hugehuge.cn:8070';
+// const api_base_recycle = 'http://test.hugehuge.cn';
+// const api_base_mall = 'http://test.hugehuge.cn:8070';
 
 // 本机调试（小武）
 // const api_base_recycle = 'http://192.168.11.122:8090';
@@ -24,6 +24,10 @@ const api_base_mall = 'http://test.hugehuge.cn:8070';
 // 本机调试 (双全)
 // const api_base_recycle = 'http://192.168.50.79:8080';
 // const api_base_mall = 'http://192.168.50.79:8070';
+// 本机调试（Yibay）
+// const api_base_recycle = 'http://192.168.11.124:8080';
+// const api_base_mall = 'http://192.168.11.124:8070';
+
 
 // 线上调试debug
 // const api_base_mall = 'http://114.215.172.207:8070';
@@ -102,7 +106,7 @@ export default {
     // 删除 客户地址 (GET) /api/mobile/deal/deleteAddress/{id} 需要登录 header X-AUTH-TOKEN
     deleteAddress: `${api_base_recycle}/api/mobile/deal/deleteAddress/`,
     // 设置 默认地址
-    setDefaultLocation: '/api/mobile/deal/setDefaultLocation/',
+    setDefaultLocation: `${api_base_recycle}/api/mobile/deal/setDefaultLocation/`,
     // 一键呼叫回收 下单 (POST) params:
     // communityId -- 小区ID(必填)
     // communityName -- 小区名称(必填)
@@ -292,14 +296,14 @@ export default {
   // 静态资源base路径
   static: {
     // 线上
-    // base: 'https://www.hugehuge.cn/web/',
-    // // 商城图片资源 base路径
-    // mallBase: 'https://hugehuge.oss-cn-hangzhou.aliyuncs.com',
+    base: 'https://www.hugehuge.cn/web/',
+    // 商城图片资源 base路径
+    mallBase: 'https://hugehuge.oss-cn-hangzhou.aliyuncs.com',
 
     // 测试
-    base: 'http://test.hugehuge.cn/web/',
-    // 商城图片资源 base路径
-    mallBase: 'https://hugetest.oss-cn-hangzhou.aliyuncs.com',
+    // base: 'http://test.hugehuge.cn/web/',
+    // // 商城图片资源 base路径
+    // mallBase: 'https://hugetest.oss-cn-hangzhou.aliyuncs.com',
 
     // 本机调试（小武）
     // base: 'http://192.168.50.123:8090/web/',
@@ -309,6 +313,6 @@ export default {
     // base: 'http://192.168.50.79:8080/web/'
   },
   // 版本号
-  version: 23, // Android版本
-  versionIOS: '3.0.7' // iOS版本号
+  version: 24, // Android版本
+  versionIOS: '3.0.8' // iOS版本号
 };

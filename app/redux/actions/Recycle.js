@@ -133,12 +133,13 @@ export function fetchRecycleOrderThunk(params) {
           .catch(err => {console.log(err); return null;});
 
         // 若请求成功 数据正确
-        // if(newAddress && !newAddress.status && newAddress.data){
-        //   console.log('添加地址成功')
-        // }
-        // else {
-        //   console.log('添加地址失败');
-        // }
+        if(newAddress && !newAddress.status && newAddress.data){
+          // console.log('添加地址成功');
+          await request.get(config.api.setDefaultLocation + newAddress.data.id,null,{'X-AUTH-TOKEN': authToken});
+        }
+        else {
+          // console.log('添加地址失败');
+        }
 
         // 2-3、更新用户列表
         dispatch(fetchUserAddressList());
