@@ -3,7 +3,7 @@
  * 切换有无户号 地址表单
  */
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Platform } from 'react-native';
 
 import PropTypes from 'prop-types';
 import _ from 'lodash';
@@ -118,7 +118,11 @@ const styles = StyleSheet.create({
     padding: 0,
     borderWidth: 2,
     borderColor: '#888',
-    borderRadius: 10,
+    ...Platform.select({
+      ios: {borderRadius: 10},
+      android: {},
+    }),
+
     color: '#000'
   },
   address: {
