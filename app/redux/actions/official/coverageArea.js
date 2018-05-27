@@ -15,7 +15,6 @@ export function fetchCoverageAreaThunk() {
 
     dispatch({type: FETCH_CoverageArea_Request});
     const coverageArea = await request.get(config.api.getCommunityCoverageArea);
-    console.log(coverageArea);
     if(coverageArea){
       dispatch({type: FETCH_CoverageArea_Success, data: coverageArea.map((item, index) => {item.key = index;return item;})});
     }

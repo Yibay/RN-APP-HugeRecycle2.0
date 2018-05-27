@@ -27,6 +27,7 @@ class CoverageArea extends Component {
       <Header title='服务范围'/>
       <FlatList style={styles.content}
                 data={this.props.coverageArea.data}
+                keyExtractor={(item,index) => index.toString()}
                 ListHeaderComponent={<TextAdaption style={styles.header}>服务站正在全面铺设当中，现有站点如下：</TextAdaption>}
                 renderItem={({item}) => <StreetItem street={item} style={styles.item}/>}
                 ListFooterComponent={<TextAdaption style={styles.footer}>更多小区，敬请期待！</TextAdaption>}

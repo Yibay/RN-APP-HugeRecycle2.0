@@ -42,6 +42,7 @@ class CommunitySearchEngines extends PureComponent {
                     </TouchableWithoutFeedback>}/>
       <FlatList style={styles.searchResult}
                 data={this.state.relatedCommunities}
+                keyExtractor={(item,index) => index.toString()}
                 renderItem={
                   ({item, index}) =>
                     <TouchableWithoutFeedback key={index} onPress={() => this.selectCommunity(item)}>
