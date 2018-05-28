@@ -20,23 +20,20 @@ import { setAllProducts, resetRecycledItem } from '../redux/actions/Recycle';
 
 const initApp = (WrappedComponent) => connect(null, { setAllProducts, setIdentityTokenThunk, resetRecycledItem, miPushInit, miPushUninstall })(class extends Component {
 
-  componentWillMount(){
-    // 2. 再次锁定垂直方向
-    this.lockOrientationAgain();
-    // 3. 再次设为沉浸式（防止 应用假退Bug）
-    this.setTranslucentAgain();
-    // 4. 清空待回收物品
-    this.props.resetRecycledItem();
-  }
-
   render(){
     return (<WrappedComponent {..._.omit(this.props, ['setIdentityTokenThunk'])} />);
   }
 
   componentDidMount(){
-    // 1. 设置身份信息
+    // 1. 再次锁定垂直方向
+    this.lockOrientationAgain();
+    // 2. 再次设为沉浸式（防止 应用假退Bug）
+    this.setTranslucentAgain();
+    // 3. 清空待回收物品
+    this.props.resetRecycledItem();
+    // 4. 设置身份信息
     this.setIdentityToken();
-    // 监听推送
+    // 5. 监听推送
     this.props.miPushInit();
   }
 
@@ -66,22 +63,8 @@ const initApp = (WrappedComponent) => connect(null, { setAllProducts, setIdentit
     Platform.select({
       ios: () => {},
       android: () => {
-        setTimeout(function(){
-          StatusBar.setTranslucent(true);
-          StatusBar.setBackgroundColor('transparent');
-        },0);
-        setTimeout(function(){
-          StatusBar.setTranslucent(true);
-          StatusBar.setBackgroundColor('transparent');
-        },1000);
-        setTimeout(function(){
-          StatusBar.setTranslucent(true);
-          StatusBar.setBackgroundColor('transparent');
-        },5000);
-        setTimeout(function(){
-          StatusBar.setTranslucent(true);
-          StatusBar.setBackgroundColor('transparent');
-        },10000);
+        StatusBar.setTranslucent(true);
+        StatusBar.setBackgroundColor('transparent');
       }
     })();
   }
