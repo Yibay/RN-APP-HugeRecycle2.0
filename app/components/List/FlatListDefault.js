@@ -49,6 +49,7 @@ class FlatListDefault extends PureComponent{
     return <FlatList style={[styles.container].concat(this.props.style)}
                      refreshControl={this.props.refreshControl}
                      data={this.state.showData}
+                     keyExtractor={(item,index) => index.toString()}
                      renderItem={this.props.renderItem}
                      onEndReached={() => this.lazyLoad()}
                      onEndReachedThreshold={this.props.onEndReachedThreshold}

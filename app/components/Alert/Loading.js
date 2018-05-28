@@ -1,16 +1,28 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, ActivityIndicator}from 'react-native';
+import {StyleSheet, View, Text, ActivityIndicator, Platform}from 'react-native';
 
 import PropTypes from 'prop-types';
 
 
 const Loading = (props) => {
-  return <View style={[styles.container].concat(props.styles, props.show ? null : styles.hidden)}>
-      <View style={styles.box}>
-        <ActivityIndicator size='large' color='#fff' style={styles.activityIndicator} />
-        <Text style={styles.title}>{props.title}</Text>
+  return Platform.select({
+    ios:
+      <View style={[styles.position,styles.container].concat(props.styles, props.show ? null : styles.hidden)}>
+        <View style={styles.box}>
+          <ActivityIndicator size='large' color='#fff' style={styles.activityIndicator} />
+          <Text style={styles.title}>{props.title}</Text>
+        </View>
+      </View>,
+    android:
+      <View style={styles.position}>
+        <View style={[styles.container].concat(props.styles, props.show ? null : styles.hidden)}>
+          <View style={styles.box}>
+            <ActivityIndicator size='large' color='#fff' style={styles.activityIndicator} />
+            <Text style={styles.title}>{props.title}</Text>
+          </View>
+        </View>
       </View>
-    </View>
+  });
 };
 
 Loading.propsType = {
@@ -23,15 +35,18 @@ Loading.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-  container:{
+  position:{
     position: 'absolute',
     top: 0,
     right: 0,
     bottom: 0,
     left: 0,
+  },
+  container:{
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.6)',
   },
   hidden: {
     display: 'none',

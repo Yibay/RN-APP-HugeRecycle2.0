@@ -98,8 +98,8 @@ class CallModal extends Component{
               </View>
             </View>
           </ScrollView>
+          <Loading show={this.props.verificationCode.isFetching}/>
         </KeyboardAvoidingViewAdapt>
-        <Loading show={this.props.verificationCode.isFetching}/>
       </AdaptLayoutWidth>
     </Modal>);
   }
@@ -199,6 +199,7 @@ class CallModal extends Component{
 
 const styles = StyleSheet.create({
   container: {
+    position: 'relative',
     flex: 1,
     backgroundColor: 'rgba(215, 215, 215, 0.8)',
   },

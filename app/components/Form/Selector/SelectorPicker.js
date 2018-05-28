@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     width: 150,
     borderWidth: 2,
     borderColor: '#888',
-    borderRadius: 10,
+    // borderRadius: 10,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

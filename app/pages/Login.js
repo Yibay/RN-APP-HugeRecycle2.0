@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
   },
   getCode: {
     paddingHorizontal: 16,
-    paddingVertical: 22,
+    // paddingVertical: 22,
     borderRadius: 10,
     backgroundColor: '#fed309',
     overflow: 'hidden',
