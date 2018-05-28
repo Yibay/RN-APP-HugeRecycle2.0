@@ -5,7 +5,8 @@ import Orientation from 'react-native-orientation';
 
 export const lockOrientation = (WrappedComponent, lockOrientation='lockToPortrait') => class extends Component {
 
-  componentWillMount(){
+  componentDidMount(){
+
     switch(lockOrientation){
       // 将视图锁定为 纵向模式
       case 'lockToPortrait':

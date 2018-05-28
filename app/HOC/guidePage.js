@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 import {StyleSheet, View, Modal} from 'react-native';
 
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
 
 
 import request from '../util/request/request';
@@ -26,7 +25,7 @@ export const guidePage = WrappedComponent => connect(null, {checkVersion})(class
     };
   }
 
-  componentWillMount(){
+  componentDidMount(){
     Promise.all([
       // 是否展示 引导页（轮播图）Android Studio AsyncStorage.load Promise 失效, 真机有效
       Promise.race([
@@ -37,8 +36,8 @@ export const guidePage = WrappedComponent => connect(null, {checkVersion})(class
           })
           .catch(e => {
             console.warn(e);
-            // 异常，不限时引导页
-            return false;
+            // 异常，显示引导页(可能是新安装，找不到储存version)
+            return true;
           }),
         new Promise((resolve, reject) => {
           setTimeout(() => {

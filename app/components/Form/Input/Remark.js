@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Platform } from 'react-native';
 
 import PropTypes from 'prop-types';
 
@@ -46,7 +46,10 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     borderWidth: 2,
     borderColor: '#d5d5d5',
-    borderRadius: 10,
+    ...Platform.select({
+      ios: {borderRadius: 10},
+      android: {},
+    }),
     fontSize: 28,
     fontWeight: '700'
   },
