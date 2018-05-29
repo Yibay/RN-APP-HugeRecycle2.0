@@ -47,7 +47,7 @@ class SpecsItem extends Component{
               this.props.specs.price ?
                 '¥' + this.props.specs.price + (this.props.specs.unit ? `/${this.props.specs.unit}` : '')
                 :
-                '免费代为处理'
+                '免费代为处置'
             }
           </Text>
         </View>
