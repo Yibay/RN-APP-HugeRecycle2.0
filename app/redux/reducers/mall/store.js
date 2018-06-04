@@ -57,7 +57,22 @@ function showStoreSelector(state=true, actions){
   }
 }
 
-let data = combineReducers({storeInfo, storeIndex, showStoreSelector});
+/** 是否需要更新便利店信息 */
+function needUpdateStoreInfo(state=true, actions){
+  switch(actions.type){
+    // 已经设过便利店
+    case SET_StoreInfo:
+    case CLEAR_StoreInfo:
+      return false;
+    // 更新当前小区
+    case SET_Location:
+      return true;
+    default:
+      return state;
+  }
+}
+
+let data = combineReducers({storeInfo, storeIndex, showStoreSelector, needUpdateStoreInfo});
 
 function isFetching(state=false, actions){
   switch (actions.type){

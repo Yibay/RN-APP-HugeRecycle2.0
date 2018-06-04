@@ -127,20 +127,20 @@ class RecycleRecordItem extends PureComponent{
     }
 
     // 若有虎哥下单的 实际回收物品信息，则修正
-    let recycledItems = '';
-    let orderItems = this.props.recordItem.tServiceOrder.orderItems;
-    if(orderItems.length){
-      orderItems.forEach((item, index) => {
-          recycledItems += item.category + ' ' + (item.type === 4 ? '' : item.spec ) + '*' + item.quantity + (item.type === 4 ? 'kg' : '件');
-          if(index !== orderItems.length - 1){
-            recycledItems += ', ';
-          }
-      })
-    }
-    // 否则，取用户下单时的，回收物品信息
-    else{
-      recycledItems = this.props.recordItem.recycleCategoryDesc;
-    }
+    // let recycledItems = '';
+    // let orderItems = this.props.recordItem.tServiceOrder.orderItems;
+    // if(orderItems.length){
+    //   orderItems.forEach((item, index) => {
+    //       recycledItems += item.category + ' ' + (item.type === 4 ? '' : item.spec ) + '*' + item.quantity + (item.type === 4 ? 'kg' : '件');
+    //       if(index !== orderItems.length - 1){
+    //         recycledItems += ', ';
+    //       }
+    //   })
+    // }
+    // // 否则，取用户下单时的，回收物品信息
+    // else{
+     let recycledItems = this.props.recordItem.recycleCategoryDesc;
+    // }
 
     return <OrderItem style={[styles.container].concat(this.props.style)} firstSectionStyle={this.props.firstSectionStyle} secondSectionStyle={this.props.secondSectionStyle} createdTs={this.props.recordItem.id} createOrderTime={this.props.recordItem.createOrderTime} recycledItems={recycledItems} statusDesc={statusDesc} rightButton={recordBtn}/>
   }

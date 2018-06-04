@@ -27,7 +27,7 @@ const RecycledItem = props => (<View style={[styles.container].concat(props.styl
         props.specs.price ?
           `¥${_.round(props.specs.price * props.specs.number,2)}` + (props.specs.unit ? `/${props.specs.unit}` : '') + ' '
           :
-          '免费代为处理'
+          '免费代为处置'
       }
     </TextAdaption>
   </View>

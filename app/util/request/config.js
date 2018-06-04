@@ -22,8 +22,8 @@ const api_base_mall = 'http://test.hugehuge.cn:8070';
 // 本机调试（秦龙）
 // const api_base_recycle = 'http://192.168.50.145:8080';
 // 本机调试 (双全)
-// const api_base_recycle = 'http://192.168.50.79:8080';
-// const api_base_mall = 'http://192.168.50.79:8070';
+// const api_base_recycle = 'http://192.168.11.113:8080';
+// const api_base_mall = 'http://192.168.11.113:8070';
 // 本机调试（Yibay）
 // const api_base_recycle = 'http://192.168.11.124:8080';
 // const api_base_mall = 'http://192.168.11.124:8070';
