@@ -212,4 +212,4 @@ function mapStateToProps(state){
 
 // 视图锁定纵向,屏宽适配, 检验版本 ,登录状态管理相关数据, 地址管理相关数据
 export default lockOrientation(adaptLayoutWidth(initApp(guidePage(connect(mapStateToProps)(AppRouter)))));
-// export default lockOrientation(adaptLayoutWidth(initApp(connect(null)(AppRouter))));
+// export default lockOrientation(adaptLayoutWidth(initApp(connect(mapStateToProps)(AppRouter))));

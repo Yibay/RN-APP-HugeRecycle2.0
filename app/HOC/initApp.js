@@ -15,10 +15,10 @@ import {miPushInit, miPushUninstall} from '../redux/actions/miPush/MiPushManager
 
 // Action
 import { setIdentityTokenThunk } from '../redux/actions/IdentityToken';
-import { setAllProducts, resetRecycledItem } from '../redux/actions/Recycle';
+import { resetRecycledItem } from '../redux/actions/Recycle';
 
 
-const initApp = (WrappedComponent) => connect(null, { setAllProducts, setIdentityTokenThunk, resetRecycledItem, miPushInit, miPushUninstall })(class extends Component {
+const initApp = (WrappedComponent) => connect(null, { setIdentityTokenThunk, resetRecycledItem, miPushInit, miPushUninstall })(class extends Component {
 
   render(){
     return (<WrappedComponent {..._.omit(this.props, ['setIdentityTokenThunk'])} />);
