@@ -185,21 +185,25 @@ class RecycleEvaluation extends Component {
   }
 
   async submit(){
-    if(!this.state.rateSpeed){ Alert.alert('请为上门时间打分'); return; }
-    if(!this.state.rateService){ Alert.alert('请为服务态度打分'); return; }
-    if(!this.state.rateConvenience){ Alert.alert('请为回收便捷度打分'); return; }
+    if(!this.state.rateSpeed){ Alert.alert('请为上门时间打分','',[{text:'确认'}],{cancelable:false}); return; }
+    if(!this.state.rateService){ Alert.alert('请为服务态度打分','',[{text:'确认'}],{cancelable:false}); return; }
+    if(!this.state.rateConvenience){ Alert.alert('请为回收便捷度打分','',[{text:'确认'}],{cancelable:false}); return; }
     const res = await this.props.evaluationRecycleOrder(this.props.orderId, this.state);
     if(res){
       if(!res.status){
-        Alert.alert('评价成功','感谢您的评价，虎哥会更加努力为您带来更好的服务',[
-          {text: '返回', onPress: () => {
-              // 返回上一页
-              Actions.pop();
-            }}
-        ])
+        Alert.alert('评价成功',
+          '感谢您的评价，虎哥会更加努力为您带来更好的服务',
+          [
+            {text: '返回', onPress: () => {
+                // 返回上一页
+                Actions.pop();
+              }}
+          ],
+          {cancelable:false}
+        )
       }
       else{
-        Alert.alert(res.message);
+        Alert.alert(res.message,'',[{text:'确认'}]);
       }
     }
   }

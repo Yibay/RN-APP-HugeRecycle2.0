@@ -81,7 +81,7 @@ class Login extends Component{
   componentDidUpdate(){
     // 获取验证码 成功后，弹出对应消息
     if(!this.props.verificationCode.isFetching && this.props.verificationCode.data){
-      Alert.alert(this.props.verificationCode.data);
+      Alert.alert(this.props.verificationCode.data,'',[{text:'确认'}]);
       this.props.clearData();
     }
   }
@@ -121,7 +121,7 @@ class Login extends Component{
   // 获取短信验证码
   async getCode(){
     if(!validator.isPhone(this.state.phone)){
-      Alert.alert('手机号码错误');
+      Alert.alert('手机号码错误','',[{text:'确认'}]);
       return false;
     }
     const res = await this.props.getCode(this.state.phone);
@@ -132,18 +132,18 @@ class Login extends Component{
   async login(){
     // 检验数据
     if(!validator.isPhone(this.state.phone)){
-      Alert.alert('手机号码错误');
+      Alert.alert('手机号码错误','',[{text:'确认'}]);
       return;
     }
     if(this.state.navigationItemsIndex){
       if(validator.isEmpty(this.state.password)){
-        Alert.alert('请填写密码');
+        Alert.alert('请填写密码','',[{text:'确认'}]);
         return;
       }
     }
     else {
       if(validator.isEmpty(this.state.code)){
-        Alert.alert('请填写短信验证码');
+        Alert.alert('请填写短信验证码','',[{text:'确认'}]);
         return;
       }
     }
@@ -159,7 +159,7 @@ class Login extends Component{
 
       // 若登录失败 (登录成功 status 为 0，失败为 1)
       if(res.status){
-        Alert.alert(navigationItemsIndex ? '密码错误' : '验证码错误');
+        Alert.alert(navigationItemsIndex ? '密码错误' : '验证码错误','',[{text:'确认'}]);
         // Alert.alert(res.message); // 展示 提示信息
         return;
       }

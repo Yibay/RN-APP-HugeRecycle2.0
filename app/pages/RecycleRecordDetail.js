@@ -208,12 +208,12 @@ class RecycleRecordDetail extends PureComponent{
           Linking.openURL(`tel:${res.data.recyclerWorkPhone}`);
         }
         else{
-          Alert.alert('此设备不支持 拨打电话',`请手动拨打${res.data.recyclerWorkPhone}`);
+          Alert.alert('此设备不支持 拨打电话',`请手动拨打${res.data.recyclerWorkPhone}`,[{text:'确认'}]);
         }
       }
     }
     else{
-      Alert.alert(res.message);
+      Alert.alert(res.message,'',[{text:'确认'}]);
     }
   }
   

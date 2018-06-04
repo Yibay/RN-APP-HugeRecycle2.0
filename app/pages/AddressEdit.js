@@ -125,7 +125,7 @@ class AddressEdit extends Component {
         Actions.pop();
       }
       else{
-        Alert.alert('编辑失败');
+        Alert.alert('编辑失败','',[{text:'确认'}]);
       }
     }
 
@@ -143,7 +143,7 @@ class AddressEdit extends Component {
             Actions.pop();
           }
         }},
-      {text:'不了'}
+      {text:'取消'}
       ]);
   }
 

@@ -118,11 +118,11 @@ class MallOrderDetail extends Component{
         Linking.openURL(`tel:${this.props.orderItem.storePhone}`);
       }
       else{
-        Alert.alert('此设备不支持 拨打电话',`请手动拨打${this.props.orderItem.storePhone}`);
+        Alert.alert('此设备不支持 拨打电话',`请手动拨打${this.props.orderItem.storePhone}`,[{text:'确认'}]);
       }
     }
     else{
-      Alert.alert('无商家电话');
+      Alert.alert('无商家电话','',[{text:'确认'}]);
     }
   }
 
@@ -134,7 +134,7 @@ class MallOrderDetail extends Component{
         Actions.pop();
       }
       else if(res.status && res.message){
-        Alert.alert(res.message);
+        Alert.alert(res.message,'',[{text:'确认'}]);
       }
     }
   }

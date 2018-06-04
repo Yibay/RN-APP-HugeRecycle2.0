@@ -130,11 +130,11 @@ class MallOrderItem extends PureComponent{
         Linking.openURL(`tel:${this.props.storePhone}`);
       }
       else{
-        Alert.alert('此设备不支持 拨打电话',`请手动拨打${this.props.storePhone}`);
+        Alert.alert('此设备不支持 拨打电话',`请手动拨打${this.props.storePhone}`,[{text:'确认'}]);
       }
     }
     else{
-      Alert.alert('无商家电话');
+      Alert.alert('无商家电话','',[{text:'确认'}]);
     }
   }
 
@@ -143,7 +143,7 @@ class MallOrderItem extends PureComponent{
     const res = await this.props.deleteMallOrder(orderId);
     if(Actions.currentScene === 'mallOrderRecordPage' && res){
       if(res.message){
-        Alert.alert(res.message);
+        Alert.alert(res.message,'',[{text:'确认'}]);
       }
     }
   }

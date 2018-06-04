@@ -106,10 +106,10 @@ export function addCart(storeProductId,amount=1){
         }
         else{
           if(res && res.message){
-            Alert.alert(res.message);
+            Alert.alert(res.message,'',[{text:'确认'}]);
           }
           else{
-            Alert.alert('添加失败');
+            Alert.alert('添加失败','',[{text:'确认'}]);
           }
         }
       }
@@ -145,7 +145,7 @@ export function updateShoppingCartAmount(shoppingCartId, amount){
       return dispatch(fetchShoppingCart());
     }
     else {
-      Alert.alert(res.message);
+      Alert.alert(res.message,'',[{text:'确认'}]);
     }
   };
 }

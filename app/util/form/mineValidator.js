@@ -6,7 +6,7 @@ import validator from './validator';
 
 export const updatePasswordValidator = ({oldPassword, newPassword}) => {
   if(validator.isEmpty(newPassword)){
-    Alert.alert('请输入新密码');
+    Alert.alert('请输入新密码','',[{text:'确认'}]);
     return false;
   }
   // 无异常
@@ -15,11 +15,11 @@ export const updatePasswordValidator = ({oldPassword, newPassword}) => {
 
 export const forgetPasswordValidator = ({code, newPassword}) => {
   if(validator.isEmpty(code)){
-    Alert.alert('请输入验证码');
+    Alert.alert('请输入验证码','',[{text:'确认'}]);
     return false;
   }
   if(validator.isEmpty(newPassword)){
-    Alert.alert('请输入新密码');
+    Alert.alert('请输入新密码','',[{text:'确认'}]);
     return false;
   }
   return true;

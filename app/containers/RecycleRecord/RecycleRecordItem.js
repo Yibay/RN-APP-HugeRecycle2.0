@@ -160,7 +160,7 @@ class RecycleRecordItem extends PureComponent{
             this.props.updateOrderList();
           }
           else if(res && res.message){
-            Alert.alert(res.message);
+            Alert.alert(res.message,'',[{text:'好'}]);
           }
         }
       },
@@ -177,12 +177,12 @@ class RecycleRecordItem extends PureComponent{
     if(res){
       // 若请求正常、且数据正常
       if(!res.status){
-        Alert.alert(res.data);
+        Alert.alert(res.data,'',[{text:'好'}]);
         return true;
       }
       else{
         console.log(res);
-        Alert.alert(res.data);
+        Alert.alert(res.data,'',[{text:'好'}]);
         return false;
       }
     }
@@ -199,12 +199,12 @@ class RecycleRecordItem extends PureComponent{
           Linking.openURL(`tel:${res.data.recyclerWorkPhone}`);
         }
         else{
-          Alert.alert('此设备不支持 拨打电话',`请手动拨打${res.data.recyclerWorkPhone}`);
+          Alert.alert('此设备不支持 拨打电话',`请手动拨打${res.data.recyclerWorkPhone}`,[{text:'好'}]);
         }
       }
     }
     else{
-      Alert.alert(res.message);
+      Alert.alert(res.message,'',[{text:'好'}]);
     }
   }
 }

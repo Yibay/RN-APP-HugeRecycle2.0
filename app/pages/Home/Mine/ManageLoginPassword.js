@@ -62,10 +62,10 @@ class ManageLoginPassword extends Component{
         }
         else{
           if(res.message === '验证码验证失败！'){
-            Alert.alert('旧密码验证失败！');
+            Alert.alert('旧密码验证失败！','',[{text:'确认'}]);
           }
           else{
-            Alert.alert(res.message);
+            Alert.alert(res.message,'',[{text:'确认'}]);
           }
         }
       }

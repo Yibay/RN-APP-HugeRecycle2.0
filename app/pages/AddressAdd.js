@@ -76,24 +76,24 @@ class AddressAdd extends Component {
     addAddress.isLocationDefault = false;
     // 检验数据格式
     if(validator.isEmpty(addAddress.customerName)){
-      Alert.alert('请输入联系人姓名');
+      Alert.alert('请输入联系人姓名','',[{text:'确认'}]);
       return;
     }
     if(!validator.isPhone(addAddress.telNo)){
-      Alert.alert('请输入正确的手机号码');
+      Alert.alert('请输入正确的手机号码','',[{text:'确认'}]);
       return;
     }
     if(addAddress.haveHouseNumber){
       if(validator.isEmpty(addAddress.building)){
-        Alert.alert('请填写栋');
+        Alert.alert('请填写栋','',[{text:'确认'}]);
         return;
       }
       if(validator.isEmpty(addAddress.unit)){
-        Alert.alert('请填写单元');
+        Alert.alert('请填写单元','',[{text:'确认'}]);
         return;
       }
       if(validator.isEmpty(addAddress.room)){
-        Alert.alert('请填写室');
+        Alert.alert('请填写室','',[{text:'确认'}]);
         return;
       }
       addAddress.building.toUpperCase(); // 统一转成 大写字母
@@ -103,7 +103,7 @@ class AddressAdd extends Component {
     }
     else{
       if(validator.isEmpty(addAddress.address)){
-        Alert.alert('请填写详细地址');
+        Alert.alert('请填写详细地址','',[{text:'确认'}]);
         return;
       }
       addAddress.building = null;
@@ -123,7 +123,7 @@ class AddressAdd extends Component {
     }
     else {
       console.log(newAddress);
-      Alert.alert(newAddress.message || '添加地址失败');
+      Alert.alert(newAddress.message || '添加地址失败','',[{text:'确认'}]);
       return;
     }
 

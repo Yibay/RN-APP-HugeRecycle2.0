@@ -83,7 +83,7 @@ export function submitMallOrder(option){
 
     // 1. 下单请求 (获取订单号)
     const res = await request.postFormData(config.api.confirmMallOrder, option, {'X-AUTH-TOKEN': authToken});
-    if(!res || res.status){Alert.alert(res.message);return;}
+    if(!res || res.status){Alert.alert(res.message,'',[{text:'好'}]);return;}
 
     // 2. 支付
     // 环保金 充足
@@ -132,7 +132,7 @@ export function continueMallOrder(orderId){
       }
     }
     else{
-      Alert.alert(res.message || '支付失败');
+      Alert.alert(res.message || '支付失败','',[{text:'好'}]);
     }
   };
 }
@@ -153,7 +153,7 @@ function scorePay(orderId){
       Actions.mallOrderRecordPage(); // 跳转到 我的消费订单页面
     }
     else{
-      Alert.alert(resReceipt.message ? resReceipt.message : '支付失败');
+      Alert.alert(resReceipt.message ? resReceipt.message : '支付失败','',[{text:'好'}]);
     }
 
   }
@@ -179,7 +179,7 @@ function aliPay(orderId){
       }
       else {
         // 啥也不做
-        Alert.alert((result && result.message) ? result.message : '支付失败');
+        Alert.alert((result && result.message) ? result.message : '支付失败','',[{text:'好'}]);
       }
     }
     else if(Actions.currentScene !== 'mallOrderRecordPage'){
@@ -187,7 +187,7 @@ function aliPay(orderId){
       Actions.mallOrderRecordPage();
     }
     else {
-      Alert.alert('支付失败');
+      Alert.alert('支付失败','',[{text:'好'}]);
     }
   }
 }
@@ -207,7 +207,7 @@ function receiptMallOrderPay(orderId){
       Actions.mallOrderRecordPage(); // 跳转到 我的消费订单页面
     }
     else{
-      Alert.alert((resReceipt && resReceipt.message) ? resReceipt.message : '支付失败');
+      Alert.alert((resReceipt && resReceipt.message) ? resReceipt.message : '支付失败','',[{text:'好'}]);
     }
 
   }

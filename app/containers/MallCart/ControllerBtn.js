@@ -46,7 +46,7 @@ class ControllerBtn extends Component{
 
     // 库存为空
     if(!this.props.storageAmount){
-      Alert.alert('该商品已售罄，无法购买');
+      Alert.alert('该商品已售罄，无法购买','',[{text:'确认'}]);
       return;
     }
 
@@ -56,7 +56,7 @@ class ControllerBtn extends Component{
     }
     // 库存不足
     else{
-      Alert.alert('该商品库存不足');
+      Alert.alert('该商品库存不足','',[{text:'确认'}]);
     }
 
   }
@@ -65,7 +65,7 @@ class ControllerBtn extends Component{
 
     // 库存为空
     if(!this.props.storageAmount){
-      Alert.alert('该商品已售罄，无法购买');
+      Alert.alert('该商品已售罄，无法购买','',[{text:'确认'}]);
       return;
     }
 

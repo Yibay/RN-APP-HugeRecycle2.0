@@ -190,7 +190,7 @@ export const locationCrossPlatform = WrappedComponent => connect(mapStateToProps
     // 3. 定位超时
     else if(e.code === 3){
       if(!this.openGeolocationListener){
-        Alert.alert('定位超时','请选择手动定位');
+        Alert.alert('定位超时','请选择手动定位',[{text:'好'}]);
       }
       if (this.openGeolocationListener){
         console.log('清除计时器');

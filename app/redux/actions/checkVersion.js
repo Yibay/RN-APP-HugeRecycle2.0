@@ -39,7 +39,7 @@ async function _checkVersionIOS(){
       ]);
     }
     else{
-      Alert.alert('appStore有新版本，请前往更新');
+      Alert.alert('appStore有新版本，请前往更新','',[{text:'确认'}]);
     }
   }
 }
@@ -50,9 +50,11 @@ async function _checkVersionAndroid(){
   const res = await request.get(config.api.version);
   // 若有新版本
   if(res && !res.status && res.data.version > config.version){
-    Alert.alert('更新版本','',[
-      {text: '确定', onPress: () => {NativeModules.upgrade.upgrade(config.api.androidAPK);}}
-    ]);
-
+    Alert.alert('更新版本','',
+      [
+        {text: '确定', onPress: () => {NativeModules.upgrade.upgrade(config.api.androidAPK);}}
+      ],
+      {cancelable: false}
+      );
   }
 }
