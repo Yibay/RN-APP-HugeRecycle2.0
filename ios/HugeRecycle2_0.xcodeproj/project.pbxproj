@@ -932,7 +932,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = BYAN84VV9K;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -1557,12 +1557,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HugeRecycle2_0/HugeRecycle2_0.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BYAN84VV9K;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-alipay/ios/SDK";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1584,8 +1584,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hugehuge.HugeCollection;
 				PRODUCT_NAME = HugeRecycle2_0;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "9cdf4689-99cf-4415-8402-dace56699fbd";
+				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionTest;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1595,11 +1595,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HugeRecycle2_0/HugeRecycle2_0.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BYAN84VV9K;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-alipay/ios/SDK";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1621,8 +1621,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hugehuge.HugeCollection;
 				PRODUCT_NAME = HugeRecycle2_0;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "9cdf4689-99cf-4415-8402-dace56699fbd";
+				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionTest;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

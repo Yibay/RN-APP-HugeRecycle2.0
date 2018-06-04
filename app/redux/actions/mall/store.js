@@ -25,23 +25,28 @@ export function fetchStoreInfo(){
 
   return async(dispatch, getState) => {
 
-    /** 1、根据小区id, 获取便利店信息 */
     let state = getState();
-    let communityId = state.location.currentLocation.communityId;
 
-    if(communityId !== undefined){
-      let storeInfo = await loadInitStoreInfoByCommunityId(communityId);
-      // 若数据异常、立即结束（包含该小区无对应服务站）
-      if(!storeInfo || storeInfo.status || !storeInfo.data || !storeInfo.data.length){  // {data: null, status: 0}
+    // 检测是否要更新 便利店信息
+    if(state.mall.store.data.needUpdateStoreInfo){
+
+      /** 1、根据小区id, 获取便利店信息 */
+      let communityId = state.location.currentLocation.communityId;
+
+      if(communityId !== undefined){
+        let storeInfo = await loadInitStoreInfoByCommunityId(communityId);
+        // 若数据异常、立即结束（包含该小区无对应服务站）
+        if(!storeInfo || storeInfo.status || !storeInfo.data || !storeInfo.data.length){  // {data: null, status: 0}
+          return dispatch({type:CLEAR_StoreInfo}); // 置空小区 对应的便利店
+        }
+        // 若成功
+        return dispatch({type:SET_StoreInfo,storeInfo:storeInfo.data});
+      }
+      else{
         return dispatch({type:CLEAR_StoreInfo}); // 置空小区 对应的便利店
       }
-      // 若成功
-      return dispatch({type:SET_StoreInfo,storeInfo:storeInfo.data});
-    }
-    else{
-      return dispatch({type:CLEAR_StoreInfo}); // 置空小区 对应的便利店
-    }
 
+    }
   };
 }
 

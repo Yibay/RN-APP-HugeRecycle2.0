@@ -9,6 +9,10 @@ export const FETCH_ShoppingCart_Failure = 'FETCH_ShoppingCart_Failure';
 export const FETCH_ShoppingCartAmount_Request = 'FETCH_ShoppingCartAmount_Request';
 export const FETCH_ShoppingCartAmount_Success = 'FETCH_ShoppingCartAmount_Success';
 export const FETCH_ShoppingCartAmount_Failure = 'FETCH_ShoppingCartAmount_Failure';
+export const ADD_Cart_Request = 'ADD_Cart_Request';
+export const ADD_Cart_Finish = 'ADD_Cart_Finish';
+export const ADD_Cart_addBuffer = 'ADD_Cart_addBuffer';
+export const ADD_Cart_clearBuffer = 'ADD_Cart_clearBuffer';
 
 
 // 请求购物车数据
@@ -61,7 +65,7 @@ export function fetchShoppingCart(){
 }
 
 // 添加到购物车
-export function addCart(storeProductId){
+export function addCart(storeProductId,amount=1){
   return async (dispatch, getState) => {
 
     let state = getState();
@@ -70,14 +74,46 @@ export function addCart(storeProductId){
     let authToken = state.identityToken.authToken;
     if(!authToken){return;}
 
-
-    const res = await request.get(`${config.api.addCart}${storeProductId}`,{amount:1},{'X-AUTH-TOKEN': authToken});
-    if(res && !res.status){
-      // 刷新购物车
-      return dispatch(fetchShoppingCart());
+    // 批处理
+    let isFetching = state.mall.shoppingCart.addCart.isFetching;
+    if(isFetching){
+      // 批处理Buffer
+      dispatch({type:ADD_Cart_addBuffer,storeProductId,amount});
     }
     else{
-      console.log(res);
+      // 立即更新
+      dispatch({type:ADD_Cart_Request});
+      // 执行 批处理
+      if(state.mall.shoppingCart.addCart.buffer[storeProductId]){
+        amount += state.mall.shoppingCart.addCart.buffer[storeProductId];
+        dispatch({type:ADD_Cart_clearBuffer, storeProductId});
+      }
+
+      // 添加购物车请求
+      const res = await request.get(`${config.api.addCart}${storeProductId}`,{amount},{'X-AUTH-TOKEN': authToken});
+      // 完成添加购物车状态
+      dispatch({type: ADD_Cart_Finish});
+
+      // 若此时有Buffer，用Buffer添加
+      if(getState().mall.shoppingCart.addCart.buffer[storeProductId]){
+        dispatch(addCart(storeProductId,0));
+      }
+      else{
+        // 更新购物车数据
+        if(res && !res.status){
+          // 刷新购物车
+          await dispatch(fetchShoppingCart());
+        }
+        else{
+          if(res && res.message){
+            Alert.alert(res.message);
+          }
+          else{
+            Alert.alert('添加失败');
+          }
+        }
+      }
+      return;
     }
   }
 }
