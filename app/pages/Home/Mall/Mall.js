@@ -49,6 +49,16 @@ class Mall extends Component{
     for(let i=0;i<productList.length;i++){
       combineProductList = combineProductList.concat(productList[i]);
     }
+    console.log(combineProductList);
+    // 商品去重
+    let de_duplication = {};
+    combineProductList.forEach((item, index) => {
+      if(typeof de_duplication[item.storeProductId] === 'undefined'){
+        item.index = index; // 保证排序，不乱
+        de_duplication[item.storeProductId] = item;
+      }
+    });
+    combineProductList = Object.keys(de_duplication).map(key => de_duplication[key]).sort((prev,current) => {return prev.index - current.index});
 
     // 2、列表头部组件（轮播图、按类查询）
     let ListHeaderComponent = <View>
@@ -57,9 +67,9 @@ class Mall extends Component{
       {/* 按类查询 */}
       <CategoryList mainCategoryList={mainCategoryList} />
       {/* 轮播图 */}
-      {/*<View style={styles.bannerSection}>*/}
-        {/*<Banner style={styles.banner} bannerWidth={686} bannerList={bannerList} />*/}
-      {/*</View>*/}
+      <View style={styles.bannerSection}>
+        <Banner style={styles.banner} bannerWidth={686} bannerList={bannerList} />
+      </View>
     </View>;
 
     return (<View style={styles.container}>

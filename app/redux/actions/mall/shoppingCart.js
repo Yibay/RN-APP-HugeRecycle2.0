@@ -1,6 +1,10 @@
+import {Alert} from "react-native";
+
+import {Actions} from 'react-native-router-flux';
+
+
 import config from "../../../util/request/config";
 import request from "../../../util/request/request";
-import {Alert} from "react-native";
 
 
 export const FETCH_ShoppingCart_Request = 'FETCH_ShoppingCart_Request';
@@ -72,7 +76,10 @@ export function addCart(storeProductId,amount=1){
 
     // 权限验证
     let authToken = state.identityToken.authToken;
-    if(!authToken){return;}
+    if(!authToken){
+      Actions.login();
+      return;
+    }
 
     // 批处理
     let isFetching = state.mall.shoppingCart.addCart.isFetching;
