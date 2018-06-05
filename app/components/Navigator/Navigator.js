@@ -54,8 +54,8 @@ class Navigator extends Component {
       {/* 导航头 */}
       <View style={[styles.navigator].concat(this.props.style)}>
         {
-          /* 3列以内，等分布局 */
-          this.props.navigationItems.length <= 3 ?
+          /* 4列以内，等分布局 */
+          this.props.navigationItems.length <= 4 ?
             this.props.navigationItems.map((item, index) =>
               (<TouchableWithoutFeedback key={index} onPress={() => this.switchItemIndex(index)}>
                 <View style={styles.item}>
@@ -66,7 +66,7 @@ class Navigator extends Component {
                 </View>
               </TouchableWithoutFeedback>))
             :
-            /* 大于 3列，横向滚动 */
+            /* 大于 4列，横向滚动 */
             <ScrollView horizontal={true}>
               {
                 this.props.navigationItems.map((item, index) =>
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   itemFixed: {
-    minWidth: 220,
+    minWidth: 167,
     alignItems: 'center'
   },
   itemTextSection: {

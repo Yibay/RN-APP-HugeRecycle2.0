@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{PureComponent} from 'react';
 import {StyleSheet, View, Modal} from 'react-native';
 
 import {connect} from 'react-redux';
@@ -12,7 +12,7 @@ import Guide from '../pages/Guide/Guide';
 import Holiday from '../pages/Guide/Holiday';
 
 
-export const guidePage = WrappedComponent => connect(null, {checkVersion})(class extends Component{
+export const guidePage = WrappedComponent => connect(null, {checkVersion})(class extends PureComponent{
 
   constructor(props){
     super(props);
@@ -85,7 +85,7 @@ export const guidePage = WrappedComponent => connect(null, {checkVersion})(class
 
   componentDidUpdate(){
     if(!(this.state.showGuidePage || this.state.showHolidayPage || this.state.waiting)){
-      this.props.checkVersion();
+      setTimeout(() => this.props.checkVersion(),0);
     }
   }
 

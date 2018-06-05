@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, Image, TouchableWithoutFeedback, Platform } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
@@ -75,7 +75,10 @@ const styles = StyleSheet.create({
   headerText: {
     textAlign: 'center',
     fontSize: 38,
-    lineHeight: 38,
+    ...Platform.select({
+      ios: {lineHeight: 38},
+      android: {lineHeight: 42},
+    }),
     fontWeight: '700'
   },
   back: {
