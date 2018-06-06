@@ -49,7 +49,6 @@ class Mall extends Component{
     for(let i=0;i<productList.length;i++){
       combineProductList = combineProductList.concat(productList[i]);
     }
-    console.log(combineProductList);
     // 商品去重
     let de_duplication = {};
     combineProductList.forEach((item, index) => {
@@ -126,4 +125,3 @@ function mapStateToProps(state){
 
 // 需验证便利店信息
 export default verifyStoreInfo(connect(mapStateToProps)(Mall));
-// export default Mall;

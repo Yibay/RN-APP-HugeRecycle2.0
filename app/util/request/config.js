@@ -9,12 +9,12 @@ const __dirname = __dirname || '/Users/zhouquan/workspace/nodeProgram/rn-hugeRec
 
 
 // 线上
-// const api_base_recycle = 'https://www.hugehuge.cn';
-// const api_base_mall = 'https://mall.hugehuge.cn';
+const api_base_recycle = 'https://www.hugehuge.cn';
+const api_base_mall = 'https://mall.hugehuge.cn';
 
 // 测试
-const api_base_recycle = 'http://test.hugehuge.cn';
-const api_base_mall = 'http://test.hugehuge.cn:8070';
+// const api_base_recycle = 'http://test.hugehuge.cn';
+// const api_base_mall = 'http://test.hugehuge.cn:8070';
 
 // 本机调试（小武）
 // const api_base_recycle = 'http://192.168.11.122:8090';
@@ -270,6 +270,11 @@ export default {
     //   orderCode
     getMallOrderDetail: `${api_base_mall}/online/mall/order/getOrderDetail`,
 
+    // 18, 获取线下便利店信息 (GET)
+    // params
+    //   communityId: number, 如 97
+    getOfflineStoreList: `${api_base_recycle}/wxMiniApp/mall/getOfflineStoreListByCommunityId`,
+
     /** ------ 版本检测 ------ */
 
     // 获取 最新版本号
@@ -296,18 +301,17 @@ export default {
   // 静态资源base路径
   static: {
     // 线上
-    // base: 'https://www.hugehuge.cn/web/',
-    // // 商城图片资源 base路径
-    // mallBase: 'https://hugehuge.oss-cn-hangzhou.aliyuncs.com',
+    base: 'https://www.hugehuge.cn/web/',
+    // 商城图片资源 base路径
+    mallBase: 'https://hugehuge.oss-cn-hangzhou.aliyuncs.com',
 
     // 测试
-    base: 'http://test.hugehuge.cn/web/',
-    // 商城图片资源 base路径
-    mallBase: 'https://hugetest.oss-cn-hangzhou.aliyuncs.com',
+    // base: 'http://test.hugehuge.cn/web/',
+    // // 商城图片资源 base路径
+    // mallBase: 'https://hugetest.oss-cn-hangzhou.aliyuncs.com',
 
     // 本机调试（小武）
     // base: 'http://192.168.50.123:8090/web/',
-
 
     // 本机调试 (双全)
     // base: 'http://192.168.50.79:8080/web/'

@@ -2,6 +2,7 @@
 import {fetchStoreInfo} from '../mall/store';
 import {fetchStoreGoods} from "../mall/storeGoods";
 import {fetchShoppingCartAmount} from '../mall/shoppingCart';
+import {fetchStoreOffline} from '../mall/storeOffline';
 
 export function onEnter(){
   return async(dispatch, getState) => {
@@ -11,5 +12,7 @@ export function onEnter(){
     await dispatch(fetchStoreGoods());
     // 购物车角标
     dispatch(fetchShoppingCartAmount());
+    // 线下店信息
+    dispatch(fetchStoreOffline());
   };
 }
