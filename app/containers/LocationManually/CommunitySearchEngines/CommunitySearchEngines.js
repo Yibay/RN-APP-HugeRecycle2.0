@@ -28,18 +28,23 @@ class CommunitySearchEngines extends PureComponent {
       communityName: '',
       allCommunities: [],
       relatedCommunities: [],
-      communitySelected: null
+      communitySelected: null,
+      setInputSectionValue: false,
     };
 
   }
 
   render(){
     return (<View>
-      <InputSection value={this.state.communityName} onChangeText={val => this.onChangeText(val)} placeholder='请输入小区名'
+      <InputSection value={this.state.communityName}
+                    onChangeText={val => this.onChangeText(val)}
+                    placeholder='请输入小区名'
                     leftButton={<Image style={styles.leftButton} source={require('./img/search2x.png')} resizeMode='contain' />}
                     rightButton={<TouchableWithoutFeedback onPress={() => this.onChangeText('')}>
                       <Image style={styles.rightButton} source={require('./img/cancel2x.png')} resizeMode='contain' />
-                    </TouchableWithoutFeedback>}/>
+                    </TouchableWithoutFeedback>}
+                    setValue={this.state.setInputSectionValue}
+      />
       <FlatList style={styles.searchResult}
                 data={this.state.relatedCommunities}
                 keyExtractor={(item,index) => index.toString()}
@@ -80,7 +85,8 @@ class CommunitySearchEngines extends PureComponent {
       return {
         communityName,
         communitySelected: null,
-        relatedCommunities
+        relatedCommunities,
+        setInputSectionValue: false,
       }
     });
   }
@@ -88,7 +94,11 @@ class CommunitySearchEngines extends PureComponent {
   // 选中小区
   selectCommunity(communitySelected){
     console.log(communitySelected);
-    this.setState({ communitySelected, communityName: communitySelected.communityName });
+    this.setState({
+      communitySelected,
+      communityName: communitySelected.communityName,
+      setInputSectionValue: true,
+    });
   }
 
   // 更新选中小区 到全局

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
 
 import PropTypes from 'prop-types';
+import TextInputRepair from "../../TextInput/TextInputRepair";
 
 
 class InputSection extends Component {
@@ -15,7 +16,8 @@ class InputSection extends Component {
     leftButton: PropTypes.element, // 左侧按钮
     rightButton: PropTypes.element, // 右侧按钮
     keyboardType: PropTypes.oneOf(['default','numeric','email-address','phone-pad']),
-    secureTextEntry: PropTypes.bool // 隐藏输入内容(密文)
+    secureTextEntry: PropTypes.bool, // 隐藏输入内容(密文)
+    setValue: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -26,6 +28,14 @@ class InputSection extends Component {
     keyboardType: 'default',
     secureTextEntry: false
   };
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      focusInput: false,
+    };
+  }
 
   render(){
     return (<View {...this.props} style={[styles.container].concat(this.props.style)}>
@@ -39,40 +49,33 @@ class InputSection extends Component {
           :
           <Text style={styles.label} onPress={() => this.focusInput()}>{this.props.label}</Text> // 没有自定义左侧按钮显示，label
       }
-      <TextInput style={styles.textInput}
-                 ref="input"
-                 value={this.props.value}
-                 onChangeText={val => this.props.onChangeText(val)}
-                 autoCapitalize='none'
-                 placeholder={this.props.placeholder}
-                 editable={this.props.editable}
-                 secureTextEntry={this.props.secureTextEntry}
-                 underlineColorAndroid="transparent"
-                 keyboardType={this.props.keyboardType}
-                 onSubmitEditing={() => this.blurInput()}/>
+      <TextInputRepair style={styles.textInput}
+                       value={this.props.value}
+                       onChangeText={val => this.props.onChangeText(val)}
+                       autoCapitalize='none'
+                       placeholder={this.props.placeholder}
+                       editable={this.props.editable}
+                       secureTextEntry={this.props.secureTextEntry}
+                       underlineColorAndroid="transparent"
+                       keyboardType={this.props.keyboardType}
+                       focusInput={this.state.focusInput}
+                       setValue={this.props.setValue}
+                       onSubmitEditing={() => this.blurInput()}
+      />
       {
         this.props.rightButton // 若有右侧按钮，则添加
       }
     </View>);
   }
 
-  componentDidMount(){
-    // 软键盘关闭时，失去焦点 (调试模式下，没有软键盘，聚焦 立即 失焦)
-    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide',() => this.blurInput());
-  }
-
-  componentWillUnmount(){
-    this.keyboardDidHideListener.remove();
-  }
-
   // 点击label 聚焦input
   focusInput(){
-    this.refs.input.focus();
+    this.setState({focusInput: true});
   }
 
   // 失去焦点
   blurInput(){
-    this.refs.input.blur();
+    this.setState({focusInput: false});
   }
 }
 
