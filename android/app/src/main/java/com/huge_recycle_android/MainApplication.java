@@ -2,6 +2,7 @@ package com.huge_recycle_android;
 
 import android.app.Application;
 
+import com.huge_recycle_android.android_maputil.UtilMapPackage;
 import com.huge_recycle_android.android_open_settings.OpenSettingsPackage;
 import com.huge_recycle_android.android_upgrade.UpgradePackage;
 import com.facebook.react.ReactApplication;
@@ -28,13 +29,14 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new MIPushPackage(),
-          new AlipayPackage(),
-          new OrientationPackage(),
-          new VectorIconsPackage(),
-          new UpgradePackage(),
-          new OpenSettingsPackage()
+              new MainReactPackage(),
+              new MIPushPackage(),
+              new AlipayPackage(),
+              new OrientationPackage(),
+              new VectorIconsPackage(),
+              new UpgradePackage(),
+              new OpenSettingsPackage(),
+              new UtilMapPackage()
       );
     }
 

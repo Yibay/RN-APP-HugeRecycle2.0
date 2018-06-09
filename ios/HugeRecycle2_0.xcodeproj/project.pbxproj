@@ -45,6 +45,7 @@
 		1F734F872072256400289C94 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734F862072256400289C94 /* CoreMotion.framework */; };
 		1F734FC42072379F00289C94 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F734FC22072379F00289C94 /* AlipaySDK.bundle */; };
 		1F734FFC2073127200289C94 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F734FC12072379E00289C94 /* AlipaySDK.framework */; };
+		1F76BEB920C7803E003753E1 /* UtilMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F76BEB820C7803E003753E1 /* UtilMap.m */; };
 		1FF11AB3200319FE00034A38 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		1FF11AB620031C3100034A38 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF11AB520031C3100034A38 /* libsqlite3.tbd */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -432,6 +433,8 @@
 		1F734F862072256400289C94 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		1F734FC12072379E00289C94 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlipaySDK.framework; path = "../node_modules/react-native-alipay/ios/SDK/AlipaySDK.framework"; sourceTree = "<group>"; };
 		1F734FC22072379F00289C94 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AlipaySDK.bundle; path = "../node_modules/react-native-alipay/ios/SDK/AlipaySDK.bundle"; sourceTree = "<group>"; };
+		1F76BE8C20C7800C003753E1 /* UtilMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UtilMap.h; sourceTree = "<group>"; };
+		1F76BEB820C7803E003753E1 /* UtilMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UtilMap.m; sourceTree = "<group>"; };
 		1FF11AB520031C3100034A38 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		2D02E47B1E0B4A5D006451C7 /* HugeRecycle2_0-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HugeRecycle2_0-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* HugeRecycle2_0-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HugeRecycle2_0-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -624,6 +627,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				1F76BE8C20C7800C003753E1 /* UtilMap.h */,
+				1F76BEB820C7803E003753E1 /* UtilMap.m */,
 			);
 			name = HugeRecycle2_0;
 			sourceTree = "<group>";
@@ -1438,6 +1443,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				1F76BEB920C7803E003753E1 /* UtilMap.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1584,8 +1590,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hugehuge.HugeCollection;
 				PRODUCT_NAME = HugeRecycle2_0;
-				PROVISIONING_PROFILE = "4bc78f14-11c3-4e02-80ce-b9bad7c938da";
-				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionPP;
+				PROVISIONING_PROFILE = "d34e143f-791c-434a-b211-6ee1d5c8c2e8";
+				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionTest;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1621,8 +1627,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hugehuge.HugeCollection;
 				PRODUCT_NAME = HugeRecycle2_0;
-				PROVISIONING_PROFILE = "4bc78f14-11c3-4e02-80ce-b9bad7c938da";
-				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionPP;
+				PROVISIONING_PROFILE = "d34e143f-791c-434a-b211-6ee1d5c8c2e8";
+				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionTest;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1771,7 +1777,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = BYAN84VV9K;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;

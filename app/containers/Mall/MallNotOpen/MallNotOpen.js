@@ -16,7 +16,10 @@ class MallNotOpen extends Component {
   static propTypes = {
     storeOffline: PropTypes.shape({
       data: PropTypes.arrayOf(
-        PropTypes.shape({})
+        PropTypes.shape({
+          storeName: PropTypes.string,
+          address: PropTypes.string,
+        })
       ),
       isFetching: PropTypes.bool.isRequired,
     }),
