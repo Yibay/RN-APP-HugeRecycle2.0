@@ -20,11 +20,13 @@ class StoreOfflineItem extends PureComponent{
 
   render(){
     return <View style={[styles.container]}>
-      <TextAdaption style={styles.message}>{this.props.item.storeName}</TextAdaption>
-      <TextAdaption style={styles.message}>{this.props.item.address}</TextAdaption>
+      <View style={styles.messageSection}>
+        <TextAdaption style={styles.message}>{this.props.item.storeName}</TextAdaption>
+        <TextAdaption style={styles.message}>{this.props.item.address}</TextAdaption>
+      </View>
       {
         this.props.item.latitude && this.props.item.longitude ?
-          <TextAdaption style={styles.toMap} onPress={() => this.toMap(this.props.item)}>查看地图</TextAdaption>
+          <TextAdaption style={styles.toMap} onPress={() => this.toMap(this.props.item)}>&#xe8c9;</TextAdaption>
           :
           null
       }
@@ -44,14 +46,19 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     marginVertical: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  messageSection: {
+
   },
   message: {
     fontSize: 30,
   },
   toMap: {
-    position: 'absolute',
-    right: 0,
-    fontSize: 30,
+    fontSize: 60,
+    fontFamily: 'iconfont',
   }
 });
 

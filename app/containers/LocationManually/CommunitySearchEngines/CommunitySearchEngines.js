@@ -40,7 +40,7 @@ class CommunitySearchEngines extends PureComponent {
                     onChangeText={val => this.onChangeText(val)}
                     placeholder='请输入小区名'
                     leftButton={<Image style={styles.leftButton} source={require('./img/search2x.png')} resizeMode='contain' />}
-                    rightButton={<TouchableWithoutFeedback onPress={() => this.onChangeText('')}>
+                    rightButton={<TouchableWithoutFeedback onPress={() => this.onChangeText('',true)}>
                       <Image style={styles.rightButton} source={require('./img/cancel2x.png')} resizeMode='contain' />
                     </TouchableWithoutFeedback>}
                     setValue={this.state.setInputSectionValue}
@@ -78,7 +78,7 @@ class CommunitySearchEngines extends PureComponent {
   }
 
   // 手动输入小区名 (联动 关联小区、显示小区)
-  onChangeText(communityName){
+  onChangeText(communityName,updateNow){
     this.setState(state => {
       // 关联小区
       let relatedCommunities = state.allCommunities.filter(item => item.communityName.indexOf(communityName) !== -1 );
@@ -86,7 +86,7 @@ class CommunitySearchEngines extends PureComponent {
         communityName,
         communitySelected: null,
         relatedCommunities,
-        setInputSectionValue: false,
+        setInputSectionValue: !!updateNow,
       }
     });
   }
