@@ -39,6 +39,8 @@ export function fetchRecycleOrderDetail(orderId){
           phoneScore: res.data.tServiceOrder.phone, // 获得环保金 电话
           orderScore: res.data.tServiceOrder.orderScore, // 获得环保金金额
           payAmount: res.data.payAmount, // 获得现金金额
+          // 预计到达时间
+          appointTs: res.data.tServiceOrder.appointTs,
           // 订单号状态时间
           orderTime: [
             res.data.tServiceOrder.createdTs ? {status:'下单时间', time: res.data.tServiceOrder.createdTs} : null,

@@ -10,6 +10,7 @@ import _ from 'lodash';
 
 
 import SelectorPicker from '../Selector/SelectorPicker';
+import TextInputRepair from "../../TextInput/TextInputRepair";
 
 
 class HouseNumberAddressSection extends Component {
@@ -54,7 +55,7 @@ class HouseNumberAddressSection extends Component {
         <Text style={styles.msgText}>室</Text>
       </View>
       {/* 无户号 地址模块 */}
-      <TextInput underlineColorAndroid="transparent" value={this.state.address} onChangeText={val => this.setState({address: val.trim(),building:'',unit:'',room:'', stateUpdateFlag: true})}  style={[this.state.haveHouseNumber ? styles.hide : styles.msgText, styles.msgTextInput, styles.address]}/>
+      <TextInputRepair underlineColorAndroid="transparent" value={this.state.address} onChangeText={val => this.setState({address: val.trim(),building:'',unit:'',room:'', stateUpdateFlag: true})}  style={[this.state.haveHouseNumber ? styles.hide : styles.msgText, styles.msgTextInput, styles.address]}/>
     </View>)
   }
 

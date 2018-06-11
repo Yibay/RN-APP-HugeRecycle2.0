@@ -317,6 +317,6 @@ export default {
     // base: 'http://192.168.50.79:8080/web/'
   },
   // 版本号
-  version: 25, // Android版本
+  version: 26, // Android版本
   versionIOS: '3.0.9' // iOS版本号
 };

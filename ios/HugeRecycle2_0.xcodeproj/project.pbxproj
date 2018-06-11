@@ -435,6 +435,7 @@
 		1F734FC22072379F00289C94 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AlipaySDK.bundle; path = "../node_modules/react-native-alipay/ios/SDK/AlipaySDK.bundle"; sourceTree = "<group>"; };
 		1F76BE8C20C7800C003753E1 /* UtilMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UtilMap.h; sourceTree = "<group>"; };
 		1F76BEB820C7803E003753E1 /* UtilMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UtilMap.m; sourceTree = "<group>"; };
+		1F76BFA020CE161F003753E1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		1FF11AB520031C3100034A38 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		2D02E47B1E0B4A5D006451C7 /* HugeRecycle2_0-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HugeRecycle2_0-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* HugeRecycle2_0-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HugeRecycle2_0-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1485,6 +1486,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				13B07FB21A68108700A75B9A /* Base */,
+				1F76BFA020CE161F003753E1 /* zh-Hans */,
 			);
 			name = LaunchScreen.xib;
 			path = HugeRecycle2_0;
@@ -1590,8 +1592,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hugehuge.HugeCollection;
 				PRODUCT_NAME = HugeRecycle2_0;
-				PROVISIONING_PROFILE = "d34e143f-791c-434a-b211-6ee1d5c8c2e8";
-				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionTest;
+				PROVISIONING_PROFILE = "e9fc529a-5cfc-49a7-a059-faba9e49c845";
+				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionPP;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1627,8 +1629,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hugehuge.HugeCollection;
 				PRODUCT_NAME = HugeRecycle2_0;
-				PROVISIONING_PROFILE = "d34e143f-791c-434a-b211-6ee1d5c8c2e8";
-				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionTest;
+				PROVISIONING_PROFILE = "e9fc529a-5cfc-49a7-a059-faba9e49c845";
+				PROVISIONING_PROFILE_SPECIFIER = HugeDistributionPP;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1761,6 +1763,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1810,6 +1813,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

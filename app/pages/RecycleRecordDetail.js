@@ -97,6 +97,11 @@ class RecycleRecordDetail extends PureComponent{
       case 5: // 已接
       case 6: // 到达
         statusDesc = '等待虎哥上门回收';
+        let currentTime = new Date();
+        if(this.props.recordItem.data.appointTs && this.props.recordItem.data.appointTs > currentTime.getTime()){
+          let arrived_time = new Date(this.props.recordItem.data.appointTs);
+          statusDesc += `，预计 ${arrived_time.getHours()}:${arrived_time.getMinutes()}到达`;
+        }
         recordBtn = <RecordBtn style={styles.btnMargin} text='联系虎哥' onPress={() => this.contactHuge(this.props.orderId)} />;
         break;
       case 7:

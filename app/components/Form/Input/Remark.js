@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, Platform } from 'react-native';
 
 import PropTypes from 'prop-types';
+import TextInputRepair from "../../TextInput/TextInputRepair";
 
 
 class Remark extends Component {
@@ -20,11 +21,11 @@ class Remark extends Component {
   render(){
     return <View style={styles.remarkSection}>
       <Text style={styles.remarksTitle}>{this.props.title}</Text>
-      <TextInput style={[styles.remarks].concat(this.props.inputStyle)}
-                 multiline={true}
-                 onChangeText={value => this.props.onChangeText(value)}
-                 value={this.props.value}
-                 underlineColorAndroid="transparent" />
+      <TextInputRepair style={[styles.remarks].concat(this.props.inputStyle)}
+                       multiline={true}
+                       onChangeText={value => this.props.onChangeText(value)}
+                       value={this.props.value}
+                       underlineColorAndroid="transparent" />
     </View>
   }
 }

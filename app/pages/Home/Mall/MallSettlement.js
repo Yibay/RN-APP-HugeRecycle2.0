@@ -56,7 +56,8 @@ class MallSettlement extends Component {
   render(){
     return <View style={styles.container} ref='componentExisted'>
       <Header title='订单结算' back={() => this.back()}/>
-      <Notice/>
+      {/* 配送时间提示 */}
+      {/*<Notice/>*/}
       {/* 地址模块 */}
       <OrderAddressSection/>
       <KeyboardAvoidingViewAdapt style={styles.content} behavior='padding'>
@@ -112,6 +113,7 @@ class MallSettlement extends Component {
         orderSource: 3, // 下单平台标示码（3为 app下单）
         remark: this.state.remark
       };
+      console.log(this.props.currentLocation);
       if(createMallOrderValidator(option)){
         Alert.alert('立即下单','',[
           {text:'确认', onPress: () => this.props.submitMallOrder(option)},
