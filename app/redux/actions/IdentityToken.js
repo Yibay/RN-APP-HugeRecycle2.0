@@ -5,6 +5,8 @@ import {defaultCurrentLocation, setLocation, getDefaultAddressThunk} from "./Loc
 import {fetchUserAddressList, resetUserAddressList} from "./user/userAddressList";
 import {clearUserAccount, setUserAccount} from "./user/userAccount";
 
+import AnalyticsUtil from '../../util/nativeModules/AnalyticsUtil';
+
 
 // type 类型
 export const SET_IdentityToken = 'SET_IdentityToken';
@@ -47,6 +49,14 @@ export function setIdentityTokenThunk(identityToken){
     let authToken = identityToken['X-AUTH-TOKEN'];
     if(authToken){
 
+      // 通知友盟 帐号登录
+      try{
+        AnalyticsUtil.profileSignInWithPUID(String(identityToken.user.id));
+      }
+      catch(e){
+        console.log('友盟统计登录异常：',e);
+      }
+
       // 更新app需要的用户信息
       Promise.all([ // 并发
         /** 2-1. 获取 默认地址 更新到 当前地址 (defaultAddress) */
@@ -60,6 +70,10 @@ export function setIdentityTokenThunk(identityToken){
     }
     // 3、若是 登出状态
     else{
+
+      // 通知友盟 帐号登出
+      AnalyticsUtil.profileSignOff();
+
       // 3-1. 清空 当前地址
       dispatch(setLocation(defaultCurrentLocation));
       // 3-2. 清空 用户回收地址列表

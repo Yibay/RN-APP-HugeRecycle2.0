@@ -1,6 +1,7 @@
 package com.huge_recycle_android;
 
 import com.facebook.react.ReactActivity;
+import com.umeng.analytics.MobclickAgent; // <--- import 友盟 MobclickAgent
 
 import android.content.Intent; // <--- import react-native-orientation 禁止横屏
 import android.content.res.Configuration; // <--- import react-native-orientation 禁止横屏
@@ -23,5 +24,16 @@ public class MainActivity extends ReactActivity {
         intent.putExtra("newConfig", newConfig);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
         this.sendBroadcast(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }
