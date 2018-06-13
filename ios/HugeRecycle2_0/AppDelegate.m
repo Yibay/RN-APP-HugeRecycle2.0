@@ -15,6 +15,8 @@
 #import "RCTMIPushModule.h" // <-- MiPush 需要
 //#import "MiPushSDK.h"
 
+#import "RNUMConfigure.h" // <-- 友盟基础配置 需要
+
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
@@ -41,6 +43,10 @@
   [self.window makeKeyAndVisible];
   
   [RCTMIPushModule application:application didFinishLaunchingWithOptions:launchOptions]; // <-- MiPush 注册推送
+  
+  // 初始化 友盟统计
+  [UMConfigure setLogEnabled:YES];
+  [RNUMConfigure initWithAppkey:@"5b1f760f8f4a9d3c71000115" channel:@"App Store"];
   
   return YES;
 }
