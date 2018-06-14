@@ -121,29 +121,31 @@ export function fetchRecycleOrderThunk(params) {
       // 2-1、清空 回收物品列表
       dispatch(resetRecycledItem());
 
-      if(authToken){
-        // 2-2、将 一键呼叫 地址 添加到用户
-        params.telNo = params.phone;
-        params.customerName = params.accountName;
-        params.isLocationDefault = true; // 设成一键呼叫默认地址
+      (async() => {
+        if(authToken){
+          // 2-2、将 一键呼叫 地址 添加到用户
+          params.telNo = params.phone;
+          params.customerName = params.accountName;
+          params.isLocationDefault = true; // 设成一键呼叫默认地址
 
-        // 添加新地址 请求
-        let newAddress = await request
-          .post(config.api.addAddress, params, {'X-AUTH-TOKEN': authToken})
-          .catch(err => {console.log(err); return null;});
+          // 添加新地址 请求
+          let newAddress = await request
+            .post(config.api.addAddress, params, {'X-AUTH-TOKEN': authToken})
+            .catch(err => {console.log(err); return null;});
 
-        // 若请求成功 数据正确
-        if(newAddress && !newAddress.status && newAddress.data){
-          // console.log('添加地址成功');
-          await request.get(config.api.setDefaultLocation + newAddress.data.id,null,{'X-AUTH-TOKEN': authToken});
+          // 若请求成功 数据正确
+          if(newAddress && !newAddress.status && newAddress.data){
+            // console.log('添加地址成功');
+            await request.get(config.api.setDefaultLocation + newAddress.data.id,null,{'X-AUTH-TOKEN': authToken});
+          }
+          else {
+            // console.log('添加地址失败');
+          }
+
+          // 2-3、更新用户列表
+          dispatch(fetchUserAddressList());
         }
-        else {
-          // console.log('添加地址失败');
-        }
-
-        // 2-3、更新用户列表
-        dispatch(fetchUserAddressList());
-      }
+      })();
       return {status: 0};
     }
     else{

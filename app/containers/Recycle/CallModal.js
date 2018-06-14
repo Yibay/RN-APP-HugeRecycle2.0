@@ -98,7 +98,10 @@ class CallModal extends Component{
               </View>
             </View>
           </ScrollView>
+          {/* 获取验证码loading */}
           <Loading show={this.props.verificationCode.isFetching}/>
+          {/* 创建订单loading */}
+          <Loading show={this.props.createOrderFetching} />
         </KeyboardAvoidingViewAdapt>
       </AdaptLayoutWidth>
     </Modal>);

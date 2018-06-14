@@ -8,6 +8,7 @@ import { Actions } from 'react-native-router-flux';
 import { setAllProducts } from '../../../redux/actions/Recycle';
 import request from "../../../util/request/request";
 import config from '../../../util/request/config';
+import {setIdentityTokenThunk} from '../../../redux/actions/IdentityToken';
 
 import Header from '../../../components/Header/Header';
 import NavBarLocationButton from '../../../containers/Recycle/NavBarLocationButton/NavBarLocationButton';
@@ -92,7 +93,7 @@ class Recycle extends Component{
             }
           </Navigator>
           :
-          <TouchableOpacity style={styles.container} onPress={() => this.getProducts()}>
+          <TouchableOpacity style={styles.container} onPress={() => {this.getProducts();this.fetchIdentityTokenThunk();}}>
             <Result img='&#xe726;' imgIcon={styles.resultIcon} title='数据加载失败，可能时网络问题' titleStyle={styles.resultTitleStyle} message={<View style={styles.resultBtn}><TextAdaption style={styles.resultMessageStyle}>点我刷新</TextAdaption></View>} />
           </TouchableOpacity>
       }
@@ -120,6 +121,19 @@ class Recycle extends Component{
         }
       })
       .catch(e => console.log(e));
+  }
+
+  async fetchIdentityTokenThunk(){
+    // 获取本地储存 身份信息（token）
+    let ret = await storage
+      .load({ key: 'identityToken' })
+      .catch(err => {console.warn(err); return null}); // 若未找到，则log对应信息
+    console.log('重新请求数据');
+
+    // 若找到 则更新到数据流中
+    if(ret){
+      this.props.setIdentityTokenThunk(ret);
+    }
   }
 
   // 弹出 一键呼叫 弹窗
@@ -180,4 +194,4 @@ function mapStateToProps(state){
 }
 
 
-export default connect(mapStateToProps, { setAllProducts })(Recycle);
+export default connect(mapStateToProps, { setAllProducts, setIdentityTokenThunk })(Recycle);
