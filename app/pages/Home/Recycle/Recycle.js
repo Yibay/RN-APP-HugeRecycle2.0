@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
 
-import config from '../../../util/request/config';
 import { setAllProducts } from '../../../redux/actions/Recycle';
+import request from "../../../util/request/request";
+import config from '../../../util/request/config';
 
 import Header from '../../../components/Header/Header';
 import NavBarLocationButton from '../../../containers/Recycle/NavBarLocationButton/NavBarLocationButton';
@@ -14,8 +15,8 @@ import Navigator from '../../../components/Navigator/Navigator';
 import SubCategory from '../../../containers/Recycle/SubCategory';
 import CallModule from '../../../containers/Recycle/CallModule';
 import CallModal from '../../../containers/Recycle/CallModal';
-import request from "../../../util/request/request";
 import TextAdaption from "../../../components/Text/TextAdaption";
+import Result from '../../../components/Combination/Result';
 
 
 // 展示图片 固定宽度
@@ -39,55 +40,62 @@ class Recycle extends Component{
       {/* 页头 */}
       <Header title='我要回收' hideBack={true} leftButton={<NavBarLocationButton />} rightButton={!this.props.authToken ? <TextAdaption style={styles.loginBtn} onPress={() => Actions.login({needPop: true})}>登录</TextAdaption> : <View/>}/>
       {/* 导航条 */}
-      <Navigator navigationItems={this.props.category}>
-        {
-          /* 分页: 1阶回收大分类 */
-          Object.keys(AllProductsObj)
-            .sort((key1, key2) => AllProductsObj[key1].sort - AllProductsObj[key2].sort) // 按 sort 序号排序
-            .map(key => {
+      {
+        this.props.recyclableGoods.AllProductsNum ?
+          <Navigator navigationItems={this.props.category}>
+            {
+              /* 分页: 1阶回收大分类 */
+              Object.keys(AllProductsObj)
+                .sort((key1, key2) => AllProductsObj[key1].sort - AllProductsObj[key2].sort) // 按 sort 序号排序
+                .map(key => {
 
-              let topImage = null, bottomImage = null;
+                  let topImage = null, bottomImage = null;
 
-              // 若1级分类，有上方图片
-              if(AllProductsObj[key].topImageUrl){
-                let image = JSON.parse(AllProductsObj[key].topImageUrl);
-                let imageStyles = StyleSheet.create({
-                  imageStyles: {
-                    width: imageWidth,
-                    height: image.height / image.width * imageWidth,
-                    marginHorizontal: 34,
-                    marginTop: 28
+                  // 若1级分类，有上方图片
+                  if(AllProductsObj[key].topImageUrl){
+                    let image = JSON.parse(AllProductsObj[key].topImageUrl);
+                    let imageStyles = StyleSheet.create({
+                      imageStyles: {
+                        width: imageWidth,
+                        height: image.height / image.width * imageWidth,
+                        marginHorizontal: 34,
+                        marginTop: 28
+                      }
+                    });
+                    topImage = <Image source={{uri: config.static.base + image.url}} resizeMode='contain' style={imageStyles.imageStyles} />;
                   }
-                });
-                topImage = <Image source={{uri: config.static.base + image.url}} resizeMode='contain' style={imageStyles.imageStyles} />;
-              }
-              // 若1级分类，有下方图片
-              if(AllProductsObj[key].bottomImageUrl){
-                let image = JSON.parse(AllProductsObj[key].bottomImageUrl);
-                let imageStyles = StyleSheet.create({
-                  imageStyles: {
-                    width: imageWidth,
-                    height: image.height / image.width * imageWidth,
-                    marginHorizontal: 34
+                  // 若1级分类，有下方图片
+                  if(AllProductsObj[key].bottomImageUrl){
+                    let image = JSON.parse(AllProductsObj[key].bottomImageUrl);
+                    let imageStyles = StyleSheet.create({
+                      imageStyles: {
+                        width: imageWidth,
+                        height: image.height / image.width * imageWidth,
+                        marginHorizontal: 34
+                      }
+                    });
+                    bottomImage = <Image source={{uri: config.static.base + image.url}} resizeMode='contain' style={imageStyles.imageStyles} />;
                   }
-                });
-                bottomImage = <Image source={{uri: config.static.base + image.url}} resizeMode='contain' style={imageStyles.imageStyles} />;
-              }
 
-              return (
-                <View key={key} style={styles.contentPage}>
-                  {
-                    topImage
-                  }
-                  <SubCategory subCategoryObj={AllProductsObj[key].subCategoryObj} sort={AllProductsObj[key].sort} />
-                  {
-                    bottomImage
-                  }
-                </View>
-              )
-            })
-        }
-      </Navigator>
+                  return (
+                    <View key={key} style={styles.contentPage}>
+                      {
+                        topImage
+                      }
+                      <SubCategory subCategoryObj={AllProductsObj[key].subCategoryObj} sort={AllProductsObj[key].sort} />
+                      {
+                        bottomImage
+                      }
+                    </View>
+                  )
+                })
+            }
+          </Navigator>
+          :
+          <TouchableOpacity style={styles.container} onPress={() => this.getProducts()}>
+            <Result img='&#xe726;' imgIcon={styles.resultIcon} title='数据加载失败，可能时网络问题' titleStyle={styles.resultTitleStyle} message={<View style={styles.resultBtn}><TextAdaption style={styles.resultMessageStyle}>点我刷新</TextAdaption></View>} />
+          </TouchableOpacity>
+      }
       {/* 底栏：一键呼叫按钮 */}
       <CallModule showCallModal={() => this.showCallModal()} />
       {/* 弹窗：一键呼叫 */}
@@ -138,7 +146,27 @@ const styles = StyleSheet.create({
   },
   contentPage: {
     backgroundColor: '#f7f7f7'
-  }
+  },
+  resultIcon: {
+    fontSize: 200,
+    color: '#ddd',
+  },
+  resultTitleStyle: {
+    fontSize: 30,
+  },
+  resultBtn: {
+    width: 150,
+    height: 60,
+    marginTop: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ffd101',
+    borderRadius: 10,
+  },
+  resultMessageStyle: {
+    fontSize: 30,
+    color: '#fff',
+  },
 });
 
 function mapStateToProps(state){
