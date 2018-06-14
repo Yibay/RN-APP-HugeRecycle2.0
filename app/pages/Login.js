@@ -4,11 +4,13 @@ import { StyleSheet, View, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Toast } from 'antd-mobile-rn';
 
 
 import validator from '../util/form/validator';
 import request from '../util/request/request';
 import config from '../util/request/config';
+import string_xml from '../util/request/string';
 import { setIdentityTokenThunk } from '../redux/actions/IdentityToken';
 import {getCode, clearData} from '../redux/actions/verificationCode/login';
 
@@ -46,7 +48,8 @@ class Login extends Component{
       phone: '',
       password: '',
       code: '',
-      secureTextEntry: true
+      secureTextEntry: true,
+      loginIsFetching: false, // 登录 请求中
     };
   }
 
@@ -74,7 +77,10 @@ class Login extends Component{
         {/* 登录按钮 */}
         <SubmitBtn text='登录' submit={() => this.login()} style={styles.btnSection} />
       </View>
+      {/* 请求验证码loading */}
       <Loading show={this.props.verificationCode.isFetching} />
+      {/* 登录请求loading */}
+      <Loading show={this.state.loginIsFetching} />
     </View>)
   }
 
@@ -151,11 +157,32 @@ class Login extends Component{
     // 发送登录请求
     let code = this.state.navigationItemsIndex ? this.state.password : this.state.code;
     let navigationItemsIndex = this.state.navigationItemsIndex;
-    const res = await request
-      .post(config.api.getToken, {phone: this.state.phone, code})
-      .catch(err => {console.log(err); return null;})
+
+    if(this.state.loginIsFetching){
+      return;
+    }
+
+    this.setState({loginIsFetching: true});
+
+    const res = await Promise.race([
+      request
+        .post(config.api.getToken, {phone: this.state.phone, code})
+        .catch(err => {console.log(err); return null;}),
+      new Promise(resolve => {
+        setTimeout(() => {
+          resolve({statusMessage: string_xml.network_poor}); // 网络请求超时
+        }, 5000)
+      })
+    ]);
+
+    this.setState({loginIsFetching: false});
 
     if(res){
+
+      if(res.statusMessage){
+        Toast.offline(res.statusMessage, 5);
+        return;
+      }
 
       // 若登录失败 (登录成功 status 为 0，失败为 1)
       if(res.status){
@@ -181,6 +208,9 @@ class Login extends Component{
       // 3. 需要退回上一页，则退回上一页
       this.props.needPop && Actions.pop();
 
+    }
+    else {
+      Toast.offline('网络请求失败！',5);
     }
   }
 }
