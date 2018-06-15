@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Image, TouchableWithoutFeedback, Alert } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, Alert } from 'react-native';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -20,26 +20,41 @@ class ControllerBtn extends Component{
     super(props);
 
     this.state = {
-      buyAmount: this.props.buyAmount
+      buyAmount: this.props.buyAmount,
+      updateAmountFetching: false,
     };
   }
 
+  shouldComponentUpdate(){
+    return true;
+  }
+
   componentWillReceiveProps(nextProps){
-    this.setState({
-      buyAmount: nextProps.buyAmount
-    });
+    if(typeof this.state.buyAmount === 'undefined' || nextProps.buyAmount === this.state.buyAmount){
+      this.setState(state => ({...state,...{buyAmount: nextProps.buyAmount}}));
+    }
   }
 
   render(){
     return <View style={[styles.controller].concat(this.props.style)}>
-      <TouchableWithoutFeedback onPress={() => this.reduce()}>
+      <TouchableOpacity onPress={() => this.reduce()}>
         <Image style={styles.controllerBtn} resize='contain' source={require('../Recycle/SpecsItem/img/reduce2x.png')} />
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
       <Text style={styles.num}>{this.state.buyAmount}</Text>
-      <TouchableWithoutFeedback onPress={() => this.plus()}>
+      <TouchableOpacity onPress={() => this.plus()}>
        <Image style={styles.controllerBtn} resize='contain' source={require('../Recycle/SpecsItem/img/plus2x.png')} />
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     </View>
+  }
+
+  componentDidUpdate(){
+    if(this.props.buyAmount !== this.state.buyAmount && !this.state.updateAmountFetching){
+      (async () => {
+        this.setState({updateAmountFetching:true});
+        await this.props.updateShoppingCartAmount(this.props.shoppingCartId, this.state.buyAmount);
+        this.setState({updateAmountFetching:false});
+      })();
+    }
   }
 
   async plus(){
@@ -52,7 +67,7 @@ class ControllerBtn extends Component{
 
     // 库存充足
     if(this.props.storageAmount >= this.state.buyAmount + 1){
-      await this.props.updateShoppingCartAmount(this.props.shoppingCartId, this.state.buyAmount + 1);
+      this.setState(state => ({buyAmount: state.buyAmount + 1}));
     }
     // 库存不足
     else{
@@ -71,11 +86,11 @@ class ControllerBtn extends Component{
 
     // 库存充足
     if(this.state.buyAmount > 1 && this.props.storageAmount >= this.state.buyAmount){
-      await this.props.updateShoppingCartAmount(this.props.shoppingCartId, this.state.buyAmount - 1);
+      this.setState(state => ({buyAmount: state.buyAmount - 1}));
     }
     // 库存不足
     else if(this.state.buyAmount > 1 && this.props.storageAmount < this.state.buyAmount){
-      await this.props.updateShoppingCartAmount(this.props.shoppingCartId, this.props.storageAmount);
+      this.setState(state => ({buyAmount: this.props.storageAmount}));
     }
   }
 
