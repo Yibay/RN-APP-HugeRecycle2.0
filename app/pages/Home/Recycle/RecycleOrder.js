@@ -18,6 +18,7 @@ import RecycledItemsList from '../../../containers/RecycleOrder/RecycledItemsLis
 import SubmitBtn from '../../../components/Form/Btn/SubmitBtn';
 import Remark from "../../../components/Form/Input/Remark";
 import KeyboardAvoidingViewAdapt from '../../../components/KeyboardAvoidingViewAdapt';
+import Loading from "../../../components/Alert/Loading";
 
 
 class RecycleOrder extends Component{
@@ -79,6 +80,8 @@ class RecycleOrder extends Component{
           <SubmitBtn text={this.props.createOrderFetching ? '呼叫中' : '确认呼叫'} submit={() => this.createOrder()} style={styles.submitBtn} disable={this.props.createOrderFetching} />
         </ScrollView>
       </KeyboardAvoidingViewAdapt>
+      {/* 下回收单 请求请求loading */}
+      <Loading show={this.props.createOrderFetching} />
     </View>);
   }
 

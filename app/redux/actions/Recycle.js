@@ -4,6 +4,7 @@ import {Actions} from "react-native-router-flux";
 import config from "../../util/request/config";
 import request from "../../util/request/request";
 import {showRecycleOrderError} from "../../util/alertError";
+import string_xml from "../../util/request/string";
 
 import {fetchUserAddressList} from './user/userAddressList';
 
@@ -113,7 +114,10 @@ export function fetchRecycleOrderThunk(params) {
     // 判断登录状态
     let authToken = getState().identityToken.authToken;
     // 下回收订单
-    let res = await request.post(config.api.createOrder, params, authToken ? {'X-AUTH-TOKEN': authToken} : undefined);
+    let res = await Promise.race([
+      request.post(config.api.createOrder, params, authToken ? {'X-AUTH-TOKEN': authToken} : undefined),
+      new Promise(resolve => {setTimeout(() => resolve({status: 1,message: string_xml.network_poor2}), 5000)})
+    ]);
     if(res && !res.status){
       // 2、请求成功
       dispatch(fetchRecycleOrder('success'));

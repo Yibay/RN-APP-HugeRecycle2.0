@@ -5,7 +5,9 @@ import {
   FETCH_SettlementProductList_Success,
   FETCH_SettlementPayMsg_Success,
   FETCH_SettlementPayMsg_Failure,
-  FETCH_SettlementData_Finish
+  FETCH_SettlementData_Finish,
+  SUBMIT_MallOrder_Request,
+  SUBMIT_MallOrder_Finish,
 } from '../../actions/mall/settlement';
 
 
@@ -43,6 +45,17 @@ function payMsg(state={}, actions){
 
 let data = combineReducers({validProductList, invalidProductList, payMsg});
 
+function submitMallOrderFetching(state=false,actions){
+  switch(actions.type){
+    case SUBMIT_MallOrder_Request:
+      return true;
+    case SUBMIT_MallOrder_Finish:
+      return false;
+    default:
+      return state;
+  }
+}
+
 function isFetching(state=false, actions){
   switch(actions.type){
     case FETCH_SettlementData_Request:
@@ -54,6 +67,6 @@ function isFetching(state=false, actions){
   }
 }
 
-let settlement = combineReducers({data, isFetching});
+let settlement = combineReducers({data, submitMallOrderFetching, isFetching});
 
 export default settlement;

@@ -3,15 +3,18 @@ import {StyleSheet, View, Text, Alert} from 'react-native';
 
 import PropTypes from 'prop-types';
 import {Actions} from 'react-native-router-flux';
+import {Toast} from 'antd-mobile-rn';
 
 
 import {updateConsumePWValidator} from '../../../util/form/mineValidator';
 import request from '../../../util/request/request';
 import config from '../../../util/request/config';
+import string_xml from "../../../util/request/string";
 
 import Header from "../../../components/Header/Header";
 import {verifyLogin} from "../../../HOC/verifyLogin";
 import SixDigitCodePassword from "../../../components/Form/Module/SixDigitsCodePassword/SixDigitsCodePassword";
+import Loading from "../../../components/Alert/Loading";
 
 
 class ManageConsumePassword extends Component {
@@ -26,7 +29,8 @@ class ManageConsumePassword extends Component {
     super(props);
 
     this.state = {
-      password: ''
+      password: '',
+      isFetching: false,
     };
   }
 
@@ -44,6 +48,7 @@ class ManageConsumePassword extends Component {
         </View>
         <SixDigitCodePassword onChangeText={val => this.onChangeText(val)} submit={val => this.submit(val)} />
       </View>
+      <Loading show={this.state.isFetching} />
     </View>
   }
 
@@ -60,12 +65,22 @@ class ManageConsumePassword extends Component {
       return result.reset;
     }
     // 发送请求
-    const res = await request.postFormData(config.api.updateCustomerPayPassword,{payPassword: password.substr(0,6)},{'X-AUTH-TOKEN': this.props.identityToken.authToken});
+    this.setState({isFetching: true});
+    const res = await Promise.race([
+      request.postFormData(config.api.updateCustomerPayPassword,{payPassword: password.substr(0,6)},{'X-AUTH-TOKEN': this.props.identityToken.authToken}),
+      new Promise(resolve => {
+        setTimeout(() => resolve({status:1, message: string_xml.network_poor2}), 5000);
+      })
+    ]);
     if(res && !res.status){
       Alert.alert('修改成功','',[
         {text: '确定', onPress: () => Actions.pop()}
       ]);
     }
+    else{
+      Toast.offline(res.message, 3);
+    }
+    this.setState({isFetching: false});
   }
 }
 

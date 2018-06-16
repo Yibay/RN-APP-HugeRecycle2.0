@@ -25,10 +25,6 @@ class ControllerBtn extends Component{
     };
   }
 
-  shouldComponentUpdate(){
-    return true;
-  }
-
   componentWillReceiveProps(nextProps){
     if(typeof this.state.buyAmount === 'undefined' || nextProps.buyAmount === this.state.buyAmount){
       this.setState({buyAmount: nextProps.buyAmount});

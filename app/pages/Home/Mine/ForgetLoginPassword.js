@@ -19,6 +19,7 @@ import SubmitBtn from "../../../components/Form/Btn/SubmitBtn";
 import PasswordBtn from "../../../components/Form/Btn/PasswordBtn/PasswordBtn";
 import CountDownBtn from '../../../components/Form/Btn/CountDownBtn';
 import Loading from '../../../components/Alert/Loading';
+import string_xml from "../../../util/request/string";
 
 
 class ForgetLoginPassword extends Component {
@@ -40,6 +41,7 @@ class ForgetLoginPassword extends Component {
       code: '',
       newPassword: '',
       secureTextEntry: true,
+      updatePasswordFetching: false,
     };
   }
 
@@ -51,6 +53,8 @@ class ForgetLoginPassword extends Component {
       <InputSection style={styles.inputSection} value={this.state.newPassword} onChangeText={val => this.setState({newPassword: val.trim()})} label='新密码' secureTextEntry={this.state.secureTextEntry} rightButton={<PasswordBtn secureTextEntry={this.state.secureTextEntry} setSecure={val => this.setSecure(val)}/>}/>
       <SubmitBtn text='确认修改' style={styles.submitBtn} submit={() => this.submit()} />
       <Loading show={this.props.verificationCode.isFetching} />
+      {/* 修改密码请求 */}
+      <Loading show={this.state.updatePasswordFetching} />
     </View>
   }
 
@@ -84,19 +88,24 @@ class ForgetLoginPassword extends Component {
     if(!forgetPasswordValidator(this.state)){
       return false;
     }
+    if(this.state.updatePasswordFetching){
+      return;
+    }
 
-
-    const res = await request.post(config.api.updatePassword,{oldPassword: this.state.code, newPassword: this.state.newPassword}, {'X-AUTH-TOKEN': this.props.identityToken.authToken})
-    setTimeout(function(){
-      if(res){
-        if(!res.status){
-          Alert.alert('修改成功','',[{text: '确定', onPress: () => Actions.popTo('manageCustomerAccounts')}]);
-        }
-        else{
-          Alert.alert(res.message);
-        }
+    this.setState({updatePasswordFetching: true});
+    const res = await Promise.race([
+      request.post(config.api.updatePassword,{oldPassword: this.state.code, newPassword: this.state.newPassword}, {'X-AUTH-TOKEN': this.props.identityToken.authToken}),
+      new Promise(resolve => {setTimeout(() => resolve({status: 1,message: string_xml.network_poor2}), 5000)})
+    ]);
+    this.setState({updatePasswordFetching: false});
+    if(res){
+      if(!res.status){
+        Alert.alert('修改成功','',[{text: '确定', onPress: () => Actions.popTo('manageCustomerAccounts')}]);
       }
-    },0);
+      else{
+        Alert.alert(res.message);
+      }
+    }
   }
 }
 

@@ -4,12 +4,16 @@ import {pay} from "react-native-alipay";
 
 import config from "../../../util/request/config";
 import request from "../../../util/request/request";
+import string_xml from "../../../util/request/string";
 
 export const FETCH_SettlementData_Request = 'FETCH_SettlementData_Request';
 export const FETCH_SettlementProductList_Success = 'FETCH_SettlementProductList_Success';
 export const FETCH_SettlementPayMsg_Success = 'FETCH_SettlementPayMsg_Success';
 export const FETCH_SettlementPayMsg_Failure = 'FETCH_SettlementPayMsg_Failure';
 export const FETCH_SettlementData_Finish = 'FETCH_SettlementData_Finish';
+
+export const SUBMIT_MallOrder_Request = 'SUBMIT_MallOrder_Request';
+export const SUBMIT_MallOrder_Finish = 'SUBMIT_MallOrder_Finish';
 
 // 获取结算页信息
 export function fetchSettlementData(){
@@ -82,8 +86,16 @@ export function submitMallOrder(option){
     let authToken = getState().identityToken.authToken;
 
     // 1. 下单请求 (获取订单号)
-    const res = await request.postFormData(config.api.confirmMallOrder, option, {'X-AUTH-TOKEN': authToken});
-    if(!res || res.status){Alert.alert(res.message,'',[{text:'好'}]);return;}
+    dispatch({type: SUBMIT_MallOrder_Request});
+    const res = await Promise.race([
+      request.postFormData(config.api.confirmMallOrder, option, {'X-AUTH-TOKEN': authToken}),
+      new Promise(resolve => {setTimeout(() => resolve({status:1,message: string_xml.network_poor2}),5000)})
+    ]);
+    if(!res || res.status){
+      Alert.alert(res.message,'',[{text:'好'}]);
+      dispatch({type: SUBMIT_MallOrder_Finish});
+      return;
+    }
 
     // 2. 支付
     // 环保金 充足
@@ -102,6 +114,7 @@ export function submitMallOrder(option){
       }
     }
 
+    dispatch({type: SUBMIT_MallOrder_Finish});
   }
 }
 

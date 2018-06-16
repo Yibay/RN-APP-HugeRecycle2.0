@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import { Router, Scene, Stack, Actions } from 'react-native-router-flux';
-import { StyleSheet, Alert } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 

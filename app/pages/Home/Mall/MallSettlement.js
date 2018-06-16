@@ -19,6 +19,7 @@ import ProductList from "../../../containers/MallCart/ProductList";
 import Remark from "../../../components/Form/Input/Remark";
 import SubmitBtn from "../../../components/Form/Btn/SubmitBtn";
 import KeyboardAvoidingViewAdapt from '../../../components/KeyboardAvoidingViewAdapt';
+import Loading from "../../../components/Alert/Loading";
 
 
 class MallSettlement extends Component {
@@ -40,6 +41,7 @@ class MallSettlement extends Component {
           message: PropTypes.string
         })
       }),
+      submitMallOrderFetching: PropTypes.bool.isRequired,
       isFetching: PropTypes.bool.isRequired
     })
   };
@@ -84,6 +86,7 @@ class MallSettlement extends Component {
           </View>}
         />
       </KeyboardAvoidingViewAdapt>
+      <Loading show={this.props.settlementData.submitMallOrderFetching} />
     </View>
   }
 
