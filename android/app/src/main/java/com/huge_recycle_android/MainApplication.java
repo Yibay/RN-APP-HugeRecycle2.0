@@ -8,6 +8,7 @@ import com.huge_recycle_android.android_umeng_analytics.DplusReactPackage;
 import com.huge_recycle_android.android_umeng_analytics.RNUMConfigure;
 import com.huge_recycle_android.android_upgrade.UpgradePackage;
 import com.facebook.react.ReactApplication;
+import cn.reactnative.modules.update.UpdatePackage;
 import com.ichong.zzy.mipush.MIPushPackage;
 import cn.reactnative.alipay.AlipayPackage;
 import com.github.yamill.orientation.OrientationPackage;
@@ -33,6 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
               new MainReactPackage(),
+            new UpdatePackage(),
               new MIPushPackage(),
               new AlipayPackage(),
               new OrientationPackage(),

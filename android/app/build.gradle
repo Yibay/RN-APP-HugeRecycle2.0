@@ -103,10 +103,27 @@ android {
         targetSdkVersion 26
         versionCode 26
         versionName "3.0.9"
+        externalNativeBuild {
+            cmake {
+                //设置编译工具链
+//                arguments "-DANDROID_TOOLCHAIN=clang"
+                cppFlags ""
+                //需编译生成的ABI类型
+//                abiFilters 'x86', 'x86_64', 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            }
+        }
         ndk {
+            moduleName "rnupdate"
+            ldLibs "log"
             abiFilters "armeabi-v7a", "x86"
         }
         multiDexEnabled true
+    }
+    externalNativeBuild {
+        cmake {
+            //配置CMakeLists.txt的路径
+            path 'CMakeLists.txt'
+        }
     }
     signingConfigs {
         release {
@@ -156,6 +173,8 @@ android {
 }
 
 dependencies {
+//    compile project(':react-native-update')
+    compile project(':react-native-gufei-pushy')
     compile 'com.android.support:multidex:1.0.2'
     compile project(':react-native-xmpush')
     compile project(':react-native-alipay')
