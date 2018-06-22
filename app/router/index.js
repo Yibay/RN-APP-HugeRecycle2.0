@@ -30,7 +30,6 @@ import {unJumpRecycleRecord} from '../redux/actions/miPush/jumpRecycleRecord';
 import { RecycleIcon, MallIcon, MineIcon } from '../HOC/configTabIcon';
 // 页面路由
 import AboutUs from '../pages/Home/Mine/AboutUs';
-import Intro from '../pages/Guide/Guide';
 import Recycle from '../pages/Home/Recycle/Recycle';
 import Mall from '../pages/Home/Mall/Mall';
 import Mine from '../pages/Home/Mine/Mine';
@@ -148,8 +147,6 @@ class AppRouter extends Component{
         {/* 5、HOC */}
         {/* 登录页 */}
         <Scene key='login' component={Login} hideNavBar={true} onEnter={() => {AnalyticsUtil.onEventWithLabel('enter_page','登录页');}} />
-        {/* 轮播简介页 */}
-        <Scene key='intro' component={Intro} hideNavBar={true} />
       </Stack>
     </Router>
   }

@@ -19,8 +19,9 @@ class SpecsItem extends Component{
       name: PropTypes.string.isRequired,
       image: PropTypes.string.isRequired,
       otherGift: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired
+      price: PropTypes.number.isRequired,
       // 可选属性 {number}[number]
+      extra: PropTypes.string
     }),
     onlyOnePiece: PropTypes.bool.isRequired
   };
@@ -47,7 +48,7 @@ class SpecsItem extends Component{
               this.props.specs.price ?
                 '¥' + this.props.specs.price + (this.props.specs.unit ? `/${this.props.specs.unit}` : '')
                 :
-                '免费代为处置'
+                this.props.specs.extra
             }
           </Text>
         </View>

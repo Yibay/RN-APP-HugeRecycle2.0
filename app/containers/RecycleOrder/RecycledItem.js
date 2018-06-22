@@ -27,7 +27,7 @@ const RecycledItem = props => (<View style={[styles.container].concat(props.styl
         props.specs.price ?
           `¥${_.round(props.specs.price * props.specs.number,2)}` + (props.specs.unit ? `/${props.specs.unit}` : '') + ' '
           :
-          '免费代为处置'
+          props.specs.extra
       }
     </TextAdaption>
   </View>
@@ -40,6 +40,7 @@ RecycledItem.propTypes = {
     price: PropTypes.number.isRequired,
     number: PropTypes.number.isRequired,
     unit: PropTypes.string,
+    extra: PropTypes.string,
   }),
   subCategoryName: PropTypes.string.isRequired
 };
