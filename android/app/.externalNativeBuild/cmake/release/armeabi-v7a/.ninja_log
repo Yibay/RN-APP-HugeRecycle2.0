@@ -1,0 +1,11 @@
+# ninja log v5
+3	100	0	CMakeFiles/rnupdate.dir/src/main/cpp/randtable.c.o	19d6e409111e58aa
+2	111	0	CMakeFiles/rnupdate.dir/src/main/cpp/crctable.c.o	abfad25ec32c35d2
+1	137	0	CMakeFiles/rnupdate.dir/src/main/cpp/bspatch.c.o	5cb80e5415fe7389
+0	142	0	CMakeFiles/rnupdate.dir/src/main/cpp/DownloadTask.c.o	f11b07a386378ea2
+3	184	0	CMakeFiles/rnupdate.dir/src/main/cpp/huffman.c.o	91dd8192c71bf671
+1	510	0	CMakeFiles/rnupdate.dir/src/main/cpp/blocksort.c.o	96beec0aecf1e31b
+1	532	0	CMakeFiles/rnupdate.dir/src/main/cpp/bzlib.c.o	2b820e046331e666
+2	796	0	CMakeFiles/rnupdate.dir/src/main/cpp/compress.c.o	28d011b881ca1a29
+2	925	0	CMakeFiles/rnupdate.dir/src/main/cpp/decompress.c.o	efc33528fb1ded21
+925	980	0	../../../../build/intermediates/cmake/release/obj/armeabi-v7a/librnupdate.so	af82141ef7e94502

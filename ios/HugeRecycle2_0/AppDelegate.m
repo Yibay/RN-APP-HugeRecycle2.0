@@ -17,6 +17,8 @@
 
 #import "RNUMConfigure.h" // <-- 友盟基础配置 需要
 
+#import "RCTHotUpdate.h" // <-- react-native-update 热更新 需要
+
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
@@ -27,8 +29,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
-
-  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+  
+  #if DEBUG
+    // 原来的jsCodeLocation保留在这里
+    jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+  #else
+    // 非DEBUG情况下启用热更新
+    jsCodeLocation=[RCTHotUpdate bundleURL];
+  #endif
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"HugeRecycle2_0"

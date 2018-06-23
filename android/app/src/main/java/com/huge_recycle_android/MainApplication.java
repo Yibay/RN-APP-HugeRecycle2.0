@@ -8,6 +8,8 @@ import com.huge_recycle_android.android_umeng_analytics.DplusReactPackage;
 import com.huge_recycle_android.android_umeng_analytics.RNUMConfigure;
 import com.huge_recycle_android.android_upgrade.UpgradePackage;
 import com.facebook.react.ReactApplication;
+
+import cn.reactnative.modules.update.UpdateContext;
 import cn.reactnative.modules.update.UpdatePackage;
 import com.ichong.zzy.mipush.MIPushPackage;
 import cn.reactnative.alipay.AlipayPackage;
@@ -49,6 +51,11 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected String getJSMainModuleName() {
       return "index";
+    }
+
+    @Override
+    protected String getJSBundleFile() {
+      return UpdateContext.getBundleUrl(MainApplication.this);
     }
   };
 
