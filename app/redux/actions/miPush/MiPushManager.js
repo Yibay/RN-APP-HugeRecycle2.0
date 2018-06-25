@@ -4,7 +4,6 @@ import MIPush from 'react-native-xmpush';
 import {Actions} from "react-native-router-flux";
 
 
-import {jumpRecycleRecord} from './jumpRecycleRecord';
 import * as RecycleRecordLife from "../pagesLife/RecycleRecordLife";
 
 

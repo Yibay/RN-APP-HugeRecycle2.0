@@ -56,7 +56,7 @@ class RecycleOrder extends Component{
           {
             hasAirConditioner ?
               <View style={styles.AerialWorkSection}>
-                <Text style={styles.AerialWorkMsg}>是否需要拆卸空调<Text style={styles.AerialWorkPrice}>（拆卸费 50元）</Text></Text>
+                <Text style={styles.AerialWorkMsg}>是否需要拆卸空调<Text style={styles.AerialWorkPrice}>（拆卸费 50元/台）</Text></Text>
                 <Switch containerStyle={styles.AerialWorkSwitch}
                     value={this.state.isAerialWork}
                     onValueChange={val => this.setState({isAerialWork: val})}

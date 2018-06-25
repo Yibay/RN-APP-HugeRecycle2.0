@@ -100,7 +100,7 @@ class RecycleRecordDetail extends PureComponent{
         let currentTime = new Date();
         if(this.props.recordItem.data.appointTs && this.props.recordItem.data.appointTs > currentTime.getTime()){
           let arrived_time = new Date(this.props.recordItem.data.appointTs);
-          statusDesc += `，预计 ${arrived_time.getHours()}:${arrived_time.getMinutes()}到达`;
+          statusDesc += `，预计 ${formatDate(this.props.recordItem.data.appointTs,'hh:mm')}到达`;
         }
         recordBtn = <RecordBtn style={styles.btnMargin} text='联系虎哥' onPress={() => this.contactHuge(this.props.orderId)} />;
         break;
