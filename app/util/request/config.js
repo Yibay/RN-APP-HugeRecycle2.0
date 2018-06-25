@@ -9,12 +9,12 @@ const __dirname = __dirname || '/Users/zhouquan/workspace/nodeProgram/rn-hugeRec
 
 
 // 线上
-// const api_base_recycle = 'https://www.hugehuge.cn';
-// const api_base_mall = 'https://mall.hugehuge.cn';
+const api_base_recycle = 'https://www.hugehuge.cn';
+const api_base_mall = 'https://mall.hugehuge.cn';
 
 // 测试
-const api_base_recycle = 'http://test.hugehuge.cn';
-const api_base_mall = 'http://test.hugehuge.cn:8070';
+// const api_base_recycle = 'http://test.hugehuge.cn';
+// const api_base_mall = 'http://test.hugehuge.cn:8070';
 
 // 本机调试（小武）
 // const api_base_recycle = 'http://192.168.11.122:8090';
@@ -301,14 +301,14 @@ export default {
   // 静态资源base路径
   static: {
     // 线上
-    // base: 'https://www.hugehuge.cn/web/',
-    // // 商城图片资源 base路径
-    // mallBase: 'https://hugehuge.oss-cn-hangzhou.aliyuncs.com',
+    base: 'https://www.hugehuge.cn/web/',
+    // 商城图片资源 base路径
+    mallBase: 'https://hugehuge.oss-cn-hangzhou.aliyuncs.com',
 
     // 测试
-    base: 'http://test.hugehuge.cn/web/',
-    // 商城图片资源 base路径
-    mallBase: 'https://hugetest.oss-cn-hangzhou.aliyuncs.com',
+    // base: 'http://test.hugehuge.cn/web/',
+    // // 商城图片资源 base路径
+    // mallBase: 'https://hugetest.oss-cn-hangzhou.aliyuncs.com',
 
     // 本机调试（小武）
     // base: 'http://192.168.50.123:8090/web/',
@@ -317,6 +317,6 @@ export default {
     // base: 'http://192.168.50.79:8080/web/'
   },
   // 版本号
-  version: 26, // Android版本
-  versionIOS: '3.0.9' // iOS版本号
+  version: 27, // Android版本
+  versionIOS: '3.1.0' // iOS版本号
 };
