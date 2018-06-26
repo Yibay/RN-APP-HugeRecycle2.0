@@ -33,7 +33,7 @@ class NavBarLocationButton extends Component{
             <TextAdaption style={styles.text2line}>{`(${this.props.stationName ? this.props.stationName : '暂无服务站'})`}</TextAdaption>
           </View>
           :
-          <TextAdaption style={this.props.currentCommunityName.length < 6 ? styles.text : styles.text2line}>{this.props.currentCommunityName}</TextAdaption>
+          <TextAdaption style={(this.props.currentCommunityName && this.props.currentCommunityName.length < 6) ? styles.text : styles.text2line}>{this.props.currentCommunityName}</TextAdaption>
       }
     </TouchableOpacity>);
   }

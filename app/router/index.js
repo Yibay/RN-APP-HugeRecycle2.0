@@ -56,7 +56,6 @@ import MallOrderRecord from "../pages/MallOrderRecord";
 import MallOrderSuccess from "../pages/Home/Mall/MallOrderSuccess";
 import AddressManagement from "../pages/AddressManagement";
 import HugeInformation from "../pages/Home/Mine/HugeInformation";
-import HugeInformationDetail from "../pages/Home/Mine/HugeInformationDetail";
 import ManageConsumePassword from "../pages/Home/Mine/ManageConsumePassword";
 import CoverageArea from "../pages/Home/Mine/CoverageArea";
 import MallOrderDetail from "../pages/MallOrderDetail";
@@ -116,8 +115,6 @@ class AppRouter extends Component{
         <Scene key='mallOrderDetailPage' component={MallOrderDetail} hideNavBar={true} />
         {/* 虎哥资讯 */}
         <Scene key='hugeInformationPage' component={HugeInformation} hideNavBar={true} onEnter={() => {AnalyticsUtil.onEventWithLabel('enter_page','虎哥资讯页');}} />
-        {/* 虎哥资讯（详情） */}
-        <Scene key='hugeInformationDetail' component={HugeInformationDetail} hideNavBar={true} onEnter={() => {AnalyticsUtil.onEventWithLabel('enter_page','虎哥资讯（详情）');}} />
         {/* 关于我们 */}
         <Scene key='aboutUsPage' component={AboutUs} hideNavBar={true} onEnter={() => {AnalyticsUtil.onEventWithLabel('enter_page','关于我们');}} />
         {/* 服务范围 */}

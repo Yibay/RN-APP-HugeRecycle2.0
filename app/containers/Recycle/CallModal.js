@@ -83,7 +83,7 @@ class CallModal extends Component{
                   :
                   null
               }
-              <InputSection style={styles.lineSection} value={this.props.currentLocation.communityName} label='小区名称' editable={false}/>
+              <InputSection style={styles.lineSection} value={this.props.currentLocation.communityName || ''} label='小区名称' editable={false}/>
               <View style={styles.lineSection}>
                 {/* 有无户号 选择器 */}
                 <HouseNumberAddressSection onChangeText={valObj => this.setState(valObj)} currentLocation={_.assign({}, this.props.currentLocation,{haveHouseNumber: this.state.haveHouseNumber,address: this.state.address,building: this.state.building,unit: this.state.unit,room: this.state.room})} />
