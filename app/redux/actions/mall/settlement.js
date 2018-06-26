@@ -160,10 +160,10 @@ function scorePay(orderId){
     let resReceipt = await request.postFormData(config.api.scorePay,{orderId},{'X-AUTH-TOKEN': authToken});
 
     if(resReceipt && !resReceipt.status){
-      Actions.mallOrderSuccess(); // 跳转到 下单成功页面
+      Actions.replace('mallOrderSuccess'); // 替换页面为 下单成功页面
     }
     else if(Actions.currentScene !== 'mallOrderRecordPage'){
-      Actions.mallOrderRecordPage(); // 跳转到 我的消费订单页面
+      Actions.replace('mallOrderRecordPage'); // 替换页面为 我的消费订单页面
     }
     else{
       Alert.alert(resReceipt.message ? resReceipt.message : '支付失败','',[{text:'好'}]);
@@ -185,10 +185,10 @@ function aliPay(orderId){
       const result = await pay(orderInfo, true);
       if (result.resultStatus === '9000') { // 9000 支付成功；8000 支付结果确认中；6001 用户主动取消
         // 跳转到支付成功页
-        Actions.mallOrderSuccess();
+        Actions.replace('mallOrderSuccess');
       }
       else if(Actions.currentScene !== 'mallOrderRecordPage'){
-        Actions.mallOrderRecordPage();
+        Actions.replace('mallOrderRecordPage');
       }
       else {
         // 啥也不做
@@ -197,7 +197,7 @@ function aliPay(orderId){
     }
     else if(Actions.currentScene !== 'mallOrderRecordPage'){
       // 调用支付宝失败
-      Actions.mallOrderRecordPage();
+      Actions.replace('mallOrderRecordPage');
     }
     else {
       Alert.alert('支付失败','',[{text:'好'}]);
@@ -214,10 +214,10 @@ function receiptMallOrderPay(orderId){
     let resReceipt = await request.postFormData(config.api.receiptMallOrderPay,{orderId},{'X-AUTH-TOKEN': authToken});
 
     if(resReceipt && !resReceipt.status){
-      Actions.mallOrderSuccess(); // 跳转到 下单成功页面
+      Actions.replace('mallOrderSuccess'); // 替换页面为 下单成功页面
     }
     else if(Actions.currentScene !== 'mallOrderRecordPage'){
-      Actions.mallOrderRecordPage(); // 跳转到 我的消费订单页面
+      Actions.replace('mallOrderRecordPage'); // 替换页面为 我的消费订单页面
     }
     else{
       Alert.alert((resReceipt && resReceipt.message) ? resReceipt.message : '支付失败','',[{text:'好'}]);

@@ -116,7 +116,6 @@ class MallSettlement extends Component {
         orderSource: 3, // 下单平台标示码（3为 app下单）
         remark: this.state.remark
       };
-      console.log(this.props.currentLocation);
       if(createMallOrderValidator(option)){
         Alert.alert('立即下单','',[
           {text:'确认', onPress: () => this.props.submitMallOrder(option)},
