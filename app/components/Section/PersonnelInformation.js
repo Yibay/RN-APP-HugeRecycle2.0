@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import {StyleSheet, View, Text, Image, ViewPropTypes} from 'react-native';
 
 import PropTypes from 'prop-types';
+import {ImagePicker} from 'antd-mobile-rn';
 
 
 class PersonnelInformation extends PureComponent{
@@ -26,15 +27,13 @@ class PersonnelInformation extends PureComponent{
 
     let imgURL = this.props.imgURL;
 
-    if(!imgURL){
-      this.props.hugeImg ? (imgURL= require('../../assets/img/hugeHeadDefault.png')) : (imgURL = require('../../assets/img/personalImage2x.png'));
-    }
-    else if(typeof imgURL === 'object' && !imgURL.uri){
+    if(!imgURL || (typeof imgURL === 'object' && !imgURL.uri)){
       this.props.hugeImg ? (imgURL= require('../../assets/img/hugeHeadDefault.png')) : (imgURL = require('../../assets/img/personalImage2x.png'));
     }
 
     return <View style={[styles.basicFacts].concat(this.props.style)}>
-      <Image style={[styles.personalImage].concat(this.props.imgStyle)} source={imgURL} resizeMode='contain' />
+      {/*<Image style={[styles.personalImage].concat(this.props.imgStyle)} source={imgURL} resizeMode='contain' />*/}
+      <ImagePicker/>
       <View style={styles.message}>
         <Text style={styles.name}>{this.props.name}</Text>
         <Text style={styles.phone}>{this.props.phone}</Text>
