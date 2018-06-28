@@ -318,5 +318,5 @@ export default {
   },
   // 版本号
   version: 27, // Android版本
-  versionIOS: '3.1.0' // iOS版本号
+  versionIOS: '3.1.1' // iOS版本号
 };
