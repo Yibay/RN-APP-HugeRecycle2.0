@@ -22,7 +22,23 @@
     <li>采用热更新的小版本，每一个热更新小版本，不要删。更换新的大版本后，上一版东西才可以删</li>
 </ul>
 
-<h4>可能发生的问题：</h4>
-<p>导出ipa时，报错：ipatool failed with an exception: #&lt;CmdSpec::NonZeroExcitException: /Applica</p>
-<p>原因：引入 react-native-image-crop-picker 导致</p>
-<p>解法：导出包时，不勾选 Rebuild from Bitcode</p>
+<h4>react-native-xmpush 源码Bug fixed</h4>
+<ul>
+    <li>ios
+        <ul>
+            <li>异常：应用在前台时，收不到推送</li>
+            <li>原因：源码中，前台 收到消息后，未触发通知栏显示</li>
+            <li>解法：Libraries > RCTMIPushModule.xcodeproj > RCTMIPushModule > RCTMIPushModule.m 中 // 应用在前台收到通知的104行，添加 completionHandler(UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionSound);</li>
+        </ul>
+    </li>
+    <li>
+        android
+        <ul>
+            <li>异常：登出帐号，仍能收到推送消息</li>
+            <li>原因：源码中，注销Account的方法，引错了SDK中的方法，实际未注销</li>
+            <li>解法：android > src > main > java > com > ichong > zzy > mipush > MIPushModule.java中 @ReactMethod public void unsetAccount 内，改为 MiPushClient.unsetUserAccount  </li>
+        </ul>
+    </li>
+</ul>
+
+<br/>
