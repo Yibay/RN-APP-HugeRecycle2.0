@@ -175,6 +175,8 @@ export default {
     getUserInfo: `${api_base_recycle}/web/customer/getUserInfo`,
     // 获取用户推送userAccount 需要登录 header X-AUTH-TOKEN
     getUserAccount: `${api_base_recycle}/mobile/auth/getUserSysConfig`,
+    // 上传用户图片 postForm
+    uploadUserImg: `http://192.168.11.124:3000/api/uploadUserImg`,
 
 
     /** ------ 商场 便利店相关api ------  */
@@ -318,5 +320,5 @@ export default {
   },
   // 版本号
   version: 27, // Android版本
-  versionIOS: '3.1.0' // iOS版本号
+  versionIOS: '3.1.1' // iOS版本号
 };

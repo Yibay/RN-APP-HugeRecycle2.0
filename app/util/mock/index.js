@@ -23,6 +23,10 @@ app.get("/api/customer/app/deal/getProducts2Items",function (request,response) {
 app.get('/drap',function(request, response){
   response.sendFile(__dirname + '/drap.html'); //要返回的html文件（必须是绝对路径）
 });
+app.post('/api/uploadUserImg', function(request, response){
+  console.log(request);
+  response.send({status:0});
+});
 app.listen('3000',function () {
   console.log('>listening on 3000');
 });

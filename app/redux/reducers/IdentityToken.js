@@ -36,7 +36,7 @@ function h5Code (state='', action){
 /**
  * 用户信息
  * @param {object} state
- * @param {{user: object}} action
+ * @param {{user: {id:num, name:string, phone:string, imgURL:string}}} action
  * @returns {object}
  */
 function user(state={}, action){

@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.huge_recycle_android"
     android:versionCode="1"
     android:versionName="1.0">
@@ -14,6 +15,8 @@
     <!--友盟 需要的额外权限-->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- react-native-image-crop-picker 相机权限 -->
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -52,10 +55,12 @@
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.huge_recycle_android.updateFileProvider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/update_file_provider" />
+                android:resource="@xml/update_file_provider"
+                tools:replace="android:resource"/>
         </provider>
 
     </application>

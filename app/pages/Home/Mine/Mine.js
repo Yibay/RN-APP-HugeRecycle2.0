@@ -49,7 +49,7 @@ class Mine extends Component {
         title='下拉刷新'
       />}>
         {/* 基本信息 */}
-        <PersonnelInformation name={this.props.identityToken.user.name} phone={encryptedPhones} rightModule={
+        <PersonnelInformation name={this.props.identityToken.user.name} phone={encryptedPhones} imgURL={{uri: this.props.identityToken.user.imgURL}} rightModule={
           <TouchableWithoutFeedback onPress={() => {Actions.manageCustomerAccounts()}}>
             <View style={styles.securityCenter}>
               <Text style={styles.securityCenterText}>安全中心</Text>

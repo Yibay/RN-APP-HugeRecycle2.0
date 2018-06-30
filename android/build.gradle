@@ -25,5 +25,7 @@ allprojects {
             url "$rootDir/../node_modules/react-native/android"
         }
         google()
+        // ADD THIS
+        maven { url "https://jitpack.io" }
     }
 }

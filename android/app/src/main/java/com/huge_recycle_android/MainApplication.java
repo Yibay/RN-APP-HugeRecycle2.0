@@ -8,6 +8,7 @@ import com.huge_recycle_android.android_umeng_analytics.DplusReactPackage;
 import com.huge_recycle_android.android_umeng_analytics.RNUMConfigure;
 import com.huge_recycle_android.android_upgrade.UpgradePackage;
 import com.facebook.react.ReactApplication;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
 
 import cn.reactnative.modules.update.UpdateContext;
 import cn.reactnative.modules.update.UpdatePackage;
@@ -36,6 +37,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
               new MainReactPackage(),
+            new PickerPackage(),
             new UpdatePackage(),
               new MIPushPackage(),
               new AlipayPackage(),

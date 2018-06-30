@@ -100,9 +100,9 @@ android {
     defaultConfig {
         applicationId "com.huge_recycle_android"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 27
-        versionName "3.1.0"
+        versionName "3.1.1"
         externalNativeBuild {
             cmake {
                 //设置编译工具链
@@ -118,6 +118,7 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
     }
     externalNativeBuild {
         cmake {
@@ -173,6 +174,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-crop-picker')
 //    compile project(':react-native-update')
     compile project(':react-native-gufei-pushy')
     compile 'com.android.support:multidex:1.0.2'
