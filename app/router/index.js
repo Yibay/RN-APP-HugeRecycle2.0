@@ -68,7 +68,7 @@ class AppRouter extends Component{
     return <Router>
       <Stack key='root'>
         {/* 主入口页 */}
-        <Scene key='home' tabs={true} tabBarPosition='bottom' labelStyle={tabsStyle.labelStyle} activeTintColor='#000' inactiveTintColor='#000' tabBarStyle={tabsStyle.tabBarStyle} showLabel={false} >
+        <Scene key='home' tabs={true} hideNavBar={true} tabBarPosition='bottom' labelStyle={tabsStyle.labelStyle} activeTintColor='#000' inactiveTintColor='#000' tabBarStyle={tabsStyle.tabBarStyle} showLabel={false} >
           {/* 回收分页: 回收首页 */}
           <Scene key='recycle' icon={RecycleIcon} component={Recycle} hideNavBar={true} onEnter={() => {this.props.dispatch(RecycleLife.onEnter())}} />
           {/* 商城分页: 商城首页 key='mall' 不可用 */}
