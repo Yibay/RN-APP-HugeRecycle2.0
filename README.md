@@ -1,6 +1,6 @@
 # 虎哥回收2.0版本App（ReactNative版）
 <h4>app首页展示</h4>
-<img src='./虎哥首页展示.gif' />
+<img src='./show.gif' />
 <h4>功能描述</h4>
 <ul>
     <li>具有回收、商场、个人中心3大模块</li>
