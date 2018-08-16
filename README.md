@@ -7,8 +7,8 @@
         <th>个人中心</th>
     </tr>
     <tr>
-        <td><img src='./show2.gif' /></td>
         <td><img src='./show1.gif' /></td>
+        <td><img src='./show2.gif' /></td>
         <td><img src='./show3.gif' /></td>
     </tr>
 </table>
